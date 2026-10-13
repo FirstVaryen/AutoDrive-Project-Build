@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MutingPermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>AutoDrive - Mute Finance Amount Fields</label>
+    <description>Removes visibility of price/discount/payment fields. Combine with an Agent/Head of CS set in a Permission Set Group to enforce "existence only" - plain Permission Sets can't remove access.</description>
+    <fieldPermissions>
+        <field>Opportunity.List_Price__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Opportunity.Discount_Amount__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Opportunity.Sale_Price__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Opportunity.Total_Paid__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Opportunity.Balance_Remaining__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Instalment__c.Amount_Paid__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Instalment__c.Balance__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Instalment__c.Amount_Due__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+</MutingPermissionSet>

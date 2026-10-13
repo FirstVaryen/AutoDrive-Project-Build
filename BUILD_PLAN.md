@@ -94,12 +94,13 @@ In this order, since several depend on fields/objects above:
 
 **Jira:** KAN-40, 43, 52, 55, 57, 59, 62, 64, 65, 72, 78, 80, 81, 84, 87, 90
 
-## Stage 9 — The 5 code exceptions (only place Apex/LWC belongs)
+## Stage 9 — The 6 code exceptions (only place Apex/LWC belongs)
 - VIN lookup: Apex class + LWC on the Vehicle page
 - Agentforce single-action agent: inventory count by model
 - Gmail-to-record logging: connector/connected app
 - Low-stock blinking visual indicator: LWC with CSS animation on the Vehicle Model record page, driven by `Available_Stock__c` vs `Low_stock_Threshold__c` (added 2026-10-13, see DISCOVERY_LOG.md). A declarative colour-coded formula field (IMAGE()) can show red/green without code, but true blinking/animation isn't available declaratively — this is a deliberate scope add, not a gap.
 - No-sale-to-unconverted-Lead check: Apex (or a Flow-maintained tracking field set at Lead conversion) to confirm an Opportunity's Account/Contact actually originated from a converted Lead before allowing Closed Won. Added 2026-10-13 — Salesforce has no native back-reference from Account/Opportunity to its originating Lead, so this can't be a plain formula. See DISCOVERY_LOG.md.
+- Apex Managed Sharing for Discount Request: dynamically share each Discount Request record with the right approver group as Current_Step__c changes. Added 2026-10-13 — Discount_Request__c is Master-Detail to Opportunity, which forces its OWD to Controlled By Parent; Sharing Rules are structurally impossible on a Master-Detail child object (confirmed by deploy error), so this can't be declarative. See DISCOVERY_LOG.md. Also covers the same gap on Instalment Plan/Instalment/Payment if Finance Team/Showroom Manager ever need edit-without-owning on those (also Master-Detail children) rather than just the view-only access they have today.
 
 These are genuinely code, not declarative-avoidable — this is where `AutoDrive-SFDX/force-app` and VS Code earn their keep.
 

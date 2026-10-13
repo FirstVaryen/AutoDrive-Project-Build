@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Finance_Team_Full_Access_Checked</fullName>
+        <label>Finance Team Full Access - Income Checked</label>
+        <accessLevel>Edit</accessLevel>
+        <criteriaItems>
+            <field>Income_Check_Done__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <sharedTo>
+            <group>Finance_Team</group>
+        </sharedTo>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Finance_Team_Full_Access_Unchecked</fullName>
+        <label>Finance Team Full Access - Income Not Checked</label>
+        <accessLevel>Edit</accessLevel>
+        <criteriaItems>
+            <field>Income_Check_Done__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <sharedTo>
+            <group>Finance_Team</group>
+        </sharedTo>
+    </sharingCriteriaRules>
+</SharingRules>
