@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Available_Stock__c</fullName>
+    <description>Count of child Vehicles currently Available for sale</description>
+    <label>Available Stock</label>
+    <type>Summary</type>
+    <summaryForeignKey>Vehicle__c.Model__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <summaryFilterItems>
+        <field>Vehicle__c.Status__c</field>
+        <operation>equals</operation>
+        <value>Available</value>
+    </summaryFilterItems>
+</CustomField>

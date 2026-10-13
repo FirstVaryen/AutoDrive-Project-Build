@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Escalated_To__c</fullName>
+    <description>User the case was escalated to (Head of Customer Service)</description>
+    <label>Escalated To</label>
+    <type>Lookup</type>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>Cases Escalated To Me</relationshipLabel>
+    <relationshipName>Cases_Escalated_To_Me</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+</CustomField>

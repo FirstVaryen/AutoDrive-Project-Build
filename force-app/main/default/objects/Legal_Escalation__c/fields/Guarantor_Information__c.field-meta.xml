@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Guarantor_Information__c</fullName>
+    <description>Guarantor on the defaulted plan (v8 addition)</description>
+    <label>Guarantor Information</label>
+    <type>Lookup</type>
+    <referenceTo>Guarantor__c</referenceTo>
+    <relationshipLabel>Legal Escalations</relationshipLabel>
+    <relationshipName>Legal_Escalations</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+</CustomField>

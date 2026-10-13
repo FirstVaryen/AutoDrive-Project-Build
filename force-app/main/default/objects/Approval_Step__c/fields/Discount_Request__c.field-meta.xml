@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Discount_Request__c</fullName>
+    <description>Parent Discount Request this step belongs to</description>
+    <label>Discount Request</label>
+    <type>MasterDetail</type>
+    <referenceTo>Discount_Request__c</referenceTo>
+    <relationshipLabel>Approval Steps</relationshipLabel>
+    <relationshipName>Approval_Steps</relationshipName>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

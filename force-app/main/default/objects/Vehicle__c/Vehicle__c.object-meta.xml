@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>A single physical vehicle in AutoDrive inventory</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <label>Vehicle</label>
+    <nameField>
+        <label>Vehicle Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Vehicles</pluralLabel>
+    <recordTypes>
+        <fullName>New</fullName>
+        <label>New</label>
+        <active>true</active>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Used</fullName>
+        <label>Used</label>
+        <active>true</active>
+    </recordTypes>
+    <searchLayouts></searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

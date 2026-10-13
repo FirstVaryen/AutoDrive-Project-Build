@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Amount_Paid__c</fullName>
+    <description>Running total paid against this instalment. NOTE: spec calls for a Roll-Up Summary from Payment, but Payment-to-Instalment is a Lookup (not Master-Detail) because one Payment can optionally apply to an Instalment while still being required to roll up to the Opportunity instead. Roll-Up Summary fields only work across Master-Detail, so this is a plain Currency field that the Stage 2 Payment-trigger Flow (US-28) will update instead.</description>
+    <label>Amount Paid</label>
+    <precision>18</precision>
+    <scale>2</scale>
+    <type>Currency</type>
+    <required>false</required>
+    <defaultValue>0</defaultValue>
+</CustomField>

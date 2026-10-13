@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Showroom_Capacity_Not_Exceeded</fullName>
+    <active>true</active>
+    <description>Blocks assigning a Vehicle to a full Showroom. Fires on insert or Showroom change only. Relies on Showroom.Vehicle_Count__c (Flow-maintained, Stage 8) — inert until that Flow exists. See DISCOVERY_LOG.md.</description>
+    <errorConditionFormula>AND(
+    NOT( ISBLANK( Showroom__c ) ),
+    NOT( ISBLANK( Showroom__r.Capacity__c ) ),
+    OR( ISNEW(), ISCHANGED( Showroom__c ) ),
+    Showroom__r.Vehicle_Count__c &gt;= Showroom__r.Capacity__c
+)</errorConditionFormula>
+    <errorMessage>This Showroom is already at capacity. Choose a different Showroom or increase its Capacity.</errorMessage>
+</ValidationRule>

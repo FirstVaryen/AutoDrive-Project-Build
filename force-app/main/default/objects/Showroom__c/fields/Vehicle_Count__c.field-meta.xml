@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vehicle_Count__c</fullName>
+    <description>Count of Vehicles currently assigned to this Showroom. NOTE: Vehicle.Showroom__c is a Lookup, not Master-Detail (a Vehicle shouldn't be deleted just because its Showroom is), so this can't be a native Roll-Up Summary. Maintained by a Stage 8 Flow on Vehicle create/update/delete instead. Starts at 0 and stays inert (the Showroom capacity validation rule will never block) until that Flow exists — see DISCOVERY_LOG.md.</description>
+    <label>Vehicle Count</label>
+    <precision>18</precision>
+    <scale>0</scale>
+    <type>Number</type>
+    <required>false</required>
+    <defaultValue>0</defaultValue>
+</CustomField>
