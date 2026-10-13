@@ -54,8 +54,9 @@ Field-level additions on existing objects:
 - No sale to unconverted Lead
 - Instalment Plan: 30% min down, 12-month cap, guarantor required — **fleet exception** (Finance-approved override)
 - Discount on instalment deal: blocked for individuals — **fleet-only exception**, must still go through approval
+- **Discount invalidation on payment-mode switch (Q-O09, confirmed, 13 Oct)**: a Flow, not a validation rule — if a Discount Request is already Approved while Payment Mode = Full Payment and the customer then switches to Instalment, the approval is invalidated and Finance reassesses separately. Build after the fleet-only rule above, same story (US-25).
 
-**Jira:** KAN-68, 74, 79
+**Jira:** KAN-68, 74, 79, 92
 
 ## Stage 5 — Permission sets (Security Matrix)
 Build one permission set per row of the Security Matrix (Design Pack §1):

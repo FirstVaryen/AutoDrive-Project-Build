@@ -63,6 +63,16 @@ Jira keys are included so you can mark the matching card Done once you've actual
 
 ---
 
+## US-32 — Showroom Manager sees all open prospects with source, rep and stage (Jira: KAN-95)
+**Story:** A working view of where deals are stuck — no new fields, just a list view.
+
+**Build in this order:**
+1. **[Object]** List View — "Open Prospects", filtered to open stages, columns: Channel (source), Assigned Rep, Stage — *Lead tab → List View dropdown → New*.
+
+**Depends on:** nothing — Lead's Channel/Assigned Rep/Stage already exist.
+
+---
+
 # STAGE 2 — Payment Capture
 
 ## US-03/US-09 — Payments recorded and reconciled against bank (Jira: KAN-12)
@@ -109,6 +119,15 @@ Jira keys are included so you can mark the matching card Done once you've actual
 2. **[Flow] (build last)** Sale-close Flow sets Status = Sold in the same transaction — *Flows → New Flow → Record-Triggered Flow* on Opportunity (sale-close action). One record-trigger flow per object.
 
 **Depends on:** Vehicle object must exist (Stage 1).
+
+---
+
+## US-07 — Sales Rep sees live vehicle availability before speaking to a customer (Jira: KAN-93)
+**Story:** The rep-facing read of the same status US-01 maintains — "I never promise a car that's already sold."
+
+**Build:** No new build — this is Vehicle.Status (US-01, above) read on the Vehicle tab/record page and in list views reps already use. Card exists for traceability against the original 11 Must stories.
+
+**Depends on:** US-01's Status field and sale-close Flow.
 
 ---
 
@@ -231,6 +250,15 @@ Jira keys are included so you can mark the matching card Done once you've actual
 
 ---
 
+## US-10 — Head of Customer Service sees case status without asking an agent (Jira: KAN-94)
+**Story:** Same traceability situation as US-07 — no new build.
+
+**Build:** No new build — covered by Case fields and list views already supported by US-11 and US-13. Card exists for traceability against the original 11 Must stories.
+
+**Depends on:** US-11/US-13's Case fields.
+
+---
+
 ## US-13 — First-response and resolution time tracked (Jira: KAN-24)
 **Build in this order:**
 1. **[Object]** `Case.First Response At`, `Resolved At` — Stage 1/5.
@@ -259,11 +287,27 @@ Jira keys are included so you can mark the matching card Done once you've actual
 # STAGE 8 — Management Dashboard
 
 ## US-21 — Unified management dashboard (Jira: KAN-27)
+
+KPI Management Pack reconciled: of its 26 measures, 22 are buildable off the current design (several newly unlocked by v8's Arrival Date and Ownership Documents Status fields), 3 need an out-of-scope handover event, 1 (public-review-first complaints) was deliberately dropped.
+
 **Build in this order:**
-1. **[Object]** Reports built on top of every object above — *Setup → Reports → New Report*, then **Dashboards → New Dashboard** to assemble them.
-2. **[Permission Set]** Dashboard access restricted to Management — dashboard folder sharing, or a Permission Set if you want it more formal.
+1. **[Object]** `Vehicle Model.Stock Ceiling` (Number) — makes the 50-unit cap reportable, not just enforced by a hardcoded validation-rule number. Update the Stage 4 validation rule to reference it once both exist.
+2. **[Object]** `Instalment Plan.Ownership Documents Status Changed` (Date/Time) — needed for "how long outstanding," not just current status. The Flow that updates it on status change belongs in Stage 8 with the rest of automation, not now.
+3. **[Object]** Reports built on top of every object above — *Setup → Reports → New Report*, then **Dashboards → New Dashboard** to assemble them.
+4. **[Permission Set]** Dashboard access restricted to Management — dashboard folder sharing, or a Permission Set if you want it more formal.
 
 **Depends on:** genuinely everything above — build this last, once there's real data flowing through every other object.
+
+---
+
+## US-14/US-18 — Searchable knowledge base, maintained centrally (Jira: KAN-96)
+**Story:** Agents search a consistent set of answers; Head of Customer Service keeps it current. This is the same behaviour as Side Flow F below, now with its own story.
+
+**Build in this order:**
+1. **[Object]** List view/search on Knowledge Article (filter Status = Published) for agents — *Knowledge Article tab → New List View*.
+2. **[Permission Set]** Create/Edit on Knowledge Article restricted to Head of Customer Service — *Setup → Permission Sets → New*.
+
+**Depends on:** Knowledge Article object (Stage 1 #14) already exists — nothing else needed.
 
 ---
 
