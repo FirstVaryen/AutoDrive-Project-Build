@@ -3,7 +3,7 @@
     <caseAccessLevel>Edit</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Customer Service Agent</name>
+    <name>AutoDrive Customer Service Agent</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
     <parentRole>Head_of_Customer_Service</parentRole>
 </Role>
