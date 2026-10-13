@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Down_Payment_Percent__c</fullName>
+    <description>Down payment as a percentage of sale price (min 30% enforced in Stage 4 validation)</description>
+    <label>Down Payment %</label>
+    <precision>5</precision>
+    <scale>2</scale>
+    <type>Percent</type>
+    <required>false</required>
+</CustomField>
