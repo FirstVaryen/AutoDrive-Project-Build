@@ -129,5 +129,30 @@ Built Sales Rep, Showroom Manager, Head of Finance, Finance Team, Customer Servi
 
 **Separate, known gap (not fixable via Permission Sets at all):** the Locked Fields requirement to *hide* Opportunity/Instalment Plan amount fields from Customer Service Agent and Head of CS. Permission Sets are purely additive — they can grant visibility but can never take away what a Profile already exposes. True hiding needs either Profile-level Field-Level Security edits (manual, same category as the OWD fix) or Permission Set Groups with a Muting Permission Set. Not built; both Agent-facing permission sets flag this in their own description.
 
+### 2026-10-13 — Validation rules by object (for quick reference alongside Object Manager)
+- **Instalment Plan**: Down_Payment_Min_30_Percent, Term_Cap_12_Months, Renegotiation_Term_Cap, Guarantor_Income_Check_Before_Signoff
+- **Discount Request**: No_Discount_Individual_Instalment
+- **Vehicle**: Per_Model_Stock_Limit_50, Showroom_Capacity_Not_Exceeded
+- Every other object: none yet.
+
+### 2026-10-13 — Field-hiding fix attempted via Permission Set Groups + Muting: hit a Metadata API wall
+Built a `MutingPermissionSet` (correct root element, correct `<fieldPermissions><field>...<readable>false</readable>` structure once the schema was found by trial) muting the Opportunity/Instalment amount fields, plus two `PermissionSetGroup`s to bundle it with Customer Service Agent / Head of Customer Service. Deployed the muting set successfully, but querying it back via Tooling API showed `Type: Regular`, not a true muting type — Salesforce silently accepted the deploy without actually registering it as muting-capable. The Permission Set Groups then failed to reference it ("permission set names are invalid"), even after the muting set existed in a prior, separate deploy (same-batch dependency resolution issue, confirmed separately).
+
+**Conclusion: Muting Permission Sets appear to only be reliably creatable through the Permission Set Groups UI** (Setup → Permission Set Groups → a group → Muting Permission Sets → New), not as a standalone deployable metadata component referenced from outside. Removed the two Permission Set Group files (never deployed, nothing to clean up server-side). This piece needs to be finished manually in Setup once Stage 7 creates real users to assign it to — the natural point anyway.
+
+### 2026-10-13 — "The heads can delete" — matrix correction (Hillary's call, not a technical finding)
+Security Matrix never granted Delete to any role. Corrected at Hillary's instruction: Head of Finance and Head of Customer Service now have `allowDelete=true` + `modifyAllRecords=true` on every object they already had Edit on (Head of Finance: Discount Request, Approval Step, Import Request, Instalment Plan, Instalment, Payment, Reconciliation Entry, Guarantor, Legal Escalation; Head of CS: Case, Customer Message, Knowledge Article). Finance Team and Showroom Manager were deliberately left unchanged — "the heads" means the two Head roles specifically, not their teams.
+
+### 2026-10-13 — Sharing Rules: built where possible, blocked by a hard Salesforce constraint elsewhere
+Attempted Sharing Rules for Discount Request's "requester + current approver only" visibility (3 Public Groups: Showroom_Managers, Finance_Team, Head_Office_Approvers, criteria on `Current_Step__c`). **Deploy rejected it outright: "Deploying sharing rule not supported... since OWD is Controlled By Parent."** This is a hard architectural wall, not a syntax issue — `Discount_Request__c` is Master-Detail to Opportunity, which forces `ControlledByParent`, and a `ControlledByParent` object has no independent sharing model to layer rules onto. Same wall applies to Instalment Plan, Instalment, and Payment (also Master-Detail children) — so Finance Team/Showroom Manager's "edit records they don't own" gap on those three specifically can't be closed with Sharing Rules either.
+
+**Decided (Hillary's call): Apex Managed Sharing**, added as Stage 9's 6th code exception, covering both the Discount Request routing and the Master-Detail Finance objects if that gap ever needs closing. Not built yet — documented in BUILD_PLAN.md.
+
+**What WAS buildable and deployed**: the 4 standalone objects (Private OWD, not Master-Detail children) got real Sharing Rules — Finance Team now has Edit access org-wide on Reconciliation Entry, Guarantor, and Legal Escalation; Finance Team and Showroom Manager both have Edit access org-wide on Import Request. 3 Public Groups created: Showroom_Managers, Finance_Team, Head_Office_Approvers (Head_Office_Approvers currently unused pending the Apex sharing work, kept for when that's built).
+
+Two more build errors along the way:
+1. `sharingRules` is a **top-level** SFDX metadata folder (`force-app/main/default/sharingRules/`), not nested under `objects/[Object]/sharingRules/` — moved the file once this became clear from a `TypeInferenceError`.
+2. Sharing-rule criteria fields are validated against a **restricted field list** specific to the object — `CreatedDate` was rejected ("bad value for restricted picklist field") despite being a real, standard field. Switched to each object's own `Status__c` picklist (`notEqual` blank, matching every record regardless of value) for Reconciliation Entry/Legal Escalation/Import Request, and two explicit rules (`Income_Check_Done__c equals True` / `equals False`) for Guarantor, which has no Status field.
+
 ### 2026-10-13 — New Stage 4 scope added to BUILD_PLAN.md: discount invalidation on payment-mode switch
 BUILD_PLAN.md was updated externally (not by me) to add: if a Discount Request is already Approved while Payment Mode = Full Payment and the customer switches to Instalment, the approval must be invalidated and Finance must reassess separately (Q-O09, confirmed 2026-10-13, Jira KAN-92). This is explicitly called out as **a Flow, not a validation rule** — same story as US-25, so it belongs in Stage 8 even though the plan lists it under the Stage 4 heading. Not built yet; noting so Stage 4 isn't mistaken for fully closed.

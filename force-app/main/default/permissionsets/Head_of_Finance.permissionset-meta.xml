@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <label>AutoDrive - Head of Finance</label>
-    <description>Security Matrix row: Head of Finance (Obed). Full create/edit on all Finance-sensitive objects org-wide; approves Discount Request steps; read on sale/inventory data including price/discount fields.</description>
+    <description>Security Matrix row: Head of Finance (Obed), corrected 2026-10-13 to include Delete on objects it edits org-wide - heads need to fix erroneous records, not just edit/read them. See DISCOVERY_LOG.md.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <objectPermissions>
         <object>Lead</object>
@@ -71,26 +71,26 @@
         <allowCreate>false</allowCreate>
         <allowRead>true</allowRead>
         <allowEdit>true</allowEdit>
-        <allowDelete>false</allowDelete>
-        <modifyAllRecords>false</modifyAllRecords>
-        <viewAllRecords>false</viewAllRecords>
+        <allowDelete>true</allowDelete>
+        <modifyAllRecords>true</modifyAllRecords>
+        <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
         <object>Approval_Step__c</object>
         <allowCreate>false</allowCreate>
         <allowRead>true</allowRead>
         <allowEdit>true</allowEdit>
-        <allowDelete>false</allowDelete>
-        <modifyAllRecords>false</modifyAllRecords>
-        <viewAllRecords>false</viewAllRecords>
+        <allowDelete>true</allowDelete>
+        <modifyAllRecords>true</modifyAllRecords>
+        <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
         <object>Import_Request__c</object>
         <allowCreate>false</allowCreate>
         <allowRead>true</allowRead>
         <allowEdit>true</allowEdit>
-        <allowDelete>false</allowDelete>
-        <modifyAllRecords>false</modifyAllRecords>
+        <allowDelete>true</allowDelete>
+        <modifyAllRecords>true</modifyAllRecords>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -98,8 +98,8 @@
         <allowCreate>true</allowCreate>
         <allowRead>true</allowRead>
         <allowEdit>true</allowEdit>
-        <allowDelete>false</allowDelete>
-        <modifyAllRecords>false</modifyAllRecords>
+        <allowDelete>true</allowDelete>
+        <modifyAllRecords>true</modifyAllRecords>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -107,8 +107,8 @@
         <allowCreate>true</allowCreate>
         <allowRead>true</allowRead>
         <allowEdit>true</allowEdit>
-        <allowDelete>false</allowDelete>
-        <modifyAllRecords>false</modifyAllRecords>
+        <allowDelete>true</allowDelete>
+        <modifyAllRecords>true</modifyAllRecords>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -116,8 +116,8 @@
         <allowCreate>true</allowCreate>
         <allowRead>true</allowRead>
         <allowEdit>true</allowEdit>
-        <allowDelete>false</allowDelete>
-        <modifyAllRecords>false</modifyAllRecords>
+        <allowDelete>true</allowDelete>
+        <modifyAllRecords>true</modifyAllRecords>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -125,8 +125,8 @@
         <allowCreate>true</allowCreate>
         <allowRead>true</allowRead>
         <allowEdit>true</allowEdit>
-        <allowDelete>false</allowDelete>
-        <modifyAllRecords>false</modifyAllRecords>
+        <allowDelete>true</allowDelete>
+        <modifyAllRecords>true</modifyAllRecords>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -134,8 +134,8 @@
         <allowCreate>true</allowCreate>
         <allowRead>true</allowRead>
         <allowEdit>true</allowEdit>
-        <allowDelete>false</allowDelete>
-        <modifyAllRecords>false</modifyAllRecords>
+        <allowDelete>true</allowDelete>
+        <modifyAllRecords>true</modifyAllRecords>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -143,8 +143,8 @@
         <allowCreate>true</allowCreate>
         <allowRead>true</allowRead>
         <allowEdit>true</allowEdit>
-        <allowDelete>false</allowDelete>
-        <modifyAllRecords>false</modifyAllRecords>
+        <allowDelete>true</allowDelete>
+        <modifyAllRecords>true</modifyAllRecords>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

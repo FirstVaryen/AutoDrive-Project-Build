@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <label>AutoDrive - Head of Customer Service</label>
-    <description>Security Matrix row: Head of Customer Service (Shedrack). Sees all Cases/Customer Messages org-wide (not just own) and manages Knowledge Articles; same Opportunity/Instalment Plan "existence only" caveat as Agent - see DISCOVERY_LOG.md.</description>
+    <description>Security Matrix row: Head of Customer Service (Shedrack), corrected 2026-10-13 to include Delete on Case/Customer Message/Knowledge Article - heads need to fix erroneous records. "Existence only" field-hiding caveat remains open, see DISCOVERY_LOG.md.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <objectPermissions>
         <object>Account</object>
@@ -71,8 +71,8 @@
         <allowCreate>true</allowCreate>
         <allowRead>true</allowRead>
         <allowEdit>true</allowEdit>
-        <allowDelete>false</allowDelete>
-        <modifyAllRecords>false</modifyAllRecords>
+        <allowDelete>true</allowDelete>
+        <modifyAllRecords>true</modifyAllRecords>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -80,8 +80,8 @@
         <allowCreate>true</allowCreate>
         <allowRead>true</allowRead>
         <allowEdit>true</allowEdit>
-        <allowDelete>false</allowDelete>
-        <modifyAllRecords>false</modifyAllRecords>
+        <allowDelete>true</allowDelete>
+        <modifyAllRecords>true</modifyAllRecords>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -89,8 +89,8 @@
         <allowCreate>true</allowCreate>
         <allowRead>true</allowRead>
         <allowEdit>true</allowEdit>
-        <allowDelete>false</allowDelete>
-        <modifyAllRecords>false</modifyAllRecords>
+        <allowDelete>true</allowDelete>
+        <modifyAllRecords>true</modifyAllRecords>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
 </PermissionSet>
