@@ -161,5 +161,30 @@ Standard objects (Opportunity, Case, Lead, Account) had the same issue for the f
 
 Two build errors: `OneColumn` style layouts must have exactly one `<layoutColumns>` block, not one-with-items plus one-empty (`"Too many columns for section style"`). Related list declarations (`RelatedActivityList` with a `NAME` field) were rejected (`"Invalid field:NAME in related list"`) — dropped related-list declarations from the custom-object layouts entirely rather than keep guessing at valid field names per related-list type; related lists still show by Salesforce's own default behavior, just not customized. Worth revisiting in a later pass if specific related-list field columns matter.
 
+### 2026-10-13 — Stage 7: found 6 of 8 roles already built outside this session
+Checked before building anything and found `Showroom_Manager`, `Sales_Rep`, `Finance_Team_Member`, `Head_of_Finance`, `Head_of_Customer_Service`, `Customer_Service_Agent` roles already existed, created by Hillary in Setup on 2026-10-12 evening, not tracked in git. Pulled them into `force-app/main/default/roles/` for version control. Hierarchy: the three top-level roles (Head of Finance, Showroom Manager, Head of Customer Service) all correctly chain up under the org's pre-existing "CEO" role, where Shedrack already sits — sensible, intentional design already in place.
+
+**Naming collision found, not fixed**: the org has a separate, pre-existing demo "Customer Service Agent" role (under a "VP of Customer Service" hierarchy, role ID `00EjV000001KUeHUAW`) with the exact same display name as our AutoDrive one (`00EjY000000065RUAQ`). Two different roles, identical label — confusing in any role-picker dropdown. Used the correct AutoDrive-specific role ID for our test user; the collision itself is unresolved.
+
+Built the two missing roles (Legal_Team, Management) and two Queues (Customer Service on Case, Legal Escalation Recipient on Legal_Escalation__c) to complete the set.
+
+### 2026-10-13 — Stage 7: Henry/Obed/Shedrack are on System Administrator — created separate test users instead
+Found the actual discovery-session people (Henry, Obed, Shedrack) already exist as real active Users in the org, but all three are on System Administrator profile — which overrides every validation rule, sharing rule, and permission set built this session. Assigning them our restricted Permission Sets would have changed nothing. Also directly conflicts with Stage 12's explicit instruction to test "as the right persona, never as System Administrator."
+
+**Decided (Hillary's call): created 8 dedicated test users instead of touching the real accounts.** One per role, Standard User profile, correct Role assignment, matching Permission Set:
+
+| Test User | Role | Permission Set |
+|---|---|---|
+| test.salesrep@autodrive.group3sb.test | Sales Rep | Sales_Rep |
+| test.showroommanager@autodrive.group3sb.test | Showroom Manager | Showroom_Manager |
+| test.financeteam@autodrive.group3sb.test | Finance Team Member | Finance_Team |
+| test.headoffinance@autodrive.group3sb.test | Head of Finance | Head_of_Finance |
+| test.csagent@autodrive.group3sb.test | Customer Service Agent (AutoDrive role, not the demo one) | Customer_Service_Agent |
+| test.headofcs@autodrive.group3sb.test | Head of Customer Service | Head_of_Customer_Service |
+| test.legalteam@autodrive.group3sb.test | Legal Team | Legal_Team |
+| test.management@autodrive.group3sb.test | Management | Management |
+
+Checked license headroom before creating (550 total Salesforce licenses, 43 used at the time — plenty of room). All verified correct via SOQL after creation. These are the accounts Stage 12 QA should actually log in as; Henry/Obed/Shedrack's real accounts were left untouched.
+
 ### 2026-10-13 — New Stage 4 scope added to BUILD_PLAN.md: discount invalidation on payment-mode switch
 BUILD_PLAN.md was updated externally (not by me) to add: if a Discount Request is already Approved while Payment Mode = Full Payment and the customer switches to Instalment, the approval must be invalidated and Finance must reassess separately (Q-O09, confirmed 2026-10-13, Jira KAN-92). This is explicitly called out as **a Flow, not a validation rule** — same story as US-25, so it belongs in Stage 8 even though the plan lists it under the Stage 4 heading. Not built yet; noting so Stage 4 isn't mistaken for fully closed.
