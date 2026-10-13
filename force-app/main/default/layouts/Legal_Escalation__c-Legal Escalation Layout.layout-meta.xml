@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Layout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <layoutSections>
+        <customLabel>false</customLabel>
+        <detailHeading>false</detailHeading>
+        <editHeading>true</editHeading>
+        <label>Information</label>
+        <layoutColumns>
+            <layoutItems><behavior>Edit</behavior><field>Account__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Instalment_Plan__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Vehicle_Purchased__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Contract_Number__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Months_Defaulted__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Total_Amount_Owed__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Amount_Paid__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Outstanding_Balance__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Number_of_Missed_Payments__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Guarantor_Information__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Escalated_By__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Escalated_On__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Status__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Legal_Team_Notified_At__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Note__c</field></layoutItems>
+        </layoutColumns>
+        <style>OneColumn</style>
+    </layoutSections>
+    <showEmailCheckbox>false</showEmailCheckbox>
+    <showHighlightsPanel>false</showHighlightsPanel>
+    <showInteractionLogPanel>false</showInteractionLogPanel>
+    <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
+    <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
+    <summaryLayout>
+        <masterLabel>Search Layouts</masterLabel>
+        <sizeX>4</sizeX>
+        <sizeY>0</sizeY>
+    </summaryLayout>
+</Layout>
