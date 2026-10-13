@@ -18,6 +18,6 @@
     </nameField>
     <pluralLabel>Knowledge Articles</pluralLabel>
     <searchLayouts></searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Read</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

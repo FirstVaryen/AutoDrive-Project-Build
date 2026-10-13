@@ -90,3 +90,44 @@ Decided: can't be a plain validation-rule formula — Salesforce has no native f
 Two more build errors hit while finishing Stage 4:
 3. **Validation Rule `description` field is capped at 255 characters** (separate limit from the 40-char `fullName` cap hit earlier) — `Showroom_Capacity_Not_Exceeded`'s description was too long on first try; shortened.
 4. Same object-folder packaging quirk as before, this time on Showroom__c + Vehicle__c together — deployed both full object folders rather than a slice, which resolved it.
+
+### 2026-10-13 — Stage 4 validation rules, in build order
+
+1. `Instalment_Plan__c.Down_Payment_Min_30_Percent` **(Down Payment % < 30 AND (not Fleet-Corporate OR no Head of Finance sign-off) — US-29, KAN-33)**
+2. `Instalment_Plan__c.Term_Cap_12_Months` **(Term in Months > 12 AND (not Fleet-Corporate OR no Head of Finance sign-off) — US-29)**
+3. `Instalment_Plan__c.Renegotiation_Term_Cap` **(Original Term set AND Term in Months > Original Term in Months — client handoff fact: "renegotiation cannot exceed the original 12")**
+4. `Instalment_Plan__c.Guarantor_Income_Check_Before_Signoff` **(Head of Finance Sign-off = true AND Guarantor's Income Check Done = false — US-29)**
+5. `Discount_Request__c.No_Discount_Individual_Instalment` **(Opportunity Payment Mode = Instalment AND Account record type ≠ Fleet-Corporate — US-25, KAN-30)**
+6. `Vehicle__c.Per_Model_Stock_Limit_50` **(new record AND Vehicle Model's Total Stock Count ≥ 50 — client handoff fact: "target of up to 50 units per model"; backed by a native Roll-Up Summary since Vehicle→Vehicle Model is Master-Detail)**
+7. `Vehicle__c.Showroom_Capacity_Not_Exceeded` **(Showroom + Capacity both set, new record or Showroom changed, Showroom's Vehicle Count ≥ Capacity — Developer/Admin role plan rule; inert until the Stage 8 Flow maintaining Vehicle_Count__c exists)**
+
+### 2026-10-13 — Stage 0 (Org-Wide Defaults) was never built; caught retroactively while starting Stage 5
+Jumped straight to Stage 1 at session start, skipping Stage 0 entirely. This mattered concretely for Stage 5: Permission Sets only ADD access on top of OWD — if OWD is too open, a restrictive Permission Set does nothing. Checked our 14 custom objects' `sharingModel` (= OWD for custom objects) against the Design Pack's §3 "Starting Access" table and found 7 wrong, all defaulted to the too-permissive `ReadWrite` instead of what the spec requires:
+
+- Showroom, Vehicle Model, Knowledge Article → should be Public Read Only (`Read`) — fixed
+- Guarantor, Reconciliation Entry, Import Request, Customer Message → should be Private — fixed, this one mattered most since Reconciliation Entry wide open directly violated NFR-01 (Finance/Management-only financial data, a Must-Have)
+- Legal Escalation → was already correctly Private
+
+Fix note: the Metadata API enum value for "Public Read Only" is literally `Read`, not `PublicReadOnly` — first deploy attempt failed on that.
+
+Standard objects (Opportunity/Lead/Account/Contact/Case) don't have OWD set via these per-object files at all — it lives in org-wide Sharing Settings (Setup → Security → Sharing Settings), a separate mechanism, though it turns out deployable the same way as custom objects (just a `CustomObject` metadata file containing only `<sharingModel>`, no other tags needed, for a standard object).
+
+All 5 now confirmed Private: Opportunity and Lead fixed by Hillary directly in Setup → Security → Sharing Settings; Account and Case finished via metadata deploy after the UI edit didn't take for those two rows. Contact correctly follows Account via ControlledByParent. Stage 0's Org-Wide Defaults are now fully correct across every object in the data model.
+
+### 2026-10-13 — Stage 5: 8 Permission Sets built, one per Security Matrix role
+Built Sales Rep, Showroom Manager, Head of Finance, Finance Team, Customer Service Agent, Head of Customer Service, Legal Team, Management — object CRUD matching the Design Pack's Security Matrix (§1), plus field-level grants for the Locked Fields table (§2) where applicable.
+
+**Consistent rule applied across all 8:** where the matrix says "(own)", relied on ownership + Private OWD, no extra grant. Where it doesn't say "(own)" and the object is Lead/Account/Opportunity, relied on role hierarchy (Stage 7) rather than `viewAllRecords`, per the Design Pack's own note ("Showroom Manager sees reps' records via hierarchy"). Everywhere else without "(own)", granted `viewAllRecords` since there's no hierarchy mechanism for our custom objects.
+
+**Four build errors, each revealing a real Salesforce rule:**
+1. Descriptions capped at 255 chars (same limit validation rules hit) — shortened two.
+2. `modifyAllRecords=true` requires `allowDelete=true` — Salesforce bundles "edit any record" with delete rights at the all-records tier, no way to split them. Since the matrix never grants Delete to anyone, dropped `modifyAllRecords` everywhere rather than grant unwanted delete rights.
+3. `allowRead` on Account requires `allowRead` on Contact (Salesforce bundles these). Hit on Legal Team; added Contact Read.
+4. `allowRead` on a Master-Detail child requires `allowRead` on its parent — Instalment Plan is Master-Detail to Opportunity, so any role reading Instalment Plan must also read Opportunity. Hit on Legal Team (matrix doesn't list Opportunity for Legal at all); added it as a required technical consequence, not a matrix deviation.
+
+**Real gap surfaced by #2: true "edit records you don't own, without delete rights" needs a Sharing Rule (Read/Write access level), not a Permission Set flag.** This is the *same* mechanism as the already-flagged row-level visibility gaps (Discount Request requester+approver, Legal's own-escalations) — all of it is Sharing Rules territory, not yet built. Current state: Finance Team/Head of Finance/Showroom Manager/Head of CS can **see** all relevant records (`viewAllRecords=true`) but can only **edit** records they personally own until Sharing Rules exist to grant Read/Write across the team.
+
+**Separate, known gap (not fixable via Permission Sets at all):** the Locked Fields requirement to *hide* Opportunity/Instalment Plan amount fields from Customer Service Agent and Head of CS. Permission Sets are purely additive — they can grant visibility but can never take away what a Profile already exposes. True hiding needs either Profile-level Field-Level Security edits (manual, same category as the OWD fix) or Permission Set Groups with a Muting Permission Set. Not built; both Agent-facing permission sets flag this in their own description.
+
+### 2026-10-13 — New Stage 4 scope added to BUILD_PLAN.md: discount invalidation on payment-mode switch
+BUILD_PLAN.md was updated externally (not by me) to add: if a Discount Request is already Approved while Payment Mode = Full Payment and the customer switches to Instalment, the approval must be invalidated and Finance must reassess separately (Q-O09, confirmed 2026-10-13, Jira KAN-92). This is explicitly called out as **a Flow, not a validation rule** — same story as US-25, so it belongs in Stage 8 even though the plan lists it under the Stage 4 heading. Not built yet; noting so Stage 4 isn't mistaken for fully closed.
