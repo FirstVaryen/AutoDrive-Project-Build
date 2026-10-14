@@ -3,10 +3,10 @@
     <fullName>Low_stock_Threshold__c</fullName>
     <description>Available stock count at or below which a low-stock alert should fire</description>
     <externalId>false</externalId>
-    <label>Low-stock Threshold</label>
+    <label>AM Low-stock Threshold</label>
     <precision>18</precision>
-    <scale>0</scale>
     <required>false</required>
+    <scale>0</scale>
     <trackTrending>false</trackTrending>
     <type>Number</type>
     <unique>false</unique>

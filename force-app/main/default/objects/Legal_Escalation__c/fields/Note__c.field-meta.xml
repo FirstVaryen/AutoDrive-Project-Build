@@ -2,8 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Note__c</fullName>
     <description>Free-text notes on this escalation</description>
-    <label>Note</label>
+    <label>AM Note</label>
     <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>
 </CustomField>

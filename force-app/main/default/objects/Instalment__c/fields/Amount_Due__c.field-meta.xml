@@ -2,9 +2,12 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Amount_Due__c</fullName>
     <description>Amount due for this instalment</description>
-    <label>Amount Due</label>
+    <label>AM Amount Due</label>
     <precision>18</precision>
-    <scale>2</scale>
-    <type>Currency</type>
     <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
 </CustomField>

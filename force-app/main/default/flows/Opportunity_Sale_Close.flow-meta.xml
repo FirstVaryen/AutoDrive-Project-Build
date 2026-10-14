@@ -2,7 +2,7 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>67.0</apiVersion>
     <interviewLabel>Opportunity Sale Close {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Opportunity Sale Close</label>
+    <label>AM Opportunity Sale Close</label>
     <processType>AutoLaunchedFlow</processType>
     <status>Active</status>
     <description>US-01: when an Opportunity reaches Closed Won, sets its Vehicle's Status to Sold in the same transaction.</description>

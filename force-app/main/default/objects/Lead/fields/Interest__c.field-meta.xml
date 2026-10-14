@@ -2,8 +2,12 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Interest__c</fullName>
     <description>What vehicle/model the lead is interested in</description>
-    <label>Interest</label>
+    <externalId>false</externalId>
+    <label>AM Interest</label>
     <length>255</length>
-    <type>Text</type>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

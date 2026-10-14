@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Recorded_By_Finance_For_Head_Office__c</fullName>
-    <description>Checked when Finance recorded this Head Office step on Head Office's behalf</description>
-    <label>Recorded By Finance For Head Office</label>
-    <type>Checkbox</type>
     <defaultValue>false</defaultValue>
+    <description>Checked when Finance recorded this Head Office step on Head Office&apos;s behalf</description>
+    <label>AM Recorded By Finance For Head Office</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
 </CustomField>

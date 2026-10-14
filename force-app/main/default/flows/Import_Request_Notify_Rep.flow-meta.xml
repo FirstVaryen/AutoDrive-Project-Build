@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>AM Import Request Notify Rep {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Import Request - Notify Rep on Arrival</label>
+    <processType>AutoLaunchedFlow</processType>
+
+    <actionCalls>
+        <name>Notify_Rep</name>
+        <label>Notify Rep</label>
+        <locationX>176</locationX>
+        <locationY>200</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>Get_Rep.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Your Import Request has arrived</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <stringValue>The vehicle model you requested for import has now arrived. Please follow up with the customer.</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>CurrentUser</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+
+    <decisions>
+        <name>Check_Just_Imported</name>
+        <label>Just Marked Imported?</label>
+        <locationX>176</locationX>
+        <locationY>100</locationY>
+        <defaultConnectorLabel>No Change</defaultConnectorLabel>
+        <rules>
+            <name>Status_Is_Imported</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Imported</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Rep</targetReference>
+            </connector>
+            <label>Status Is Imported</label>
+        </rules>
+    </decisions>
+
+    <recordLookups>
+        <name>Get_Rep</name>
+        <label>Get Rep</label>
+        <locationX>176</locationX>
+        <locationY>150</locationY>
+        <connector>
+            <targetReference>Notify_Rep</targetReference>
+        </connector>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Requested_By__c</elementReference>
+            </value>
+        </filters>
+    </recordLookups>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <object>Import_Request__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Imported</stringValue>
+            </value>
+        </filters>
+        <connector>
+            <targetReference>Check_Just_Imported</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>AM Instalment Plan Completion Email {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Instalment Plan - Completion Email</label>
+    <processType>AutoLaunchedFlow</processType>
+
+    <actionCalls>
+        <name>Send_Completion_Email</name>
+        <label>Send Completion Email</label>
+        <locationX>176</locationX>
+        <locationY>500</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Mark_Email_Sent</targetReference>
+        </connector>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>Get_Primary_Contact.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Congratulations - your AutoDrive plan is complete!</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <stringValue>Congratulations, your instalment plan is now fully settled. Our Finance team will be in touch about your ownership documents. Thank you for choosing AutoDrive.</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>CurrentUser</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+
+    <decisions>
+        <name>Check_All_Paid</name>
+        <label>All Instalments Paid?</label>
+        <locationX>176</locationX>
+        <locationY>200</locationY>
+        <defaultConnectorLabel>Not All Paid</defaultConnectorLabel>
+        <rules>
+            <name>None_Unpaid_Left</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Unpaid_Instalments.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Plan</targetReference>
+            </connector>
+            <label>None Unpaid Left</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Not_Already_Sent</name>
+        <label>Email Not Already Sent?</label>
+        <locationX>176</locationX>
+        <locationY>300</locationY>
+        <defaultConnectorLabel>Already Sent</defaultConnectorLabel>
+        <rules>
+            <name>Not_Sent_Yet</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Plan.Completion_Email_Sent__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Primary_Contact</targetReference>
+            </connector>
+            <label>Not Sent Yet</label>
+        </rules>
+    </decisions>
+
+    <recordLookups>
+        <name>Get_Unpaid_Instalments</name>
+        <label>Get Unpaid Instalments</label>
+        <locationX>176</locationX>
+        <locationY>150</locationY>
+        <connector>
+            <targetReference>Check_All_Paid</targetReference>
+        </connector>
+        <object>Instalment__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Instalment_Plan__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Instalment_Plan__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Paid</stringValue>
+            </value>
+        </filters>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Plan</name>
+        <label>Get Plan</label>
+        <locationX>176</locationX>
+        <locationY>250</locationY>
+        <connector>
+            <targetReference>Check_Not_Already_Sent</targetReference>
+        </connector>
+        <object>Instalment_Plan__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Instalment_Plan__c</elementReference>
+            </value>
+        </filters>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Primary_Contact</name>
+        <label>Get Primary Contact</label>
+        <locationX>176</locationX>
+        <locationY>400</locationY>
+        <connector>
+            <targetReference>Send_Completion_Email</targetReference>
+        </connector>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Plan.Opportunity__r.AccountId</elementReference>
+            </value>
+        </filters>
+    </recordLookups>
+
+    <recordUpdates>
+        <name>Mark_Email_Sent</name>
+        <label>Mark Email Sent</label>
+        <locationX>176</locationX>
+        <locationY>600</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Instalment_Plan__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Completion_Email_Sent__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Instalment_Plan__c</object>
+    </recordUpdates>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <object>Instalment__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Paid</stringValue>
+            </value>
+        </filters>
+        <connector>
+            <targetReference>Get_Unpaid_Instalments</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+</Flow>

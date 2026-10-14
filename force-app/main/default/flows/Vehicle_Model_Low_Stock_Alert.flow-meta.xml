@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>AM Low Stock Alert {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Vehicle Model - Low Stock Alert</label>
+    <processType>AutoLaunchedFlow</processType>
+
+    <actionCalls>
+        <name>Send_Low_Stock_Email</name>
+        <label>Send Low Stock Email</label>
+        <locationX>50</locationX>
+        <locationY>250</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Mark_Alert_Active</targetReference>
+        </connector>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>test.showroommanager@autodrive.group3sb.test</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Low stock alert</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>var_AlertBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>CurrentUser</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+
+    <decisions>
+        <name>Check_Stock_Level</name>
+        <label>Check Stock Level</label>
+        <locationX>176</locationX>
+        <locationY>150</locationY>
+        <defaultConnectorLabel>No Change Needed</defaultConnectorLabel>
+        <rules>
+            <name>Below_Threshold_Not_Yet_Alerted</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Available_Stock__c</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <elementReference>$Record.Low_stock_Threshold__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Low_Stock_Alert_Active__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Low_Stock_Email</targetReference>
+            </connector>
+            <label>Below Threshold Not Yet Alerted</label>
+        </rules>
+        <rules>
+            <name>Recovered_Was_Alerted</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Available_Stock__c</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Low_stock_Threshold__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Low_Stock_Alert_Active__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Clear_Alert_Active</targetReference>
+            </connector>
+            <label>Recovered Was Alerted</label>
+        </rules>
+    </decisions>
+
+    <formulas>
+        <name>var_AlertBody</name>
+        <dataType>String</dataType>
+        <expression>{!$Record.Name} &amp; " has dropped to " &amp; TEXT({!$Record.Available_Stock__c}) &amp; " units available, below the threshold of " &amp; TEXT({!$Record.Low_stock_Threshold__c}) &amp; ". Please reorder."</expression>
+    </formulas>
+
+    <recordUpdates>
+        <name>Mark_Alert_Active</name>
+        <label>Mark Alert Active</label>
+        <locationX>50</locationX>
+        <locationY>350</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Low_Stock_Alert_Active__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Vehicle_Model__c</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Clear_Alert_Active</name>
+        <label>Clear Alert Active</label>
+        <locationX>300</locationX>
+        <locationY>250</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Low_Stock_Alert_Active__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Vehicle_Model__c</object>
+    </recordUpdates>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <object>Vehicle_Model__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+        <connector>
+            <targetReference>Check_Stock_Level</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+</Flow>

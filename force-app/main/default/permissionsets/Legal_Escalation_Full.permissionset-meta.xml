@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>AM Legal Escalation - Full</label>
+    <description>Atomic permission set: Full access on Legal Escalation only (plus required parent-read bundling for Master-Detail children).</description>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <viewAllRecords>true</viewAllRecords>
+        <object>Legal_Escalation__c</object>
+    </objectPermissions>
+</PermissionSet>

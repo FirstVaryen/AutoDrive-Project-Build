@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>AM Lead Walk-in Assignment {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Lead - Walk-in Assignment</label>
+    <processType>AutoLaunchedFlow</processType>
+
+    <assignments>
+        <name>Assign_To_Showroom_Manager</name>
+        <label>Assign To Showroom Manager</label>
+        <locationX>50</locationX>
+        <locationY>300</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Showroom_Manager.Id</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Assign_To_Rep</name>
+        <label>Assign To Rep</label>
+        <locationX>300</locationX>
+        <locationY>300</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Next_Free_Rep.Id</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+
+    <decisions>
+        <name>Check_High_Profile</name>
+        <label>Returning or High-Profile?</label>
+        <locationX>176</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>Get_Next_Free_Rep</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Standard Walk-in</defaultConnectorLabel>
+        <rules>
+            <name>Is_High_Profile</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Returning_or_High_profile__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Showroom_Manager</targetReference>
+            </connector>
+            <label>Is High Profile</label>
+        </rules>
+    </decisions>
+
+    <recordLookups>
+        <name>Get_Showroom_Manager</name>
+        <label>Get Showroom Manager</label>
+        <locationX>50</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>Assign_To_Showroom_Manager</targetReference>
+        </connector>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>UserRoleId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>00EjY00000005xNUAQ</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>IsActive</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Next_Free_Rep</name>
+        <label>Get Next Free Rep</label>
+        <locationX>300</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>Assign_To_Rep</targetReference>
+        </connector>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>UserRoleId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>00EjY00000005yzUAA</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>IsActive</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+    </recordLookups>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <object>Lead</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Channel__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Walk-in</stringValue>
+            </value>
+        </filters>
+        <connector>
+            <targetReference>Check_High_Profile</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+</Flow>

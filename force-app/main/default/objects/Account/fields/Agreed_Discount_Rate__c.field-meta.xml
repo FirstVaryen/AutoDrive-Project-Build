@@ -2,9 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Agreed_Discount_Rate__c</fullName>
     <description>Negotiated discount rate for this account, fleet accounts only</description>
-    <label>Agreed Discount Rate</label>
+    <label>AM Agreed Discount Rate</label>
     <precision>5</precision>
-    <scale>2</scale>
-    <type>Percent</type>
     <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Percent</type>
 </CustomField>

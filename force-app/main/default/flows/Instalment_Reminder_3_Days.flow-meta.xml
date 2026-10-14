@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>AM Instalment Reminder {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Instalment - 3 Day Reminder</label>
+    <processType>AutoLaunchedFlow</processType>
+
+    <actionCalls>
+        <name>Send_Reminder_Email</name>
+        <label>Send Reminder Email</label>
+        <locationX>176</locationX>
+        <locationY>350</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>Get_Primary_Contact.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Your AutoDrive instalment is due soon</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>var_EmailBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>CurrentUser</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+
+    <assignments>
+        <name>Build_Email_Body</name>
+        <label>Build Email Body</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <assignmentItems>
+            <assignToReference>var_EmailBody</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>var_EmailBodyFormula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Send_Reminder_Email</targetReference>
+        </connector>
+    </assignments>
+
+    <decisions>
+        <name>Has_Contact</name>
+        <label>Has Contact?</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <defaultConnectorLabel>No Contact Found</defaultConnectorLabel>
+        <rules>
+            <name>Found_Contact</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Primary_Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Build_Email_Body</targetReference>
+            </connector>
+            <label>Found Contact</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Due_In_3_Days</name>
+        <label>Due in 3 Days?</label>
+        <locationX>176</locationX>
+        <locationY>70</locationY>
+        <defaultConnectorLabel>Not Due Yet</defaultConnectorLabel>
+        <rules>
+            <name>Due_Date_Matches</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Due_Date__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>var_ReminderDate</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Primary_Contact</targetReference>
+            </connector>
+            <label>Due Date Matches</label>
+        </rules>
+    </decisions>
+
+    <formulas>
+        <name>var_ReminderDate</name>
+        <dataType>Date</dataType>
+        <expression>TODAY() + 3</expression>
+    </formulas>
+    <formulas>
+        <name>var_EmailBodyFormula</name>
+        <dataType>String</dataType>
+        <expression>"Hi, this is a reminder that your instalment of " &amp; TEXT({!$Record.Amount_Due__c}) &amp; " is due on " &amp; TEXT({!$Record.Due_Date__c}) &amp; ". Thank you for choosing AutoDrive."</expression>
+    </formulas>
+
+    <recordLookups>
+        <name>Get_Primary_Contact</name>
+        <label>Get Primary Contact</label>
+        <locationX>176</locationX>
+        <locationY>100</locationY>
+        <connector>
+            <targetReference>Has_Contact</targetReference>
+        </connector>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Instalment_Plan__r.Opportunity__r.AccountId</elementReference>
+            </value>
+        </filters>
+    </recordLookups>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <object>Instalment__c</object>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Paid</stringValue>
+            </value>
+        </filters>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2026-10-15</startDate>
+            <startTime>06:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+        <connector>
+            <targetReference>Is_Due_In_3_Days</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+
+    <variables>
+        <name>var_EmailBody</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

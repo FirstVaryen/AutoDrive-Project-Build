@@ -2,7 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Signed_Off_On__c</fullName>
     <description>Date the plan was signed off</description>
-    <label>Signed Off On</label>
-    <type>Date</type>
+    <label>AM Signed Off On</label>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
 </CustomField>

@@ -154,12 +154,12 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
-    <label>Showroom</label>
+    <label>AM Showroom</label>
     <nameField>
         <label>Showroom Name</label>
         <type>Text</type>
     </nameField>
-    <pluralLabel>Showrooms</pluralLabel>
+    <pluralLabel>AM Showrooms</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>Read</sharingModel>
     <visibility>Public</visibility>

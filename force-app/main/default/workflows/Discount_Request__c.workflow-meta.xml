@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <fieldUpdates>
-        <fullName>Set_Step_With_Finance</fullName>
-        <field>Current_Step__c</field>
-        <name>Set Step - With Finance</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <literalValue>With Finance</literalValue>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Set_Step_With_Head_Office</fullName>
-        <field>Current_Step__c</field>
-        <name>Set Step - With Head Office</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <literalValue>With Head Office</literalValue>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>Set_Step_Approved</fullName>
         <field>Current_Step__c</field>
+        <literalValue>Approved</literalValue>
         <name>Set Step - Approved</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>
-        <literalValue>Approved</literalValue>
+        <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Set_Step_Rejected</fullName>
         <field>Current_Step__c</field>
+        <literalValue>Rejected</literalValue>
         <name>Set Step - Rejected</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>
-        <literalValue>Rejected</literalValue>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Step_With_Finance</fullName>
+        <field>Current_Step__c</field>
+        <literalValue>With Finance</literalValue>
+        <name>Set Step - With Finance</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Step_With_Head_Office</fullName>
+        <field>Current_Step__c</field>
+        <literalValue>With Head Office</literalValue>
+        <name>Set Step - With Head Office</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
     </fieldUpdates>
 </Workflow>

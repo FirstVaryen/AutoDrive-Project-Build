@@ -1,0 +1,10 @@
+A discount request needs your approval.
+
+Request: {!Discount_Request__c.Name}
+Opportunity: {!Discount_Request__c.Opportunity__c}
+Requested Discount: {!Discount_Request__c.Requested_Discount__c}
+Requested By: {!Discount_Request__c.Requested_By__c}
+Reason: {!Discount_Request__c.Reason__c}
+Current Step: {!Discount_Request__c.Current_Step__c}
+
+Please log in to Salesforce to review and act on this request.

@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>AM Vehicle Change Refund {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Opportunity - Vehicle Change or Refund</label>
+    <processType>Flow</processType>
+
+    <actionCalls>
+        <name>Notify_Refund_Needs_Approval</name>
+        <label>Notify Refund Needs Approval</label>
+        <locationX>50</locationX>
+        <locationY>700</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Refund_Pending_Screen</targetReference>
+        </connector>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>test.headoffinance@autodrive.group3sb.test</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Refund approval needed - vehicle change</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>var_RefundBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>CurrentUser</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+
+    <assignments>
+        <name>Calculate_Price_Difference</name>
+        <label>Calculate Price Difference</label>
+        <locationX>176</locationX>
+        <locationY>450</locationY>
+        <assignmentItems>
+            <assignToReference>var_PriceDifference</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>var_PriceDifferenceFormula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_Refund_Needed</targetReference>
+        </connector>
+    </assignments>
+
+    <choices>
+        <name>Choice_Full_Payment</name>
+        <choiceText>Full Payment</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Full Payment</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Choice_Instalment</name>
+        <choiceText>Instalment</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Instalment</stringValue>
+        </value>
+    </choices>
+
+    <decisions>
+        <name>Check_New_Vehicle_Found</name>
+        <label>New Vehicle Found?</label>
+        <locationX>176</locationX>
+        <locationY>350</locationY>
+        <defaultConnectorLabel>Not Found</defaultConnectorLabel>
+        <rules>
+            <name>Vehicle_Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_New_Vehicle.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Calculate_Price_Difference</targetReference>
+            </connector>
+            <label>Vehicle Found</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Refund_Needed</name>
+        <label>Refund Needed?</label>
+        <locationX>176</locationX>
+        <locationY>550</locationY>
+        <defaultConnectorLabel>No Refund - Proceed</defaultConnectorLabel>
+        <rules>
+            <name>Price_Is_Lower</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>var_PriceDifference</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Notify_Refund_Needs_Approval</targetReference>
+            </connector>
+            <label>Price Is Lower</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Approved_Or_No_Refund</name>
+        <label>Approved Or No Refund Needed?</label>
+        <locationX>176</locationX>
+        <locationY>850</locationY>
+        <defaultConnector>
+            <targetReference>Cannot_Proceed_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Approved</defaultConnectorLabel>
+        <rules>
+            <name>Can_Proceed</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>var_PriceDifference</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Refund_Approved</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Opportunity</targetReference>
+            </connector>
+            <label>Can Proceed</label>
+        </rules>
+    </decisions>
+
+    <formulas>
+        <name>var_PriceDifferenceFormula</name>
+        <dataType>Currency</dataType>
+        <scale>2</scale>
+        <expression>{!Get_New_Vehicle.Model__r.List_Price__c} - {!Get_Opportunity.Sale_Price__c}</expression>
+    </formulas>
+    <formulas>
+        <name>var_RefundBody</name>
+        <dataType>String</dataType>
+        <expression>"A vehicle change on Opportunity " &amp; {!recordId} &amp; " results in a refund of " &amp; TEXT(-1 * {!var_PriceDifference}) &amp; " owed to the customer. Please approve before the change is finalised."</expression>
+    </formulas>
+
+    <recordLookups>
+        <name>Get_Opportunity</name>
+        <label>Get Opportunity</label>
+        <locationX>176</locationX>
+        <locationY>150</locationY>
+        <connector>
+            <targetReference>New_Vehicle_Screen</targetReference>
+        </connector>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_New_Vehicle</name>
+        <label>Get New Vehicle</label>
+        <locationX>176</locationX>
+        <locationY>300</locationY>
+        <connector>
+            <targetReference>Check_New_Vehicle_Found</targetReference>
+        </connector>
+        <object>Vehicle__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Serial_Number__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Input_New_Serial_Number</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Available</stringValue>
+            </value>
+        </filters>
+    </recordLookups>
+
+    <recordUpdates>
+        <name>Update_Opportunity</name>
+        <label>Update Opportunity</label>
+        <locationX>176</locationX>
+        <locationY>950</locationY>
+        <connector>
+            <targetReference>Release_Old_Vehicle</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Vehicle__c</field>
+            <value>
+                <elementReference>Get_New_Vehicle.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Sale_Price__c</field>
+            <value>
+                <elementReference>Get_New_Vehicle.Model__r.List_Price__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Payment_Mode__c</field>
+            <value>
+                <elementReference>Input_New_Payment_Mode</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Release_Old_Vehicle</name>
+        <label>Release Old Vehicle</label>
+        <locationX>176</locationX>
+        <locationY>1050</locationY>
+        <connector>
+            <targetReference>Reserve_New_Vehicle</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity.Vehicle__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Available</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Vehicle__c</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Reserve_New_Vehicle</name>
+        <label>Reserve New Vehicle</label>
+        <locationX>176</locationX>
+        <locationY>1150</locationY>
+        <connector>
+            <targetReference>Done_Screen</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_New_Vehicle.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Sold</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Vehicle__c</object>
+    </recordUpdates>
+
+    <screens>
+        <name>New_Vehicle_Screen</name>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Get_New_Vehicle</targetReference>
+        </connector>
+        <fields>
+            <name>Input_New_Serial_Number</name>
+            <dataType>String</dataType>
+            <fieldText>Serial number of the new vehicle (must be Available)</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Input_New_Payment_Mode</name>
+            <dataType>String</dataType>
+            <fieldText>New Payment Mode</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+            <choiceReferences>Choice_Full_Payment</choiceReferences>
+            <choiceReferences>Choice_Instalment</choiceReferences>
+        </fields>
+        <label>Choose New Vehicle</label>
+        <locationX>176</locationX>
+        <locationY>200</locationY>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Refund_Pending_Screen</name>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Check_Approved_Or_No_Refund</targetReference>
+        </connector>
+        <fields>
+            <name>Refund_Approved</name>
+            <dataType>Boolean</dataType>
+            <fieldText>Has the Head of Finance approved this refund?</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <label>Refund Approval Required</label>
+        <locationX>50</locationX>
+        <locationY>750</locationY>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Done_Screen</name>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Done_Text</name>
+            <fieldText>&lt;p&gt;Vehicle change completed. The sale price, payment mode, and vehicle status have all been updated.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <label>Vehicle Change Complete</label>
+        <locationX>176</locationX>
+        <locationY>1250</locationY>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Cannot_Proceed_Screen</name>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Cannot_Proceed_Text</name>
+            <fieldText>&lt;p&gt;This refund has not been approved, so the vehicle change cannot be finalised yet.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <label>Cannot Proceed</label>
+        <locationX>400</locationX>
+        <locationY>950</locationY>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Get_Opportunity</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>var_PriceDifference</name>
+        <dataType>Currency</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+    </variables>
+</Flow>

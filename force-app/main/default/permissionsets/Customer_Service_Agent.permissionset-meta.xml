@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>AutoDrive - Customer Service Agent</label>
+    <label>AM AutoDrive - Customer Service Agent</label>
     <description>Security Matrix row: Customer Service Agent. Opportunity/Instalment Plan "existence only" - amount fields need hiding via Profile FLS or Muting, not this Permission Set alone. See DISCOVERY_LOG.md.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <objectPermissions>

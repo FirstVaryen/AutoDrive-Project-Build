@@ -2,10 +2,12 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Difference__c</fullName>
     <description>Recorded Total minus Bank Total</description>
-    <label>Difference</label>
-    <type>Currency</type>
-    <precision>18</precision>
-    <scale>2</scale>
     <formula>Recorded_Total__c - Bank_Total__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>AM Difference</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
 </CustomField>

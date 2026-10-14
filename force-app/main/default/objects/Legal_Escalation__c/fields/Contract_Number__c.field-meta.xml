@@ -2,8 +2,13 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Contract_Number__c</fullName>
     <description>Contract number for the defaulted plan (v8 addition)</description>
-    <label>Contract Number</label>
+    <externalId>false</externalId>
+    <label>AM Contract Number</label>
     <length>40</length>
-    <type>Text</type>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

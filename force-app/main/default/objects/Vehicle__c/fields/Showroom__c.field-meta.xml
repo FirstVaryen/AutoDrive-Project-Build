@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Showroom__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
     <description>Showroom currently holding this vehicle</description>
-    <label>Showroom</label>
-    <type>Lookup</type>
+    <label>AM Showroom</label>
     <referenceTo>Showroom__c</referenceTo>
     <relationshipLabel>Vehicles</relationshipLabel>
     <relationshipName>Vehicles</relationshipName>
-    <deleteConstraint>SetNull</deleteConstraint>
     <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
 </CustomField>

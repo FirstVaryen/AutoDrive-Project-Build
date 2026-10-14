@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>AM Import Request Status Progression {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Import Request - Status Progression</label>
+    <processType>AutoLaunchedFlow</processType>
+
+    <assignments>
+        <name>Set_Confirmed_Status</name>
+        <label>Set Confirmed Status</label>
+        <locationX>176</locationX>
+        <locationY>150</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Customer Confirmed</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Customer_Confirmed_On__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+
+    <decisions>
+        <name>Check_Customer_Just_Confirmed</name>
+        <label>Customer Just Confirmed?</label>
+        <locationX>176</locationX>
+        <locationY>100</locationY>
+        <defaultConnectorLabel>No Change</defaultConnectorLabel>
+        <rules>
+            <name>Confirmed_And_Still_Requested</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Customer_Confirmed__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Requested</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Confirmed_Status</targetReference>
+            </connector>
+            <label>Confirmed And Still Requested</label>
+        </rules>
+    </decisions>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <object>Import_Request__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+        <connector>
+            <targetReference>Check_Customer_Just_Confirmed</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+</Flow>

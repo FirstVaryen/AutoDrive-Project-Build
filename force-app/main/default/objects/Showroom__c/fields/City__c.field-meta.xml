@@ -3,7 +3,7 @@
     <fullName>City__c</fullName>
     <description>The city this showroom is located in</description>
     <externalId>false</externalId>
-    <label>City</label>
+    <label>AM City</label>
     <length>80</length>
     <required>false</required>
     <trackTrending>false</trackTrending>

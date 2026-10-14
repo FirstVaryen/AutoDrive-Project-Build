@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>AM Case Routing {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Case - 4-Way Routing</label>
+    <processType>AutoLaunchedFlow</processType>
+
+    <assignments>
+        <name>Route_To_Finance</name>
+        <label>Route To Finance</label>
+        <locationX>50</locationX>
+        <locationY>200</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Routed_To__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Finance</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Route_To_Showroom</name>
+        <label>Route To Showroom Manager</label>
+        <locationX>176</locationX>
+        <locationY>200</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Routed_To__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Showroom Manager</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Route_To_Technical</name>
+        <label>Route To Technical</label>
+        <locationX>300</locationX>
+        <locationY>200</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Routed_To__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Customer Service (Technical)</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Route_To_Manual</name>
+        <label>Route To Manual Review</label>
+        <locationX>420</locationX>
+        <locationY>200</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Routed_To__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Other</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+
+    <decisions>
+        <name>Decide_Routing</name>
+        <label>Decide Routing</label>
+        <locationX>176</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>Route_To_Manual</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Other / Documents</defaultConnectorLabel>
+        <rules>
+            <name>Is_Payment</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Payment</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Route_To_Finance</targetReference>
+            </connector>
+            <label>Is Payment</label>
+        </rules>
+        <rules>
+            <name>Is_Sales</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Sales</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Route_To_Showroom</targetReference>
+            </connector>
+            <label>Is Sales</label>
+        </rules>
+        <rules>
+            <name>Is_Technical</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Technical</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Route_To_Technical</targetReference>
+            </connector>
+            <label>Is Technical</label>
+        </rules>
+    </decisions>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <object>Case</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+        <connector>
+            <targetReference>Decide_Routing</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+</Flow>

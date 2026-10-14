@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>AM Vehicle Model - Read</label>
+    <description>Atomic permission set: Read access on Vehicle Model only (plus required parent-read bundling for Master-Detail children).</description>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <viewAllRecords>false</viewAllRecords>
+        <object>Vehicle_Model__c</object>
+    </objectPermissions>
+</PermissionSet>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>AM Showroom Manager</label>
+    <description>Role-based bundle of atomic CRUD permission sets, assembled from the intersection matrix (2026-10-14).</description>
+    <permissionSets>Lead_Edit</permissionSets>
+    <permissionSets>Account_Edit</permissionSets>
+    <permissionSets>Contact_Edit</permissionSets>
+    <permissionSets>Opportunity_Edit</permissionSets>
+    <permissionSets>Vehicle_Edit</permissionSets>
+    <permissionSets>Vehicle_Model_Edit</permissionSets>
+    <permissionSets>Showroom_Edit</permissionSets>
+    <permissionSets>Discount_Request_Edit</permissionSets>
+    <permissionSets>Approval_Step_Edit</permissionSets>
+    <permissionSets>Import_Request_Edit</permissionSets>
+    <permissionSets>Guarantor_Read</permissionSets>
+    <permissionSets>Case_Read</permissionSets>
+    <permissionSets>Customer_Message_Read</permissionSets>
+    <permissionSets>Knowledge_Article_Read</permissionSets>
+</PermissionSetGroup>

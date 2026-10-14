@@ -2,8 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Bank_Account__c</fullName>
     <description>Which bank account this entry reconciles</description>
-    <label>Bank Account</label>
+    <externalId>false</externalId>
+    <label>AM Bank Account</label>
     <length>80</length>
-    <type>Text</type>
     <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
