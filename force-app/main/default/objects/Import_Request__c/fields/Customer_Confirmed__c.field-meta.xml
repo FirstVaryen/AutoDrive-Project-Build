@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_Confirmed__c</fullName>
-    <description>Checked once the customer has confirmed they want the import</description>
-    <label>Customer Confirmed</label>
-    <type>Checkbox</type>
     <defaultValue>false</defaultValue>
+    <description>Checked once the customer has confirmed they want the import</description>
+    <label>AM Customer Confirmed</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
 </CustomField>

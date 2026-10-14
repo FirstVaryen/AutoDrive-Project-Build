@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Completion_Email_Sent__c</fullName>
-    <description>Guard checkbox so the completion email (US-37) only ever sends once</description>
-    <label>Completion Email Sent</label>
-    <type>Checkbox</type>
     <defaultValue>false</defaultValue>
+    <description>Guard checkbox so the completion email (US-37) only ever sends once</description>
+    <label>AM Completion Email Sent</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
 </CustomField>

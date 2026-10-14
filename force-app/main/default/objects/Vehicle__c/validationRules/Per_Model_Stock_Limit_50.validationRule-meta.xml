@@ -2,7 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Per_Model_Stock_Limit_50</fullName>
     <active>true</active>
-    <description>Blocks a new Vehicle if its Model is already at the 50-unit stock target (client handoff fact: "target of up to 50 units per model"). Checked on insert only — editing an existing Vehicle already counted shouldn't re-trigger it.</description>
+    <description>Blocks a new Vehicle if its Model is already at the 50-unit stock target (client handoff fact: &quot;target of up to 50 units per model&quot;). Checked on insert only — editing an existing Vehicle already counted shouldn&apos;t re-trigger it.</description>
     <errorConditionFormula>AND(
     ISNEW(),
     Model__r.Total_Stock_Count__c &gt;= 50

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>AM Case Escalation {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Case - 1 Hour Escalation</label>
+    <processType>AutoLaunchedFlow</processType>
+
+    <decisions>
+        <name>Still_Unanswered</name>
+        <label>Still Unanswered?</label>
+        <locationX>176</locationX>
+        <locationY>200</locationY>
+        <defaultConnectorLabel>Already Handled</defaultConnectorLabel>
+        <rules>
+            <name>No_First_Response_Yet</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.First_Response_At__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.IsClosed</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Escalate_Case</targetReference>
+            </connector>
+            <label>No First Response Yet</label>
+        </rules>
+    </decisions>
+
+    <recordUpdates>
+        <name>Escalate_Case</name>
+        <label>Escalate Case</label>
+        <locationX>176</locationX>
+        <locationY>300</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Escalated_At__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Escalated_To__c</field>
+            <value>
+                <stringValue>005jY000000LEXpQAO</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>High</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <object>Case</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+        <scheduledPaths>
+            <name>One_Hour_Check</name>
+            <label>One Hour Check</label>
+            <offsetNumber>1</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <timeSource>RecordTriggerEvent</timeSource>
+            <connector>
+                <targetReference>Still_Unanswered</targetReference>
+            </connector>
+        </scheduledPaths>
+    </start>
+    <status>Active</status>
+</Flow>

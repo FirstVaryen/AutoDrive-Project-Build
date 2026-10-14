@@ -2,15 +2,31 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Type__c</fullName>
     <description>What kind of payment this is</description>
-    <label>Type</label>
+    <label>AM Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
-            <value><fullName>Down Payment</fullName><default>true</default><label>Down Payment</label></value>
-            <value><fullName>Instalment</fullName><default>false</default><label>Instalment</label></value>
-            <value><fullName>Full Payment</fullName><default>false</default><label>Full Payment</label></value>
+            <value>
+                <fullName>Down Payment</fullName>
+                <default>true</default>
+                <label>Down Payment</label>
+            </value>
+            <value>
+                <fullName>Instalment</fullName>
+                <default>false</default>
+                <label>Instalment</label>
+            </value>
+            <value>
+                <fullName>Full Payment</fullName>
+                <default>false</default>
+                <label>Full Payment</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

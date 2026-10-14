@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>AM Legal Team</label>
+    <description>Role-based bundle of atomic CRUD permission sets, assembled from the intersection matrix (2026-10-14).</description>
+    <permissionSets>Account_Read</permissionSets>
+    <permissionSets>Contact_Read</permissionSets>
+    <permissionSets>Opportunity_Read</permissionSets>
+    <permissionSets>Instalment_Plan_Read</permissionSets>
+    <permissionSets>Guarantor_Read</permissionSets>
+    <permissionSets>Legal_Escalation_Read</permissionSets>
+</PermissionSetGroup>

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Escalated_By__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
     <description>Who raised the escalation (should be Head of Finance per process)</description>
-    <label>Escalated By</label>
-    <type>Lookup</type>
+    <label>AM Escalated By</label>
     <referenceTo>User</referenceTo>
     <relationshipLabel>Legal Escalations Raised</relationshipLabel>
     <relationshipName>Legal_Escalations_Raised</relationshipName>
-    <deleteConstraint>SetNull</deleteConstraint>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
 </CustomField>

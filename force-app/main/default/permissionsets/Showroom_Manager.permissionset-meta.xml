@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>AutoDrive - Showroom Manager</label>
+    <label>AM AutoDrive - Showroom Manager</label>
     <description>Security Matrix row: Showroom Manager (Henry). Lead/Account/Opportunity cross-rep visibility comes from role hierarchy (Stage 7), not viewAllRecords here. Discount Request Step-1-approve visibility is a Sharing Rule, not built yet - see DISCOVERY_LOG.md.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <objectPermissions>

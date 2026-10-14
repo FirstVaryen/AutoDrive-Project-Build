@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>AM Instalment Late Notices {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Instalment - Late Notices (1/7/30 day)</label>
+    <processType>AutoLaunchedFlow</processType>
+
+    <actionCalls>
+        <name>Send_Missed_Payment_Email</name>
+        <label>Send Missed Payment Email</label>
+        <locationX>50</locationX>
+        <locationY>300</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>Get_Primary_Contact.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Missed payment on your AutoDrive instalment</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <stringValue>We note your instalment payment is now 1 day overdue. Please make payment as soon as possible to avoid further notices.</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>CurrentUser</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+
+    <decisions>
+        <name>Check_Late_Threshold</name>
+        <label>Check Late Threshold</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <defaultConnectorLabel>Not At A Threshold</defaultConnectorLabel>
+        <rules>
+            <name>Missed_1_Day</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Days_Late__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Primary_Contact</targetReference>
+            </connector>
+            <label>Missed 1 Day</label>
+        </rules>
+        <rules>
+            <name>Guarantor_7_Days</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Days_Late__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>7.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Guarantor_Notice</targetReference>
+            </connector>
+            <label>Guarantor 7 Days</label>
+        </rules>
+        <rules>
+            <name>Default_30_Days</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Days_Late__c</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>30.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Default_Alert_Sent__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Flag_As_Default</targetReference>
+            </connector>
+            <label>Default 30 Days</label>
+        </rules>
+    </decisions>
+
+    <recordCreates>
+        <name>Create_Guarantor_Notice</name>
+        <label>Create Guarantor Notice</label>
+        <locationX>176</locationX>
+        <locationY>300</locationY>
+        <inputAssignments>
+            <field>Type__c</field>
+            <value>
+                <stringValue>Status Update</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Channel__c</field>
+            <value>
+                <stringValue>Phone</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Sent_At__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Sent_By__c</field>
+            <value>
+                <stringValue>Automatic - 7 day guarantor notice</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Message_Text__c</field>
+            <value>
+                <stringValue>Guarantor notice: instalment is 7 days late. Guarantor should be contacted.</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Instalment__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Customer_Message__c</object>
+    </recordCreates>
+
+    <recordLookups>
+        <name>Get_Primary_Contact</name>
+        <label>Get Primary Contact</label>
+        <locationX>50</locationX>
+        <locationY>230</locationY>
+        <connector>
+            <targetReference>Send_Missed_Payment_Email</targetReference>
+        </connector>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Instalment_Plan__r.Opportunity__r.AccountId</elementReference>
+            </value>
+        </filters>
+    </recordLookups>
+
+    <recordUpdates>
+        <name>Flag_As_Default</name>
+        <label>Flag As Default</label>
+        <locationX>300</locationX>
+        <locationY>300</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Default</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Default_Alert_Sent__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Instalment__c</object>
+    </recordUpdates>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <object>Instalment__c</object>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Paid</stringValue>
+            </value>
+        </filters>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2026-10-15</startDate>
+            <startTime>06:30:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+        <connector>
+            <targetReference>Check_Late_Threshold</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+</Flow>

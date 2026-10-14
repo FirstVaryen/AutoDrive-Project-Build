@@ -2,7 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Guarantor_Income_Check_Before_Signoff</fullName>
     <active>true</active>
-    <description>Head of Finance cannot sign off a plan until its Guarantor's income check is complete (US-29).</description>
+    <description>Head of Finance cannot sign off a plan until its Guarantor&apos;s income check is complete (US-29).</description>
     <errorConditionFormula>AND(
     Head_of_Finance_Sign_off__c,
     NOT( Guarantor__r.Income_Check_Done__c )

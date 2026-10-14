@@ -2,7 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Arrival_Date__c</fullName>
     <description>Date this vehicle arrived at the showroom (v8 addition)</description>
-    <label>Arrival Date</label>
-    <type>Date</type>
+    <label>AM Arrival Date</label>
     <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
 </CustomField>

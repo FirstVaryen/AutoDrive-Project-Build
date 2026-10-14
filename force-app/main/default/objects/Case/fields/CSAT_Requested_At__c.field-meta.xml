@@ -2,7 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CSAT_Requested_At__c</fullName>
     <description>Timestamp the satisfaction survey request was sent</description>
-    <label>CSAT Requested At</label>
-    <type>DateTime</type>
+    <label>AM CSAT Requested At</label>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
 </CustomField>

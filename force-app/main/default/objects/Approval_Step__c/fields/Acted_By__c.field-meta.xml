@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Acted_By__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
     <description>User who recorded this decision</description>
-    <label>Acted By</label>
-    <type>Lookup</type>
+    <label>AM Acted By</label>
     <referenceTo>User</referenceTo>
     <relationshipLabel>Approval Steps Acted On</relationshipLabel>
     <relationshipName>Approval_Steps_Acted_On</relationshipName>
-    <deleteConstraint>SetNull</deleteConstraint>
     <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
 </CustomField>

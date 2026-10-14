@@ -1,6 +1,78 @@
 # Discovery Log
 
-Things learned/decided during the metadata-driven build, logged on request so the reasoning isn't lost. Append-only — newest at the bottom.
+Things learned/decided during the metadata-driven build, logged on request so the reasoning isn't lost. The narrative entries below are append-only — newest at the bottom. The inventory immediately below is the one exception: a live summary table, re-counted and overwritten each time it's refreshed (last done 2026-10-13), not appended to.
+
+---
+
+## Build Inventory (as of 2026-10-13)
+
+Counts below are from the deployed org (`autodrive-dev`) and local `force-app` source, not from the plan — this is what's actually built, not what's scheduled.
+
+### Objects
+| Type | Count | Detail |
+|---|---|---|
+| Custom objects | 14 | Showroom, Vehicle Model, Vehicle, Guarantor, Discount Request, Approval Step, Instalment Plan, Instalment, Payment, Reconciliation Entry, Import Request, Legal Escalation, Customer Message, Knowledge Article — all 14 from STAGE1_OBJECTS_SPEC.md |
+| Standard objects extended | 4 | Lead, Account, Opportunity, Case (field additions only — not recreated) |
+
+### Record Types
+| Object | Record Types |
+|---|---|
+| Account | Individual, Fleet-Corporate |
+| Vehicle | New, Used |
+
+2 objects, 4 record types total.
+
+### Relationships
+6 Master-Detail + 21 Lookup = **27 relationship fields** (see the 2026-10-13 "Full relationship list" entry below for the complete field-by-field breakdown and reasoning per field).
+
+### Validation Rules — 7 built
+| Object | Rules |
+|---|---|
+| Instalment Plan | Down_Payment_Min_30_Percent, Term_Cap_12_Months, Renegotiation_Term_Cap, Guarantor_Income_Check_Before_Signoff |
+| Discount Request | No_Discount_Individual_Instalment |
+| Vehicle | Per_Model_Stock_Limit_50, Showroom_Capacity_Not_Exceeded (inert until the Stage 8 Vehicle Count Flow exists) |
+
+### Sharing & Security
+| Item | Count | Detail |
+|---|---|---|
+| Permission Sets | 9 | 8 Security-Matrix role sets (Sales Rep, Showroom Manager, Head of Finance, Finance Team, Customer Service Agent, Head of Customer Service, Legal Team, Management) + 1 `Mute_Finance_Amount_Fields` (field-hiding attempt — not a true Muting Permission Set, see its own log entry) |
+| Sharing Rules | 6 | Reconciliation Entry (1, Finance Team Edit), Guarantor (2, Finance Team Edit on both Income-Check-True/False), Legal Escalation (1, Finance Team Edit), Import Request (2, Finance Team + Showroom Manager Edit) |
+| Public Groups | 3 | Showroom_Managers, Finance_Team, Head_Office_Approvers (Head_Office_Approvers unused pending Apex Managed Sharing) |
+| OWD corrections | 7 custom + 5 standard | Custom: Showroom/Vehicle Model/Knowledge Article → Public Read Only; Guarantor/Reconciliation Entry/Import Request/Customer Message → Private. Standard: Opportunity/Lead/Account/Case/Contact all confirmed Private |
+| Sharing Rules blocked | 4 objects | Discount Request, Instalment Plan, Instalment, Payment — all `ControlledByParent` (Master-Detail), hard Salesforce wall; Apex Managed Sharing planned (Stage 9) instead |
+
+### Automation
+| Type | Count | Detail |
+|---|---|---|
+| Approval Processes | 1 | Discount Approval (3 steps: Showroom Manager → Finance → Head Office), **Active** |
+| Workflow Field Updates | 4 | Set_Step_With_Finance, Set_Step_With_Head_Office, Set_Step_Approved, Set_Step_Rejected (all on Discount Request, feed the Approval Process steps) |
+| Flows | 1 of ~14 planned | Opportunity Sale Close (Stage 3, US-01) — Active, Autolaunched, sets Vehicle.Status = Sold. The other 13 planned Stage 8 flows are not yet built |
+| Email Templates | 1 | Discount Approval Assignment — fires to the current approver automatically on each step change |
+| Email Folders | 1 | AutoDrive Templates |
+
+### Org Foundation
+| Item | Count | Detail |
+|---|---|---|
+| Roles | 8 | Showroom Manager, Sales Rep, Finance Team Member, Head of Finance, Head of Customer Service, AutoDrive Customer Service Agent (renamed after a naming collision), Legal Team, Management — all under the CEO role |
+| Queues | 2 | Customer Service (on Case), Legal Escalation Recipient (on Legal Escalation) |
+| Test Users | 8 | One per role, Standard User profile, matching Permission Set — see the 2026-10-13 "Stage 7" entry for the full table of usernames |
+| Page Layouts | 18 | All 14 custom objects rebuilt from scratch (fields don't auto-add via Metadata API deploy); Account/Opportunity/Case/Lead got a new "AutoDrive [Object] Details" section inserted into their existing layouts |
+
+### Known gaps / deferred to Stage 9 (code exceptions)
+1. VIN lookup — Apex class + LWC
+2. Agentforce single-action agent — inventory count by model
+3. Gmail-to-record logging — connector/connected app
+4. Low-stock blinking indicator — LWC (declarative colour-coded formula field as fallback)
+5. No-sale-to-unconverted-Lead — Apex or Flow-maintained tracking field (no native field exists to traverse)
+6. Apex Managed Sharing — for Discount Request routing + the 4 Master-Detail Finance objects blocked from native Sharing Rules
+
+### Other known gaps (not Stage 9 code, just not built yet)
+- `Step_Reached_At__c` never stamped — no SLA clock start exists
+- SLA reminder mechanism (1/1/2 business days) not built
+- True delegate approval coverage — needs a second user per role; currently 1:1
+- Muting Permission Sets for Locked Fields (hide Opportunity/Instalment amount fields from CS Agent/Head of CS) — needs manual Setup UI build, not deployable as found
+- Stage 0 Org-Wide Defaults — now fully correct, but was skipped initially and caught retroactively (see its own entry)
+- Discount invalidation on payment-mode switch (Q-O09, KAN-92) — new Stage 4-labeled scope, actually a Flow, not built
 
 ---
 
@@ -148,6 +220,25 @@ Attempted Sharing Rules for Discount Request's "requester + current approver onl
 
 **Decided (Hillary's call): Apex Managed Sharing**, added as Stage 9's 6th code exception, covering both the Discount Request routing and the Master-Detail Finance objects if that gap ever needs closing. Not built yet — documented in BUILD_PLAN.md.
 
+### 2026-10-13 — Discount Approval Process built and activated via Setup UI
+Resumed the item flagged above. Built the full 3-step Standard Wizard process in Setup (UI, not hand-authored metadata — confirmed that path is the only reliable one for this metadata type). Entry criteria: `Current_Step__c equals "With Showroom Manager"`. Record editability: Administrator OR current approver (not Admin-only — approvers need to edit the record while it's with them). Initial submitters: Opportunity Owner + Role:Sales Rep.
+
+Three steps, each "All records should enter this step" (filtering already happened via entry criteria + the previous step's field update), each assigned to a specific test User (not Role — the native UI's "Automatically assign to approver(s)" only supports User/Queue/related-user-field, not Role directly; role-based routing would need "Next Automated Approver Determined By" wired to a hierarchy field, which we skipped), each with delegate approval enabled, each Reject Behavior = Final Rejection (a rejection at any stage kills the request outright, never bounces back a step):
+
+1. Showroom Manager Review → User:TestShowroom Manager → Approve: `Set_Step_With_Finance` / Reject: `Set_Step_Rejected`
+2. Finance Review → User:TestFinance Team → Approve: `Set_Step_With_Head_Office` / Reject: `Set_Step_Rejected`
+3. Head Office Review → User:TestHeadOf Finance → Approve: `Set_Step_Approved` / Reject: `Set_Step_Rejected`
+
+Activated. Retrieved into `force-app/main/default/approvalProcesses/`.
+
+**Delegated Approver chain set, then reverted (Hillary's call).** Initially set each approver's delegate to the next role up (TestShowroom Manager → TestFinance Team → TestHeadOf Finance → Test Management) via `sf data update record` on `User.DelegatedApproverId`, since there's no genuine peer per role to delegate to. On review, decided this blurs role boundaries too much (e.g. Finance effectively approving its own escalation) — reverted all 3 back to blank. **Replaced with an email notification to each assigned approver instead** (see below), which solves the original "approver doesn't know a request is waiting" problem without collapsing role separation. True delegate coverage stays a known gap until Stage 7 gets a genuine second user per role.
+
+**Approver notification built:** created `AutoDrive_Templates/Discount_Approval_Assignment` classic text email template (deployable, in `force-app/main/default/email/`), wired as the process's `emailTemplate` (Approval Assignment Email Template) — Salesforce fires this automatically to whichever user becomes the newly-assigned approver at each step, no Flow needed. One build error: `relatedEntityType` is only valid for Lightning/SFX custom templates, not classic text templates — removed it, deploy succeeded without it (the `{!Discount_Request__c.Field__c}` merge syntax in the body still resolves correctly without that tag).
+
+**Known gaps, not yet closed:**
+- **`Step_Reached_At__c` is never stamped** — none of the 4 field updates touch it, only `Current_Step__c`. The SLA reminder requirement (1/1/2 business days per step) can't be measured without it. Needs either a 5th field update per step (set `Step_Reached_At__c` = NOW(), added to each step's Approval Actions alongside the existing Current_Step__c update) or a small Flow. Not built yet — next piece of this story.
+- SLA reminders themselves (the actual "nudge the approver" mechanism) aren't built at all yet — that's the scheduled-check piece from BUILD_GUIDE_BY_STORY.md's step 3/4, still outstanding.
+
 **What WAS buildable and deployed**: the 4 standalone objects (Private OWD, not Master-Detail children) got real Sharing Rules — Finance Team now has Edit access org-wide on Reconciliation Entry, Guarantor, and Legal Escalation; Finance Team and Showroom Manager both have Edit access org-wide on Import Request. 3 Public Groups created: Showroom_Managers, Finance_Team, Head_Office_Approvers (Head_Office_Approvers currently unused pending the Apex sharing work, kept for when that's built).
 
 Two more build errors along the way:
@@ -195,6 +286,53 @@ Only one of our 8 roles actually collided by name with a pre-existing demo role 
 Stage 8 item #2. Built the 4 supporting Workflow Field Updates successfully (`Set_Step_With_Finance`, `Set_Step_With_Head_Office`, `Set_Step_Approved`, `Set_Step_Rejected` on Discount_Request__c — these deployed fine and still exist). The ApprovalProcess metadata itself failed 5 deploy attempts in a row on the same line — `<assignedApprover><approver><type>` rejected `role`, `Role`, and `roleSubordinates` alike, all under an enum literally named `NextOwnerType`, which doesn't match documented ApprovalStep behavior. Tried both field orderings inside `<approver>` too. Rather than keep guessing at an apparently-undocumented enum, stopped and removed the broken draft.
 
 Matches the original build guide's own wording: "use the dedicated Approval Process builder," which most likely means the Setup UI wizard, not hand-written XML — this is a known-awkward metadata type to author blind. Plan: build it in Setup → Approval Processes (UI), reusing the 4 field updates already deployed, then retrieve the result into the project the same way the pre-existing roles were pulled in. Not built yet.
+
+### 2026-10-13 — First presentation feedback processed into BUILD_PLAN.md (Stages 13, 16, 17)
+Reviewed the Oct 13 training session transcript (Meeting Transcription first presentation.pdf, group 3 presented 10:03–17:48). Three concrete, actionable items, all added to BUILD_PLAN.md rather than built immediately (explicit instruction: plan only for now):
+
+1. **Permission set pattern confirmed, not changed.** Obed Koplang's critique of the demoed permission sets (bundling every grant for a role into one set) matches Stage 13's already-planned atomic-CRUD-plus-group rework exactly — his own words describe the pattern almost verbatim. Also added a new finding to Stage 13: the 8 test users sit on Standard User profile, which undercuts a pure least-privilege rebuild — the profile itself should move to minimal-access too, not just the permission layer on top of it.
+2. **New: a plain-language, object-by-object data model explainer**, separate from the Stage 15 solution document. Shedrack Jatau's strongest feedback: the data model was presented too fast, with too little explanation of what each object is *for* in business terms — "containers where I can store my vehicle." This is the data model documentation the team was separately asked to produce. Logged as Stage 16.
+3. **New: persona-journey demo script**, logged as Stage 17 — Obed's feedback on *how* to present (one role's real journey end-to-end, logged in as that user, validation rules triggered live) rather than touring the org as System Administrator.
+
+Not logged as a build item, but worth remembering: Shedrack's broader point — never show the Salesforce back end to a non-technical audience; translate everything into "what business problem does this solve" — is a presentation discipline, not a Stage, but it should shape how Stage 16/17 get written and delivered.
+
+### 2026-10-14 — Stage 13 built: 52 atomic CRUD permission sets + 8 Permission Set Groups, from the access-intersection matrix
+Built the permission rework exactly as planned: started from a full matrix of all 8 roles × all 18 objects (derived from the 9 original role-based permission sets), then grouped by identical access level per object to find the atomic building blocks — e.g. `Vehicle_Read` is shared by 6 of 8 roles, so it's one permission set, not six copies of the same grant.
+
+**52 atomic permission sets built** (one object + one access tier each: Read / Create / Edit / Full), **8 Permission Set Groups** assembled from them (one per role), and all 8 test users reassigned from their old individual permission set to their new group.
+
+**Two new Salesforce platform constraints discovered while deploying** (same category as the Stage 5 findings — real rules, not design choices):
+1. **Account's Read permission requires Contact's Read permission in the same permission set** — not previously hit because the original 9 sets always granted both together without anyone checking whether it was required. Every `Account_*` atomic set now bundles the matching Contact grant.
+2. **`viewAllRecords` on a Master-Detail child requires `viewAllRecords` (not just `allowRead`) on its parent, in the same permission set.** Surfaced building `Discount_Request_Full`, `Instalment_Plan_Full`, `Payment_Full` — each needed to grant full View All on Opportunity too, not just Read. The plain-Read tiers (Read/Create/Edit, no View All) only needed ordinary Read bundling, same as the original Stage 5 Master-Detail-child-read-needs-parent-read rule.
+
+**Not yet done:**
+- The old 9 role-based permission sets are now unassigned from every user but still exist in the org — not deleted yet, per the original plan ("retire once groups are confirmed working," not immediately).
+- `Mute_Finance_Amount_Fields` (the Locked Fields / field-hiding gap) is untouched by this rework — still the same open gap logged on 2026-10-13: Muting Permission Sets aren't reliably deployable via Metadata API, needs to be finished manually in a Permission Set Group's own Setup UI.
+- Role-based Lightning Apps (Stage 14) still need building — the 8 groups exist now, but no app yet points its nav items at them.
+
+### 2026-10-14 — Stage 8 built: all 14 remaining Flows, hand-authored metadata (unlike Approval Process, this worked)
+Built every outstanding Stage 8 automation item in one pass: `Discount_Request_Stamp_Step`, `Payment_Balance_Update`, `Instalment_Reminder_3_Days`, `Instalment_Late_Notices`, `Case_Routing`, `Case_Escalation_1_Hour`, `Legal_Escalation_Raise`, `Instalment_Plan_Completion_Email`, `Vehicle_Model_Low_Stock_Alert`, `Case_Satisfaction_Request`, `Lead_Walkin_Assignment`, `Import_Request_Status_Progression`, `Import_Request_Notify_Rep`, `Opportunity_Vehicle_Change_Refund` — 14 Flow files, all deployed Active. Unlike the Approval Process (where hand-authored metadata failed outright and needed the Setup UI instead), Flow metadata authored by hand works fine — just has several real, repeatable gotchas worth recording so the next person doesn't rediscover them one deploy at a time:
+
+1. **Same-type child elements must be grouped together, not interleaved.** A `<recordLookups>` followed by a `<loops>` followed by another `<recordLookups>` fails with "Element X is duplicated at this location." All repeated element types (`assignments`, `decisions`, `loops`, `recordLookups`, `recordUpdates`, `screens`, etc.) must appear as contiguous blocks, in roughly alphabetical order at the top level: `actionCalls`, `assignments`, `choices`, `decisions`, `formulas`, `recordCreates`, `recordLookups`, `recordUpdates`, `screens`, `start`, `status`, `variables`.
+2. **This ordering rule also applies *inside* a `<screens>` element**, not just at the top level — a screen's own children (`allowBack`, `connector`, `fields`, `label`, `locationX`/`Y`, `name`, `showFooter`, `showHeader`) need the same alphabetical-ish grouping, though this one turned out not to be the actual cause of the error it looked like it was causing (see #4).
+3. **Canvas coordinates must be positive** — a negative `locationX` fails with "outside the canvas limits."
+4. **Screen input field values are referenced by their own bare name, not `ScreenName.FieldName`** — unlike `recordLookups` output (which genuinely does use `LookupName.FieldName`), a Screen's own input fields are flat flow resources. `Confirm_Gates_Screen.Gate_Guarantor_Unable` fails with "invalid reference"; `Gate_Guarantor_Unable` alone works. This was the real fix for an error that looked like a screen-definition problem and wasted several attempts before the actual cause surfaced.
+5. **`recordLookups` needs either `queriedFields` + no automatic output, or `storeOutputAutomatically` + `getFirstRecordOnly`** — the two styles can't mix, and `storeOutputAutomatically` doesn't work alone; it requires `getFirstRecordOnly` set explicitly alongside it.
+6. **A `recordUpdates` can't be pointed at a whole relationship (`$Record.Opportunity__r`) to set one field** — that only works for passing the whole record through unchanged. To set one computed field, use the filter-by-Id + `inputAssignments` style instead (`object` + `filters` on Id + `inputAssignments` per field).
+7. **The `emailSimple` invocable action's recipient parameter is `emailAddresses` (plural), not `emailAddress`.**
+8. **Scheduled-Triggered Flows only support Daily/Weekly/Once frequency — there's no hourly option.** A true "N hours after record creation" requirement (the Case 1-hour escalation) needs a Record-Triggered Flow with a Scheduled Path (`offsetNumber`/`offsetUnit`/`timeSource` on the `start`), not a Scheduled-Triggered Flow with a daily batch re-checking elapsed time.
+9. **A Scheduled-Triggered Flow's `start` filters can't reference a formula or any other resource** — only literal values. Needed a Decision element after the start to do date-math comparisons (e.g. `Due_Date__c = TODAY() + 3`), with the start's own filter limited to a literal condition (`Status__c != 'Paid'`).
+10. **Date/Time field null-checks need the `IsNull` operator, not the `EqualTo false` trick** that works for lookup/reference fields — using `EqualTo false` against a Date/Time field fails with a type-compatibility error.
+
+**Known simplifications, not full-fidelity implementations:**
+- No SLA reminder/nag mechanism yet for the Discount Approval process — `Step_Reached_At__c` is stamped, nothing reads it to flag an overdue approver.
+- "Next free rep" assignment (`Lead_Walkin_Assignment`) has no workload/on-shift signal to work from — picks the first active Sales Rep role user, not genuinely load-balanced, since no such field was ever built on User.
+- `Opportunity_Vehicle_Change_Refund`: new vehicle is selected by typing its serial number (no lookup-style screen component), the refund gate is a simple confirmation checkbox rather than a routed approval, and the new sale price is the new vehicle's plain list price with no discount re-applied. for forced over-grants; one found, investigated, and deliberately left alone
+Hillary asked directly: does anyone have access to an object they shouldn't, or access forced on them by Master-Detail bundling? Checked every role's group against the intersection matrix. No role gained access to a genuinely forbidden object (`-` in the matrix) anywhere. One real forced grant found: **Head of Finance ends up with `viewAllRecords`/`modifyAllRecords` on Opportunity**, not the plain Read the matrix lists, because 5 of their atomic sets (`Discount_Request_Full`, `Approval_Step_Full`, `Instalment_Plan_Full`, `Instalment_Full`, `Payment_Full`) each have to bundle Opportunity with matching all-records flags — the same "viewAll on a Master-Detail child requires viewAll on its parent" rule discovered earlier, just at the Full tier this time.
+
+Pulled the full signed Security Matrix (§1, `AutoDrive_Design_Pack_Reconstructed.md`) to check whether this was a genuine bug. It isn't: Head of Finance's row is "RE"/"CRE" with no `(own)` qualifier on Discount Request/Approval Step/Instalment Plan/Instalment/Payment/Reconciliation/Guarantor/Legal Escalation — no `(own)` means org-wide, since Head of Finance has to approve and edit records submitted by other people (Sales Reps' discount requests, Finance Team's instalment plans), not just their own. Downgrading those 5 atomic sets from Full to Edit-tier (own-records-only) would have stopped Head of Finance editing anyone else's submitted record — breaking their actual approval job, not just reducing an over-grant.
+
+Confirmed via `grep` that only `Head_of_Finance_Group` references these 5 Full-tier sets — a downgrade would have been isolated to Head of Finance alone, no other role affected. Downgraded anyway was rejected: **decided (Hillary's call) to leave it as-is.** The Opportunity all-records grant is a correct, unavoidable consequence of Head of Finance's real org-wide edit/delete authority over its Master-Detail children, not a mistake — recorded here so it isn't mistaken for an unresolved bug later.
 
 ### 2026-10-13 — New Stage 4 scope added to BUILD_PLAN.md: discount invalidation on payment-mode switch
 BUILD_PLAN.md was updated externally (not by me) to add: if a Discount Request is already Approved while Payment Mode = Full Payment and the customer switches to Instalment, the approval must be invalidated and Finance must reassess separately (Q-O09, confirmed 2026-10-13, Jira KAN-92). This is explicitly called out as **a Flow, not a validation rule** — same story as US-25, so it belongs in Stage 8 even though the plan lists it under the Stage 4 heading. Not built yet; noting so Stage 4 isn't mistaken for fully closed.

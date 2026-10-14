@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>AutoDrive - Sales Rep</label>
+    <label>AM AutoDrive - Sales Rep</label>
     <description>Security Matrix row: Sales Rep. Own Leads/Opportunities/Accounts via OWD+ownership; can request discounts and raise Import Requests but not approve/edit after submit; no Finance-object access at all.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <objectPermissions>

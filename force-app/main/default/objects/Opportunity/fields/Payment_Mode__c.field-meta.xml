@@ -2,14 +2,24 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Payment_Mode__c</fullName>
     <description>Whether this sale is full payment or instalment</description>
-    <label>Payment Mode</label>
+    <label>AM Payment Mode</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
-            <value><fullName>Full Payment</fullName><default>true</default><label>Full Payment</label></value>
-            <value><fullName>Instalment</fullName><default>false</default><label>Instalment</label></value>
+            <value>
+                <fullName>Full Payment</fullName>
+                <default>true</default>
+                <label>Full Payment</label>
+            </value>
+            <value>
+                <fullName>Instalment</fullName>
+                <default>false</default>
+                <label>Instalment</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

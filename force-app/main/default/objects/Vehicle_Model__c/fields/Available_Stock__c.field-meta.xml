@@ -2,13 +2,14 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Available_Stock__c</fullName>
     <description>Count of child Vehicles currently Available for sale</description>
-    <label>Available Stock</label>
-    <type>Summary</type>
-    <summaryForeignKey>Vehicle__c.Model__c</summaryForeignKey>
-    <summaryOperation>count</summaryOperation>
+    <label>AM Available Stock</label>
     <summaryFilterItems>
         <field>Vehicle__c.Status__c</field>
         <operation>equals</operation>
         <value>Available</value>
     </summaryFilterItems>
+    <summaryForeignKey>Vehicle__c.Model__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
 </CustomField>

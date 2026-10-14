@@ -2,7 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_Confirmed_On__c</fullName>
     <description>Date the customer confirmed</description>
-    <label>Customer Confirmed On</label>
-    <type>Date</type>
+    <label>AM Customer Confirmed On</label>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
 </CustomField>

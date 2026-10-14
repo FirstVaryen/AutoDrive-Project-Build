@@ -2,16 +2,35 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Channel__c</fullName>
     <description>Where this lead came from</description>
-    <label>Channel</label>
+    <label>AM Channel</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
-            <value><fullName>Instagram</fullName><default>false</default><label>Instagram</label></value>
-            <value><fullName>Walk-in</fullName><default>true</default><label>Walk-in</label></value>
-            <value><fullName>Web</fullName><default>false</default><label>Web</label></value>
-            <value><fullName>Returning/High-profile</fullName><default>false</default><label>Returning/High-profile</label></value>
+            <value>
+                <fullName>Instagram</fullName>
+                <default>false</default>
+                <label>Instagram</label>
+            </value>
+            <value>
+                <fullName>Walk-in</fullName>
+                <default>true</default>
+                <label>Walk-in</label>
+            </value>
+            <value>
+                <fullName>Web</fullName>
+                <default>false</default>
+                <label>Web</label>
+            </value>
+            <value>
+                <fullName>Returning/High-profile</fullName>
+                <default>false</default>
+                <label>Returning/High-profile</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

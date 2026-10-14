@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>AutoDrive - Head of Finance</label>
+    <label>AM AutoDrive - Head of Finance</label>
     <description>Security Matrix row: Head of Finance (Obed), corrected 2026-10-13 to include Delete on objects it edits org-wide - heads need to fix erroneous records, not just edit/read them. See DISCOVERY_LOG.md.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <objectPermissions>
