@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Import_Request__c</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>AutoDrive: Import Requests, for role dashboards.</description>
+    <label>AD Import Requests</label>
+    <sections>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Name</field>
+            <table>Import_Request__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>Import_Request__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Account__c</field>
+            <table>Import_Request__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Vehicle_Model__c</field>
+            <table>Import_Request__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Status__c</field>
+            <table>Import_Request__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Expected_Arrival__c</field>
+            <table>Import_Request__c</table>
+        </columns>
+        <masterLabel>Import Requests</masterLabel>
+    </sections>
+</ReportType>
