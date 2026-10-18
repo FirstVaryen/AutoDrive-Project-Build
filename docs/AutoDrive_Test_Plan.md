@@ -4,10 +4,10 @@
 
 ## How to run it
 1. **Log in as the role, never as System Administrator.** Setup → Users → Users → **Login** next to the test user. Log out from the banner when done.
-2. Work through that role's table top to bottom. The discount approval case (TC-S5 → TC-M1 → TC-F1 → TC-H1) passes between roles, so keep the role order below.
+2. Work through that role's table top to bottom. The discount approval (TC-S11 → TC-M1 → TC-F1 → TC-H1 → back to TC-S13) passes between roles, so keep the role order below.
 3. Fill in **Result** (Pass / Fail / Blocked) and **Notes**. For every Fail, add a line to the **Defect log** at the end with what you did, what you expected, what happened, and a screenshot.
 4. Lists start on "Recently Viewed". Switch to **All …** to find records.
-5. Tests change real records. If a case needs re-running on fresh data, ask for a reset.
+5. Tests change real records. To re-run, make fresh records first (see the Sales Rep section): `scripts/apex/fresh_sales_test_records.apex`.
 
 | Role | Test user | Name shown |
 |---|---|---|
@@ -32,30 +32,68 @@
 | TC-A5 | Delete | No **Delete** on vehicles or showroom | | |
 
 ## 2. Sales Rep
+
+### Before each run: make fresh records
+Closed sales are locked for everyone, so a test that closes a sale can't be undone. Before each run (or any re-run), create a new set of test records:
+```
+sf apex run -o autodrive-dev -f scripts/apex/fresh_sales_test_records.apex
+```
+It prints a stamp, e.g. `AD Rerun 1018-0943`. Below, **`<stamp>`** means that stamp. Each run creates, owned by TestSales Rep:
+| Record | Used by |
+|---|---|
+| **AD Rerun `<stamp>` Sale 1 (open)**: Full Payment, at Offer, customer came from a Lead | TC-S9, TC-S10, TC-S14, TC-S15 |
+| **AD Rerun `<stamp>` Sale 2 (discount approved)**: Full Payment, 7.5% discount already approved by all three approvers | TC-S12, TC-S16 |
+| **AD Rerun `<stamp>` Sale 3 (no Lead)**: account never came from a Lead | TC-S11, TC-S13 |
+| **AD Rerun `<stamp>` Lead**: open lead at New | TC-S7, TC-S8 |
+
+Run the tests in the order listed. Each one says which record it uses.
+
+### Navigation and dashboard
 | ID | Steps | Expected | Jira | Result | Notes |
 |---|---|---|---|---|---|
-| TC-S1 | Tabs | Leads, Accounts, Contacts, Opportunities, Vehicles, Vehicle Models, Showrooms, Discount Requests, Import Requests, Guarantors, Cases, Customer Messages, Knowledge Articles, Reports, Dashboards. **No** Instalment Plans, Payments, Reconciliation | KAN-48 | | |
-| TC-S2 | Vehicle Models → AD Test - Honda CR-V | Stock panel **blinks red** (2 / 5). Toyota Corolla shows **green** | KAN-23 | | |
-| TC-S3 | Opportunities → AD Test Sale - Direct (no Lead) → Stage Closed Won → Save | **Blocked**: "This sale can't be closed: the customer didn't come from a converted Lead…" | — | | |
-| TC-S4 | AD Test Sale - Adaeze Okafor → Closed Won → Save; open her car (Corolla #1) | Saves; car Status = **Sold** | KAN-41 | | |
-| TC-S5 | AD Test Sale - Kano Logistics Ltd → Discount Requests → DR-0003 → **Submit for Approval** | Submitted; Current Step **With Showroom Manager** | KAN-43 | | |
-| TC-S6a | On an open sale (Kano), click the **AM Vehicle** field and search "Corolla #1" (sold) | Not offered; only available/reserved cars appear | KAN-41 | | |
-| TC-S6b | Out of stock: on an open sale, search vehicles for **Land Cruiser** (model AD Test - Toyota Land Cruiser has no cars) | **No vehicles found** → rep raises an **Import Request** for that model instead | KAN-41, KAN-38 | | |
-| TC-S7 | Leads → New → Channel **Walk-in**, Customer Type Individual, Visit Purpose Purchase + Vehicle of Interest, phone → Save. Repeat with **Returning or High-profile** ticked (AutoDrive Lead Details section) | First: owner = next free rep. Second: owner = Showroom Manager | KAN-34 | | |
-| TC-S7b | New lead with **no phone and no email** | **Blocked**: "Add the customer's phone number or email address…" | — | | |
-| TC-S7c | New lead, Visit Purpose **Purchase**, no Vehicle of Interest | **Blocked**: asks for the Vehicle of Interest | — | | |
-| TC-S7d | New **Individual** lead, type anything in Company (e.g. "Self") → Save | Company becomes the person's full name | — | | |
-| TC-S11 | Open a **Closed Won** sale (Bola Adeyemi) → change Stage, Close Date or Amount → Save | **Blocked**: "This sale is closed and can't be changed. If the customer wants something different, create a new sale…" | — | | |
-| TC-S12 | Open sale → create a Discount Request (Requested Discount + Reason only) → Save; then try to move the sale's Stage | Request saved and **automatically submitted** (Requested By and Step filled in). Stage change **blocked** until the request is decided | KAN-43 | | |
-| TC-S13 | Vehicle Models → any model → **All Vehicle Models** button on the Stock Level panel | Returns to the full model list; the model page lists its Vehicles | — | | |
-| TC-S8 | Create a discount on an **individual instalment** sale (Chinedu Eze) | **Blocked**: discounts not permitted on instalment deals for individuals | KAN-75 | | |
-| TC-S9 | **AD Test Sale - Bola Adeyemi (2nd car)** (open, Full Payment, discount Approved through the real approval chain) → Payment Mode **Instalment** → Save | Discount becomes **Invalidated**; Finance emailed. *(Confirms KAN-92 works for a rep on a locked, approved request.)* | KAN-92 | | |
-| TC-S10 | Vehicles → New | **No New button** (reps view stock only) | — | | |
+| TC-S1 | Look at the tab bar | Home, Leads, Accounts, Contacts, Opportunities, AM Vehicles, AM Vehicle Models, AM Discount Requests, AM Import Requests, Reports, Dashboards. **No** Showrooms, Guarantors, Cases, Customer Messages, Knowledge, Instalment Plans, Payments, Reconciliation | KAN-48 | | |
+| TC-S2 | Home page dashboard | Four tiles, no errors: Leads by Status, Leads by Channel, Deals in Pipeline by Stage, Deals Won This Month | KAN-69 | | |
+| TC-S3 | Opportunities → list view picker | **AutoDrive - Open Deals**, **AutoDrive - Closed Won**, **AutoDrive - Closed Lost** exist; closed sales only appear in the closed lists. *(Tip: pin Open Deals with the pin icon so it opens by default.)* | — | | |
+
+### Stock
+| ID | Steps | Expected | Jira | Result | Notes |
+|---|---|---|---|---|---|
+| TC-S4 | AM Vehicle Models → **AD Test - Honda CR-V** | Stock Level panel **blinks red**; **AD Test - Toyota Corolla** shows green; the model page lists its Vehicles | KAN-23 | | |
+| TC-S5 | On any model page click **All Vehicle Models** (Stock Level panel) | Returns to the full model list | — | | |
+| TC-S6 | AM Vehicles → New | **No New button** (reps view stock only) | — | | |
+
+### Leads
+| ID | Steps | Expected | Jira | Result | Notes |
+|---|---|---|---|---|---|
+| TC-S7a | Leads → New → name, Customer Type Individual, **no phone, no email** → Save | **Blocked**: "Add the customer's phone number or email address…" | — | | |
+| TC-S7b | Leads → New → Phone **+2348010000001** (an existing customer) → Save | Warning banner: "This phone number or email already belongs to someone in AutoDrive…" with a link to the match; Save still possible | — | | |
+| TC-S7c | Leads → New → new phone, Channel **Walk-in**, Customer Type Individual → Save. Repeat with **Returning or High-profile** ticked (AutoDrive Lead Details) | First: owner = next free rep. Second: owner = Showroom Manager | KAN-34 | | |
+| TC-S8a | Open **AD Rerun `<stamp>` Lead** → clear Vehicle of Interest → set Status **Qualified** → Save | **Blocked**: "Before this lead can be Qualified, confirm the Visit Purpose … and the Vehicle of Interest." | — | | |
+| TC-S8b | Same lead → choose a Vehicle of Interest → Status **Qualified** → Save → **Convert** | Converts; the new sale starts at **Viewing / Test Drive**; statuses offered were only New, Contacted, Qualified, Unqualified | — | | |
+
+### Discounts
+| ID | Steps | Expected | Jira | Result | Notes |
+|---|---|---|---|---|---|
+| TC-S9 | **Sale 1** → Discount Requests → New → Discount Rate **4%**, Reason → Save | Saved as **Approved**, **Auto-approved** ticked, Approved On filled; no approval needed. Requested By and Step filled automatically and read-only | KAN-43 | | |
+| TC-S10 | **Sale 1** → Discount Requests → New → leave Discount Rate empty → Save | **Blocked**: "Choose a Discount Rate…" | — | | |
+| TC-S11 | **Sale 3** → Discount Requests → New → Discount Rate **10%** → Save; then try to change Sale 3's Stage | Request goes to **With Showroom Manager** (submitted automatically). Stage change **blocked**: "This sale has a discount request waiting for approval…". *(This request is the one Showroom Manager, Finance and Head of Finance approve in TC-M1, TC-F1, TC-H1.)* | KAN-45 | | |
+| TC-S12 | **Sale 2** → Discount Requests list (right-hand side) | Shows Requested %, Step **Approved**, **Approved By**, **Approved On** | — | | |
+| TC-S13 | **Sale 3** (no Lead) → after TC-H1 approves its discount, set Stage **Closed Won** → Save | **Blocked**: "This sale can't be closed: the customer didn't come from a converted Lead…" | — | | |
+| TC-S14 | **Sale 1** → Payment Mode **Instalment** → Save → Discount Requests → New → 2% | **Blocked**: discounts aren't allowed on instalment deals for individual customers (US-25). Set Payment Mode back to Full Payment afterwards | KAN-75 | | |
+
+### Closing and locking
+| ID | Steps | Expected | Jira | Result | Notes |
+|---|---|---|---|---|---|
+| TC-S15 | **Sale 1** → Stage **Closed Won** → Save; open its vehicle | Saves; Close Date = today; vehicle Status **Sold**. Then change Stage / Close Date / Amount → **blocked**: "This sale is closed and can't be changed…" | KAN-41 | | |
+| TC-S16 | **Sale 2** → Payment Mode **Instalment** → Save | Its approved discount becomes **Invalidated**; Finance emailed | KAN-92 | | |
+| TC-S17 | **Sale 2** (now Instalment) → Stage **Closed Won** | **Blocked**: "An instalment sale can only be closed once Finance has recorded the down payment and the Head of Finance has signed off the instalment plan…" | — | | |
+| TC-S18 | Any open sale → click the AM Vehicle field → search a sold car (e.g. **Corolla #1**) | Not offered; only available/reserved cars | KAN-41 | | |
+| TC-S19 | Any open sale → AM Vehicle → search **Land Cruiser** | **No vehicles** (model out of stock) → Import Requests → New for **AD Test - Toyota Land Cruiser** saves | KAN-38 | | |
 
 ## 3. Showroom Manager
 | ID | Steps | Expected | Jira | Result | Notes |
 |---|---|---|---|---|---|
-| TC-M1 | Home → Items to Approve → Kano discount → **Approve** | Step → **With Finance**; Step Reached At updates | KAN-45 | | |
+| TC-M1 | Home → Items to Approve → the **10% request on AD Rerun `<stamp>` Sale 3** (from TC-S11) → **Approve** | Step → **With Finance**; Step Reached At updates | KAN-45 | | |
 | TC-M2 | Vehicles → New → a Camry → Save | Only **New** record type (no New/Used choice); Showroom fills in as Lagos Main | — | | |
 | TC-M3 | Open AD Test - Lagos Main → Capacity = current Vehicle Count → Save → add a vehicle | **Blocked**: "The showroom is full…". Set Capacity back to 25 | — | | |
 | TC-M4 | Opportunities → All | Sees all of the team's sales | KAN-95 | | |
@@ -65,7 +103,7 @@
 ## 4. Finance Team
 | ID | Steps | Expected | Jira | Result | Notes |
 |---|---|---|---|---|---|
-| TC-F1 | Items to Approve → Kano discount → **Approve** | Step → **With Head Office** | KAN-45 | | |
+| TC-F1 | Items to Approve → the Sale 3 discount → **Approve** | Step → **With Head Office** | KAN-45 | | |
 | TC-F2 | Open any Discount Request | View only, **no Edit** | KAN-44 | | |
 | TC-F3 | Chinedu Eze's sale → Payments → New: Instalment = the **Late** one, 2,625,000, Bank Transfer | Instalment Amount Paid = 2,625,000; sale Total Paid rises by 2,625,000; Balance falls | KAN-32 | | |
 | TC-F4 | Chinedu's Instalment Plan → Term **18** → Save | **Blocked** (12-month cap) | KAN-33 | | |
@@ -77,7 +115,7 @@
 ## 5. Head of Finance
 | ID | Steps | Expected | Jira | Result | Notes |
 |---|---|---|---|---|---|
-| TC-H1 | Items to Approve → Kano discount → **Approve** | Step → **Approved** | KAN-45 | | |
+| TC-H1 | Items to Approve → the Sale 3 discount → **Approve** | Step → **Approved** | KAN-45 | | |
 | TC-H2 | Chinedu's Instalment Plan → tick **Head of Finance Sign-off** → Save | Saves (guarantor income checked) | KAN-33 | | |
 | TC-H3 | Kano sale → Instalment Plans → New: Guarantor Ngozi Eze, Down 20%, Term 12, **sign-off unticked** | **Blocked** (30% minimum) | KAN-26 | | |
 | TC-H4 | Same as TC-H3 with sign-off **ticked** | Saves (fleet exception) | KAN-26 | | |
