@@ -65,4 +65,9 @@
         <field>Instalment_Plan__c.Term_in_Months__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Instalment_Plan__c.Ownership_Documents_Status_Changed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
 </PermissionSet>
