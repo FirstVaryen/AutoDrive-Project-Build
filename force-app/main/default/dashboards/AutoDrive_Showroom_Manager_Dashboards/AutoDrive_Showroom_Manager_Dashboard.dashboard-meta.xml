@@ -11,15 +11,14 @@
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
                 <chartAxisRange>Auto</chartAxisRange>
                 <chartSummary>
-                    <aggregate>Sum</aggregate>
                     <axisBinding>y</axisBinding>
-                    <column>AMOUNT</column>
+                    <column>RowCount</column>
                 </chartSummary>
                 <componentType>Bar</componentType>
                 <displayUnits>Auto</displayUnits>
                 <groupingColumn>STAGE_NAME</groupingColumn>
                 <groupingSortProperties/>
-                <header>Open Sales by Stage</header>
+                <header>Deals in Pipeline by Stage</header>
                 <report>AutoDrive_Reports/AD_Open_Sales_by_Stage</report>
                 <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>

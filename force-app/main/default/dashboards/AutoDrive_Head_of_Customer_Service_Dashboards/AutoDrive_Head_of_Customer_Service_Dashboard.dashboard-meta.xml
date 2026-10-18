@@ -39,9 +39,9 @@
                 </chartSummary>
                 <componentType>Donut</componentType>
                 <displayUnits>Auto</displayUnits>
-                <groupingColumn>TYPE</groupingColumn>
+                <groupingColumn>Case.Routed_To__c</groupingColumn>
                 <groupingSortProperties/>
-                <header>Open Cases by Type</header>
+                <header>Open Cases by Team</header>
                 <legendPosition>Right</legendPosition>
                 <report>AutoDrive_Reports/AD_Open_Cases_by_Type</report>
                 <showPercentage>true</showPercentage>

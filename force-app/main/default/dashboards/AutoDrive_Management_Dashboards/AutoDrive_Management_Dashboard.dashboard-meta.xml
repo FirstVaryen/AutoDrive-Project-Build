@@ -10,14 +10,13 @@
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
                 <chartSummary>
-                    <aggregate>Sum</aggregate>
                     <axisBinding>y</axisBinding>
-                    <column>AMOUNT</column>
+                    <column>RowCount</column>
                 </chartSummary>
                 <componentType>Metric</componentType>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Sales Won This Month</header>
+                <header>Deals Won This Month</header>
                 <indicatorHighColor>#54C254</indicatorHighColor>
                 <indicatorLowColor>#C25454</indicatorLowColor>
                 <indicatorMiddleColor>#C2C254</indicatorMiddleColor>
@@ -80,15 +79,14 @@
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
                 <chartAxisRange>Auto</chartAxisRange>
                 <chartSummary>
-                    <aggregate>Sum</aggregate>
                     <axisBinding>y</axisBinding>
-                    <column>AMOUNT</column>
+                    <column>RowCount</column>
                 </chartSummary>
                 <componentType>Bar</componentType>
                 <displayUnits>Auto</displayUnits>
                 <groupingColumn>STAGE_NAME</groupingColumn>
                 <groupingSortProperties/>
-                <header>Open Sales by Stage</header>
+                <header>Deals in Pipeline by Stage</header>
                 <report>AutoDrive_Reports/AD_Open_Sales_by_Stage</report>
                 <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>
