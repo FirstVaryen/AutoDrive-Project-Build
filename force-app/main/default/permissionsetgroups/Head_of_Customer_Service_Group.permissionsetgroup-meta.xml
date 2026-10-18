@@ -6,7 +6,6 @@
     <permissionSets>Contact_Read</permissionSets>
     <permissionSets>Vehicle_Read</permissionSets>
     <permissionSets>Vehicle_Model_Read</permissionSets>
-    <permissionSets>Showroom_Read</permissionSets>
     <permissionSets>Opportunity_Read</permissionSets>
     <permissionSets>Instalment_Plan_Read</permissionSets>
     <permissionSets>Case_Full</permissionSets>
@@ -17,5 +16,4 @@
     <permissionSets>Instalment_Plan_Tab</permissionSets>
     <permissionSets>Vehicle_Tab</permissionSets>
     <permissionSets>Vehicle_Model_Tab</permissionSets>
-    <permissionSets>Showroom_Tab</permissionSets>
 </PermissionSetGroup>

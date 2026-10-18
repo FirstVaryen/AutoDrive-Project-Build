@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Atomic: read instalment plan amounts. Locked fields per NFR-01/Q-O13: Finance and Management only (agents see the plan exists, not the amounts).</description>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Instalment_Plan__c.Down_Payment_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Instalment_Plan__c.Down_Payment_Percent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>AM Instalment Plan - Amounts Read</label>
+</PermissionSet>

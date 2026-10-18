@@ -32,16 +32,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Instalment_Plan__c.Down_Payment_Amount__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Instalment_Plan__c.Down_Payment_Percent__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Instalment_Plan__c.Head_of_Finance_Sign_off__c</field>
         <readable>true</readable>
     </fieldPermissions>

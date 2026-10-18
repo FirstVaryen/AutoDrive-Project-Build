@@ -30,4 +30,6 @@
     <permissionSets>Reconciliation_Entry_Tab</permissionSets>
     <permissionSets>Legal_Escalation_Tab</permissionSets>
     <permissionSets>Import_Request_Tab</permissionSets>
+    <permissionSets>Opportunity_Prices_Read</permissionSets>
+    <permissionSets>Instalment_Plan_Amounts_Read</permissionSets>
 </PermissionSetGroup>
