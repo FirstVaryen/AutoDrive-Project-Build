@@ -11,14 +11,7 @@
         <object>Discount_Request__c</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordBeforeSave</triggerType>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Current_Step__c</field>
-            <operator>IsChanged</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </filters>
+        <filterFormula>OR(ISNEW(), ISCHANGED({!$Record.Current_Step__c}))</filterFormula>
         <connector>
             <targetReference>Set_Timestamp</targetReference>
         </connector>
