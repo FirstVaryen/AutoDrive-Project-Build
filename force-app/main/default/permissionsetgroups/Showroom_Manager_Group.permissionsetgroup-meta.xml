@@ -20,4 +20,5 @@
     <permissionSets>Import_Request_Tab</permissionSets>
     <permissionSets>Case_Edit</permissionSets>
     <permissionSets>Opportunity_Prices_Edit</permissionSets>
+    <permissionSets>Sale_Vehicle_Edit</permissionSets>
 </PermissionSetGroup>

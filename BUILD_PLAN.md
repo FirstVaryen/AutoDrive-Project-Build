@@ -273,3 +273,27 @@ Hillary asked for every access decision to be checked against the Security Matri
 - **Security Matrix rebuilt from the v8 user stories** in `TAP 3.0/AutoDrive_Design_Pack_Reconstructed.md` §1 (every cell cites its story; old matrix kept collapsed). Differences from the build listed there; not yet applied: Showroom Manager and Finance need Case edit (US-06 routing), Finance needs Import Request edit (US-38), several no-story reads to remove, Sales Rep sees locked Opportunity price fields (§2). Front Desk / Social Media roles (US-30/31) not modelled.
 - **Bug fixed:** lead conversion created the sale at *Closed Won* (new stages were appended after Closed Won; conversion takes the first stage). Stage list reordered; Viewing / Test Drive is first and the default; the stage path now shows in the right order.
 - `scripts/apex/fresh_sales_test_records.apex`: makes a fresh, stamped set of Sales Rep test records for each test run (closed sales can't be reset). Test plan §2 rewritten around it.
+
+## EDITED 2026-10-18: build brought in line with the user-story Security Matrix
+Source: `TAP 3.0/AutoDrive_Design_Pack_Reconstructed.md` §1, rebuilt from the v8 user stories. Changes made to the build:
+| Change | Role(s) | Story |
+|---|---|---|
+| **Edited:** Case access Read → Read + Edit; Case sharing rule `Cases_Routed_To_Showroom` (Edit) | Showroom Manager | US-06 |
+| **Added:** Case Read + Edit, Case tab; Case sharing rule `Cases_Routed_To_Finance` (Edit; Head of Finance via hierarchy) | Finance Team | US-06 |
+| **Edited:** Import Request Read → Read + Edit (Finance confirms the import) | Finance Team | US-38 |
+| **Added:** Front Desk Staff and Social Media Handler roles, profiles (Leads only) and groups (`Lead_Create` / `Lead_Edit` + Vehicle Model read). Test users not yet created | new | US-30, US-31 |
+| **Edited:** price fields locked. New atomic sets `Opportunity_Prices_Read/Edit` and `Instalment_Plan_Amounts_Read/Edit`; price and amount fields removed from the general Opportunity and Instalment Plan sets; standard Amount hidden on Sales Rep, Customer Service and Legal profiles. **Also resolves KAN-49** without a Muting Permission Set | Sales Rep, CS Agent, Head of CS, Legal lose prices; Finance, Head of Finance, Showroom Manager edit; Management reads | Q-O13, NFR-01 |
+| **Edited:** `Opportunity_Vehicle_Change_Refund` runs in system mode (with sharing) so a rep can complete a vehicle change now that prices are hidden; refunds still need Head of Finance approval | Sales Rep | US-39 |
+| **Removed:** Guarantor, Knowledge, Customer Message read (and tabs) | Showroom Manager | no story |
+| **Removed:** Lead, Case, Customer Message, Knowledge read; Case tab | Head of Finance | no story |
+| **Removed:** Lead read | Finance Team | no story |
+| **Removed:** Showroom read and tab | CS Agent, Head of CS | no story |
+| **Removed:** Approval Step create | Sales Rep | no story |
+Verified per test user (field and object access) and on live cases (Finance can edit a payment case; Showroom Manager can edit a sales case).
+
+## EDITED 2026-10-18: fleet sales can hold several vehicles
+- New object **Sale Vehicle** (`Sale_Vehicle__c`, child of the sale): vehicle (only vehicles still for sale) and its sale price. **Fleet sales only** (`Fleet_Sales_Only`); locked once the sale closes (`Closed_Sale_Vehicles_Locked`).
+- Sale shows **Fleet Vehicles** (count) and **Fleet Vehicles Total**; "Fleet Vehicles" related list on the sale page.
+- `Opportunity_Fleet_Sale_Close`: closing a fleet sale Won marks every vehicle on it Sold.
+- One discount request per sale, so the 5% threshold applies to the whole fleet deal (Hillary, 2026-10-18). Individual sales keep the single AM Vehicle field.
+- Access: Sales Rep and Showroom Manager create/edit; Finance, Head of Finance, Management, Customer Service read. Tested: 2 Hiluxes on Lagos Ride Hailing (total 88,000,000), individual sale blocked, closing marks both Sold, adding after close blocked.

@@ -8,6 +8,9 @@
     <custom>true</custom>
     <description>AutoDrive Head of Finance minimal base profile. Login essentials, AutoDrive Motors as default app, layouts, record types only; all object/field/tab access comes from the Head of Finance Permission Set Group.</description>
     <layoutAssignments>
+        <layout>Sale_Vehicle__c-Sale Vehicle Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Lead-Lead Layout</layout>
         <recordType>Lead.AutoDrive_Lead</recordType>
     </layoutAssignments>

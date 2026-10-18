@@ -125,6 +125,8 @@
             <layoutItems><behavior>Edit</behavior><field>Vehicle__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Payment_Mode__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Pending_Discount_Requests__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Fleet_Vehicle_Count__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Fleet_Vehicles_Total__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Down_Payment_Received__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Signed_Off_Plans__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>List_Price__c</field></layoutItems>
@@ -192,6 +194,12 @@
         <fields>Approved_By__c</fields>
         <fields>Approved_On__c</fields>
         <relatedList>Discount_Request__c.Opportunity__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Vehicle__c</fields>
+        <fields>Sale_Price__c</fields>
+        <relatedList>Sale_Vehicle__c.Opportunity__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>

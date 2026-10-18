@@ -29,4 +29,5 @@
     <permissionSets>Vehicle_Tab</permissionSets>
     <permissionSets>Opportunity_Prices_Edit</permissionSets>
     <permissionSets>Instalment_Plan_Amounts_Edit</permissionSets>
+    <permissionSets>Sale_Vehicle_Read</permissionSets>
 </PermissionSetGroup>

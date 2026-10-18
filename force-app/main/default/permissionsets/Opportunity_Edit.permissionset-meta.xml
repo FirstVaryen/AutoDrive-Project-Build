@@ -13,6 +13,11 @@
     </objectPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.Fleet_Vehicle_Count__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.Signed_Off_Plans__c</field>
         <readable>true</readable>
     </fieldPermissions>

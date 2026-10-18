@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>One vehicle on a fleet sale. A fleet (Fleet/Corporate) order is one sale with several vehicles, so one discount request covers the whole deal (the 5% threshold applies to the deal, not per vehicle). Individual sales keep the single Vehicle field on the sale.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <label>AM Sale Vehicle</label>
+    <nameField>
+        <displayFormat>SV-{0000}</displayFormat>
+        <label>Sale Vehicle Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>AM Sale Vehicles</pluralLabel>
+    <searchLayouts></searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

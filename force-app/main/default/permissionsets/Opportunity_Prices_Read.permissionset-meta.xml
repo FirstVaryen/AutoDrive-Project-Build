@@ -3,6 +3,16 @@
     <description>Atomic: read the sale's price fields (list price, discount, sale price, paid, balance). Locked fields per Q-O13: Finance, Management, Showroom Manager only.</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.Fleet_Vehicles_Total__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Sale_Vehicle__c.Sale_Price__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.List_Price__c</field>
         <readable>true</readable>
     </fieldPermissions>
