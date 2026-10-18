@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>Finance_Team_Full_Access</fullName>
-        <label>Finance Team Read Access</label>
+        <fullName>All_Escalations_Read_Legal_Team</fullName>
+        <label>All Escalations - Read for Legal Team</label>
+        <description>US-36: the legal team must be able to open every escalation in the system. Escalations are owned by the Head of Finance who raised them, so Legal needs this rule to see them.</description>
         <accessLevel>Read</accessLevel>
         <criteriaItems>
             <field>Status__c</field>
             <operation>notEqual</operation>
             <value></value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
         <sharedTo>
-            <group>Finance_Team</group>
+            <role>Legal_Team</role>
+        </sharedTo>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>All_Escalations_Read_Management</fullName>
+        <label>All Escalations - Read for Management</label>
+        <description>ERD v2 security decision: Legal Escalation is a Finance and Management object; Management has view-only oversight of every escalation.</description>
+        <accessLevel>Read</accessLevel>
+        <criteriaItems>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+        <sharedTo>
+            <role>Management</role>
         </sharedTo>
     </sharingCriteriaRules>
 </SharingRules>
