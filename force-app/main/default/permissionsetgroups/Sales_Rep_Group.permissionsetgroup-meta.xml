@@ -9,7 +9,6 @@
     <permissionSets>Vehicle_Read</permissionSets>
     <permissionSets>Vehicle_Model_Read</permissionSets>
     <permissionSets>Discount_Request_Create</permissionSets>
-    <permissionSets>Approval_Step_Create</permissionSets>
     <permissionSets>Import_Request_Create</permissionSets>
     <permissionSets>Vehicle_Tab</permissionSets>
     <permissionSets>Vehicle_Model_Tab</permissionSets>

@@ -7,6 +7,16 @@
     </applicationVisibilities>
     <custom>true</custom>
     <description>AutoDrive Sales Rep minimal base profile. Login essentials, AutoDrive Motors as default app, layouts, record types only; all object/field/tab access comes from the Sales Rep Permission Set Group.</description>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Amount</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.ExpectedRevenue</field>
+        <readable>false</readable>
+    </fieldPermissions>
     <layoutAssignments>
         <layout>Lead-Lead Layout</layout>
         <recordType>Lead.AutoDrive_Lead</recordType>

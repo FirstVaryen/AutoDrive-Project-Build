@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Atomic: edit instalment plan amounts. Finance only (NFR-01/Q-O13).</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Instalment_Plan__c.Down_Payment_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Instalment_Plan__c.Down_Payment_Percent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>AM Instalment Plan - Amounts Edit</label>
+</PermissionSet>

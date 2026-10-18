@@ -5,6 +5,7 @@
     <interviewLabel>AM Vehicle Change Refund {!$Flow.CurrentDateTime}</interviewLabel>
     <label>AM Opportunity - Vehicle Change or Refund</label>
     <processType>Flow</processType>
+    <runInMode>SystemModeWithSharing</runInMode>
 
     <actionCalls>
         <name>Notify_Refund_Needs_Approval</name>

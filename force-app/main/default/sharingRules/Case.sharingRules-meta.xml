@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Cases_Routed_To_Finance</fullName>
+        <label>Cases Routed To Finance</label>
+        <description>US-06: payment cases routed to Finance can be seen and worked by the Finance Team (Head of Finance through the role hierarchy).</description>
+        <accessLevel>Edit</accessLevel>
+        <criteriaItems>
+            <field>Routed_To__c</field>
+            <operation>equals</operation>
+            <value>Finance</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+        <sharedTo>
+            <role>Finance_Team_Member</role>
+        </sharedTo>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Cases_Routed_To_Showroom</fullName>
+        <label>Cases Routed To Showroom</label>
+        <description>US-06: sales and vehicle cases routed to the Showroom Manager can be seen and worked by them.</description>
+        <accessLevel>Edit</accessLevel>
+        <criteriaItems>
+            <field>Routed_To__c</field>
+            <operation>equals</operation>
+            <value>Showroom Manager</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+        <sharedTo>
+            <role>Showroom_Manager</role>
+        </sharedTo>
+    </sharingCriteriaRules>
+</SharingRules>
