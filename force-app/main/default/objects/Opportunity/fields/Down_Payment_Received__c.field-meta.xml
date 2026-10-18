@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Down_Payment_Received__c</fullName>
+    <description>Total of Down Payment payments recorded by Finance on this sale. An instalment sale can only close Won once a down payment is received.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Down payment recorded by Finance on this sale.</inlineHelpText>
+    <label>Down Payment Received</label>
+    <summarizedField>Payment__c.Amount__c</summarizedField>
+    <summaryFilterItems>
+        <field>Payment__c.Type__c</field>
+        <operation>equals</operation>
+        <value>Down Payment</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Payment__c.Opportunity__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

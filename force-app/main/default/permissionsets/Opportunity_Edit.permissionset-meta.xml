@@ -13,6 +13,16 @@
     </objectPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.Down_Payment_Received__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Signed_Off_Plans__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.Pending_Discount_Requests__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -260,3 +260,10 @@ Hillary asked for every access decision to be checked against the Security Matri
 - **Discount at a glance:** `Approved_By__c`, `Approved_On__c` stamped on final approval; shown in the sale's Discount Requests list with Requested %, Step.
 - **Company:** typed company kept as entered (overwrite flow `Lead_Individual_Company_Name` switched off and removed from the project; it could not be deleted from the org).
 - **Sales Rep tabs** removed: Showrooms, Guarantors, Cases, Customer Messages, Knowledge. Access kept, because the Security Matrix grants Sales Rep Read on these and Create/Read on Guarantor (own deal); decision pending.
+
+## Discounts, instalment tracking, Sales Rep access (2026-10-18)
+- **Discount Rate** picklist (1, 2, 3, 4, 5, 7.5, 10, 12.5, 15%) fills Requested Discount. **5% or less is approved automatically** (`Auto_Approved__c`, no approval chain); above 5% goes Showroom Manager → Finance → Head Office (G4/G5). Fleet sale with no rate picked uses the account's Agreed Discount Rate. A rate is required (`Discount_Rate_Required`).
+- **Instalment sale close:** `Instalment_Close_Needs_Plan_And_Deposit` blocks Closed Won until the Head of Finance has signed off a plan (`Opportunity.Signed_Off_Plans__c`) and Finance has recorded a down payment (`Opportunity.Down_Payment_Received__c`). The rep's side ends at Closed Won; Finance tracks the plan from there (US-03/05/15/17/29).
+- **Plan Status** on Instalment Plan (Active, Late, Defaulted, With Legal, Completed), kept current by `Instalment_Plan_Recalculate_Status` (called from instalment and legal-escalation changes). List views: Plans Needing Attention, Active Plans, Completed Plans. "Instalment Plans by Status" tile on Finance and Head of Finance dashboards.
+- **Sales Rep access** now follows the user stories, not the Security Matrix: Showroom, Guarantor, Case, Customer Message and Knowledge access removed (no Sales Rep story uses them; guarantors belong to the Head of Finance's US-29). **Security Matrix to be updated to match.**
+- Generators kept in `scripts/build/` (dashboards, plan-status flows).

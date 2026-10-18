@@ -125,6 +125,8 @@
             <layoutItems><behavior>Edit</behavior><field>Vehicle__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Payment_Mode__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Pending_Discount_Requests__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Down_Payment_Received__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Signed_Off_Plans__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>List_Price__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Discount_Amount__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Fleet_Rate_Applied__c</field></layoutItems>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Discount_Rate_Required</fullName>
+    <active>true</active>
+    <description>A discount request needs a rate: picked from Discount Rate, or for a fleet sale the account's agreed rate.</description>
+    <errorConditionFormula>ISBLANK(Requested_Discount__c)</errorConditionFormula>
+    <errorDisplayField>Discount_Rate__c</errorDisplayField>
+    <errorMessage>Choose a Discount Rate. (For a fleet customer you can leave it blank only if their account has an agreed discount rate.)</errorMessage>
+</ValidationRule>
