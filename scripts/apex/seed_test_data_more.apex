@@ -26,6 +26,8 @@ Map<String, Id> accountTypes = new Map<String, Id>();
 for (RecordType rt : [SELECT Id, DeveloperName FROM RecordType WHERE SobjectType = 'Account' AND DeveloperName IN ('Individual', 'Fleet_Corporate')]) {
     accountTypes.put(rt.DeveloperName, rt.Id);
 }
+Id oppRt = [SELECT Id FROM RecordType WHERE SobjectType = 'Opportunity' AND DeveloperName = 'AutoDrive_Sale'].Id;
+Id leadRt = [SELECT Id FROM RecordType WHERE SobjectType = 'Lead' AND DeveloperName = 'AutoDrive_Lead'].Id;
 Map<String, Id> vehicleTypes = new Map<String, Id>();
 for (RecordType rt : [SELECT Id, DeveloperName FROM RecordType WHERE SobjectType = 'Vehicle__c']) {
     vehicleTypes.put(rt.DeveloperName, rt.Id);
@@ -61,12 +63,12 @@ insert vehicles;
 Vehicle__c camry1 = vehicles[0], camry2 = vehicles[1], camry3 = vehicles[2], sportage1 = vehicles[4], hilux1 = vehicles[7], hilux2 = vehicles[8];
 
 // Leads: five to convert, one (Grace) left open.
-Lead bola = new Lead(FirstName = 'Bola', LastName = 'AD Test Adeyemi', Company = 'AD Test Bola Adeyemi', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Walk-in', Phone = '+2348010000011', Email = 'bola.adeyemi@example.com', OwnerId = salesRep);
-Lead emeka = new Lead(FirstName = 'Emeka', LastName = 'AD Test Obi', Company = 'AD Test Emeka Obi', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Web', Phone = '+2348010000012', Email = 'emeka.obi@example.com', OwnerId = salesRep);
-Lead funke = new Lead(FirstName = 'Funke', LastName = 'AD Test Ayo', Company = 'AD Test Funke Ayo', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Instagram', Phone = '+2348010000013', Email = 'funke.ayo@example.com', OwnerId = salesRep);
-Lead ride = new Lead(FirstName = 'Kemi', LastName = 'AD Test Lawal', Company = 'AD Test Lagos Ride Hailing Ltd', Customer_Type__c = 'Fleet/Corporate', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Returning/High-profile', Phone = '+2348010000014', Email = 'fleet@lagosride.example.com', OwnerId = salesRep);
-Lead ibrahim = new Lead(FirstName = 'Ibrahim', LastName = 'AD Test Musa', Company = 'AD Test Ibrahim Musa', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Walk-in', Phone = '+2348010000015', Email = 'ibrahim.musa@example.com', OwnerId = salesRep);
-Lead grace = new Lead(FirstName = 'Grace', LastName = 'AD Test Nwosu', Company = 'AD Test Grace Nwosu', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Web', Phone = '+2348010000016', Email = 'grace.nwosu@example.com', OwnerId = salesRep);
+Lead bola = new Lead(RecordTypeId = leadRt, FirstName = 'Bola', LastName = 'AD Test Adeyemi', Company = 'AD Test Bola Adeyemi', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Walk-in', Phone = '+2348010000011', Email = 'bola.adeyemi@example.com', OwnerId = salesRep);
+Lead emeka = new Lead(RecordTypeId = leadRt, FirstName = 'Emeka', LastName = 'AD Test Obi', Company = 'AD Test Emeka Obi', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Web', Phone = '+2348010000012', Email = 'emeka.obi@example.com', OwnerId = salesRep);
+Lead funke = new Lead(RecordTypeId = leadRt, FirstName = 'Funke', LastName = 'AD Test Ayo', Company = 'AD Test Funke Ayo', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Instagram', Phone = '+2348010000013', Email = 'funke.ayo@example.com', OwnerId = salesRep);
+Lead ride = new Lead(RecordTypeId = leadRt, FirstName = 'Kemi', LastName = 'AD Test Lawal', Company = 'AD Test Lagos Ride Hailing Ltd', Customer_Type__c = 'Fleet/Corporate', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Returning/High-profile', Phone = '+2348010000014', Email = 'fleet@lagosride.example.com', OwnerId = salesRep);
+Lead ibrahim = new Lead(RecordTypeId = leadRt, FirstName = 'Ibrahim', LastName = 'AD Test Musa', Company = 'AD Test Ibrahim Musa', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Walk-in', Phone = '+2348010000015', Email = 'ibrahim.musa@example.com', OwnerId = salesRep);
+Lead grace = new Lead(RecordTypeId = leadRt, FirstName = 'Grace', LastName = 'AD Test Nwosu', Company = 'AD Test Grace Nwosu', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Web', Phone = '+2348010000016', Email = 'grace.nwosu@example.com', OwnerId = salesRep);
 insert new List<Lead>{ bola, emeka, funke, ride, ibrahim, grace };
 
 String convertedStatus = [SELECT MasterLabel FROM LeadStatus WHERE IsConverted = true LIMIT 1].MasterLabel;
@@ -91,11 +93,11 @@ update new List<Account>{
 
 Id oBola = rBola.getOpportunityId(), oEmeka = rEmeka.getOpportunityId(), oFunke = rFunke.getOpportunityId(), oRide = rRide.getOpportunityId(), oIbrahim = rIbrahim.getOpportunityId();
 update new List<Opportunity>{
-    new Opportunity(Id = oBola, StageName = 'Negotiation', CloseDate = Date.today(), Payment_Mode__c = 'Full Payment', Vehicle__c = camry1.Id, Amount = 30400000, Sale_Price__c = 30400000),
-    new Opportunity(Id = oEmeka, StageName = 'Negotiation', CloseDate = Date.today().addDays(-60), Payment_Mode__c = 'Instalment', Vehicle__c = sportage1.Id, Amount = 29000000, Sale_Price__c = 29000000),
-    new Opportunity(Id = oFunke, StageName = 'Negotiation', CloseDate = Date.today().addDays(-30), Payment_Mode__c = 'Instalment', Vehicle__c = camry2.Id, Amount = 32000000, Sale_Price__c = 32000000),
-    new Opportunity(Id = oRide, StageName = 'Negotiation', CloseDate = Date.today().addDays(10), Payment_Mode__c = 'Instalment', Vehicle__c = hilux1.Id, Amount = 90000000, Sale_Price__c = 90000000),
-    new Opportunity(Id = oIbrahim, StageName = 'Proposal/Quote', CloseDate = Date.today().addDays(-5), Payment_Mode__c = 'Full Payment', Vehicle__c = camry3.Id, Amount = 32000000, Sale_Price__c = 32000000)
+    new Opportunity(RecordTypeId = oppRt, Id = oBola, StageName = 'Offer', CloseDate = Date.today(), Payment_Mode__c = 'Full Payment', Vehicle__c = camry1.Id, Amount = 30400000, Sale_Price__c = 30400000),
+    new Opportunity(RecordTypeId = oppRt, Id = oEmeka, StageName = 'Offer', CloseDate = Date.today().addDays(-60), Payment_Mode__c = 'Instalment', Vehicle__c = sportage1.Id, Amount = 29000000, Sale_Price__c = 29000000),
+    new Opportunity(RecordTypeId = oppRt, Id = oFunke, StageName = 'Offer', CloseDate = Date.today().addDays(-30), Payment_Mode__c = 'Instalment', Vehicle__c = camry2.Id, Amount = 32000000, Sale_Price__c = 32000000),
+    new Opportunity(RecordTypeId = oppRt, Id = oRide, StageName = 'Offer', CloseDate = Date.today().addDays(10), Payment_Mode__c = 'Instalment', Vehicle__c = hilux1.Id, Amount = 90000000, Sale_Price__c = 90000000),
+    new Opportunity(RecordTypeId = oppRt, Id = oIbrahim, StageName = 'Offer', CloseDate = Date.today().addDays(-5), Payment_Mode__c = 'Full Payment', Vehicle__c = camry3.Id, Amount = 32000000, Sale_Price__c = 32000000)
 };
 
 // Discounts: Bola's approved through all three steps; Lagos Ride's rejected at Finance.
@@ -179,9 +181,9 @@ try {
 
 // Close sales: Bola and Emeka won (converted Leads, so allowed), Ibrahim lost.
 update new List<Opportunity>{
-    new Opportunity(Id = oBola, StageName = 'Closed Won'),
-    new Opportunity(Id = oEmeka, StageName = 'Closed Won'),
-    new Opportunity(Id = oIbrahim, StageName = 'Closed Lost')
+    new Opportunity(RecordTypeId = oppRt, Id = oBola, StageName = 'Closed Won'),
+    new Opportunity(RecordTypeId = oppRt, Id = oEmeka, StageName = 'Closed Won'),
+    new Opportunity(RecordTypeId = oppRt, Id = oIbrahim, StageName = 'Closed Lost')
 };
 
 // Import requests: Lagos Ride wants a second Hilux (customer has confirmed); Funke's Sportage request has arrived.

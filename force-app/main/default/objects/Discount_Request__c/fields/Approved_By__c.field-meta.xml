@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approved_By__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Who gave the final approval (Head Office step). Set automatically by Discount_Request_Stamp_Approval.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Person who gave the final approval. Set automatically.</inlineHelpText>
+    <label>Approved By</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Approved_Discount_Requests</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <assignments>
+        <name>Stamp_Approval</name>
+        <label>Stamp Approval</label>
+        <locationX>176</locationX>
+        <locationY>215</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Approved_By__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$User.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Approved_On__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>When a discount request reaches Approved, records who approved it (the user giving the final approval) and when, so the sale page shows it at a glance.</description>
+    <environments>Default</environments>
+    <interviewLabel>Discount Request Stamp Approval {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Discount Request - Stamp Approver and Date</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Stamp_Approval</targetReference>
+        </connector>
+        <filterFormula>AND(ISCHANGED({!$Record.Current_Step__c}), ISPICKVAL({!$Record.Current_Step__c}, &quot;Approved&quot;))</filterFormula>
+        <object>Discount_Request__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
