@@ -52,7 +52,7 @@ Field-level additions on existing objects:
 ## Stage 3 — Relationships ✅ Done (27 total: 6 master-detail + 21 lookups — see DISCOVERY_LOG.md, count grew past the original 17 with v8 additions)
 6 master-detail + 17 lookups, per ERD v2. Build these as you create each object above (a relationship field is just a field) — listed here as a separate stage only as a sanity check once Stage 1 is done: open each object and confirm every `→ X Lookup/Master-detail` field from the ERD actually exists.
 
-## Stage 4 — Validation rules 🔶 Partially done (7 of 7 listed rules built; the discount-invalidation item below is a Flow, not built, belongs to Stage 8)
+## Stage 4 — Validation rules ✅ Done (all rules built; the discount-invalidation Flow, KAN-92, built 2026-10-18)
 - Showroom capacity ✅
 - Per-model stock limit (50) ✅
 - No sale to unconverted Lead ⬜ (moved to Stage 9 as a code exception — no native field to check this declaratively)
@@ -125,7 +125,7 @@ Build last — needs every object above populated with real data to be meaningfu
 
 **Jira:** KAN-69
 
-## Stage 11 — Test data ⬜ Not started
+## Stage 11 — Test data ✅ Done (10 customer scenarios, `scripts/apex/seed_test_*.apex`, 2026-10-15)
 Clean sample data per object, enough to demo and test every Flow above.
 
 ## Stage 12 — QA pass 🔶 Test plan ready 2026-10-18 (`docs/AutoDrive_Test_Plan.md`: 60 cases by role + time-based checks + defect log); not yet run
