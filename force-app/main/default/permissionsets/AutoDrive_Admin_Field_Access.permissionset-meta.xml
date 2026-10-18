@@ -4,6 +4,21 @@
     <description>Field-level access to every AutoDrive custom field and the AutoDrive record types, for the build/admin user only. System Administrator profile has none on these fields, so they are invisible to Apex scripts and the admin UI without this.</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.Fleet_Vehicles_Total__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Fleet_Vehicle_Count__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sale_Vehicle__c.Sale_Price__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.Down_Payment_Received__c</field>
         <readable>true</readable>
     </fieldPermissions>

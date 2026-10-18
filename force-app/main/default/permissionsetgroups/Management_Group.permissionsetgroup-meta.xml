@@ -32,4 +32,5 @@
     <permissionSets>Import_Request_Tab</permissionSets>
     <permissionSets>Opportunity_Prices_Read</permissionSets>
     <permissionSets>Instalment_Plan_Amounts_Read</permissionSets>
+    <permissionSets>Sale_Vehicle_Read</permissionSets>
 </PermissionSetGroup>

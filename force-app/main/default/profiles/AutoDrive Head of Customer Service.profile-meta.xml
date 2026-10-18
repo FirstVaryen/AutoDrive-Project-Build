@@ -18,6 +18,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <layoutAssignments>
+        <layout>Sale_Vehicle__c-Sale Vehicle Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Lead-Lead Layout</layout>
         <recordType>Lead.AutoDrive_Lead</recordType>
     </layoutAssignments>

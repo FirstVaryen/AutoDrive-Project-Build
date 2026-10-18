@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fleet_Sales_Only</fullName>
+    <active>true</active>
+    <description>Several vehicles on one sale is for fleet customers only; individual sales use the sale's single Vehicle field.</description>
+    <errorConditionFormula>Opportunity__r.Account.RecordType.DeveloperName &lt;&gt; &apos;Fleet_Corporate&apos;</errorConditionFormula>
+    <errorMessage>Only fleet (company) sales can have several vehicles. For an individual customer, choose the vehicle in the sale&apos;s AM Vehicle field.</errorMessage>
+</ValidationRule>

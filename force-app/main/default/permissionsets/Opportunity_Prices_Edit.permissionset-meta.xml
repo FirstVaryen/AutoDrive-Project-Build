@@ -2,6 +2,16 @@
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Atomic: read and edit the sale's price fields (calculated ones read-only). Locked fields per Q-O13: Finance and Showroom Manager edit.</description>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Fleet_Vehicles_Total__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Sale_Vehicle__c.Sale_Price__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.List_Price__c</field>
         <readable>true</readable>

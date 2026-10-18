@@ -16,4 +16,5 @@
     <permissionSets>Instalment_Plan_Tab</permissionSets>
     <permissionSets>Vehicle_Tab</permissionSets>
     <permissionSets>Vehicle_Model_Tab</permissionSets>
+    <permissionSets>Sale_Vehicle_Read</permissionSets>
 </PermissionSetGroup>
