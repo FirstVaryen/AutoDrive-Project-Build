@@ -37,6 +37,11 @@
                 <default>false</default>
                 <label>Rejected</label>
             </value>
+            <value>
+                <fullName>Invalidated</fullName>
+                <default>false</default>
+                <label>Invalidated</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

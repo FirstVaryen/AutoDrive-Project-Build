@@ -2,10 +2,11 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>No_Discount_Individual_Instalment</fullName>
     <active>true</active>
-    <description>Blocks a discount request on an instalment deal for an individual customer. Fleet-Corporate is the sole exception, and still has to go through the normal approval process (US-25).</description>
+    <description>Blocks discounts on instalment deals for individual customers; Fleet-Corporate is the only exception and still needs approval (US-25). Skipped when a request is being marked Invalidated (KAN-92).</description>
     <errorConditionFormula>AND(
     ISPICKVAL( Opportunity__r.Payment_Mode__c, &apos;Instalment&apos; ),
-    Opportunity__r.Account.RecordType.DeveloperName &lt;&gt; &apos;Fleet_Corporate&apos;
+    Opportunity__r.Account.RecordType.DeveloperName &lt;&gt; &apos;Fleet_Corporate&apos;,
+    NOT( ISPICKVAL( Current_Step__c, &apos;Invalidated&apos; ) )
 )</errorConditionFormula>
     <errorMessage>Discounts are not permitted on instalment deals for individual customers. Only Fleet-Corporate accounts may discount an instalment sale, and only through the normal approval process.</errorMessage>
 </ValidationRule>
