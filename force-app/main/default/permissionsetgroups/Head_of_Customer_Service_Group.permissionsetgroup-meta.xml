@@ -12,4 +12,10 @@
     <permissionSets>Case_Full</permissionSets>
     <permissionSets>Customer_Message_Full</permissionSets>
     <permissionSets>Knowledge_Article_Full</permissionSets>
+    <permissionSets>Customer_Message_Tab</permissionSets>
+    <permissionSets>Knowledge_Article_Tab</permissionSets>
+    <permissionSets>Instalment_Plan_Tab</permissionSets>
+    <permissionSets>Vehicle_Tab</permissionSets>
+    <permissionSets>Vehicle_Model_Tab</permissionSets>
+    <permissionSets>Showroom_Tab</permissionSets>
 </PermissionSetGroup>

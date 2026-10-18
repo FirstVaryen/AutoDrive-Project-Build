@@ -8,4 +8,7 @@
     <permissionSets>Instalment_Plan_Read</permissionSets>
     <permissionSets>Guarantor_Read</permissionSets>
     <permissionSets>Legal_Escalation_Read</permissionSets>
+    <permissionSets>Legal_Escalation_Tab</permissionSets>
+    <permissionSets>Instalment_Plan_Tab</permissionSets>
+    <permissionSets>Guarantor_Tab</permissionSets>
 </PermissionSetGroup>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>From_Converted_Lead__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Ticked automatically by the Lead_Conversion_Stamp_Account flow when a Lead converts into this Account. Not on any layout and not granted to any role, so no user can tick it by hand. Checked by the Opportunity validation rule Closed_Won_Requires_Converted_Lead.</description>
+    <externalId>false</externalId>
+    <label>From Converted Lead</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

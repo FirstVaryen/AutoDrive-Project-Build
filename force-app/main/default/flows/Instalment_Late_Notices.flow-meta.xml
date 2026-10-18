@@ -140,6 +140,12 @@
                 <elementReference>$Record.Id</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>Account__c</field>
+            <value>
+                <elementReference>$Record.Instalment_Plan__r.Opportunity__r.AccountId</elementReference>
+            </value>
+        </inputAssignments>
         <object>Customer_Message__c</object>
     </recordCreates>
 

@@ -1,27 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>60.0</apiVersion>
+    <description>When a Payment is recorded against an Instalment, recalculates that Instalment's Amount_Paid__c. The Opportunity total needs no flow: Opportunity.Total_Paid__c is a roll-up summary of Payment amounts (an earlier version tried to write it and failed every payment insert).</description>
     <environments>Default</environments>
     <interviewLabel>AM Payment Balance Update {!$Flow.CurrentDateTime}</interviewLabel>
     <label>AM Payment - Update Balances</label>
     <processType>AutoLaunchedFlow</processType>
 
-    <assignments>
-        <name>Add_To_Opp_Total</name>
-        <label>Add To Opportunity Total</label>
-        <locationX>50</locationX>
-        <locationY>374</locationY>
-        <assignmentItems>
-            <assignToReference>var_OppTotal</assignToReference>
-            <operator>Add</operator>
-            <value>
-                <elementReference>Loop_Opportunity_Payments.Amount__c</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Loop_Opportunity_Payments</targetReference>
-        </connector>
-    </assignments>
     <assignments>
         <name>Add_To_Inst_Total</name>
         <label>Add To Instalment Total</label>
@@ -63,20 +48,6 @@
     </decisions>
 
     <loops>
-        <name>Loop_Opportunity_Payments</name>
-        <label>Loop Opportunity Payments</label>
-        <locationX>176</locationX>
-        <locationY>266</locationY>
-        <collectionReference>Get_Opportunity_Payments</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector>
-            <targetReference>Add_To_Opp_Total</targetReference>
-        </nextValueConnector>
-        <noMoreValuesConnector>
-            <targetReference>Update_Opportunity_Total</targetReference>
-        </noMoreValuesConnector>
-    </loops>
-    <loops>
         <name>Loop_Instalment_Payments</name>
         <label>Loop Instalment Payments</label>
         <locationX>50</locationX>
@@ -91,26 +62,6 @@
         </noMoreValuesConnector>
     </loops>
 
-    <recordLookups>
-        <name>Get_Opportunity_Payments</name>
-        <label>Get Opportunity Payments</label>
-        <locationX>176</locationX>
-        <locationY>158</locationY>
-        <connector>
-            <targetReference>Loop_Opportunity_Payments</targetReference>
-        </connector>
-        <object>Payment__c</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-        <getFirstRecordOnly>false</getFirstRecordOnly>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Opportunity__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.Opportunity__c</elementReference>
-            </value>
-        </filters>
-    </recordLookups>
     <recordLookups>
         <name>Get_Instalment_Payments</name>
         <label>Get Instalment Payments</label>
@@ -132,30 +83,6 @@
         </filters>
     </recordLookups>
 
-    <recordUpdates>
-        <name>Update_Opportunity_Total</name>
-        <label>Update Opportunity Total Paid</label>
-        <locationX>176</locationX>
-        <locationY>482</locationY>
-        <connector>
-            <targetReference>Check_Instalment</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.Opportunity__c</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Total_Paid__c</field>
-            <value>
-                <elementReference>var_OppTotal</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Opportunity</object>
-    </recordUpdates>
     <recordUpdates>
         <name>Update_Instalment_Paid</name>
         <label>Update Instalment Amount Paid</label>
@@ -185,22 +112,11 @@
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
         <connector>
-            <targetReference>Get_Opportunity_Payments</targetReference>
+            <targetReference>Check_Instalment</targetReference>
         </connector>
     </start>
     <status>Active</status>
 
-    <variables>
-        <name>var_OppTotal</name>
-        <dataType>Currency</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <scale>2</scale>
-        <value>
-            <numberValue>0.0</numberValue>
-        </value>
-    </variables>
     <variables>
         <name>var_InstTotal</name>
         <dataType>Currency</dataType>

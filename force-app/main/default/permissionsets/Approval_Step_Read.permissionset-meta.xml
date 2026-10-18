@@ -29,4 +29,34 @@
         <viewAllRecords>false</viewAllRecords>
         <object>Opportunity</object>
     </objectPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Approval_Step__c.Acted_At__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Approval_Step__c.Acted_By__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Approval_Step__c.Decision__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Approval_Step__c.Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Approval_Step__c.Recorded_By_Finance_For_Head_Office__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Approval_Step__c.Step__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
 </PermissionSet>

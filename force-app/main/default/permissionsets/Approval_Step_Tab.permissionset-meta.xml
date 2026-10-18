@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>AM AM Approval Step - Tab</label>
+    <description>Atomic permission set: makes the AM Approval Step tab visible. Grants no record access on its own.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <tabSettings>
+        <tab>Approval_Step__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+</PermissionSet>

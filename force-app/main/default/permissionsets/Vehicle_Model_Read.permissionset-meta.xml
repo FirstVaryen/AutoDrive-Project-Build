@@ -11,4 +11,29 @@
         <viewAllRecords>false</viewAllRecords>
         <object>Vehicle_Model__c</object>
     </objectPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Vehicle_Model__c.Available_Stock__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Vehicle_Model__c.List_Price__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Vehicle_Model__c.Low_Stock_Alert_Active__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Vehicle_Model__c.Low_stock_Threshold__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Vehicle_Model__c.Total_Stock_Count__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
 </PermissionSet>

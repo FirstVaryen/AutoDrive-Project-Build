@@ -143,7 +143,7 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <description>A physical AutoDrive showroom location</description>
+    <description>The AutoDrive showroom. AutoDrive runs a single showroom (decided 2026-10-15); the object is kept for capacity and vehicle count, and new vehicles are placed in it automatically by the Vehicle_Default_Showroom flow.</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>

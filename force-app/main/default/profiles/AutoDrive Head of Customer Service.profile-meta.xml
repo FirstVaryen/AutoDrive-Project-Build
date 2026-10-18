@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Profile xmlns="http://soap.sforce.com/2006/04/metadata">
+    <applicationVisibilities>
+        <application>AutoDrive_Motors</application>
+        <default>true</default>
+        <visible>true</visible>
+    </applicationVisibilities>
+    <custom>true</custom>
+    <description>AutoDrive Head of Customer Service minimal base profile. Login essentials, AutoDrive Motors as default app, layouts, record types only; all object/field/tab access comes from the Head of Customer Service Permission Set Group.</description>
+    <layoutAssignments>
+        <layout>Account-Account Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Approval_Step__c-Approval Step Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Case Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Customer_Message__c-Customer Message Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Discount_Request__c-Discount Request Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Guarantor__c-Guarantor Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Import_Request__c-Import Request Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Instalment_Plan__c-Instalment Plan Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Instalment__c-Instalment Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Knowledge_Article__c-Knowledge Article Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lead-Lead Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Legal_Escalation__c-Legal Escalation Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Opportunity-Opportunity Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Payment__c-Payment Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Reconciliation_Entry__c-Reconciliation Entry Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Showroom__c-Showroom Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Vehicle_Model__c-Vehicle Model Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Vehicle__c-Vehicle Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Contact-Contact Layout</layout>
+    </layoutAssignments>
+    <tabVisibilities>
+        <tab>standard-Lead</tab>
+        <visibility>Hidden</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>standard-Account</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>standard-Contact</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>standard-Opportunity</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>standard-Case</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>standard-Dashboard</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <userLicense>Salesforce</userLicense>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>EditEvent</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>EditTask</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>EmailSingle</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>LightningExperienceUser</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>RunReports</name>
+    </userPermissions>
+</Profile>

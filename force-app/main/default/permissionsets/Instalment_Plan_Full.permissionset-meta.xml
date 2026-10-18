@@ -20,4 +20,49 @@
         <viewAllRecords>true</viewAllRecords>
         <object>Opportunity</object>
     </objectPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Instalment_Plan__c.Completion_Email_Sent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Instalment_Plan__c.Down_Payment_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Instalment_Plan__c.Down_Payment_Percent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Instalment_Plan__c.Head_of_Finance_Sign_off__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Instalment_Plan__c.Original_Term_in_Months__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Instalment_Plan__c.Ownership_Documents_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Instalment_Plan__c.Signed_Off_By__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Instalment_Plan__c.Signed_Off_On__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Instalment_Plan__c.Term_in_Months__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
 </PermissionSet>

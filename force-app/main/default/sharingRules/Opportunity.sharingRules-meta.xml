@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Sales_Opportunities_Read_Finance_Team</fullName>
+        <label>Sales Opportunities - Read for Finance Team</label>
+        <description>Finance Team Members review Discount Requests and handle Instalment Plans, both Master-Detail children of Opportunity, so they inherit visibility from it. Head of Finance gets this through the role hierarchy.</description>
+        <accessLevel>Read</accessLevel>
+        <sharedFrom>
+            <roleAndSubordinates>Showroom_Manager</roleAndSubordinates>
+        </sharedFrom>
+        <sharedTo>
+            <role>Finance_Team_Member</role>
+        </sharedTo>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Sales_Opportunities_Read_Customer_Service</fullName>
+        <label>Sales Opportunities - Read for Customer Service</label>
+        <description>Customer Service answers customer questions about their purchase and instalment plan. Instalment Plan is a Master-Detail child of Opportunity, so it can only be shared through the Opportunity. Covers Head of Customer Service and, as subordinates, Customer Service Agents.</description>
+        <accessLevel>Read</accessLevel>
+        <sharedFrom>
+            <roleAndSubordinates>Showroom_Manager</roleAndSubordinates>
+        </sharedFrom>
+        <sharedTo>
+            <roleAndSubordinates>Head_of_Customer_Service</roleAndSubordinates>
+        </sharedTo>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Sales_Opportunities_Read_Legal</fullName>
+        <label>Sales Opportunities - Read for Legal Team</label>
+        <description>Legal handles escalations on defaulted Instalment Plans and needs the plan, its sale and guarantor. Instalment Plan is a Master-Detail child of Opportunity, so it can only be shared through the Opportunity.</description>
+        <accessLevel>Read</accessLevel>
+        <sharedFrom>
+            <roleAndSubordinates>Showroom_Manager</roleAndSubordinates>
+        </sharedFrom>
+        <sharedTo>
+            <role>Legal_Team</role>
+        </sharedTo>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Sales_Opportunities_Read_Management</fullName>
+        <label>Sales Opportunities - Read for Management</label>
+        <description>Management oversees all sales and their Discount Requests. The Management role sits beside the sales branch under CEO, so it has no hierarchy access to sales records.</description>
+        <accessLevel>Read</accessLevel>
+        <sharedFrom>
+            <roleAndSubordinates>Showroom_Manager</roleAndSubordinates>
+        </sharedFrom>
+        <sharedTo>
+            <role>Management</role>
+        </sharedTo>
+    </sharingOwnerRules>
+</SharingRules>
