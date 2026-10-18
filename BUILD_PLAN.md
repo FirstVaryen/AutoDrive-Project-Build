@@ -128,7 +128,7 @@ Build last — needs every object above populated with real data to be meaningfu
 ## Stage 11 — Test data ⬜ Not started
 Clean sample data per object, enough to demo and test every Flow above.
 
-## Stage 12 — QA pass ⬜ Not started
+## Stage 12 — QA pass 🔶 Test plan ready 2026-10-18 (`docs/AutoDrive_Test_Plan.md`: 60 cases by role + time-based checks + defect log); not yet run
 Walk every story's Normal/Alternative/Exemption paths as the right persona (never as System Administrator). Defect log in Sandra's PROJECT_LOG.md — fill it in yourself if she isn't actually participating, but keep it honest about who found what.
 
 ## Stage 13 — Permission architecture rework (post-presentation feedback, 2026-10-13) 🔶 Done except Locked Fields — 52 atomic sets + 8 Permission Set Groups built and assigned (2026-10-14); old 8 role-based sets confirmed unassigned and deleted (2026-10-14). `Mute_Finance_Amount_Fields` kept — it's the separate, still-unresolved Locked Fields attempt, not one of the 8 retired sets. **Remaining gap: Locked Fields (hiding Opportunity/Instalment amount fields from Customer Service roles) — not fixable via any deployable metadata; must be finished manually in Setup → Permission Set Groups → [Customer Service Agent Group / Head of Customer Service Group] → Muting Permission Sets → New, since Muting Permission Sets only save correctly when created through that specific UI, not via Metadata API (confirmed 2026-10-13).**
