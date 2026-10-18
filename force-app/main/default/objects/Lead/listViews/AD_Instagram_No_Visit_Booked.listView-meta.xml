@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AD_Instagram_No_Visit_Booked</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>LEAD.PHONE</columns>
+    <columns>Channel__c</columns>
+    <columns>Vehicle_Model_Of_Interest__c</columns>
+    <columns>LEAD.STATUS</columns>
+    <columns>LEAD.CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters><field>LEAD.CONVERTED</field><operation>equals</operation><value>0</value></filters>
+    <filters><field>Booked_Visit_Date__c</field><operation>equals</operation></filters>
+    <filters><field>Channel__c</field><operation>equals</operation><value>Instagram</value></filters>
+    <label>AutoDrive - Enquiries No Visit Booked</label>
+</ListView>

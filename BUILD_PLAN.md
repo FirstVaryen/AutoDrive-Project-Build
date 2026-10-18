@@ -297,3 +297,13 @@ Verified per test user (field and object access) and on live cases (Finance can 
 - `Opportunity_Fleet_Sale_Close`: closing a fleet sale Won marks every vehicle on it Sold.
 - One discount request per sale, so the 5% threshold applies to the whole fleet deal (Hillary, 2026-10-18). Individual sales keep the single AM Vehicle field.
 - Access: Sales Rep and Showroom Manager create/edit; Finance, Head of Finance, Management, Customer Service read. Tested: 2 Hiluxes on Lagos Ride Hailing (total 88,000,000), individual sale blocked, closing marks both Sold, adding after close blocked.
+
+### EDITED 2026-10-18: user-story gap check (v8)
+Every v8 refined story was checked rule by rule against the build. Gaps closed:
+- **US-22**: validation rule `Case.CSAT_Score_1_To_10`. A score must be a whole number 1–10; blank = unrated. Tested: 15, 0, 7.5 blocked; 8 saves.
+- **US-26**: `Vehicle_Model__c.No_List_Price__c` flag + list view "AutoDrive - Models With No List Price".
+- **US-31**: Lead list view "AutoDrive - Enquiries No Visit Booked" (Instagram, not converted, no booked visit date). A lead leaves the list once a visit date is entered.
+- **US-32 / KAN-97**: Lead list views "AutoDrive - Open Prospects" (source, rep, status) and "AutoDrive - Prospects With No Rep" (new formula `Lead.No_Rep_Assigned__c`: owner is a queue). Stage changes are recorded by Lead field history.
+- **Fleet (US-16/US-20)**: multi-vehicle fleet orders kept and moved out of Won't Have in the v8 workbook (Change Log row added).
+- **NOT BUILT — US-15/US-19 text reminders**: reminders are email only. No SMS provider this phase (team decision). Logged in the workbook Change Log.
+- **Still open — US-11**: case owner at creation + availability. To be built with Omni-Channel alongside the Experience Cloud site fixes.

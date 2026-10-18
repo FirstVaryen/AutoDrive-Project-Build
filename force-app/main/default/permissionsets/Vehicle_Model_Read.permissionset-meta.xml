@@ -13,6 +13,11 @@
     </objectPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Vehicle_Model__c.No_List_Price__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Vehicle_Model__c.Available_Stock__c</field>
         <readable>true</readable>
     </fieldPermissions>

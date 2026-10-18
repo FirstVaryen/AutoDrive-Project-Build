@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AD_No_List_Price</fullName>
+    <columns>NAME</columns>
+    <columns>List_Price__c</columns>
+    <columns>Available_Stock__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters><field>No_List_Price__c</field><operation>equals</operation><value>1</value></filters>
+    <label>AutoDrive - Models With No List Price</label>
+</ListView>

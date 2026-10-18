@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AD_Prospects_No_Rep</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>Channel__c</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>LEAD.STATUS</columns>
+    <columns>LEAD.CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters><field>LEAD.CONVERTED</field><operation>equals</operation><value>0</value></filters>
+    <filters><field>No_Rep_Assigned__c</field><operation>equals</operation><value>1</value></filters>
+    <label>AutoDrive - Prospects With No Rep</label>
+</ListView>
