@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <actionCalls>
+        <name>Send_Reminder</name>
+        <label>Send Reminder</label>
+        <locationX>176</locationX>
+        <locationY>647</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Mark_Reminded</targetReference>
+        </connector>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>Get_Approver.Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <stringValue>Discount approval overdue</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>tt_EmailBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>DefaultWorkflowUser</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <decisions>
+        <name>Overdue_And_Pending</name>
+        <label>Overdue And Pending?</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Nothing To Send</defaultConnectorLabel>
+        <rules>
+            <name>Send</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>fx_Overdue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Pending_Approval.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Approver</targetReference>
+            </connector>
+            <label>Send</label>
+        </rules>
+    </decisions>
+    <description>KAN-43: runs daily. For each discount request still waiting in its approval process, if it has been at its current step longer than allowed (Showroom Manager 1, Finance 1, Head Office 2 business days), emails that step's approver once per step. Requests not yet submitted for approval are skipped. Approvers mirror the Discount_Approval approval process.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>fx_ApproverUsername</name>
+        <dataType>String</dataType>
+        <expression>CASE(TEXT({!$Record.Current_Step__c}),
+&quot;With Showroom Manager&quot;, &quot;test.showroommanager@autodrive.group3sb.test&quot;,
+&quot;With Finance&quot;, &quot;test.financeteam@autodrive.group3sb.test&quot;,
+&quot;With Head Office&quot;, &quot;test.headoffinance@autodrive.group3sb.test&quot;,
+&quot;&quot;)</expression>
+    </formulas>
+    <formulas>
+        <name>fx_Overdue</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+NOT(ISBLANK({!$Record.SLA_Business_Days__c})),
+NOT(ISBLANK({!$Record.SLA_Limit_Days__c})),
+{!$Record.SLA_Business_Days__c} &gt; {!$Record.SLA_Limit_Days__c},
+{!$Record.SLA_Reminder_Sent_Step__c} &lt;&gt; TEXT({!$Record.Current_Step__c})
+)</expression>
+    </formulas>
+    <formulas>
+        <name>fx_CurrentStepText</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Record.Current_Step__c})</expression>
+    </formulas>
+    <interviewLabel>Discount Request SLA Reminder {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Discount Request - Overdue Approval Reminder</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Approver</name>
+        <label>Get Approver</label>
+        <locationX>176</locationX>
+        <locationY>539</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Send_Reminder</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Username</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>fx_ApproverUsername</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Email</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Pending_Approval</name>
+        <label>Get Pending Approval</label>
+        <locationX>176</locationX>
+        <locationY>215</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Overdue_And_Pending</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>TargetObjectId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Pending</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ProcessInstance</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Mark_Reminded</name>
+        <label>Mark Reminded</label>
+        <locationX>176</locationX>
+        <locationY>755</locationY>
+        <inputReference>$Record</inputReference>
+        <inputAssignments>
+            <field>SLA_Reminder_Sent_Step__c</field>
+            <value>
+                <elementReference>fx_CurrentStepText</elementReference>
+            </value>
+        </inputAssignments>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Pending_Approval</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Current_Step__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>With Showroom Manager</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Current_Step__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>With Finance</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Current_Step__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>With Head Office</stringValue>
+            </value>
+        </filters>
+        <object>Discount_Request__c</object>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2026-10-19</startDate>
+            <startTime>07:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>tt_EmailBody</name>
+        <text>Discount request {!$Record.Name} has been waiting at your approval step ({!fx_CurrentStepText}) for {!$Record.SLA_Business_Days__c} business days; the limit is {!$Record.SLA_Limit_Days__c}. Please approve or reject it from Items to Approve on your Home page.</text>
+    </textTemplates>
+</Flow>

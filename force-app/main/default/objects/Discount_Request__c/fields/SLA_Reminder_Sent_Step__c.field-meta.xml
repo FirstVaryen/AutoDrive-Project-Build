@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SLA_Reminder_Sent_Step__c</fullName>
+    <description>The approval step an overdue reminder was last sent for. Set by the Discount_Request_SLA_Reminder flow so each step is reminded once (KAN-43).</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Step a late-approval reminder was sent for. Set automatically.</inlineHelpText>
+    <label>Reminder Sent For Step</label>
+    <length>40</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
