@@ -22,6 +22,16 @@
     </objectPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Discount_Request__c.Approved_On__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Discount_Request__c.Approved_By__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Discount_Request__c.SLA_Reminder_Sent_Step__c</field>
         <readable>true</readable>
     </fieldPermissions>

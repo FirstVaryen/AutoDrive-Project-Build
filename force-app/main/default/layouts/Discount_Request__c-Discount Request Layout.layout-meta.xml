@@ -15,6 +15,8 @@
             <layoutItems><behavior>Readonly</behavior><field>SLA_Reminder_Sent_Step__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Reason__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Requested_By__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Approved_By__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Approved_On__c</field></layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>

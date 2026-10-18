@@ -251,3 +251,12 @@ Hillary asked for every access decision to be checked against the Security Matri
 - Vehicle Model page: Vehicles related list; "All Vehicle Models" back button on the Stock Level panel.
 - Lead (US-23/US-30): `Visit_Purpose__c` (Enquiry/Purchase), `Vehicle_Model_Of_Interest__c` (required for Purchase), phone or email required, Customer Type required; AutoDrive Lead Details section moved up; `Lead_Individual_Company_Name` puts an individual's own name in Company.
 - Test data: model "AD Test - Toyota Land Cruiser" with no vehicles (out-of-stock test); "AD Test Sale - Bola Adeyemi (2nd car)" with a discount approved through the real approval chain (TC-S9).
+
+## From Sales Rep testing, round 2 (2026-10-18)
+- **Lead statuses** (record type `AutoDrive_Lead`, process *AutoDrive Lead Process*): New → Contacted → Qualified → Converted, or Unqualified. Phone or email required from creation; Qualified (and conversion) requires Visit Purpose and Vehicle of Interest. Demo-org statuses no longer offered to AutoDrive users.
+- **Sale stages** (record type `AutoDrive_Sale`, process *AutoDrive Sales Process*): Viewing / Test Drive → Offer → Payment Arranged → Closed Won / Closed Lost. All 8 profiles default to both record types; sample records migrated (open sales now at Offer).
+- **Duplicate detection:** matching rules `AD_Lead_Email_or_Phone`, `AD_Contact_Email_or_Phone` and duplicate rule `AD_Lead_Existing_Customer` warn when a new lead's email or phone already belongs to a lead or customer (US-30). Save still allowed.
+- **Closed deals list views:** AutoDrive - Open Deals / Closed Won / Closed Lost.
+- **Discount at a glance:** `Approved_By__c`, `Approved_On__c` stamped on final approval; shown in the sale's Discount Requests list with Requested %, Step.
+- **Company:** typed company kept as entered (overwrite flow `Lead_Individual_Company_Name` switched off and removed from the project; it could not be deleted from the org).
+- **Sales Rep tabs** removed: Showrooms, Guarantors, Cases, Customer Messages, Knowledge. Access kept, because the Security Matrix grants Sales Rep Read on these and Create/Read on Guarantor (own deal); decision pending.

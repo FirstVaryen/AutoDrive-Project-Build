@@ -8,6 +8,14 @@
     <custom>true</custom>
     <description>AutoDrive Showroom Manager minimal base profile. Login essentials, AutoDrive Motors as default app, layouts, record types only; all object/field/tab access comes from the Showroom Manager Permission Set Group.</description>
     <layoutAssignments>
+        <layout>Lead-Lead Layout</layout>
+        <recordType>Lead.AutoDrive_Lead</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Opportunity-Opportunity Layout</layout>
+        <recordType>Opportunity.AutoDrive_Sale</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Account-Account Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -80,6 +88,16 @@
         <layout>Vehicle__c-Vehicle Layout</layout>
         <recordType>Vehicle__c.New</recordType>
     </layoutAssignments>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Lead.AutoDrive_Lead</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Opportunity.AutoDrive_Sale</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Account.Individual</recordType>

@@ -20,6 +20,8 @@ Map<String, Id> accountTypes = new Map<String, Id>();
 for (RecordType rt : [SELECT Id, DeveloperName FROM RecordType WHERE SobjectType = 'Account' AND DeveloperName IN ('Individual', 'Fleet_Corporate')]) {
     accountTypes.put(rt.DeveloperName, rt.Id);
 }
+Id oppRt = [SELECT Id FROM RecordType WHERE SobjectType = 'Opportunity' AND DeveloperName = 'AutoDrive_Sale'].Id;
+Id leadRt = [SELECT Id FROM RecordType WHERE SobjectType = 'Lead' AND DeveloperName = 'AutoDrive_Lead'].Id;
 Map<String, Id> vehicleTypes = new Map<String, Id>();
 for (RecordType rt : [SELECT Id, DeveloperName FROM RecordType WHERE SobjectType = 'Vehicle__c']) {
     vehicleTypes.put(rt.DeveloperName, rt.Id);
@@ -54,10 +56,10 @@ for (Vehicle_Model__c m : new List<Vehicle_Model__c>{ corolla, corolla, corolla,
 insert vehicles;
 
 // Leads, owned by the Sales Rep. Tunde stays unconverted.
-Lead adaeze = new Lead(FirstName = 'Adaeze', LastName = 'AD Test Okafor', Company = 'AD Test Adaeze Okafor', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = corolla.Id, Channel__c = 'Walk-in', Phone = '+2348010000001', Email = 'adaeze.okafor@example.com', OwnerId = salesRep);
-Lead chinedu = new Lead(FirstName = 'Chinedu', LastName = 'AD Test Eze', Company = 'AD Test Chinedu Eze', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = corolla.Id, Channel__c = 'Web', Phone = '+2348010000002', Email = 'chinedu.eze@example.com', OwnerId = salesRep);
-Lead kano = new Lead(FirstName = 'Musa', LastName = 'AD Test Bello', Company = 'AD Test Kano Logistics Ltd', Customer_Type__c = 'Fleet/Corporate', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = corolla.Id, Channel__c = 'Returning/High-profile', Phone = '+2348010000003', Email = 'fleet@kanologistics.example.com', OwnerId = salesRep);
-Lead tunde = new Lead(FirstName = 'Tunde', LastName = 'AD Test Bakare', Company = 'AD Test Tunde Bakare', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = corolla.Id, Channel__c = 'Instagram', Phone = '+2348010000004', Email = 'tunde.bakare@example.com', OwnerId = salesRep);
+Lead adaeze = new Lead(RecordTypeId = leadRt, FirstName = 'Adaeze', LastName = 'AD Test Okafor', Company = 'AD Test Adaeze Okafor', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = corolla.Id, Channel__c = 'Walk-in', Phone = '+2348010000001', Email = 'adaeze.okafor@example.com', OwnerId = salesRep);
+Lead chinedu = new Lead(RecordTypeId = leadRt, FirstName = 'Chinedu', LastName = 'AD Test Eze', Company = 'AD Test Chinedu Eze', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = corolla.Id, Channel__c = 'Web', Phone = '+2348010000002', Email = 'chinedu.eze@example.com', OwnerId = salesRep);
+Lead kano = new Lead(RecordTypeId = leadRt, FirstName = 'Musa', LastName = 'AD Test Bello', Company = 'AD Test Kano Logistics Ltd', Customer_Type__c = 'Fleet/Corporate', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = corolla.Id, Channel__c = 'Returning/High-profile', Phone = '+2348010000003', Email = 'fleet@kanologistics.example.com', OwnerId = salesRep);
+Lead tunde = new Lead(RecordTypeId = leadRt, FirstName = 'Tunde', LastName = 'AD Test Bakare', Company = 'AD Test Tunde Bakare', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = corolla.Id, Channel__c = 'Instagram', Phone = '+2348010000004', Email = 'tunde.bakare@example.com', OwnerId = salesRep);
 insert new List<Lead>{ adaeze, chinedu, kano, tunde };
 
 String convertedStatus = [SELECT MasterLabel FROM LeadStatus WHERE IsConverted = true LIMIT 1].MasterLabel;
@@ -80,18 +82,18 @@ update new List<Account>{
 };
 
 // Opportunities from conversion: Adaeze pays in full, Chinedu by instalment, Kano fleet by instalment with a discount.
-Opportunity oppAdaeze = new Opportunity(Id = rAdaeze.getOpportunityId(), StageName = 'Negotiation', CloseDate = Date.today().addDays(7),
+Opportunity oppAdaeze = new Opportunity(RecordTypeId = oppRt, Id = rAdaeze.getOpportunityId(), StageName = 'Offer', CloseDate = Date.today().addDays(7),
     Payment_Mode__c = 'Full Payment', Vehicle__c = vehicles[0].Id, Amount = 25000000, Sale_Price__c = 25000000);
-Opportunity oppChinedu = new Opportunity(Id = rChinedu.getOpportunityId(), StageName = 'Negotiation', CloseDate = Date.today().addDays(14),
+Opportunity oppChinedu = new Opportunity(RecordTypeId = oppRt, Id = rChinedu.getOpportunityId(), StageName = 'Offer', CloseDate = Date.today().addDays(14),
     Payment_Mode__c = 'Instalment', Vehicle__c = vehicles[5].Id, Amount = 45000000, Sale_Price__c = 45000000);
-Opportunity oppKano = new Opportunity(Id = rKano.getOpportunityId(), StageName = 'Proposal/Quote', CloseDate = Date.today().addDays(21),
+Opportunity oppKano = new Opportunity(RecordTypeId = oppRt, Id = rKano.getOpportunityId(), StageName = 'Offer', CloseDate = Date.today().addDays(21),
     Payment_Mode__c = 'Instalment', Vehicle__c = vehicles[6].Id, Amount = 45000000, Sale_Price__c = 45000000);
 update new List<Opportunity>{ oppAdaeze, oppChinedu, oppKano };
 
 // Not from a Lead: closing this one as Closed Won must be blocked.
 Account direct = new Account(Name = 'AD Test Direct Walk-in (no Lead)', RecordTypeId = accountTypes.get('Individual'), OwnerId = salesRep);
 insert direct;
-insert new Opportunity(Name = 'AD Test Sale - Direct (no Lead)', AccountId = direct.Id, OwnerId = salesRep, StageName = 'Negotiation',
+insert new Opportunity(RecordTypeId = oppRt, Name = 'AD Test Sale - Direct (no Lead)', AccountId = direct.Id, OwnerId = salesRep, StageName = 'Offer',
     CloseDate = Date.today().addDays(7), Payment_Mode__c = 'Full Payment', Vehicle__c = vehicles[1].Id, Amount = 25000000, Sale_Price__c = 25000000);
 
 // Discount request on the fleet sale, sitting with the Showroom Manager.
