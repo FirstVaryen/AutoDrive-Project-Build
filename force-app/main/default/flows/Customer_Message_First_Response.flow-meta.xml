@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <description>Stamps Case.First_Response_At__c when the first human reply is logged as a Customer Message on the case (KAN-64). Acknowledgements and automatic messages (Sent By starting &quot;Automatic&quot;) don't count. Only fills a blank value, so the first reply wins. Case_Escalation_1_Hour reads this field.</description>
+    <environments>Default</environments>
+    <interviewLabel>Customer Message First Response {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Customer Message - Stamp Case First Response</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Stamp_First_Response</name>
+        <label>Stamp First Response</label>
+        <locationX>176</locationX>
+        <locationY>215</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Case__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>First_Response_At__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>First_Response_At__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Stamp_First_Response</targetReference>
+        </connector>
+        <filterFormula>AND(NOT(ISBLANK({!$Record.Case__c})), NOT(ISPICKVAL({!$Record.Type__c}, &quot;Acknowledgement&quot;)), NOT(BEGINS({!$Record.Sent_By__c}, &quot;Automatic&quot;)))</filterFormula>
+        <object>Customer_Message__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -3,6 +3,11 @@
     <label>AM Admin - AutoDrive Field Access</label>
     <description>Field-level access to every AutoDrive custom field and the AutoDrive record types, for the build/admin user only. System Administrator profile has none on these fields, so they are invisible to Apex scripts and the admin UI without this.</description>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Instalment_Plan__c.Ownership_Documents_Status_Changed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.Agreed_Discount_Rate__c</field>
         <readable>true</readable>
