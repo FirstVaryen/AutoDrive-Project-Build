@@ -2,8 +2,8 @@
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
         <fullName>Finance_Team_Full_Access</fullName>
-        <label>Finance Team Full Access</label>
-        <accessLevel>Edit</accessLevel>
+        <label>Finance Team Read Access</label>
+        <accessLevel>Read</accessLevel>
         <criteriaItems>
             <field>Status__c</field>
             <operation>notEqual</operation>
