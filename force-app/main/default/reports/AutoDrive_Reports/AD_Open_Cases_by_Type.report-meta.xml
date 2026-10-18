@@ -4,6 +4,9 @@
         <field>SUBJECT</field>
     </columns>
     <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
         <field>STATUS</field>
     </columns>
     <columns>
@@ -12,25 +15,22 @@
     <columns>
         <field>OWNER</field>
     </columns>
-    <columns>
-        <field>Case.Routed_To__c</field>
-    </columns>
     <filter>
         <criteriaItems>
-            <column>OPEN</column>
+            <column>STATUS</column>
             <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
-            <operator>equals</operator>
-            <value>1</value>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Closed</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>TYPE</field>
+        <field>Case.Routed_To__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>AD Open Cases by Type</name>
+    <name>AD Open Cases by Team</name>
     <reportType>CaseList</reportType>
     <scope>organization</scope>
     <showDetails>true</showDetails>
