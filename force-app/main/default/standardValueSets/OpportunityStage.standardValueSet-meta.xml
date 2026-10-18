@@ -42,6 +42,33 @@
         <won>false</won>
     </standardValue>
     <standardValue>
+        <fullName>Viewing / Test Drive</fullName>
+        <default>true</default>
+        <label>Viewing / Test Drive</label>
+        <closed>false</closed>
+        <forecastCategory>Pipeline</forecastCategory>
+        <probability>25</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Offer</fullName>
+        <default>false</default>
+        <label>Offer</label>
+        <closed>false</closed>
+        <forecastCategory>BestCase</forecastCategory>
+        <probability>60</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Payment Arranged</fullName>
+        <default>false</default>
+        <label>Payment Arranged</label>
+        <closed>false</closed>
+        <forecastCategory>Forecast</forecastCategory>
+        <probability>90</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
         <fullName>Closed Won</fullName>
         <color>#78C953</color>
         <default>false</default>
@@ -59,31 +86,6 @@
         <closed>true</closed>
         <forecastCategory>Omitted</forecastCategory>
         <probability>0</probability>
-        <won>false</won>
-    </standardValue>
-    <standardValue>
-        <fullName>Viewing / Test Drive</fullName>
-        <default>false</default>
-        <label>Viewing / Test Drive</label>
-        <closed>false</closed>
-        <forecastCategory>Pipeline</forecastCategory>
-        <probability>25</probability>
-        <won>false</won>
-    </standardValue>    <standardValue>
-        <fullName>Offer</fullName>
-        <default>false</default>
-        <label>Offer</label>
-        <closed>false</closed>
-        <forecastCategory>BestCase</forecastCategory>
-        <probability>60</probability>
-        <won>false</won>
-    </standardValue>    <standardValue>
-        <fullName>Payment Arranged</fullName>
-        <default>false</default>
-        <label>Payment Arranged</label>
-        <closed>false</closed>
-        <forecastCategory>Forecast</forecastCategory>
-        <probability>90</probability>
         <won>false</won>
     </standardValue>
 </StandardValueSet>
