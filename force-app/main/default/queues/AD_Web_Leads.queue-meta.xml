@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>AD Website Leads</name>
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <queueMembers>
+        <roles>
+            <role>Sales_Rep</role>
+        </roles>
+    </queueMembers>
+    <queueRoutingConfig>AD_Lead_Routing</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Lead</sobjectType>
+    </queueSobject>
+</Queue>
