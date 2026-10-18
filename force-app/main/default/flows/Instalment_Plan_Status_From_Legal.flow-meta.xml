@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <description>Recalculates the linked plan's Plan Status when a legal escalation is raised or its status changes (With Legal while Open or In Progress).</description>
+    <environments>Default</environments>
+    <interviewLabel>Instalment_Plan_Status_From_Legal {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Legal Escalation - Update Plan Status</label>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Recalculate_Plan_Status</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Instalment_Plan__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Legal_Escalation__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>Recalculate_Plan_Status</name>
+        <label>Recalculate Plan Status</label>
+        <locationX>176</locationX>
+        <locationY>215</locationY>
+        <flowName>Instalment_Plan_Recalculate_Status</flowName>
+        <inputAssignments>
+            <name>planId</name>
+            <value>
+                <elementReference>$Record.Instalment_Plan__c</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>

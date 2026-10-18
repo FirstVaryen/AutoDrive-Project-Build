@@ -21,6 +21,11 @@
         <object>Opportunity</object>
     </objectPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Instalment_Plan__c.Plan_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Instalment_Plan__c.Completion_Email_Sent__c</field>
         <readable>true</readable>

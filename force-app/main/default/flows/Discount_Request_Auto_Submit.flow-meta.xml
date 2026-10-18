@@ -43,7 +43,7 @@
             </value>
         </assignmentItems>
     </assignments>
-    <description>Sends every new discount request straight into the Discount Approval process, so creating the request is the same as submitting it to the Showroom Manager. If submission fails (e.g. the creator isn't an allowed submitter), the request is still saved and can be submitted by hand.</description>
+    <description>Sends every new discount request above 5% (step With Showroom Manager) straight into the Discount Approval process, so creating the request is the same as submitting it to the Showroom Manager. If submission fails (e.g. the creator isn't an allowed submitter), the request is still saved and can be submitted by hand.</description>
     <environments>Default</environments>
     <interviewLabel>Discount Request Auto Submit {!$Flow.CurrentDateTime}</interviewLabel>
     <label>AM Discount Request - Submit For Approval On Create</label>
@@ -66,6 +66,14 @@
         <connector>
             <targetReference>Submit_For_Approval</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Current_Step__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>With Showroom Manager</stringValue>
+            </value>
+        </filters>
         <object>Discount_Request__c</object>
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Signed_Off_Plans__c</fullName>
+    <description>Instalment plans on this sale signed off by the Head of Finance. An instalment sale can only close Won when this is at least 1 (Instalment_Close_Needs_Plan_And_Deposit).</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Instalment plans on this sale signed off by the Head of Finance.</inlineHelpText>
+    <label>Signed-off Instalment Plans</label>
+    <summaryFilterItems>
+        <field>Instalment_Plan__c.Head_of_Finance_Sign_off__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Instalment_Plan__c.Opportunity__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>
