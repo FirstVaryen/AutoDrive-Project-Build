@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_List_Price__c</fullName>
+    <description>Flags a model with no list price so it is not left blank (US-26).</description>
+    <formula>ISBLANK(List_Price__c)</formula>
+    <label>AM No List Price</label>
+    <type>Checkbox</type>
+</CustomField>

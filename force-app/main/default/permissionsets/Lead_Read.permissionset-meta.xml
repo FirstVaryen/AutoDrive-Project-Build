@@ -13,6 +13,11 @@
     </objectPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Lead.No_Rep_Assigned__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Lead.Vehicle_Model_Of_Interest__c</field>
         <readable>true</readable>
     </fieldPermissions>
