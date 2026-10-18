@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Customer_Email</name>
+        <label>Send Customer Email</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Log_Customer_Message</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>f_Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>f_Subject</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>f_Body</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <decisions>
+        <name>Has_Email</name>
+        <label>Customer Has Email?</label>
+        <locationX>176</locationX>
+        <locationY>215</locationY>
+        <defaultConnectorLabel>No email</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Email</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>f_Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Customer_Email</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>US-34 and US-35: emails the customer when a case is logged (acknowledgement with the case number), when its status changes, and when it is closed (resolution). Owner changes and other internal edits send nothing. Each message is logged as a Customer Message (Sent By = Automatic) so agents see what was sent and when; automatic messages do not count as first response (US-13).</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>f_Body</name>
+        <dataType>String</dataType>
+        <expression>&quot;Hello &quot; &amp; IF(NOT(ISBLANK({!$Record.SuppliedName})), {!$Record.SuppliedName}, &quot;there&quot;) &amp; &quot;,&quot; &amp; BR() &amp; BR() &amp;
+IF({!f_IsNew},
+  &quot;Thank you for contacting AutoDrive Motors. We have received your request and logged it as number &quot; &amp; {!$Record.CaseNumber} &amp; &quot;. Please quote this number if you contact us about it. Our team will get back to you shortly.&quot;,
+  IF(ISPICKVAL({!$Record.Status}, &quot;Closed&quot;),
+    &quot;Your request &quot; &amp; {!$Record.CaseNumber} &amp; &quot; has been resolved. If anything is still not right, reply to this email or contact us quoting this number.&quot;,
+    &quot;There is an update on your request &quot; &amp; {!$Record.CaseNumber} &amp; &quot;: &quot; &amp;
+    CASE(TEXT({!$Record.Status}), &quot;Working&quot;, &quot;our team is now working on it.&quot;, &quot;Escalated&quot;, &quot;it has been passed to a senior member of the team.&quot;, &quot;Waiting on Customer&quot;, &quot;we need some information from you. Please reply to this email.&quot;, &quot;Reply Received&quot;, &quot;we have received your reply and will continue shortly.&quot;, &quot;its status is now &quot; &amp; TEXT({!$Record.Status}) &amp; &quot;.&quot;)))
+&amp; BR() &amp; BR() &amp; &quot;AutoDrive Motors Customer Service&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>f_Email</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK({!$Record.SuppliedEmail})), {!$Record.SuppliedEmail}, {!$Record.ContactEmail})</expression>
+    </formulas>
+    <formulas>
+        <name>f_IsNew</name>
+        <dataType>Boolean</dataType>
+        <expression>ISBLANK({!$Record__Prior.Id})</expression>
+    </formulas>
+    <formulas>
+        <name>f_Subject</name>
+        <dataType>String</dataType>
+        <expression>&quot;AutoDrive Motors - Request &quot; &amp; {!$Record.CaseNumber} &amp; IF({!f_IsNew}, &quot; received&quot;, IF(ISPICKVAL({!$Record.Status}, &quot;Closed&quot;), &quot; resolved&quot;, &quot; update&quot;))</expression>
+    </formulas>
+    <formulas>
+        <name>f_Type</name>
+        <dataType>String</dataType>
+        <expression>IF({!f_IsNew}, &quot;Acknowledgement&quot;, IF(ISPICKVAL({!$Record.Status}, &quot;Closed&quot;), &quot;Resolution&quot;, &quot;Status Update&quot;))</expression>
+    </formulas>
+    <interviewLabel>Case Customer Updates {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Case - Customer Updates (Acknowledge, Status, Resolved)</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Log_Customer_Message</name>
+        <label>Log Customer Message</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>Account__c</field>
+            <value>
+                <elementReference>$Record.AccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Case__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Channel__c</field>
+            <value>
+                <stringValue>Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Message_Text__c</field>
+            <value>
+                <elementReference>f_Body</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Sent_At__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Sent_By__c</field>
+            <value>
+                <stringValue>Automatic</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type__c</field>
+            <value>
+                <elementReference>f_Type</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Customer_Message__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Has_Email</targetReference>
+        </connector>
+        <filterFormula>OR(ISNEW(), ISCHANGED({!$Record.Status}))</filterFormula>
+        <object>Case</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

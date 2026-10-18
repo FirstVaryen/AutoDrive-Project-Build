@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Lets the user go Available in Omni-Channel to receive routed Cases and website Leads (US-11).</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>AD Omni-Channel Access</label>
+</PermissionSet>

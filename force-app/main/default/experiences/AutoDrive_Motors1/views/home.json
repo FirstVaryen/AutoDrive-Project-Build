@@ -1,0 +1,145 @@
+{
+  "appPageId": "f0df527c-44f9-438c-896c-272614c34ae7",
+  "componentName": "siteforce:sldsTwoCol84SidebarFeaturedLayout",
+  "dataProviders": [],
+  "id": "5d14a35f-4a15-47af-872d-d8c21f3380d0",
+  "label": "Home",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "bannerText": "New vehicles, honest timelines, and payment plans that fit. Find your next vehicle with us.",
+            "bannerTextWithKnowledge": "Explore other <a href=\"javascript:void(0)\" class=\"headlineArticles\">articles</a> and <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
+            "bannerTextWithoutKnowledge": "Explore other <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
+            "pageType": "",
+            "showSubTopics": true,
+            "title": "AutoDrive Motors",
+            "uniqueNameOrId": ""
+          },
+          "componentName": "forceCommunity:headline",
+          "id": "c84815d9-0da4-48fe-97d2-00c903033edf",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "d3812eb4-a47a-4593-a3cc-da359b815300",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<div class=\"ad-section\">\n<p class=\"ad-eyebrow\">Buying with AutoDrive</p>\n<h2 class=\"ad-h2\">New vehicles, a clear process, and a team that follows up</h2>\n<div class=\"ad-cards\">\n<div class=\"ad-card\"><span class=\"ad-num\">1</span><h3>Choose your vehicle</h3><p>Send us an enquiry or visit the showroom. Our sales team confirms what is available on the day, so you never hear about a car that has already gone.</p></div>\n<div class=\"ad-card\"><span class=\"ad-num\">2</span><h3>Pick how you pay</h3><p><strong>Full payment</strong>, or an <strong>instalment plan</strong>: a 30% down payment and the balance over up to 12 months, with a guarantor.</p></div>\n<div class=\"ad-card\"><span class=\"ad-num\">3</span><h3>We keep you updated</h3><p>Every payment is recorded and your balance is always up to date. You get an email reminder three days before each instalment is due.</p></div>\n</div>\n<div class=\"ad-strip\">\n<div><h3>Buying for a company?</h3><p>Fleet and corporate customers get one account, a named contact and an agreed discount rate, with several vehicles on one order.</p></div>\n<div><h3>Model not in stock?</h3><p>We can import it. You confirm by replying to your invoice, and we tell you as soon as the vehicle arrives.</p></div>\n</div>\n</div>"
+          },
+          "componentName": "forceCommunity:htmlBlock",
+          "id": "ddaca8d4-f3b0-4d32-bada-be8b9851b251",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "843b9afd-7ce3-4637-80a9-e23be42db3c9",
+      "regionName": "featured",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<div class=\"ad-form-head\" id=\"enquire\"><p class=\"ad-eyebrow\">Sales enquiry</p><h2 class=\"ad-h2\">Interested in a vehicle?</h2><p class=\"ad-muted\">Tell us what you are looking for. A sales rep will contact you, usually the same working day.</p></div>"
+          },
+          "componentName": "forceCommunity:htmlBlock",
+          "id": "1b412395-b9f3-4911-8db8-f44d5f7f4a39",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        },
+        {
+          "componentAttributes": {
+            "flowName": "Website_Sales_Enquiry",
+            "flowLayout": "oneColumn",
+            "flowArguments": ""
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "11c26815-b1bf-4857-ae5e-e56271f9d10a",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "c3a65799-909c-42c7-bcf7-a5ca0512ee48",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<div class=\"ad-form-head\" id=\"support\"><p class=\"ad-eyebrow\">Already a customer?</p><h2 class=\"ad-h3\">Contact support</h2><p class=\"ad-muted\">Questions about a payment, your order or your vehicle. You get a reference number straight away.</p></div>"
+          },
+          "componentName": "forceCommunity:htmlBlock",
+          "id": "85deefaa-6817-40db-aaef-ed5f9cbc25bb",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        },
+        {
+          "componentAttributes": {
+            "flowName": "Website_Contact_Support",
+            "flowLayout": "oneColumn",
+            "flowArguments": ""
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "2107bdf7-5722-4367-89fe-28ef62e56ec8",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "e3082ad7-e2b2-4d44-988e-48cc47d0e6a1",
+      "regionName": "sidebar",
+      "type": "region"
+    },
+    {
+      "id": "f3e22fe1-fa45-4e63-8617-26ea2497724d",
+      "regionName": "footer",
+      "type": "region",
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<div class=\"ad-footer\"><p><strong>AutoDrive Motors</strong> &middot; New vehicles &middot; Full payment and instalment plans &middot; Fleet and corporate sales</p><p class=\"ad-muted\">Requests sent through this site go straight to the right team. Please quote your reference number when you contact us.</p></div>"
+          },
+          "componentName": "forceCommunity:htmlBlock",
+          "id": "cba2db1e-8e0a-480d-8738-4331f00e3093",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ]
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Home"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "cf9a3d50-7748-4f80-bf5e-2687bb4171a3",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "0968c83b-3fe5-4e8c-a9f5-cf1e9c983f2b",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "home"
+}
