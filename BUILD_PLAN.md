@@ -119,7 +119,7 @@ In this order, since several depend on fields/objects above:
 
 These are genuinely code, not declarative-avoidable — this is where `AutoDrive-SFDX/force-app` and VS Code earn their keep.
 
-## Stage 10 — Reports & dashboard ⬜ Not started
+## Stage 10 — Reports & dashboard ✅ Built 2026-10-18 (one dashboard per role; per-user dynamic dashboards still a later item)
 Build last — needs every object above populated with real data to be meaningful.
 **Requirement noted 2026-10-15 (not yet designed — discuss before building):** each role needs its own dashboard on its Home page. The current `AutoDrive_Home` page (Items to Approve, tasks, recent records, calendar) is shared by all roles and has no dashboard; the demo-org Enablement Dashboard was removed because its report types are inaccessible to AutoDrive users. Home pages can be assigned per app + profile, so each role can get its own Home page with its own dashboard.
 
@@ -227,3 +227,11 @@ Also: Sales Rep profile no longer has vehicle record types. Reps can only view v
 
 ## To do after the build: full Security Matrix check
 Hillary asked for every access decision to be checked against the Security Matrix. That wasn't done for the profile record-type settings (above). Before sign-off, walk every role × object × action (and record types, tabs, field access) against the matrix and log any differences.
+
+## Built 2026-10-18
+- **KAN-100** `Instalment_Plan__c.Ownership_Documents_Status_Changed__c` + flow `Instalment_Plan_Stamp_Documents_Status`.
+- **KAN-64** `Case_Stamp_Resolved_At` (first close), `Customer_Message_First_Response` (first non-acknowledgement, non-automatic message), `Email_Message_First_Response` (first outgoing email). Escalation now only fires when nobody replied.
+- **Fix:** `Case_Satisfaction_Request` failed to close any case without an Account/contact email; now skips the email instead.
+- **KAN-92** flow `Opportunity_Discount_Invalidation`: Full Payment → Instalment marks Approved discounts **Invalidated** (new step value; exempt from the instalment discount rule) and emails Finance. Verified through a real 3-step approval (record locked) as admin; **still to confirm as a Sales Rep** in the login walkthrough.
+- **KAN-43** step 1 now stamped on create; fields `SLA_Business_Days__c`, `SLA_Limit_Days__c`, `SLA_Reminder_Sent_Step__c`; scheduled flow `Discount_Request_SLA_Reminder` daily 07:00 UTC emails the step's approver once per step when over 1/1/2 business days (only for requests actually in approval). Public holidays not excluded.
+- **KAN-69/70 (Stage 10)** 8 custom report types, 14 reports (folder *AutoDrive Reports*), 8 dashboards each in its own folder shared only with that role, 8 role Home pages (`AutoDrive_Home_<Role>`) assigned per profile in the AutoDrive Motors app. Enterprise Edition allows only 5 dynamic dashboards, so each dashboard runs as its role's test user; per-user figures stay a later item. Currency shows USD (org default). Satisfaction tile stays at 0 until customers' scores are recorded.

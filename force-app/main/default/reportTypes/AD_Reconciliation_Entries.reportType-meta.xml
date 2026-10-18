@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Reconciliation_Entry__c</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>AutoDrive: Reconciliation Entries, for role dashboards.</description>
+    <label>AD Reconciliation Entries</label>
+    <sections>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Name</field>
+            <table>Reconciliation_Entry__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>Reconciliation_Entry__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Date__c</field>
+            <table>Reconciliation_Entry__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Bank_Account__c</field>
+            <table>Reconciliation_Entry__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Bank_Total__c</field>
+            <table>Reconciliation_Entry__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Recorded_Total__c</field>
+            <table>Reconciliation_Entry__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Status__c</field>
+            <table>Reconciliation_Entry__c</table>
+        </columns>
+        <masterLabel>Reconciliation Entries</masterLabel>
+    </sections>
+</ReportType>

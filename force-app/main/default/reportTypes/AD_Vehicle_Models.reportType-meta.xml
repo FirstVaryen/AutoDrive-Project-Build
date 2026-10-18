@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Vehicle_Model__c</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>AutoDrive: Vehicle Models, for role dashboards.</description>
+    <label>AD Vehicle Models</label>
+    <sections>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Name</field>
+            <table>Vehicle_Model__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>Vehicle_Model__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Available_Stock__c</field>
+            <table>Vehicle_Model__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Low_stock_Threshold__c</field>
+            <table>Vehicle_Model__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Total_Stock_Count__c</field>
+            <table>Vehicle_Model__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>List_Price__c</field>
+            <table>Vehicle_Model__c</table>
+        </columns>
+        <masterLabel>Vehicle Models</masterLabel>
+    </sections>
+</ReportType>
