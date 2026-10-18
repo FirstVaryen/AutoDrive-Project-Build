@@ -8,13 +8,13 @@
         <layoutColumns>
             <layoutItems><behavior>Required</behavior><field>Opportunity__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Requested_Discount__c</field></layoutItems>
-            <layoutItems><behavior>Edit</behavior><field>Current_Step__c</field></layoutItems>
-            <layoutItems><behavior>Edit</behavior><field>Step_Reached_At__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Current_Step__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Step_Reached_At__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>SLA_Business_Days__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>SLA_Limit_Days__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>SLA_Reminder_Sent_Step__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Reason__c</field></layoutItems>
-            <layoutItems><behavior>Edit</behavior><field>Requested_By__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Requested_By__c</field></layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>

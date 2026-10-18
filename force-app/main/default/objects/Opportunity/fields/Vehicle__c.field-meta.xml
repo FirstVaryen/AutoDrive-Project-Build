@@ -4,6 +4,23 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Vehicle being sold on this Opportunity</description>
     <label>AM Vehicle</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <errorMessage>That vehicle has already been sold or isn't for sale. Pick an available vehicle, or raise an Import Request if the model is out of stock.</errorMessage>
+        <filterItems>
+            <field>Vehicle__c.Status__c</field>
+            <operation>notEqual</operation>
+            <value>Sold, Not for sale</value>
+        </filterItems>
+        <filterItems>
+            <field>$Source.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Won</value>
+        </filterItems>
+        <infoMessage>Only vehicles that are still available or reserved are shown.</infoMessage>
+        <isOptional>false</isOptional>
+    </lookupFilter>
     <referenceTo>Vehicle__c</referenceTo>
     <relationshipLabel>Opportunities</relationshipLabel>
     <relationshipName>Opportunities</relationshipName>

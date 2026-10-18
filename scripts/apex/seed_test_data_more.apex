@@ -61,12 +61,12 @@ insert vehicles;
 Vehicle__c camry1 = vehicles[0], camry2 = vehicles[1], camry3 = vehicles[2], sportage1 = vehicles[4], hilux1 = vehicles[7], hilux2 = vehicles[8];
 
 // Leads: five to convert, one (Grace) left open.
-Lead bola = new Lead(FirstName = 'Bola', LastName = 'AD Test Adeyemi', Company = 'AD Test Bola Adeyemi', Channel__c = 'Walk-in', Phone = '+2348010000011', Email = 'bola.adeyemi@example.com', OwnerId = salesRep);
-Lead emeka = new Lead(FirstName = 'Emeka', LastName = 'AD Test Obi', Company = 'AD Test Emeka Obi', Channel__c = 'Web', Phone = '+2348010000012', Email = 'emeka.obi@example.com', OwnerId = salesRep);
-Lead funke = new Lead(FirstName = 'Funke', LastName = 'AD Test Ayo', Company = 'AD Test Funke Ayo', Channel__c = 'Instagram', Phone = '+2348010000013', Email = 'funke.ayo@example.com', OwnerId = salesRep);
-Lead ride = new Lead(FirstName = 'Kemi', LastName = 'AD Test Lawal', Company = 'AD Test Lagos Ride Hailing Ltd', Channel__c = 'Returning/High-profile', Phone = '+2348010000014', Email = 'fleet@lagosride.example.com', OwnerId = salesRep);
-Lead ibrahim = new Lead(FirstName = 'Ibrahim', LastName = 'AD Test Musa', Company = 'AD Test Ibrahim Musa', Channel__c = 'Walk-in', Phone = '+2348010000015', Email = 'ibrahim.musa@example.com', OwnerId = salesRep);
-Lead grace = new Lead(FirstName = 'Grace', LastName = 'AD Test Nwosu', Company = 'AD Test Grace Nwosu', Channel__c = 'Web', Phone = '+2348010000016', Email = 'grace.nwosu@example.com', OwnerId = salesRep);
+Lead bola = new Lead(FirstName = 'Bola', LastName = 'AD Test Adeyemi', Company = 'AD Test Bola Adeyemi', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Walk-in', Phone = '+2348010000011', Email = 'bola.adeyemi@example.com', OwnerId = salesRep);
+Lead emeka = new Lead(FirstName = 'Emeka', LastName = 'AD Test Obi', Company = 'AD Test Emeka Obi', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Web', Phone = '+2348010000012', Email = 'emeka.obi@example.com', OwnerId = salesRep);
+Lead funke = new Lead(FirstName = 'Funke', LastName = 'AD Test Ayo', Company = 'AD Test Funke Ayo', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Instagram', Phone = '+2348010000013', Email = 'funke.ayo@example.com', OwnerId = salesRep);
+Lead ride = new Lead(FirstName = 'Kemi', LastName = 'AD Test Lawal', Company = 'AD Test Lagos Ride Hailing Ltd', Customer_Type__c = 'Fleet/Corporate', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Returning/High-profile', Phone = '+2348010000014', Email = 'fleet@lagosride.example.com', OwnerId = salesRep);
+Lead ibrahim = new Lead(FirstName = 'Ibrahim', LastName = 'AD Test Musa', Company = 'AD Test Ibrahim Musa', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Walk-in', Phone = '+2348010000015', Email = 'ibrahim.musa@example.com', OwnerId = salesRep);
+Lead grace = new Lead(FirstName = 'Grace', LastName = 'AD Test Nwosu', Company = 'AD Test Grace Nwosu', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry.Id, Channel__c = 'Web', Phone = '+2348010000016', Email = 'grace.nwosu@example.com', OwnerId = salesRep);
 insert new List<Lead>{ bola, emeka, funke, ride, ibrahim, grace };
 
 String convertedStatus = [SELECT MasterLabel FROM LeadStatus WHERE IsConverted = true LIMIT 1].MasterLabel;

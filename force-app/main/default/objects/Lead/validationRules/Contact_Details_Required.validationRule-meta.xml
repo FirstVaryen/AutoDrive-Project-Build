@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact_Details_Required</fullName>
+    <active>true</active>
+    <description>Every lead needs a phone number or an email address, so AutoDrive can follow up and send notifications (US-30: name and contact are saved).</description>
+    <errorConditionFormula>AND(
+    NOT(IsConverted),
+    ISBLANK(Phone),
+    ISBLANK(MobilePhone),
+    ISBLANK(Email)
+)</errorConditionFormula>
+    <errorMessage>Add the customer&apos;s phone number or email address so we can follow up with them.</errorMessage>
+</ValidationRule>

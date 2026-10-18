@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vehicle_Model_Of_Interest__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The vehicle model the prospect is interested in (US-30: name, contact, interest and channel are saved). Required when Visit Purpose is Purchase.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The model the customer wants. Required if they came to buy.</inlineHelpText>
+    <label>Vehicle of Interest</label>
+    <referenceTo>Vehicle_Model__c</referenceTo>
+    <relationshipLabel>Interested Leads</relationshipLabel>
+    <relationshipName>Interested_Leads</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

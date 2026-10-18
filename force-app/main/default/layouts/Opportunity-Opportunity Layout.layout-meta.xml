@@ -124,6 +124,7 @@
         <layoutColumns>
             <layoutItems><behavior>Edit</behavior><field>Vehicle__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Payment_Mode__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Pending_Discount_Requests__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>List_Price__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Discount_Amount__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Fleet_Rate_Applied__c</field></layoutItems>
@@ -239,26 +240,6 @@
         <fields>ContactEmail</fields>
         <fields>ContactAccountName</fields>
         <relatedList>RelatedContactRoleList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>PARTNER.ROLE</fields>
-        <fields>PARTNER.PRIMARY</fields>
-        <fields>ACCOUNT.PC_TITLE</fields>
-        <fields>ACCOUNT.PC_EMAIL</fields>
-        <relatedList>RelatedPartnerList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <relatedList>RelatedCompetitorList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>Product2</fields>
-        <fields>Quantity</fields>
-        <fields>UnitPrice</fields>
-        <fields>ServiceDate</fields>
-        <fields>Description</fields>
-        <fields>ListPrice</fields>
-        <relatedList>RelatedLineItemList</relatedList>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedNoteList</relatedList>

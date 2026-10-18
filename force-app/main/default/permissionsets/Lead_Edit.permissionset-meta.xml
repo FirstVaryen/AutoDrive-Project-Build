@@ -13,6 +13,16 @@
     </objectPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Lead.Vehicle_Model_Of_Interest__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Lead.Visit_Purpose__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Lead.Booked_Visit_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>

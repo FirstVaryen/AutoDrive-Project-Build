@@ -54,10 +54,10 @@ for (Vehicle_Model__c m : new List<Vehicle_Model__c>{ corolla, corolla, corolla,
 insert vehicles;
 
 // Leads, owned by the Sales Rep. Tunde stays unconverted.
-Lead adaeze = new Lead(FirstName = 'Adaeze', LastName = 'AD Test Okafor', Company = 'AD Test Adaeze Okafor', Channel__c = 'Walk-in', Phone = '+2348010000001', Email = 'adaeze.okafor@example.com', OwnerId = salesRep);
-Lead chinedu = new Lead(FirstName = 'Chinedu', LastName = 'AD Test Eze', Company = 'AD Test Chinedu Eze', Channel__c = 'Web', Phone = '+2348010000002', Email = 'chinedu.eze@example.com', OwnerId = salesRep);
-Lead kano = new Lead(FirstName = 'Musa', LastName = 'AD Test Bello', Company = 'AD Test Kano Logistics Ltd', Channel__c = 'Returning/High-profile', Phone = '+2348010000003', Email = 'fleet@kanologistics.example.com', OwnerId = salesRep);
-Lead tunde = new Lead(FirstName = 'Tunde', LastName = 'AD Test Bakare', Company = 'AD Test Tunde Bakare', Channel__c = 'Instagram', Phone = '+2348010000004', Email = 'tunde.bakare@example.com', OwnerId = salesRep);
+Lead adaeze = new Lead(FirstName = 'Adaeze', LastName = 'AD Test Okafor', Company = 'AD Test Adaeze Okafor', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = corolla.Id, Channel__c = 'Walk-in', Phone = '+2348010000001', Email = 'adaeze.okafor@example.com', OwnerId = salesRep);
+Lead chinedu = new Lead(FirstName = 'Chinedu', LastName = 'AD Test Eze', Company = 'AD Test Chinedu Eze', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = corolla.Id, Channel__c = 'Web', Phone = '+2348010000002', Email = 'chinedu.eze@example.com', OwnerId = salesRep);
+Lead kano = new Lead(FirstName = 'Musa', LastName = 'AD Test Bello', Company = 'AD Test Kano Logistics Ltd', Customer_Type__c = 'Fleet/Corporate', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = corolla.Id, Channel__c = 'Returning/High-profile', Phone = '+2348010000003', Email = 'fleet@kanologistics.example.com', OwnerId = salesRep);
+Lead tunde = new Lead(FirstName = 'Tunde', LastName = 'AD Test Bakare', Company = 'AD Test Tunde Bakare', Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = corolla.Id, Channel__c = 'Instagram', Phone = '+2348010000004', Email = 'tunde.bakare@example.com', OwnerId = salesRep);
 insert new List<Lead>{ adaeze, chinedu, kano, tunde };
 
 String convertedStatus = [SELECT MasterLabel FROM LeadStatus WHERE IsConverted = true LIMIT 1].MasterLabel;

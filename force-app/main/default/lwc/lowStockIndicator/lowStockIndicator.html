@@ -1,5 +1,11 @@
 <template>
     <lightning-card title="Stock Level" icon-name="standard:product">
+        <lightning-button
+            slot="actions"
+            label="All Vehicle Models"
+            icon-name="utility:back"
+            onclick={goToModelList}
+        ></lightning-button>
         <div class="slds-p-horizontal_medium">
             <template lwc:if={hasData}>
                 <div class={badgeClass} role="status">
