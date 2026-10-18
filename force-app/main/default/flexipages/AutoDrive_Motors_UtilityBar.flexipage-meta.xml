@@ -3,11 +3,6 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>label</name>
-                    <type>decorator</type>
-                    <value>Omni-Channel</value>
-                </componentInstanceProperties>
                 <componentName>runtime_service_omnichannel:omniWidget</componentName>
                 <identifier>runtime_service_omnichannel_omniWidget</identifier>
             </componentInstance>
