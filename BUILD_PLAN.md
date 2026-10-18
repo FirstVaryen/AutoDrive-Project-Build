@@ -239,3 +239,15 @@ Hillary asked for every access decision to be checked against the Security Matri
 ## Decisions 2026-10-18
 - **KAN-44 (discount visibility): keep as built.** Requester (Sales Rep), Showroom Manager, Finance Team and Head of Finance (the whole approval chain) see discount requests; Management keeps read-only oversight; Customer Service and Legal see none.
 - **KAN-85 (legal escalation access): Finance Team stays view-only.** Only the Head of Finance creates and updates escalations; Finance Team and Management view; Legal views escalations routed to its queue. Sharing rule `Finance_Team_Full_Access` relabelled "Finance Team Read Access" and set to Read so it matches (it never granted edit in practice, since the Finance Team's permission set is read-only).
+
+## From Sales Rep testing, 2026-10-18
+- Dashboards: all 8 load with no errors (sales tiles now count deals; multi-currency broke money tiles). Sales Rep dashboard = Leads by Status, Leads by Channel, Deals in Pipeline by Stage, Deals Won This Month.
+- Opportunity page: removed Partners, Competitors and Products related lists (unused demo lists; one threw a raw query error).
+- `Closed_Deal_Locked`: a Closed Won/Lost sale's stage, close date, amount, customer, payment mode and name can't change, for anyone. Vehicle and sale price left to the KAN-17 vehicle change/refund flow.
+- `Opportunity_Stamp_Close_Date`: close date set to the day the sale actually closes (no back-dating).
+- `Opportunity.Pending_Discount_Requests__c` (roll-up) + `Stage_Frozen_While_Discount_Pending`: stage can't move while a discount is waiting for approval.
+- `Discount_Request_Defaults` (Requested By, step) + `Discount_Request_Auto_Submit` (creating a request submits it); step, requested-at and requested-by are read-only on the page.
+- `Opportunity.Vehicle__c` lookup filter: only vehicles not Sold / Not for sale, except on Closed Won sales (otherwise closed sales, and payments on them, couldn't save).
+- Vehicle Model page: Vehicles related list; "All Vehicle Models" back button on the Stock Level panel.
+- Lead (US-23/US-30): `Visit_Purpose__c` (Enquiry/Purchase), `Vehicle_Model_Of_Interest__c` (required for Purchase), phone or email required, Customer Type required; AutoDrive Lead Details section moved up; `Lead_Individual_Company_Name` puts an individual's own name in Company.
+- Test data: model "AD Test - Toyota Land Cruiser" with no vehicles (out-of-stock test); "AD Test Sale - Bola Adeyemi (2nd car)" with a discount approved through the real approval chain (TC-S9).

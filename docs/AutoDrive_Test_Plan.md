@@ -39,10 +39,17 @@
 | TC-S3 | Opportunities → AD Test Sale - Direct (no Lead) → Stage Closed Won → Save | **Blocked**: "This sale can't be closed: the customer didn't come from a converted Lead…" | — | | |
 | TC-S4 | AD Test Sale - Adaeze Okafor → Closed Won → Save; open her car (Corolla #1) | Saves; car Status = **Sold** | KAN-41 | | |
 | TC-S5 | AD Test Sale - Kano Logistics Ltd → Discount Requests → DR-0003 → **Submit for Approval** | Submitted; Current Step **With Showroom Manager** | KAN-43 | | |
-| TC-S6 | Try to sell an already Sold car: on Bola's sale try selecting Corolla #1 / any **Sold** vehicle | Blocked or not selectable (Side Flow C) | KAN-41 | | |
-| TC-S7 | Leads → New → Channel **Walk-in** → Save | Owner becomes the next free rep (returning/high-profile → Showroom Manager) | KAN-34 | | |
+| TC-S6a | On an open sale (Kano), click the **AM Vehicle** field and search "Corolla #1" (sold) | Not offered; only available/reserved cars appear | KAN-41 | | |
+| TC-S6b | Out of stock: on an open sale, search vehicles for **Land Cruiser** (model AD Test - Toyota Land Cruiser has no cars) | **No vehicles found** → rep raises an **Import Request** for that model instead | KAN-41, KAN-38 | | |
+| TC-S7 | Leads → New → Channel **Walk-in**, Customer Type Individual, Visit Purpose Purchase + Vehicle of Interest, phone → Save. Repeat with **Returning or High-profile** ticked (AutoDrive Lead Details section) | First: owner = next free rep. Second: owner = Showroom Manager | KAN-34 | | |
+| TC-S7b | New lead with **no phone and no email** | **Blocked**: "Add the customer's phone number or email address…" | — | | |
+| TC-S7c | New lead, Visit Purpose **Purchase**, no Vehicle of Interest | **Blocked**: asks for the Vehicle of Interest | — | | |
+| TC-S7d | New **Individual** lead, type anything in Company (e.g. "Self") → Save | Company becomes the person's full name | — | | |
+| TC-S11 | Open a **Closed Won** sale (Bola Adeyemi) → change Stage, Close Date or Amount → Save | **Blocked**: "This sale is closed and can't be changed. If the customer wants something different, create a new sale…" | — | | |
+| TC-S12 | Open sale → create a Discount Request (Requested Discount + Reason only) → Save; then try to move the sale's Stage | Request saved and **automatically submitted** (Requested By and Step filled in). Stage change **blocked** until the request is decided | KAN-43 | | |
+| TC-S13 | Vehicle Models → any model → **All Vehicle Models** button on the Stock Level panel | Returns to the full model list; the model page lists its Vehicles | — | | |
 | TC-S8 | Create a discount on an **individual instalment** sale (Chinedu Eze) | **Blocked**: discounts not permitted on instalment deals for individuals | KAN-75 | | |
-| TC-S9 | Bola Adeyemi's sale (Full Payment, discount Approved) → Payment Mode **Instalment** → Save | Discount becomes **Invalidated**; Finance emailed. *(Confirms KAN-92 works for a rep, not just admin.)* | KAN-92 | | |
+| TC-S9 | **AD Test Sale - Bola Adeyemi (2nd car)** (open, Full Payment, discount Approved through the real approval chain) → Payment Mode **Instalment** → Save | Discount becomes **Invalidated**; Finance emailed. *(Confirms KAN-92 works for a rep on a locked, approved request.)* | KAN-92 | | |
 | TC-S10 | Vehicles → New | **No New button** (reps view stock only) | — | | |
 
 ## 3. Showroom Manager

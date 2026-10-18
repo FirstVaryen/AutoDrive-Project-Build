@@ -13,6 +13,11 @@
     </objectPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.Pending_Discount_Requests__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.Balance_Remaining__c</field>
         <readable>true</readable>
     </fieldPermissions>

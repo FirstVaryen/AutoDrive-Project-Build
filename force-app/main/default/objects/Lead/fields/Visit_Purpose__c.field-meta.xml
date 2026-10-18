@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Visit_Purpose__c</fullName>
+    <description>Why the prospect came to AutoDrive: a general enquiry or to buy a vehicle (US-23 standard qualification, US-30 interest).</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Did the customer come to ask questions (Enquiry) or to buy a vehicle (Purchase)?</inlineHelpText>
+    <label>Visit Purpose</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Enquiry</fullName>
+                <default>false</default>
+                <label>Enquiry</label>
+            </value>
+            <value>
+                <fullName>Purchase</fullName>
+                <default>false</default>
+                <label>Purchase</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
