@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closed_Won_Requires_Converted_Lead</fullName>
+    <active>true</active>
+    <description>A sale can only close if the customer came through a converted Lead. Account.From_Converted_Lead__c is stamped by the Lead_Conversion_Stamp_Account flow.</description>
+    <errorConditionFormula>AND(
+    ISPICKVAL(StageName, &quot;Closed Won&quot;),
+    OR(ISNEW(), ISCHANGED(StageName)),
+    NOT(Account.From_Converted_Lead__c)
+)</errorConditionFormula>
+    <errorDisplayField>StageName</errorDisplayField>
+    <errorMessage>This sale can&apos;t be closed: the customer didn&apos;t come from a converted Lead. Record them as a Lead and convert it first.</errorMessage>
+</ValidationRule>

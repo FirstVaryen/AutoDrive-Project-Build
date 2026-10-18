@@ -4,7 +4,7 @@
     <active>true</active>
     <description>Down payment must be at least 30%. Fleet accounts may fall below this only once Head of Finance has signed off, representing the case-by-case Finance-approved exception (US-16/US-20, US-29).</description>
     <errorConditionFormula>AND(
-    Down_Payment_Percent__c &lt; 30,
+    Down_Payment_Percent__c &lt; 0.3,
     OR(
         Opportunity__r.Account.RecordType.DeveloperName &lt;&gt; &apos;Fleet_Corporate&apos;,
         NOT( Head_of_Finance_Sign_off__c )

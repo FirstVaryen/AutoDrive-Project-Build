@@ -20,4 +20,14 @@
         <viewAllRecords>false</viewAllRecords>
         <object>Contact</object>
     </objectPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Agreed_Discount_Rate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.From_Converted_Lead__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
 </PermissionSet>

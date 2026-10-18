@@ -100,7 +100,16 @@ In this order, since several depend on fields/objects above:
 
 **Jira:** KAN-40, 43, 52, 55, 57, 59, 62, 64, 65, 72, 78, 80, 81, 84, 87, 90
 
-## Stage 9 — The 6 code exceptions (only place Apex/LWC belongs) ⬜ Not started
+## Stage 9 — The 6 code exceptions (only place Apex/LWC belongs) 🔶 Partially done (re-scoped 2026-10-15)
+**Status after review (2026-10-15):**
+- ❌ **VIN lookup — dropped.** Every vehicle is entered into the database on arrival and `Vehicle__c.Chassis_Number__c` already holds the VIN; a decoder only saves typing at data entry.
+- ⏸ **Agentforce inventory agent — deferred, build later (decided 2026-10-15; nice to have, not required).** Einstein generative AI (`EinsteinGptSettings.enableEinsteinGptPlatform`) and Agentforce (`AgentPlatformSettings.enableAgentPlatform`) switched on in `autodrive-dev` on 2026-10-15 by settings deploy, verified by retrieve. Agent not built. If built, it reads the database through one action (count available `Vehicle__c` by `Vehicle_Model__c`), not a knowledge base.
+- ✅ **Gmail logging — replaced with Email-to-Case (2026-10-15).** The design pack defines this as *inbound* customer email logging, so no Gmail connector. Added routing address `AutoDrive_Customer_Support` (support@autodrive.group3sb.test placeholder, unverified) → Origin Email, owner queue `Customer_Service`, in `settings/Case.settings-meta.xml`. Salesforce service address: support@v-w9rhy1futp1w2ot2xv1mp1l05cr8r6q8n4mzuvp07a045fm4.jy-2ofxuam.usa1340s.case.sandbox.salesforce.com. **Blocked for testing:** the demo-org flow `SDO_Service_Case_Creation` fails on every Case insert, so no Case can be created until it is deactivated (owner decision — not AutoDrive metadata). For production, replace the placeholder with the real support mailbox and forward it to the service address.
+- ✅ **Blinking low-stock indicator — built.** LWC `lowStockIndicator` on new record page `Vehicle_Model_Record_Page` (set as the desktop default via the object's View override). Blinks red when `Available_Stock__c` < `Low_stock_Threshold__c`, the same strictly-below rule as the `Vehicle_Model_Low_Stock_Alert` flow.
+- ✅ **No-sale-to-unconverted-Lead — built without code.** Flow `Lead_Conversion_Stamp_Account` ticks `Account.From_Converted_Lead__c` on conversion (works because Lead Settings "Require Validation for Converted Leads" is on); Opportunity validation rule `Closed_Won_Requires_Converted_Lead` blocks Closed Won otherwise. Field is on no layout and granted to no role, so it can't be ticked by hand. Accounts created before 2026-10-15 are not stamped — Stage 11 test data must go through Lead conversion.
+- ✅ **Discount Request visibility — solved with sharing rules, not Apex.** Gap found: Finance Team and Management had Read permission on Discount Request but no record visibility (Opportunity OWD Private, roles not above Sales). Added `Opportunity.sharingRules`: Read on Opportunities owned by Showroom Manager and subordinates, to roles Finance_Team_Member and Management. Children (Discount Request, Instalment Plan) inherit it. Apex Managed Sharing only needed if access must be limited to "only while the request is at your step".
+
+**Original list:**
 - VIN lookup: Apex class + LWC on the Vehicle page
 - Agentforce single-action agent: inventory count by model
 - Gmail-to-record logging: connector/connected app
@@ -112,6 +121,7 @@ These are genuinely code, not declarative-avoidable — this is where `AutoDrive
 
 ## Stage 10 — Reports & dashboard ⬜ Not started
 Build last — needs every object above populated with real data to be meaningful.
+**Requirement noted 2026-10-15 (not yet designed — discuss before building):** each role needs its own dashboard on its Home page. The current `AutoDrive_Home` page (Items to Approve, tasks, recent records, calendar) is shared by all roles and has no dashboard; the demo-org Enablement Dashboard was removed because its report types are inaccessible to AutoDrive users. Home pages can be assigned per app + profile, so each role can get its own Home page with its own dashboard.
 
 **Jira:** KAN-69
 
@@ -121,7 +131,7 @@ Clean sample data per object, enough to demo and test every Flow above.
 ## Stage 12 — QA pass ⬜ Not started
 Walk every story's Normal/Alternative/Exemption paths as the right persona (never as System Administrator). Defect log in Sandra's PROJECT_LOG.md — fill it in yourself if she isn't actually participating, but keep it honest about who found what.
 
-## Stage 13 — Permission architecture rework (post-presentation feedback, 2026-10-13) 🔶 Mostly done — 52 atomic sets + 8 Permission Set Groups built and assigned (2026-10-14); old 9 sets unassigned but not yet deleted; Locked Fields/muting gap still open
+## Stage 13 — Permission architecture rework (post-presentation feedback, 2026-10-13) 🔶 Done except Locked Fields — 52 atomic sets + 8 Permission Set Groups built and assigned (2026-10-14); old 8 role-based sets confirmed unassigned and deleted (2026-10-14). `Mute_Finance_Amount_Fields` kept — it's the separate, still-unresolved Locked Fields attempt, not one of the 8 retired sets. **Remaining gap: Locked Fields (hiding Opportunity/Instalment amount fields from Customer Service roles) — not fixable via any deployable metadata; must be finished manually in Setup → Permission Set Groups → [Customer Service Agent Group / Head of Customer Service Group] → Muting Permission Sets → New, since Muting Permission Sets only save correctly when created through that specific UI, not via Metadata API (confirmed 2026-10-13).**
 Triggered by live presentation feedback: the audience is non-technical, role-only people, and access control needs to be legible and demo-able per role, not just correct. Decided: **replace** the 9 existing matrix-based Permission Sets (not build alongside and retire later).
 
 **Confirmed by Obed Koplang's direct feedback on this build (Meeting Transcription, 2026-10-13, 18:59–19:54):** *"Are you going to have every permission they need in that permission set? Because that's not the proper way to build permission sets. Ideally, what you should do for a permission set is that if you are giving read access to an object, then that's what that permission set will do. If you are giving create, that's what the permission set should do. If you are giving access to run a flow, that's what the permission set should do. Then you count [combine] them to a permission set group and group all those per [role] — the finance team, the finance manager, and so on."* This is exactly the atomic-CRUD-plus-group pattern already planned below — the feedback confirms direction, it doesn't change it.
@@ -138,7 +148,7 @@ Carries forward every constraint already discovered in the original Stage 5 buil
 
 **Not started. Plan only — do not build until explicitly asked.**
 
-## Stage 14 — Role-based Lightning Apps (post-presentation feedback, 2026-10-13) ⬜ Not started
+## Stage 14 — Role-based Lightning Apps (post-presentation feedback, 2026-10-13) ✅ Built 2026-10-15
 Same feedback, second half: each of the 8 roles gets its own Lightning App (Setup → App Manager), not just shared access to one app with everything in the nav bar. Each app shows only the tabs/objects that role actually touches, so a demo to a non-technical audience can open "the Showroom Manager app" and see a Showroom Manager's world, not the whole data model.
 
 **Plan:**
@@ -146,7 +156,7 @@ Same feedback, second half: each of the 8 roles gets its own Lightning App (Setu
 2. Each app's nav bar: only the objects that role's Permission Set Group (Stage 13) actually grants access to — keeps the app and the access grant honest, one shouldn't show a tab the other blocks.
 3. Assign each app's visibility to its matching Permission Set Group (or Profile, if the group-level app assignment proves awkward) so each test user lands in their own app by default on login.
 
-**Not started. Plan only — do not build until explicitly asked.** Depends on Stage 13 being built first (the app's visible tabs are meant to mirror the group's actual grants).
+**Built 2026-10-15, then reworked the same day to one app (Hillary's decision).** Anderline Igwe's `AutoDrive_Motors` app is the single app for every role: it holds all 22 tabs (Home, the standard objects, all 14 AutoDrive objects, Reports, Dashboards) and is the default app on all 8 `AutoDrive <Role>` profiles. Each user sees only their own tabs: custom-object tabs through the atomic `<Object>_Tab` sets in their group (and Salesforce hides any custom tab whose object they can't access), and standard tabs through their profile (DefaultOn or Hidden). The 8 per-role apps and their 8 `<Role>_App` sets were built first, then removed from the org; backups kept outside the repo. Trade-off accepted: same tab order and app name for everyone. Created the 14 custom object tabs (none existed). Link to Anderline's Experience Cloud site "AutoDrive Motors" (Customer Service template, under construction): its Contact Support / My Cases pages create Cases that go through the same `Case_Routing` flow as Email-to-Case; site left untouched.
 
 ## Stage 15 — Solution Document (post-presentation feedback, 2026-10-13) ✅ Done (2 versions — see entry below)
 A plain-language solution document for a non-technical audience — what AutoDrive's Salesforce build actually does, per role, without assuming any Salesforce knowledge. Two versions delivered 2026-10-13: a first pass as a published Artifact (not grounded in the client's own words — superseded), then a second pass as a PDF, grounded directly in `TAP 3.0/AutoDrive_Requirements_UserStories_v8.xlsx` — real stakeholder quotes (Henry Idagu, Obed Koplang, Shedrack Jatau), verified story counts (11 Must/22 Should/5 Could/12 Won't Have, 38 total), confirmed business rules, and the still-open client questions. Revisit/republish once Stage 13/14 are actually built, since the current version describes the role list and data model as they stand today, not the future per-role-app state.
@@ -175,3 +185,45 @@ Obed Koplang's feedback on *how* to present, not what to build (Meeting Transcri
 ## A note for the record
 
 If this is substantially a solo build, say so plainly in the final handover documentation rather than implying three people built it — Engagement Lead notes, the build log, and the retro are exactly where that honesty belongs, and it protects you better than the alternative if anyone asks a direct question in review.
+
+## Defects found while seeding test data (2026-10-15)
+Sample data: `scripts/apex/seed_test_data.apex` (+ `seed_test_cases.apex` once Cases can be created). All records named "AD Test…".
+1. **Fixed — no field-level security anywhere.** None of the 52 atomic sets granted field access, so every role saw only record names. Added fieldPermissions to every `<Object>_Read` (read) and `_Create/_Edit/_Full` (edit; formula/roll-up read-only) set, for all 120 AutoDrive custom fields. Admin user had none either: new set `AutoDrive_Admin_Field_Access` (also AutoDrive record types), assigned to hillary@group.admin. Side effect: Customer Service roles now see Opportunity amount fields, so the Stage 13 Locked Fields muting is now genuinely needed.
+2. **Fixed — `Down_Payment_Min_30_Percent` blocked every non-fleet plan.** Compared a percent field to 30; formulas read percents as decimals. Now `< 0.3`.
+3. **Fixed — `Payment_Balance_Update` failed every Payment insert.** It wrote `Opportunity.Total_Paid__c`, a roll-up summary. Step removed; the roll-up already does it.
+4. **Open — Case creation blocked** by demo flow `SDO_Service_Case_Creation` (see Stage 9 Email-to-Case).
+5. **Fixed — Customer Service and Legal couldn't see Instalment Plans** despite `Instalment_Plan_Read`. Added Opportunity sharing rules (Read) to Head_of_Customer_Service and subordinates, and Legal_Team; verified all three test users can now read the plan.
+6. **Open — role permission sets grant no record types,** so non-admin users can't pick Vehicle New/Used or Account Individual/Fleet.
+7. **Minor — `Discount_Request_Stamp_Step` doesn't stamp the first step on create** (only on change). CreatedDate covers it, but the SLA clock reads blank for step 1.
+
+Verified working: Lead conversion stamp + Closed Won block (and sale close marks the vehicle Sold), low-stock blink (CR-V 2 < 5), payment roll-up/instalment paid, Finance & Management see Discount Requests.
+
+## Stage 13 follow-up — minimal profiles (2026-10-15) ✅ Done
+8 custom profiles `AutoDrive <Role>` (Salesforce licence), built empty rather than cloned: only Lightning Experience, single email, tasks/events, Run Reports (roles whose app has Reports), Convert Leads (Sales Rep, Showroom Manager), page layouts, standard tabs in that role's app, and record types (Account Individual/Fleet/Business, Vehicle New/Used — Sales Rep and Showroom Manager only, which also fixes defect 6 for the roles that create those records). Each sets its role's app as the default, with Anderline's `AutoDrive_Motors` app visible as a second app. All 8 test users moved off Standard User onto their profile; group assignments and record access re-verified unchanged.
+
+## Dashboard decisions (2026-10-15) — feeds Stage 10, not yet built
+- One shared dashboard per role (8), placed on that role's Home page.
+- Everyone sees only their own records.
+- Metrics: no client KPIs exist; use the proposed set (e.g. Sales Rep: own sales this month, open sales; Finance: overdue instalments, payments this week; Management: total sales, stock levels) and confirm with the client.
+- **Later, after the build is complete (out of current scope):** per-user dynamic dashboards so each user in a role sees only their own figures on the shared dashboard (e.g. one agent doesn't see another agent's numbers).
+
+## Sample data batch 2 (2026-10-15)
+`scripts/apex/seed_test_data_more.apex` brings the set to 10 customer scenarios: Adaeze (full payment, open), Chinedu (instalment, late, legal), Kano (fleet, discount pending), Tunde (unconverted lead), Direct walk-in (no Lead, can't close), Bola (discount approved, closed won), Emeka (plan fully paid, completion email sent), Funke (payment due in 3 days, settled legal case), Lagos Ride Hailing (fleet 20% down with sign-off, discount rejected, import confirmed), Ibrahim (lost sale, technical case closed with CSAT), plus Grace (open web lead). Totals: 3 showrooms, 5 models, 20 vehicles, 10 leads, 9 sales, 3 discount requests, 4 instalment plans, 11 instalments, 10 payments, 4 reconciliation entries, 3 import requests, 8 cases, 6 customer messages, 5 knowledge articles, 2 legal escalations. All automation fired without errors.
+
+## Decision: one showroom only (2026-10-15)
+From now on AutoDrive is built for a single showroom. Changes made:
+- **Showroom object kept** (capacity and vehicle count still matter); description updated.
+- **New flow `Vehicle_Default_Showroom`** (before save): a vehicle saved without a showroom is placed in the showroom automatically.
+- **New flow `Vehicle_Update_Showroom_Count`** (after save): keeps `Showroom__c.Vehicle_Count__c` = vehicles in the showroom that aren't Sold. **Bug fixed:** that field was never filled, so `Showroom_Capacity_Not_Exceeded` could never fire. Verified: count 18 of 25, filling to 25 works, the 26th vehicle is blocked. Deleting a vehicle doesn't recount until the next vehicle save.
+- **Capacity error message** reworded (no more "choose a different Showroom").
+- **Data:** all 20 vehicles moved to "AD Test - Lagos Main" (capacity 25); Abuja and Port Harcourt deleted. Seed scripts updated to create one showroom.
+- Unchanged and still correct for one showroom: the Showroom Manager role and group, `Case_Routing` "Showroom Manager", `Lead_Walkin_Assignment`, low-stock alert, sharing rules.
+
+## Decision: new vehicles only (2026-10-15)
+AutoDrive sells **new** vehicles only for now; used-car sales are a future option. The `Used` record type on Vehicle is **kept but switched off** (inactive, with a description saying how to turn it on). With only `New` available, nobody is asked to choose a type. Showroom Manager (the only role that creates vehicles) sees `New` only; the one sample used Corolla was moved to New and the seed script now creates New only.
+**Client wording:** "Used cars are built into the system and switched off. When AutoDrive starts selling used cars, an admin turns them on in a few clicks; no rebuild needed."
+
+Also: Sales Rep profile no longer has vehicle record types. Reps can only view vehicles, so it was unnecessary (found because access wasn't checked against the Security Matrix).
+
+## To do after the build: full Security Matrix check
+Hillary asked for every access decision to be checked against the Security Matrix. That wasn't done for the profile record-type settings (above). Before sign-off, walk every role × object × action (and record types, tabs, field access) against the matrix and log any differences.

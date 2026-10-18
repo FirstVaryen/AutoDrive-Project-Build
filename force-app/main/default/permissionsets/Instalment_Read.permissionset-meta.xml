@@ -29,4 +29,39 @@
         <viewAllRecords>false</viewAllRecords>
         <object>Opportunity</object>
     </objectPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Instalment__c.Amount_Due__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Instalment__c.Amount_Paid__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Instalment__c.Balance__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Instalment__c.Days_Late__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Instalment__c.Default_Alert_Sent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Instalment__c.Due_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Instalment__c.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
 </PermissionSet>

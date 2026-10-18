@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Stock Level" icon-name="standard:product">
+        <div class="slds-p-horizontal_medium">
+            <template lwc:if={hasData}>
+                <div class={badgeClass} role="status">
+                    <span class="dot"></span>
+                    <span class="label">{message}</span>
+                </div>
+            </template>
+            <template lwc:elseif={vehicleModel.error}>
+                <p class="slds-text-color_error">Stock level could not be loaded.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

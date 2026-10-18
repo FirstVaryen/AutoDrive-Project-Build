@@ -18,4 +18,14 @@
     <permissionSets>Reconciliation_Entry_Edit</permissionSets>
     <permissionSets>Guarantor_Edit</permissionSets>
     <permissionSets>Legal_Escalation_Read</permissionSets>
+    <permissionSets>Instalment_Plan_Tab</permissionSets>
+    <permissionSets>Instalment_Tab</permissionSets>
+    <permissionSets>Payment_Tab</permissionSets>
+    <permissionSets>Reconciliation_Entry_Tab</permissionSets>
+    <permissionSets>Discount_Request_Tab</permissionSets>
+    <permissionSets>Approval_Step_Tab</permissionSets>
+    <permissionSets>Guarantor_Tab</permissionSets>
+    <permissionSets>Legal_Escalation_Tab</permissionSets>
+    <permissionSets>Import_Request_Tab</permissionSets>
+    <permissionSets>Vehicle_Tab</permissionSets>
 </PermissionSetGroup>

@@ -11,4 +11,19 @@
         <viewAllRecords>false</viewAllRecords>
         <object>Knowledge_Article__c</object>
     </objectPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Knowledge_Article__c.Agreed_Answer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Knowledge_Article__c.Issue_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Knowledge_Article__c.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
 </PermissionSet>

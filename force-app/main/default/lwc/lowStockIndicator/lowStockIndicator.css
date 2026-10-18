@@ -1,0 +1,46 @@
+.indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+}
+
+.dot {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.indicator_ok {
+    background: #e6f4ea;
+    color: #1e6b34;
+}
+
+.indicator_ok .dot {
+    background: #2e844a;
+}
+
+.indicator_low {
+    background: #fde7e7;
+    color: #a61b1b;
+    animation: blink 1s ease-in-out infinite;
+}
+
+.indicator_low .dot {
+    background: #ea001e;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .indicator_low {
+        animation: none;
+        outline: 3px solid #ea001e;
+    }
+}

@@ -20,4 +20,29 @@
         <viewAllRecords>false</viewAllRecords>
         <object>Opportunity</object>
     </objectPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Discount_Request__c.Current_Step__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Discount_Request__c.Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Discount_Request__c.Requested_By__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Discount_Request__c.Requested_Discount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Discount_Request__c.Step_Reached_At__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
 </PermissionSet>

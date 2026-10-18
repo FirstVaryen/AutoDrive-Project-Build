@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>AM AM Vehicle Model - Tab</label>
+    <description>Atomic permission set: makes the AM Vehicle Model tab visible. Grants no record access on its own.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <tabSettings>
+        <tab>Vehicle_Model__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+</PermissionSet>

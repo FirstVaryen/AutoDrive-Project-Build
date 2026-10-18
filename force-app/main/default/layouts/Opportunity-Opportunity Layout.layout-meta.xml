@@ -183,6 +183,35 @@
         </relatedContentItems>
     </relatedContent>
     <relatedLists>
+        <fields>NAME</fields>
+        <fields>Requested_Discount__c</fields>
+        <fields>Current_Step__c</fields>
+        <fields>Requested_By__c</fields>
+        <relatedList>Discount_Request__c.Opportunity__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Down_Payment_Percent__c</fields>
+        <fields>Term_in_Months__c</fields>
+        <fields>Head_of_Finance_Sign_off__c</fields>
+        <relatedList>Instalment_Plan__c.Opportunity__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Type__c</fields>
+        <fields>Amount__c</fields>
+        <fields>Paid_On__c</fields>
+        <fields>Method__c</fields>
+        <relatedList>Payment__c.Opportunity__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Vehicle_Model__c</fields>
+        <fields>Status__c</fields>
+        <fields>Expected_Arrival__c</fields>
+        <relatedList>Import_Request__c.Opportunity__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>TASK.SUBJECT</fields>
         <fields>TASK.WHO_NAME</fields>
         <fields>ACTIVITY.TASK</fields>

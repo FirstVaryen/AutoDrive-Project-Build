@@ -11,4 +11,14 @@
         <viewAllRecords>false</viewAllRecords>
         <object>Guarantor__c</object>
     </objectPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Guarantor__c.Income_Check_Done__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Guarantor__c.Phone__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
 </PermissionSet>

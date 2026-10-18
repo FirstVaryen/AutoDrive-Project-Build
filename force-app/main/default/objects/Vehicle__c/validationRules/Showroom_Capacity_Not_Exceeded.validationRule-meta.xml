@@ -9,5 +9,5 @@
     OR( ISNEW(), ISCHANGED( Showroom__c ) ),
     Showroom__r.Vehicle_Count__c &gt;= Showroom__r.Capacity__c
 )</errorConditionFormula>
-    <errorMessage>This Showroom is already at capacity. Choose a different Showroom or increase its Capacity.</errorMessage>
+    <errorMessage>The showroom is full. Mark a vehicle as Sold or raise the showroom Capacity before adding another.</errorMessage>
 </ValidationRule>
