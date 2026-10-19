@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <PresenceUserConfig xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
         <profiles>
-            <profile>AutoDrive Sales Rep</profile>
             <profile>AutoDrive Finance Team</profile>
             <profile>AutoDrive Showroom Manager</profile>
             <profile>AutoDrive Customer Service Agent</profile>
