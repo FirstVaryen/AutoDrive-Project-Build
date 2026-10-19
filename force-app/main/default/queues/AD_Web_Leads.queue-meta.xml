@@ -7,7 +7,6 @@
             <role>Sales_Rep</role>
         </roles>
     </queueMembers>
-    <queueRoutingConfig>AD_Lead_Routing</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Lead</sobjectType>
     </queueSobject>
