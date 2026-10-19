@@ -321,3 +321,9 @@ Every v8 refined story was checked rule by rule against the build. Gaps closed:
 - Website flows set to "restrict to enabled profiles" so the guest profile's flow access applies (forms were blank for visitors).
 - New `docs/AutoDrive_User_Story_Tests.md`: 50 plain-language UAT tests, one or more per v8 story, separate from the QA test plan.
 - Jira: built stories, epics, KAN-49 and KAN-97 marked Done; KAN-101–104 created for Omni/website/customer emails/fleet vehicles (KAN-103 still to move to Done). [Test] subtasks left open for testers.
+
+### EDITED 2026-10-19: automatic website lead assignment (replaces Omni for leads)
+- Apex `LeadAutoAssigner` (+ trigger `LeadAutoAssign`, test class, 3/3 pass, 87% coverage): a lead in the AD Website Leads queue goes to an **online** Sales Rep (active login session) with **fewer than 5 open leads**; fewest open leads first, ties by longest since last given (round robin); the rep gets the standard "lead assigned" email. Nobody available → lead waits; retry every 15 minutes (4 scheduled jobs "AD Lead Auto Assign :00/:15/:30/:45", run as Hillary).
+- New field `Lead.Auto_Assigned_At__c` (read-only for Lead roles). Omni routing removed from the AD Website Leads queue; Omni stays for Cases. The Sales Rep presence config (capacity 5, auto-accept) from earlier no longer affects leads.
+- Out of the story scope (team decision to add it anyway).
+- Permission sets deleted as unused: Mute_Finance_Amount_Fields, Approval_Step_Create. Guarantor_Create kept (not used by any group; Finance and Head of Finance create guarantors through Guarantor_Edit / Guarantor_Full for US-29).
