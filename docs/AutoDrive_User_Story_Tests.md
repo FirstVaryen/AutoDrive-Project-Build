@@ -12,7 +12,15 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
 2. **Do the steps in order** and compare what you see with **You should see**.
 3. Write **Pass** or **Fail** in the Result column. For a Fail, write one line in Notes (what you saw) and take a screenshot.
 4. **Can't find a record?** Lists open on *Recently Viewed*. Click the list name and choose **All …**.
-5. **Need fresh sales to test with?** Ask an admin to run `scripts/apex/fresh_sales_test_records.apex`. It creates records named **"AD Rerun …"**.
+5. **Need fresh sales to test with?** Closed sales are locked, so a test that closes a sale can't be repeated on the same record. Make a new set instead (admin only, takes about a minute), either way:
+   - **From the project folder (terminal):** `sf apex run -o autodrive-dev -f scripts/apex/fresh_sales_test_records.apex`
+   - **From Salesforce (no terminal):** gear icon → **Developer Console** → **Debug** → **Open Execute Anonymous Window** → paste the whole content of `scripts/apex/fresh_sales_test_records.apex` → tick **Open Log** → **Execute**.
+
+   It creates, owned by TestSales Rep and named **"AD Rerun <date-time> …"** (use the newest set):
+   - **Sale 1 (open)**: Full Payment, at Offer, with an available car (UAT-01, UAT-15)
+   - **Sale 2 (discount approved)**: a 7.5% discount already approved (UAT-22)
+   - **Sale 3 (no Lead)**: for a customer who never came through a lead (UAT-02)
+   - **Lead**: an open lead at New
 6. Some tests wait for a daily automatic job (early morning). They are marked **(next day)**.
 
 | Role | Login |
@@ -87,7 +95,7 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
 | UAT-37 | US-06 / US-34 Website request becomes a case with a reference number | Website visitor | 1. Open the site. 2. Fill in **Contact support**, choose **Payments or my instalment plan**, submit. | A reference number appears on screen, and an email with the same number arrives. | | |
 | UAT-38 | US-06 Routed to the right team | Finance Team | 1. **Cases** → **All Open Cases**. | The case from UAT-37 is in the **AD Finance Cases** queue (or with a Finance user), Routed To = Finance. Repeat UAT-37 with "Buying a vehicle" → Showroom, and "A problem with my vehicle" → Customer Service. | | |
 | UAT-39 | US-11 Assigned to an available person | Customer Service Agent | 1. Open **Omni-Channel** in the bottom bar and set **Available**. 2. A visitor submits "A problem with my vehicle" (UAT-37 steps). | A request pops up to accept. After accepting, you are the case owner. Offline, the case waits in the queue. | | |
-| UAT-40 | US-11 Website sales enquiry reaches a rep | Sales Rep | 1. Set Omni-Channel **Available**. 2. A visitor submits **Sales enquiry** on the site. | A lead pops up to accept. After accepting it is in your Leads, Channel = Web, with the chosen vehicle. | | |
+| UAT-40 | US-11 Website sales enquiry reaches a rep | Sales Rep | 1. Be logged in as the Sales Rep (a real login; "Login As" may not count as online). 2. A visitor submits **Sales enquiry** on the site. 3. Wait up to 15 minutes, open **Leads** → **My Leads**. | The lead is yours with no clicking, Channel = Web, the chosen vehicle, and Auto Assigned At filled in. A rep with 5 open leads, or logged out, gets none. | | |
 | UAT-41 | US-04 One view of the customer | Customer Service Agent | 1. Search a customer by name or phone. 2. Open the account. | Purchases, cases and past messages are all on the record, view only, with no payment amounts. | | |
 | UAT-42 | US-35 Customer told when status changes | Customer Service Agent | 1. Open your case from UAT-39. 2. Change Status to **Working**, then **Closed**. 3. Check **Customer Messages** on the case. | One status update and one resolution message, each with the time sent. Changing only the owner sends nothing. | | |
 | UAT-43 | US-10 Head sees every case's owner and status | Head of Customer Service | 1. **Cases** → **All Cases**. | Every case with one owner and one status. | | |
