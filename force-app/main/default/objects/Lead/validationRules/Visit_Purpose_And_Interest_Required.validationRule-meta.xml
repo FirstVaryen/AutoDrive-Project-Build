@@ -2,13 +2,13 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Visit_Purpose_And_Interest_Required</fullName>
     <active>true</active>
-    <description>US-23/US-30: a lead can only be Qualified (or converted) once its Visit Purpose and Vehicle of Interest are confirmed. Phone or email is required from creation (Contact_Details_Required).</description>
+    <description>US-23/US-30: a lead can only be converted (qualified) once its Visit Purpose and Vehicle of Interest are confirmed. Phone or email is required from creation (Contact_Details_Required).</description>
     <errorConditionFormula>AND(
-    OR(ISPICKVAL(Status, &quot;Qualified&quot;), IsConverted),
+    IsConverted,
     OR(
         ISBLANK(TEXT(Visit_Purpose__c)),
         ISBLANK(Vehicle_Model_Of_Interest__c)
     )
 )</errorConditionFormula>
-    <errorMessage>Before this lead can be Qualified, confirm the Visit Purpose (Enquiry or Purchase) and the Vehicle of Interest.</errorMessage>
+    <errorMessage>Before this lead can be converted, confirm the Visit Purpose (Enquiry or Purchase) and the Vehicle of Interest.</errorMessage>
 </ValidationRule>
