@@ -75,6 +75,7 @@
     </assignments>
     <description>Website Contact Support form (Experience Cloud, guest). Creates a Case (Origin Web) with the customer's topic as Type, so Case_Routing sends it to Finance, the Showroom or Customer Service and Omni-Channel assigns it (US-06, US-11). Links the case to an existing customer when the email matches a contact (US-04). The customer is shown, and emailed, the case number (US-34). Runs in system mode so the guest user needs no record access.</description>
     <environments>Default</environments>
+    <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <interviewLabel>Website Contact Support {!$Flow.CurrentDateTime}</interviewLabel>
     <label>AM Website - Contact Support</label>
     <processMetadataValues>

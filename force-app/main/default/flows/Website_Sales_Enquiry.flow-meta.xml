@@ -99,6 +99,7 @@
         <dataType>String</dataType>
         <expression>&quot;How did you hear about us: &quot; &amp; IF(ISBLANK({!How_Heard}), &quot;not answered&quot;, {!How_Heard})</expression>
     </formulas>
+    <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <interviewLabel>Website Sales Enquiry {!$Flow.CurrentDateTime}</interviewLabel>
     <label>AM Website - Sales Enquiry</label>
     <processMetadataValues>
