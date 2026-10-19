@@ -47,16 +47,6 @@
         },
         {
           "componentAttributes": {
-            "richTextValue": "<div class=\"ad-feature\"><div class=\"ad-feature-text\"><p class=\"ad-eyebrow\">The showroom</p><h2 class=\"ad-h2\">See it in person</h2><p>Every vehicle we sell is new, and the status you hear from us is the status in our system, updated the moment a car is sold.</p><p class=\"ad-points\">Full payment or 30% down over up to 12 months.</p></div></div>"
-          },
-          "componentName": "forceCommunity:htmlBlock",
-          "id": "62c41b8c-60ff-4a49-b3ca-f3d12b28b1de",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        },
-        {
-          "componentAttributes": {
             "richTextValue": "<div class=\"ad-form-head\" id=\"enquire\"><p class=\"ad-eyebrow\">Sales enquiry</p><h2 class=\"ad-h2\">Interested in a vehicle?</h2><p class=\"ad-muted\">Tell us what you are looking for. A sales rep will contact you, usually the same working day.</p></div>"
           },
           "componentName": "forceCommunity:htmlBlock",
