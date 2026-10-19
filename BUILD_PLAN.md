@@ -327,3 +327,10 @@ Every v8 refined story was checked rule by rule against the build. Gaps closed:
 - New field `Lead.Auto_Assigned_At__c` (read-only for Lead roles). Omni routing removed from the AD Website Leads queue; Omni stays for Cases. The Sales Rep presence config (capacity 5, auto-accept) from earlier no longer affects leads.
 - Out of the story scope (team decision to add it anyway).
 - Permission sets deleted as unused: Mute_Finance_Amount_Fields, Approval_Step_Create. Guarantor_Create kept (not used by any group; Finance and Head of Finance create guarantors through Guarantor_Edit / Guarantor_Full for US-29).
+
+### EDITED 2026-10-19: UAT round 1 fixes (Sales Rep)
+- Lead: Phone, Email, Mobile, Description, Lead Source, Title had no field access for Lead roles (UAT-04 could not save). Added to Lead_Read (read) and Lead_Edit/Lead_Create (edit). "Assign using active assignment rule" checkbox hidden on the lead layout.
+- Lead statuses simplified (Hillary): New -> Contacted -> Converted, plus Closed - Not Converted for dropped leads. Qualified/Unqualified removed from the AutoDrive Lead Process; 1 open lead moved (Qualified -> Contacted). Purpose + vehicle are now required at conversion (Visit_Purpose_And_Interest_Required). Open Prospects list and LeadAutoAssigner updated.
+- Opportunities: the standard "All Opportunities" list now shows open sales only and is labelled "All Open Opportunities"; closed sales stay in AutoDrive - Closed Won / Closed Lost.
+- Vehicle lookup shows Model, Colour, Year and Status next to each car when picking one on a sale.
+- Omni: a presence status given through a permission set group did not reach users (only "Offline" showed). Omni_Channel_Access now assigned directly to the CS Agent, Head of CS, Finance and Showroom test users; removed from the Sales Rep group (Sales Reps get website leads automatically, no Omni).

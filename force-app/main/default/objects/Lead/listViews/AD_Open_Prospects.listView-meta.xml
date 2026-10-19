@@ -9,6 +9,6 @@
     <columns>LEAD.LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
     <filters><field>LEAD.CONVERTED</field><operation>equals</operation><value>0</value></filters>
-    <filters><field>LEAD.STATUS</field><operation>notEqual</operation><value>Unqualified</value></filters>
+    <filters><field>LEAD.STATUS</field><operation>notEqual</operation><value>Closed - Not Converted</value></filters>
     <label>AutoDrive - Open Prospects</label>
 </ListView>

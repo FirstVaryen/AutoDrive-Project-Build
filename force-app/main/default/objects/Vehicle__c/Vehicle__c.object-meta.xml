@@ -160,7 +160,16 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>AM Vehicles</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Model__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Colour__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Year__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Status__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Model__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Colour__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Year__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
