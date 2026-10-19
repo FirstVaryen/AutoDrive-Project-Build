@@ -1,75 +1,62 @@
 {
-  "appPageId": "f0df527c-44f9-438c-896c-272614c34ae7",
-  "componentName": "siteforce:sldsTwoCol66Layout",
-  "dataProviders": [],
-  "id": "1a68fb7e-00ff-4532-8102-38fb288ba0a6",
-  "label": "Contact Support",
-  "regions": [
-    {
-      "id": "c2b80aec-739d-41b5-a750-20795a2109af",
-      "regionName": "header",
-      "type": "region"
-    },
-    {
-      "components": [
-        {
-          "componentAttributes": {
-            "richTextValue": "<div class=\"ad-form-head\" id=\"support\"><p class=\"ad-eyebrow\">Already a customer?</p><h2 class=\"ad-h3\">Contact support</h2><p class=\"ad-muted\">Questions about a payment, your order or your vehicle. You get a reference number straight away.</p></div>"
-          },
-          "componentName": "forceCommunity:htmlBlock",
-          "id": "297485da-fea7-48be-aef1-66dd49e4cb33",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        },
-        {
-          "componentAttributes": {
-            "flowName": "Website_Contact_Support",
-            "flowLayout": "oneColumn",
-            "flowArguments": ""
-          },
-          "componentName": "forceCommunity:flowCommunity",
-          "id": "dbaebc81-1a96-4052-9cc5-5bddd14bf14c",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "798dd4ce-f741-4cf4-b3ac-de6744670cea",
-      "regionName": "content",
-      "type": "region"
-    },
-    {
-      "components": [],
-      "id": "2d3b2575-6c2e-48e6-99aa-3aaac5cb83a4",
-      "regionName": "sidebar",
-      "type": "region"
-    },
-    {
-      "id": "736cfe09-ccc6-4801-b40a-861a5c41ff64",
-      "regionName": "footer",
-      "type": "region"
-    },
-    {
-      "components": [
-        {
-          "componentAttributes": {
-            "customHeadTags": "",
-            "description": "",
-            "title": "Contact Support"
-          },
-          "componentName": "forceCommunity:seoAssistant",
-          "id": "2b7b5bcf-53ff-4d2c-a169-7a162d17758b",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "590686f2-9eae-423d-9db1-366fd4633733",
-      "regionName": "sfdcHiddenRegion",
-      "type": "region"
-    }
-  ],
-  "themeLayoutType": "Inner",
-  "type": "view",
-  "viewType": "contactsupport"
+  "appPageId" : "f0df527c-44f9-438c-896c-272614c34ae7",
+  "componentName" : "siteforce:sldsTwoCol66Layout",
+  "dataProviders" : [ ],
+  "id" : "1a68fb7e-00ff-4532-8102-38fb288ba0a6",
+  "label" : "Contact Support",
+  "regions" : [ {
+    "id" : "c2b80aec-739d-41b5-a750-20795a2109af",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<div class=\"ad-form-head\" id=\"support\"><p class=\"ad-eyebrow\">Already a customer?</p><h2 class=\"ad-h3\">Contact support</h2><p class=\"ad-muted\">Questions about a payment, your order or your vehicle. You get a reference number straight away.</p></div>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "297485da-fea7-48be-aef1-66dd49e4cb33",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "flowArguments" : "",
+        "flowName" : "Website_Contact_Support"
+      },
+      "componentName" : "forceCommunity:flowCommunity",
+      "id" : "dbaebc81-1a96-4052-9cc5-5bddd14bf14c",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "798dd4ce-f741-4cf4-b3ac-de6744670cea",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "2d3b2575-6c2e-48e6-99aa-3aaac5cb83a4",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "id" : "736cfe09-ccc6-4801-b40a-861a5c41ff64",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Contact Support"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "2b7b5bcf-53ff-4d2c-a169-7a162d17758b",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "590686f2-9eae-423d-9db1-366fd4633733",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "contactsupport"
 }
