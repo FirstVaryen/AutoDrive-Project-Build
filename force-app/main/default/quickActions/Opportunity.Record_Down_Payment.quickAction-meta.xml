@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Finance: record the customer's down payment on an instalment sale, with the agreed deposit filled in (US-03, US-29).</description>
+    <fieldOverrides>
+        <field>Amount__c</field>
+        <formula>Opportunity.Instalment_Down_Payment__c</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Type__c</field>
+        <literalValue>Down Payment</literalValue>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Paid_On__c</field>
+        <formula>TODAY()</formula>
+    </fieldOverrides>
+    <label>Record Down Payment</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems><emptySpace>false</emptySpace><field>Amount__c</field><uiBehavior>Required</uiBehavior></quickActionLayoutItems>
+            <quickActionLayoutItems><emptySpace>false</emptySpace><field>Paid_On__c</field><uiBehavior>Required</uiBehavior></quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems><emptySpace>false</emptySpace><field>Method__c</field><uiBehavior>Edit</uiBehavior></quickActionLayoutItems>
+            <quickActionLayoutItems><emptySpace>false</emptySpace><field>Type__c</field><uiBehavior>Readonly</uiBehavior></quickActionLayoutItems>
+        </quickActionLayoutColumns>
+    </quickActionLayout>
+    <targetObject>Payment__c</targetObject>
+    <targetParentField>Opportunity__c</targetParentField>
+    <type>Create</type>
+</QuickAction>
