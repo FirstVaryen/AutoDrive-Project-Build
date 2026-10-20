@@ -17,7 +17,7 @@
         <fieldNames>List_Price__c</fieldNames>
         <fieldNames>Customer_Type__c</fieldNames>
         <fieldNames>Payment_Mode__c</fieldNames>
-        <fieldNames>Instalment_Term_Months__c</fieldNames>
+        <fieldNames>Vehicle__c</fieldNames>
         <fieldNames>Expected_Collection_Date__c</fieldNames>
         <info>&lt;p&gt;Show the list price and agree how they will pay. A discount, if approved, shows the new sale price. For instalments, the Showroom Manager sets the months (up to 12) and the deposit (at least 30%).&lt;/p&gt;</info>
         <picklistValueName>Offer</picklistValueName>
