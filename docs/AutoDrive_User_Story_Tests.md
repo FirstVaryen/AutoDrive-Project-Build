@@ -64,20 +64,20 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
 | ID | Story | Steps | You should see | Result | Notes |
 |---|---|---|---|---|---|
 | UAT-01 | US-01 A sold car shows as sold straight away | 1. Open **AD Rerun … Sale 1 (open)**. 2. Note the vehicle. 3. Change Stage to **Closed Won**, save. 4. Click the vehicle. | The vehicle's Status is **Sold** without anyone editing it. The sale leaves **All Open Opportunities** and appears in **AutoDrive - Closed Won**. | Pass | Vehicle showed Sold. |
-| UAT-02 | US-01 A sold car can't be sold again | 1. Open another open sale (e.g. **AD Rerun … Sale 3 (open)**). 2. Edit **Vehicle** and search for the car sold in UAT-01. | The sold car is not offered. Each result shows model, colour, year and status. | Pass | |
-| UAT-03 | US-07 See live availability | 1. **Vehicles** tab, list **All**. | Every car shows Available, Reserved or Sold. View only. | Pass | |
-| UAT-04 | US-23 Same qualifying questions for every walk-in | 1. **Leads** → **New**. 2. Name, phone, Channel = Walk-in. 3. Find **Qualification Answers**, **Visit Purpose**, **Vehicle Model of Interest**. 4. Save. | The fields are there, Phone and Email can be filled in, there is no "assignment rule" checkbox, and the lead saves. | Fail → fixed, re-test | Phone/Email were hidden; fixed 19 Oct. |
-| UAT-05 | US-23 Purpose (and vehicle for a sale) needed to convert | 1. Open a lead at Contacted; on the path, click **Contacted** to see its key fields. 2. Clear Visit Purpose, click **Convert** → **Convert**. 3. Set Visit Purpose = Enquiry, Convert again with **Don't create an opportunity** ticked. 4. On another lead (Purchase, no vehicle), Convert creating the sale. | Step 2 blocked. Step 3 converts with no sale (kept as a customer record). Step 4 blocked until a Vehicle of Interest is picked on the lead. Path shows only New → Contacted → Converted. | Pass (old rule) – re-test | |
-| UAT-07 | US-30 Same person is not entered twice | 1. New lead with the **same phone number** as an existing customer. 2. Save. | A message warns that a matching record already exists. | | |
-| UAT-08 | US-31 Instagram enquiries with no visit booked | 1. New lead, Channel = **Instagram**, no Booked Visit Date. 2. **Leads** → **AutoDrive - Enquiries No Visit Booked**. 3. Add a Booked Visit Date, save, reopen the list. | On the list at step 2, gone at step 3. | | |
-| UAT-11a | US-38 Import when a model is out of stock | 1. Open a customer → **Import Requests** → **New**. 2. Pick the model, save. | The request saves with status Requested. (Finance moves it on in UAT-11b.) | | |
+| UAT-02 | US-01 A sold car can't be sold again | 1. Open another open sale (e.g. **AD Rerun … Sale 3 (open)**). 2. Edit **Vehicle** and search for the car sold in UAT-01. | The sold car is not offered. Each result shows model, colour, year and status. | Pass |  |
+| UAT-03 | US-07 See live availability | 1. **Vehicles** tab, list **All**. | Every car shows Available, Reserved or Sold. View only. | Pass |  |
+| UAT-04 | US-23 Same qualifying questions for every walk-in | 1. **Leads** → **New**. 2. Name, phone, Channel = Walk-in. 3. Find **Qualification Answers**, **Visit Purpose**, **Vehicle Model of Interest**. 4. Save. | The fields are there, Phone and Email can be filled in, there is no "assignment rule" checkbox, and the lead saves. | Pass | Passed after Phone/Email access fix (19 Oct). |
+| UAT-05 | US-23 Purpose (and vehicle for a sale) needed to convert | 1. Open a lead at Contacted; on the path, click **Contacted** to see its key fields. 2. Clear Visit Purpose, click **Convert** → **Convert**. 3. Set Visit Purpose = Enquiry, Convert again with **Don't create an opportunity** ticked. 4. On another lead (Purchase, no vehicle), Convert creating the sale. | Step 2 blocked. Step 3 converts with no sale (kept as a customer record). Step 4 blocked until a Vehicle of Interest is picked on the lead. Path shows only New → Contacted → Converted. | Pass |  |
+| UAT-07 | US-30 Same person is not entered twice | 1. New lead with the **same phone number** as an existing customer. 2. Save. | A message warns that a matching record already exists. | Pass | Tested with Daniel Okoro. |
+| UAT-08 | US-31 Instagram enquiries with no visit booked | 1. New lead, Channel = **Instagram**, no Booked Visit Date. 2. **Leads** → **AutoDrive - Enquiries No Visit Booked**. 3. Add a Booked Visit Date, save, reopen the list. | On the list at step 2, gone at step 3. | Skipped | Not run (no social media leads yet). |
+| UAT-11a | US-38 Import when a model is out of stock | 1. Open a customer → **Import Requests** → **New**. 2. Pick the model, save. | The request saves with status Requested. (Finance moves it on in UAT-11b.) | Pass |  |
 | UAT-12 | US-16 Fleet customer in one place | 1. Open a **Fleet/Corporate** account (e.g. Lagos Ride Hailing). | Contact person, agreed discount rate, owner and past sales on one page. | | |
-| UAT-15 | US-02 Small discount is approved at once | 1. On an open Full Payment sale, **Discount Requests** → **New**. 2. Rate **5%** or less, reason, save. | Approved straight away (Auto Approved ticked). | | |
-| UAT-16 | US-02 Larger discount goes up the chain | 1. On another open Full Payment sale, request **7.5%**. 2. Open the request. | Current Step = **With Showroom Manager**, with date and time. (Manager approves in UAT-17.) | | |
-| UAT-21 | US-25 No discount on an instalment deal | 1. On an **Instalment** sale for an individual, try to create a Discount Request. | Blocked with a message saying why. | | |
-| UAT-22 | US-25 Switching to instalment cancels the discount | 1. Open **AD Rerun … Sale 2 (discount approved)**. 2. Payment Mode = **Instalment**, save. | The approved discount becomes **Invalidated**. | | |
-| UAT-36a | NFR-01 Money is hidden | 1. Open any sale and look for payments, instalment plans and price fields. | None visible. | | |
-| UAT-40b | US-11 Website lead reaches a rep | 1. Be logged in as the Sales Rep (Login As is fine). 2. Wait up to 5 minutes after UAT-40a. 3. **Leads** → **My Leads**. | The website lead is yours with no clicking: Channel = Web, the chosen vehicle, Auto Assigned At filled in, plus a "lead assigned to you" email. A logged-out rep, or one with 5 open leads, gets none. | | |
+| UAT-15 | US-02 Small discount is approved at once | 1. On an open Full Payment sale, **Discount Requests** → **New**. 2. Rate **5%** or less, reason, save. | Approved straight away (Auto Approved ticked). | Pass |  |
+| UAT-16 | US-02 Larger discount goes up the chain | 1. On another open Full Payment sale, request **7.5%**. 2. Open the request. | Current Step = **With Showroom Manager**, with date and time. (Manager approves in UAT-17.) | Pass |  |
+| UAT-21 | US-25 No discount on an instalment deal | 1. On an **Instalment** sale for an individual, try to create a Discount Request. | Blocked with a message saying why. | Pass |  |
+| UAT-22 | US-25 Switching to instalment cancels the discount | 1. Open **AD Rerun … Sale 2 (discount approved)**. 2. Payment Mode = **Instalment**, save. | The approved discount becomes **Invalidated**. | Pass |  |
+| UAT-36a | NFR-01 Money is hidden | 1. Open any sale and look for payments, instalment plans and price fields. | None visible. | Pass |  |
+| UAT-40b | US-11 Website lead reaches a rep | 1. Be logged in as the Sales Rep (Login As is fine). 2. Wait up to 5 minutes after UAT-40a. 3. **Leads** → **My Leads**. | The website lead is yours with no clicking: Channel = Web, the chosen vehicle, Auto Assigned At filled in, plus a "lead assigned to you" email. A logged-out rep, or one with 5 open leads, gets none. | Pass | Fleet enquiry (Hillary Emmanuel) auto-assigned. |
 
 ## 3. Showroom Manager
 
@@ -86,10 +86,10 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
 | UAT-06 | US-30 Walk-in goes to a rep without retyping | 1. New lead, Channel = **Walk-in**, phone, save. 2. Look at **Lead Owner**. | The owner is a sales rep, picked automatically. | | |
 | UAT-09 | US-32 Where deals are stuck | 1. **Leads** → **AutoDrive - Open Prospects**. 2. **AutoDrive - Prospects With No Rep**. 3. **Opportunities** → **AutoDrive - Open Deals**. | Each list shows source/channel, owner and stage/status. | | |
 | UAT-10 | US-12 Low-stock alert | 1. Open a **Vehicle Model**. 2. Set **Low Stock Threshold** above its Available Stock, save. **(next day)** check notifications. | One alert for that model; it does not repeat. | | |
-| UAT-13 | US-16 Fleet order with several vehicles | 1. Open an open sale for a fleet account. 2. **Fleet Vehicles** → **New**, add two cars with prices. | Fleet Vehicle Count = 2 and the total. Closing the sale marks both cars **Sold**. | | |
-| UAT-14 | US-16 Several vehicles only for fleet | 1. On a sale for an **Individual**, try to add a Fleet Vehicle. | An error says fleet sales only. | | |
+| UAT-13 | US-16 Fleet order with several vehicles | 1. Open an open sale for a fleet account. 2. **Fleet Vehicles** → **New**, add two cars with prices. | Fleet Vehicle Count = 2 and the total. Closing the sale marks both cars **Sold**. | Pass | Run as Sales Rep: Type + How many, identical cars reserved, totals and Fleet Summary update; delete line releases car; lost sale releases cars. |
+| UAT-14 | US-16 Several vehicles only for fleet | 1. On a sale for an **Individual**, try to add a Fleet Vehicle. | An error says fleet sales only. | Pass | Not enough stock refused; Import Request raised. |
 | UAT-17 | US-02 Manager sees where the discount sits | 1. Home → **Items to Approve**, approve the request from UAT-16. 2. Reopen it. | Step now **With Finance**, with a new date/time. | | |
-| UAT-20 | US-20 Fleet agreed rate applies | 1. On a fleet sale (account has an Agreed Discount Rate), new Discount Request, leave the rate blank, save. | The fleet's agreed rate is filled in automatically. | | |
+| UAT-20 | US-20 Fleet agreed rate applies | 1. On a fleet sale (account has an Agreed Discount Rate), new Discount Request, leave the rate blank, save. | The fleet's agreed rate is filled in automatically. | Pass | Fleet rate applied on fleet total (run as Sales Rep). |
 
 ## 4. Finance Team
 
@@ -168,7 +168,7 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
 | Role | Tests | Passed | Failed | Tester | Date |
 |---|---|---|---|---|---|
 | Website visitor | 2 | | | | |
-| Sales Rep | 16 | | | | |
+| Sales Rep | 16 | 15 | 0 | Hillary | 20 Oct 2026 (1 skipped) |
 | Showroom Manager | 7 | | | | |
 | Finance Team | 9 | | | | |
 | Head of Finance | 8 | | | | |
