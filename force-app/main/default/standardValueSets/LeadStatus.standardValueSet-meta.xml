@@ -67,10 +67,4 @@
         <label>Contacted</label>
         <converted>false</converted>
     </standardValue>
-    <standardValue>
-        <fullName>Closed - Not Converted</fullName>
-        <default>false</default>
-        <label>Closed - Not Converted</label>
-        <converted>false</converted>
-    </standardValue>
 </StandardValueSet>

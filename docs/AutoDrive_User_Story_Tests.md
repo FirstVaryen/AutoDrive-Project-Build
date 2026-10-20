@@ -18,7 +18,7 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
    It creates, owned by TestSales Rep and named **"AD Rerun <date-time> …"** (use the newest set):
    - **Sale 1 (open)**: Full Payment, at Offer, with an available car (UAT-01, UAT-15)
    - **Sale 2 (discount approved)**: a 7.5% discount already approved (UAT-22)
-   - **Sale 3 (no Lead)**: for a customer who never came through a lead (UAT-02, and the blocked close for a sale with no lead)
+   - **Sale 3 (no Lead)**: for a customer who never came through a lead (UAT-02)
    - **Lead**: an open lead at New
 6. Some tests wait for a daily automatic job (early morning). They are marked **(next day)**.
 
@@ -67,7 +67,7 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
 | UAT-02 | US-01 A sold car can't be sold again | 1. Open any other open sale (e.g. **AD Rerun … Sale 3**). 2. Edit **Vehicle** and search for the car sold in UAT-01. | The sold car is not offered. Each result shows model, colour, year and status. | Pass | |
 | UAT-03 | US-07 See live availability | 1. **Vehicles** tab, list **All**. | Every car shows Available, Reserved or Sold. View only. | Pass | |
 | UAT-04 | US-23 Same qualifying questions for every walk-in | 1. **Leads** → **New**. 2. Name, phone, Channel = Walk-in. 3. Find **Qualification Answers**, **Visit Purpose**, **Vehicle Model of Interest**. 4. Save. | The fields are there, Phone and Email can be filled in, there is no "assignment rule" checkbox, and the lead saves. | Fail → fixed, re-test | Phone/Email were hidden; fixed 19 Oct. |
-| UAT-05 | US-23 Purpose and vehicle needed to convert | 1. Open the lead from UAT-04. 2. Clear Visit Purpose. 3. Click **Convert**. 4. Fill Visit Purpose and Vehicle back in and convert. | Step 3 is blocked with a message asking for Visit Purpose and Vehicle. Step 4 converts. Statuses are only New → Contacted → Converted (or Closed - Not Converted). | Pass (old rule) – re-test | |
+| UAT-05 | US-23 Purpose and vehicle needed to convert | 1. Open the lead from UAT-04. 2. Clear Visit Purpose. 3. Click **Convert**. 4. Fill Visit Purpose and Vehicle back in and convert. | Step 3 is blocked with a message asking for Visit Purpose and Vehicle. Step 4 converts. The path shows only New → Contacted → Converted. | Pass (old rule) – re-test | |
 | UAT-07 | US-30 Same person is not entered twice | 1. New lead with the **same phone number** as an existing customer. 2. Save. | A message warns that a matching record already exists. | | |
 | UAT-08 | US-31 Instagram enquiries with no visit booked | 1. New lead, Channel = **Instagram**, no Booked Visit Date. 2. **Leads** → **AutoDrive - Enquiries No Visit Booked**. 3. Add a Booked Visit Date, save, reopen the list. | On the list at step 2, gone at step 3. | | |
 | UAT-11a | US-38 Import when a model is out of stock | 1. Open a customer → **Import Requests** → **New**. 2. Pick the model, save. | The request saves with status Requested. (Finance moves it on in UAT-11b.) | | |
