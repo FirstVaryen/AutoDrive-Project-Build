@@ -2,6 +2,7 @@
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <label>AM Finance Team</label>
     <description>Role-based bundle of atomic CRUD permission sets, assembled from the intersection matrix (2026-10-14).</description>
+    <permissionSets>Record_Instalment_Payment_Flow</permissionSets>
     <permissionSets>Omni_Channel_Access</permissionSets>
     <permissionSets>Account_Read</permissionSets>
     <permissionSets>Contact_Read</permissionSets>
