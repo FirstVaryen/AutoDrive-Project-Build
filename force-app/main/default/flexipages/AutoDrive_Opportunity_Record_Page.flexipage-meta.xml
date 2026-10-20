@@ -382,7 +382,7 @@
                     <fieldItem>Record.Sale_Price__c</fieldItem>
                     <identifier>RecordSalePricecField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+                    <booleanFilter>(1 OR 2 OR 3 OR 4) AND (5 OR 6)</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.StageName}</leftValue>
                         <operator>EQUAL</operator>
@@ -402,6 +402,16 @@
                         <leftValue>{!Record.StageName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Closed Lost</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Discount_Amount__c}</leftValue>
+                        <operator>GT</operator>
+                        <rightValue>0</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Pending_Discount_Requests__c}</leftValue>
+                        <operator>GT</operator>
+                        <rightValue>0</rightValue>
                     </criteria>
                 </visibilityRule>
                 </fieldInstance>
@@ -553,21 +563,16 @@
                     <fieldItem>Record.Discount_Amount__c</fieldItem>
                     <identifier>RecordDiscountAmountcField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
+                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.StageName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Payment Arranged</rightValue>
+                        <leftValue>{!Record.Discount_Amount__c}</leftValue>
+                        <operator>GT</operator>
+                        <rightValue>0</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.StageName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Closed Won</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.StageName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Closed Lost</rightValue>
+                        <leftValue>{!Record.Pending_Discount_Requests__c}</leftValue>
+                        <operator>GT</operator>
+                        <rightValue>0</rightValue>
                     </criteria>
                 </visibilityRule>
                 </fieldInstance>
@@ -581,21 +586,16 @@
                     <fieldItem>Record.Discount_Percent__c</fieldItem>
                     <identifier>RecordDiscountPercentcField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
+                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.StageName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Payment Arranged</rightValue>
+                        <leftValue>{!Record.Discount_Amount__c}</leftValue>
+                        <operator>GT</operator>
+                        <rightValue>0</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.StageName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Closed Won</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.StageName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Closed Lost</rightValue>
+                        <leftValue>{!Record.Pending_Discount_Requests__c}</leftValue>
+                        <operator>GT</operator>
+                        <rightValue>0</rightValue>
                     </criteria>
                 </visibilityRule>
                 </fieldInstance>
