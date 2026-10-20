@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Type__c</fullName>
+    <description>Individual or Fleet/Corporate, from the customer's account record type.</description>
+    <formula>IF(Account.RecordType.DeveloperName = &quot;Fleet_Corporate&quot;, &quot;Fleet/Corporate&quot;, &quot;Individual&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>AM Customer Type</label>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
