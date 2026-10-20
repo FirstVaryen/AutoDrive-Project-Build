@@ -402,3 +402,9 @@ Every v8 refined story was checked rule by rule against the build. Gaps closed:
 - **Error fixed:** "Import Request - Notify Rep on Arrival … 0 recipients": the arrival email went to Requested By, which was empty on that request. The flow now only emails when there is a requester, and every new request records one.
 - **Lists:** deleted "Opportunity Pipeline" (unused SDO list) and "AutoDrive - Open Deals" (same as All Open Opportunities, which has Approval Status). Docs updated.
 - **Send Email (open):** the email action is missing from contacts for test users even with the global/contact actions and permissions in place; likely cause is the sandbox Email Deliverability setting (Setup -> Deliverability -> Access level), which is Hillary's to change.
+- (20 Oct) Discount approvals per approver: new Discount Request list views **My Approvals - Showroom Manager / Finance / Head Office** (Current Step = with that approver), each shared only with that role. The approval chain is Showroom Manager -> Finance -> Head Office (Head of Finance user), US-02; "Approve" at one step sends it on to the next. Kano DR-0003 (seed data never submitted) submitted into the approval process; test request DR-0023 (10%, Halima Yusuf - Toyota Hilux) created for the manager's reject test. Story check: approver and time recorded (Approved By / Approved On, Step Reached At) - matches US-02, US-08, NFR-03.
+
+### Setup steps for Hillary (not deployable, do in Setup)
+1. **Email deliverability:** Setup -> Deliverability -> Access level -> **All email** -> Save. Needed for the Email action on contacts and for all customer/staff emails to be delivered in the sandbox.
+2. **Confetti on Closed Won:** Setup -> Path Settings -> AutoDrive Sale Path -> Edit -> Next -> tick **Enable Celebrations**, choose **Closed Won**, frequency **Always** -> Save.
+3. (Earlier) Automated Process user email: Setup -> Process Automation Settings.

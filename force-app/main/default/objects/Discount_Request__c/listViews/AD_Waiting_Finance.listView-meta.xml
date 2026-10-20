@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AD_Waiting_Finance</fullName>
+    <columns>NAME</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Requested_Discount__c</columns>
+    <columns>Reason__c</columns>
+    <columns>Requested_By__c</columns>
+    <columns>Step_Reached_At__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Current_Step__c</field>
+        <operation>equals</operation>
+        <value>With Finance</value>
+    </filters>
+    <label>My Approvals - Finance</label>
+    <sharedTo>
+        <role>Finance_Team_Member</role>
+    </sharedTo>
+</ListView>
