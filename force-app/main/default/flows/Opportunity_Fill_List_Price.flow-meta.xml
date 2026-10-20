@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <assignments>
+        <name>Set_Prices</name>
+        <label>Set Prices</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.List_Price__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Vehicle__r.Model__r.List_Price__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Sale_Price__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>f_SalePrice</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>The cost of the vehicle is on the sale from the moment a vehicle is picked: List Price is copied from the vehicle's model, and Sale Price starts at the list price until the Showroom Manager or Finance changes it (or an approved discount does).</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>f_SalePrice</name>
+        <dataType>Currency</dataType>
+        <expression>IF(ISBLANK({!$Record.Sale_Price__c}) || {!$Record__Prior.Vehicle__c} &lt;&gt; {!$Record.Vehicle__c}, {!$Record.Vehicle__r.Model__r.List_Price__c}, {!$Record.Sale_Price__c})</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>Opportunity Fill List Price {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Opportunity - Fill List Price From Vehicle</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Set_Prices</targetReference>
+        </connector>
+        <filterFormula>AND(NOT(ISBLANK({!$Record.Vehicle__c})), NOT({!$Record.IsClosed}), OR(ISNEW(), ISCHANGED({!$Record.Vehicle__c}), ISBLANK({!$Record.List_Price__c})))</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
