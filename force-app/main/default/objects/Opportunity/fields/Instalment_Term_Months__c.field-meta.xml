@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Instalment_Term_Months__c</fullName>
+    <description>Instalment sales: how many months the balance is spread over (1-12, US-29).</description>
+    <inlineHelpText>1 to 12 months.</inlineHelpText>
+    <label>AM Instalment Duration (Months)</label>
+    <precision>2</precision>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

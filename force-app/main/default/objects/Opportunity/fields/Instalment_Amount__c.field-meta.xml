@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Instalment_Amount__c</fullName>
+    <description>Instalment sales: amount spread over the months (sale price minus down payment).</description>
+    <formula>IF(ISPICKVAL(Payment_Mode__c, &quot;Instalment&quot;), Sale_Price__c - BLANKVALUE(Instalment_Down_Payment__c, 0), NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>AM Amount on Instalment</label>
+    <precision>18</precision>
+    <scale>2</scale>
+    <type>Currency</type>
+</CustomField>

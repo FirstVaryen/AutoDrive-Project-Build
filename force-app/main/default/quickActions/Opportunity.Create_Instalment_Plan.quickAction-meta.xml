@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Finance: create the instalment plan for this sale with the agreed duration and down payment filled in (US-29).</description>
+    <fieldOverrides>
+        <field>Term_in_Months__c</field>
+        <formula>Opportunity.Instalment_Term_Months__c</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Down_Payment_Amount__c</field>
+        <formula>Opportunity.Instalment_Down_Payment__c</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Down_Payment_Percent__c</field>
+        <formula>IF(Opportunity.Sale_Price__c &gt; 0, Opportunity.Instalment_Down_Payment__c / Opportunity.Sale_Price__c, 0)</formula>
+    </fieldOverrides>
+    <label>Create Instalment Plan</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems><emptySpace>false</emptySpace><field>Guarantor__c</field><uiBehavior>Required</uiBehavior></quickActionLayoutItems>
+            <quickActionLayoutItems><emptySpace>false</emptySpace><field>Term_in_Months__c</field><uiBehavior>Edit</uiBehavior></quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems><emptySpace>false</emptySpace><field>Down_Payment_Amount__c</field><uiBehavior>Edit</uiBehavior></quickActionLayoutItems>
+            <quickActionLayoutItems><emptySpace>false</emptySpace><field>Down_Payment_Percent__c</field><uiBehavior>Edit</uiBehavior></quickActionLayoutItems>
+        </quickActionLayoutColumns>
+    </quickActionLayout>
+    <targetObject>Instalment_Plan__c</targetObject>
+    <targetParentField>Opportunity__c</targetParentField>
+    <type>Create</type>
+</QuickAction>
