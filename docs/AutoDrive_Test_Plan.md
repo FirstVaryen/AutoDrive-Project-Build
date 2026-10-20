@@ -53,7 +53,7 @@ Run the tests in the order listed. Each one says which record it uses.
 |---|---|---|---|---|---|
 | TC-S1 | Look at the tab bar | Home, Leads, Accounts, Contacts, Opportunities, AM Vehicles, AM Vehicle Models, AM Discount Requests, AM Import Requests, Reports, Dashboards. **No** Showrooms, Guarantors, Cases, Customer Messages, Knowledge, Instalment Plans, Payments, Reconciliation | KAN-48 | | |
 | TC-S2 | Home page dashboard | Four tiles, no errors: Leads by Status, Leads by Channel, Deals in Pipeline by Stage, Deals Won This Month | KAN-69 | | |
-| TC-S3 | Opportunities → list view picker | **AutoDrive - Open Deals**, **AutoDrive - Closed Won**, **AutoDrive - Closed Lost** exist; closed sales only appear in the closed lists. *(Tip: pin Open Deals with the pin icon so it opens by default.)* | — | | |
+| TC-S3 | Opportunities → list view picker | **All Open Opportunities**, **AutoDrive - Closed Won**, **AutoDrive - Closed Lost** exist; closed sales only appear in the closed lists. *(Tip: pin Open Deals with the pin icon so it opens by default.)* | — | | |
 
 ### Stock
 | ID | Steps | Expected | Jira | Result | Notes |

@@ -13,6 +13,16 @@
     </objectPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Import_Request__c.Quantity__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Import_Request__c.Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Import_Request__c.Account__c</field>
         <readable>true</readable>
     </fieldPermissions>

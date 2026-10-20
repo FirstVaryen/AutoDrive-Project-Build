@@ -10,4 +10,7 @@
     <filterScope>Everything</filterScope>
     <filters><field>LEAD.CONVERTED</field><operation>equals</operation><value>0</value></filters>
     <label>AutoDrive - Open Prospects</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
 </ListView>
