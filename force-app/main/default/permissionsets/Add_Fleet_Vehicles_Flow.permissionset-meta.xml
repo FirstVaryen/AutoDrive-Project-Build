@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Lets Sales Reps and the Showroom Manager use the Add Fleet Vehicles button (model + quantity) on fleet sales.</description>
+    <flowAccesses>
+        <enabled>true</enabled>
+        <flow>Add_Fleet_Vehicles</flow>
+    </flowAccesses>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>AD Add Fleet Vehicles</label>
+</PermissionSet>
