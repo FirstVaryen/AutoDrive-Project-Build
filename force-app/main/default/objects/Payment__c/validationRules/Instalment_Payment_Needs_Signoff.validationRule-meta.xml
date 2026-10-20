@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Instalment_Payment_Needs_Signoff</fullName>
+    <active>true</active>
+    <description>US-29: monthly instalment payments start only after the Head of Finance has signed off the plan.</description>
+    <errorConditionFormula>AND(ISNEW(), ISPICKVAL(Type__c, &quot;Instalment&quot;), NOT(ISBLANK(Instalment__c)), NOT(Instalment__r.Instalment_Plan__r.Head_of_Finance_Sign_off__c))</errorConditionFormula>
+    <errorMessage>This plan has not been signed off by the Head of Finance yet, so monthly payments can't be recorded. Only the down payment can be taken before sign-off.</errorMessage>
+</ValidationRule>
