@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <description>When an instalment sale's plan is signed off and the deposit is received (Finance Status turns green), the sale owner gets a to-do: close the sale as won.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>f_Subject</name>
+        <dataType>String</dataType>
+        <expression>&quot;Ready to close: &quot; &amp; {!$Record.Name}</expression>
+    </formulas>
+    <interviewLabel>Opportunity Instalment Ready To Close {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Opportunity - Instalment Sale Ready To Close</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Reminder</name>
+        <label>Create Reminder</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <stringValue>Finance has signed off the payment plan and the deposit is in. Open the sale and mark it Closed Won.</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>High</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>f_Subject</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Create_Reminder</targetReference>
+        </connector>
+        <filterFormula>AND(ISPICKVAL({!$Record.Payment_Mode__c}, &quot;Instalment&quot;), ISPICKVAL({!$Record.StageName}, &quot;Payment Arranged&quot;), {!$Record.Signed_Off_Plans__c} &gt; 0, {!$Record.Down_Payment_Received__c} &gt; 0, OR(PRIORVALUE({!$Record.Signed_Off_Plans__c}) = 0, PRIORVALUE({!$Record.Down_Payment_Received__c}) &lt;= 0, ISCHANGED({!$Record.StageName})))</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

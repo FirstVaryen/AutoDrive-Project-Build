@@ -314,6 +314,29 @@
                 <fieldInstance>
                     <fieldInstanceProperties>
                         <name>uiBehavior</name>
+                        <value>readonly</value>
+                    </fieldInstanceProperties>
+                    <fieldItem>Record.Finance_Status__c</fieldItem>
+                    <identifier>RecordFinanceStatuscField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.StageName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Payment Arranged</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Payment_Mode__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Instalment</rightValue>
+                    </criteria>
+                </visibilityRule>
+                </fieldInstance>
+            </itemInstances>
+            <itemInstances>
+                <fieldInstance>
+                    <fieldInstanceProperties>
+                        <name>uiBehavior</name>
                         <value>none</value>
                     </fieldInstanceProperties>
                     <fieldItem>Record.StageName</fieldItem>
