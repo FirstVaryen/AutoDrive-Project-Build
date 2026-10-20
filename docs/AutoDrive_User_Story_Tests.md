@@ -39,7 +39,7 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
 ## Order to run
 | # | Role | Tests | Hands over to |
 |---|---|---|---|
-| 1 | Website visitor (no login) — first set the Sales Rep to Omni **Available** | UAT-37, UAT-40a | Sales Rep, Finance, Customer Service pick these up |
+| 1 | Website visitor (no login) | UAT-37, UAT-40a | Sales Rep, Finance, Customer Service pick these up |
 | 2 | Sales Rep | UAT-01 to UAT-05, UAT-07, UAT-08, UAT-11a, UAT-12, UAT-15, UAT-16, UAT-21, UAT-22, UAT-36a, UAT-40b | Showroom Manager approves UAT-16 |
 | 3 | Showroom Manager | UAT-06, UAT-09, UAT-10, UAT-13, UAT-14, UAT-17, UAT-20 | Finance approves next |
 | 4 | Finance Team | UAT-11b, UAT-18, UAT-23, UAT-24, UAT-25, UAT-30, UAT-31, UAT-34, UAT-38a | Head of Finance approves last |
@@ -77,7 +77,7 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
 | UAT-21 | US-25 No discount on an instalment deal | 1. On an **Instalment** sale for an individual, try to create a Discount Request. | Blocked with a message saying why. | | |
 | UAT-22 | US-25 Switching to instalment cancels the discount | 1. Open **AD Rerun … Sale 2 (discount approved)**. 2. Payment Mode = **Instalment**, save. | The approved discount becomes **Invalidated**. | | |
 | UAT-36a | NFR-01 Money is hidden | 1. Open any sale and look for payments, instalment plans and price fields. | None visible. | | |
-| UAT-40b | US-11 Website lead reaches a rep | 1. Bottom bar **Omni-Channel** → set **Available** (do this before UAT-40a if you can). 2. Wait up to 5 minutes. 3. **Leads** → **My Leads**. | The website lead is yours with no clicking: Channel = Web, the chosen vehicle, Auto Assigned At filled in. | | |
+| UAT-40b | US-11 Website lead reaches a rep | 1. Be logged in as the Sales Rep (Login As is fine). 2. Wait up to 5 minutes after UAT-40a. 3. **Leads** → **My Leads**. | The website lead is yours with no clicking: Channel = Web, the chosen vehicle, Auto Assigned At filled in, plus a "lead assigned to you" email. A logged-out rep, or one with 5 open leads, gets none. | | |
 
 ## 3. Showroom Manager
 
@@ -136,7 +136,7 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
 |---|---|---|---|---|---|
 | UAT-36b | NFR-01 Money is hidden | 1. Open a customer's sale. | No payment amounts, plans or prices. | | |
 | UAT-38b | US-06 Requests routed to the right team | 1. **Cases** → **All Open Cases**. | "Buying a vehicle" case → Showroom (AD Showroom Cases); "A problem with my vehicle" case → Customer Service. | | |
-| UAT-39 | US-11 Assigned to an available person | 1. Bottom bar **Omni-Channel** → **Available**. 2. Ask someone to submit "A problem with my vehicle" on the site. | A request pops up to accept; after accepting you own the case. When Offline, cases wait in the queue. | | |
+| UAT-39 | US-11 Assigned to an online person | 1. Stay logged in as the Agent. 2. Ask someone to submit "A problem with my vehicle" on the site. 3. Wait up to 5 minutes, **Cases** → **My Cases**. | The case is yours automatically (Auto Assigned At filled in). Logged out, it waits in the Customer Service queue. | | |
 | UAT-41 | US-04 One view of the customer | 1. Search a customer by name or phone, open the account. | Purchases, cases and messages on one record, view only, no payment amounts. | | |
 | UAT-42 | US-35 Customer told when status changes | 1. Open your case from UAT-39. 2. Status **Working**, then **Closed**. 3. **Customer Messages** on the case. | One status update and one resolution message, each with the time sent. Changing only the owner sends nothing. | | |
 | UAT-46 | US-22 Satisfaction score 1 to 10 | 1. On a closed case, CSAT Score **11**, save. 2. **8**, save. | 11 rejected; 8 saves. Blank = unrated. | | |

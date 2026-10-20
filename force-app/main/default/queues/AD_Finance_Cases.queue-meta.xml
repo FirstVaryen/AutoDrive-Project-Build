@@ -7,7 +7,6 @@
             <role>Finance_Team_Member</role>
         </roles>
     </queueMembers>
-    <queueRoutingConfig>AD_Case_Routing</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>

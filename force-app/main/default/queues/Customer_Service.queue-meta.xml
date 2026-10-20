@@ -8,7 +8,6 @@
             <role>Head_of_Customer_Service</role>
         </roles>
     </queueMembers>
-    <queueRoutingConfig>AD_Case_Routing</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>
