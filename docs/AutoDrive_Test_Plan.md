@@ -43,7 +43,7 @@ It prints a stamp, e.g. `AD Rerun 1018-0943`. Below, **`<stamp>`** means that st
 |---|---|
 | **AD Rerun `<stamp>` Sale 1 (open)**: Full Payment, at Offer, customer came from a Lead | TC-S9, TC-S10, TC-S14, TC-S15 |
 | **AD Rerun `<stamp>` Sale 2 (discount approved)**: Full Payment, 7.5% discount already approved by all three approvers | TC-S12, TC-S16 |
-| **AD Rerun `<stamp>` Sale 3 (no Lead)**: account never came from a Lead | TC-S11, TC-S13 |
+| **AD Rerun `<stamp>` Sale 3 (open)**: third open Full Payment sale | TC-S11 |
 | **AD Rerun `<stamp>` Lead**: open lead at New | TC-S7, TC-S8 |
 
 Run the tests in the order listed. Each one says which record it uses.
@@ -68,8 +68,8 @@ Run the tests in the order listed. Each one says which record it uses.
 | TC-S7a | Leads → New → name, Customer Type Individual, **no phone, no email** → Save | **Blocked**: "Add the customer's phone number or email address…" | — | | |
 | TC-S7b | Leads → New → Phone **+2348010000001** (an existing customer) → Save | Warning banner: "This phone number or email already belongs to someone in AutoDrive…" with a link to the match; Save still possible | — | | |
 | TC-S7c | Leads → New → new phone, Channel **Walk-in**, Customer Type Individual → Save. Repeat with **Returning or High-profile** ticked (AutoDrive Lead Details) | First: owner = next free rep. Second: owner = Showroom Manager | KAN-34 | | |
-| TC-S8a | Open **AD Rerun `<stamp>` Lead** → clear Vehicle of Interest → set Status **Qualified** → Save | **Blocked**: "Before this lead can be Qualified, confirm the Visit Purpose … and the Vehicle of Interest." | — | | |
-| TC-S8b | Same lead → choose a Vehicle of Interest → Status **Qualified** → Save → **Convert** | Converts; the new sale starts at **Viewing / Test Drive**; statuses offered were only New, Contacted, Qualified, Unqualified | — | | |
+| TC-S8a | Open **AD Rerun `<stamp>` Lead** → clear Visit Purpose → **Convert** (creating a sale) | **Blocked**: asks for Visit Purpose (and, for a sale, the Vehicle of Interest) to be filled on the lead | — | | |
+| TC-S8b | Same lead → set Visit Purpose and a Vehicle of Interest (Contacted step on the path) → **Convert** | Converts; the new sale starts at **Viewing / Test Drive**; the lead path shows only New → Contacted → Converted | — | | |
 
 ### Discounts
 | ID | Steps | Expected | Jira | Result | Notes |
@@ -78,7 +78,6 @@ Run the tests in the order listed. Each one says which record it uses.
 | TC-S10 | **Sale 1** → Discount Requests → New → leave Discount Rate empty → Save | **Blocked**: "Choose a Discount Rate…" | — | | |
 | TC-S11 | **Sale 3** → Discount Requests → New → Discount Rate **10%** → Save; then try to change Sale 3's Stage | Request goes to **With Showroom Manager** (submitted automatically). Stage change **blocked**: "This sale has a discount request waiting for approval…". *(This request is the one Showroom Manager, Finance and Head of Finance approve in TC-M1, TC-F1, TC-H1.)* | KAN-45 | | |
 | TC-S12 | **Sale 2** → Discount Requests list (right-hand side) | Shows Requested %, Step **Approved**, **Approved By**, **Approved On** | — | | |
-| TC-S13 | **Sale 3** (no Lead) → after TC-H1 approves its discount, set Stage **Closed Won** → Save | **Blocked**: "This sale can't be closed: the customer didn't come from a converted Lead…" | — | | |
 | TC-S14 | **Sale 1** → Payment Mode **Instalment** → Save → Discount Requests → New → 2% | **Blocked**: discounts aren't allowed on instalment deals for individual customers (US-25). Set Payment Mode back to Full Payment afterwards | KAN-75 | | |
 
 ### Closing and locking

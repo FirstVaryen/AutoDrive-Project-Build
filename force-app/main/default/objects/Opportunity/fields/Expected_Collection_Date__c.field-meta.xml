@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Expected_Collection_Date__c</fullName>
+    <description>When the customer expects to collect the vehicle. For information only: handover and release are a Won't Have (UC-06); the vehicle can still be changed until collected (US-01).</description>
+    <label>AM Expected Pickup Date</label>
+    <type>Date</type>
+</CustomField>

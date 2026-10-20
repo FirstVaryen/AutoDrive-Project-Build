@@ -126,6 +126,8 @@
             <layoutItems><behavior>Readonly</behavior><field>Vehicle_Model_Name__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Customer_Type__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Payment_Mode__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Viewing_Date__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Expected_Collection_Date__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Pending_Discount_Requests__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Fleet_Vehicle_Count__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Fleet_Vehicles_Total__c</field></layoutItems>
