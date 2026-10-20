@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <assignments>
+        <name>Clear_Terms</name>
+        <label>Clear Terms</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Instalment_Term_Months__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>var_EmptyNumber</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Instalment_Down_Payment__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>var_EmptyCurrency</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Instalment duration and down payment only apply to instalment sales: they are cleared when the payment mode is not Instalment.</description>
+    <environments>Default</environments>
+    <interviewLabel>Opportunity Clear Instalment Terms {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Opportunity - Clear Instalment Terms When Not Instalment</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Clear_Terms</targetReference>
+        </connector>
+        <filterFormula>AND(NOT(ISPICKVAL({!$Record.Payment_Mode__c}, &quot;Instalment&quot;)), NOT({!$Record.IsClosed}), OR(NOT(ISBLANK({!$Record.Instalment_Term_Months__c})), NOT(ISBLANK({!$Record.Instalment_Down_Payment__c}))))</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <triggerOrder>30</triggerOrder>
+    <variables>
+        <name>var_EmptyCurrency</name>
+        <dataType>Currency</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+    </variables>
+    <variables>
+        <name>var_EmptyNumber</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+</Flow>
