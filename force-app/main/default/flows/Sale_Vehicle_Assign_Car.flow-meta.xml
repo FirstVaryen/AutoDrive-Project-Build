@@ -5,7 +5,7 @@
         <name>Count_Stock</name>
         <label>Count Stock</label>
         <locationX>176</locationX>
-        <locationY>323</locationY>
+        <locationY>431</locationY>
         <assignmentItems>
             <assignToReference>var_InStock</assignToReference>
             <operator>AssignCount</operator>
@@ -21,7 +21,7 @@
         <name>Set_Car</name>
         <label>Set Car</label>
         <locationX>44</locationX>
-        <locationY>539</locationY>
+        <locationY>863</locationY>
         <assignmentItems>
             <assignToReference>$Record.Vehicle__c</assignToReference>
             <operator>Assign</operator>
@@ -37,21 +37,59 @@
             </value>
         </assignmentItems>
     </assignments>
+    <assignments>
+        <name>Set_Type</name>
+        <label>Set Type</label>
+        <locationX>176</locationX>
+        <locationY>215</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Vehicle_Model__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>f_TypeId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Available</targetReference>
+        </connector>
+    </assignments>
     <customErrors>
         <name>Not_Enough_Stock</name>
         <label>Not Enough Stock</label>
         <locationX>308</locationX>
-        <locationY>539</locationY>
+        <locationY>647</locationY>
         <customErrorMessages>
             <errorMessage>{!f_ErrorText}</errorMessage>
             <isFieldError>false</isFieldError>
         </customErrorMessages>
     </customErrors>
     <decisions>
+        <name>Car_Chosen</name>
+        <label>Car Already Chosen?</label>
+        <locationX>44</locationX>
+        <locationY>647</locationY>
+        <defaultConnector>
+            <targetReference>Get_First</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Chosen</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Vehicle__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Enough_Stock</name>
         <label>Enough Stock?</label>
         <locationX>176</locationX>
-        <locationY>431</locationY>
+        <locationY>539</locationY>
         <defaultConnector>
             <targetReference>Not_Enough_Stock</targetReference>
         </defaultConnector>
@@ -63,21 +101,32 @@
                 <leftValueReference>var_InStock</leftValueReference>
                 <operator>GreaterThanOrEqualTo</operator>
                 <rightValue>
-                    <elementReference>f_Wanted</elementReference>
+                    <elementReference>f_NeedOthers</elementReference>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Get_First</targetReference>
+                <targetReference>Car_Chosen</targetReference>
             </connector>
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Fleet sales: the rep picks a type of car (Vehicle Model) and How many. Before the line is saved, the system checks that many cars of that type are Available; if not, the save is refused and the rep is told to raise an Import Request. If yes, the first available car is put on this line with the type's list price (Sale_Vehicle_Add_Quantity adds the rest after save).</description>
+    <description>Fleet sales: before a line is saved, its type is set (from the chosen car if only a car was picked), and the save is refused if fewer than How many cars of that type are Available (the rep is told to raise an Import Request). If no car was picked, the first available car of the type is put on the line with the type's list price (Sale_Vehicle_Add_Quantity adds the rest after save).</description>
     <environments>Default</environments>
     <formulas>
         <name>f_ErrorText</name>
         <dataType>String</dataType>
-        <expression>&quot;Not enough in stock: you asked for &quot; &amp; TEXT({!f_Wanted}) &amp; &quot; &quot; &amp; {!$Record.Vehicle_Model__r.Name} &amp; &quot; but only &quot; &amp; TEXT({!var_InStock}) &amp; &quot; are available. Nothing was added. Lower the number, or raise an Import Request for this type.&quot;</expression>
+        <expression>&quot;Not enough in stock: you asked for &quot; &amp; TEXT({!f_Wanted}) &amp; &quot; but only &quot; &amp; TEXT({!var_InStock} + IF(ISBLANK({!$Record.Vehicle__c}), 0, 1)) &amp; &quot; of this type are available. Nothing was added. Lower the number, or raise an Import Request for this type.&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>f_TypeId</name>
+        <dataType>String</dataType>
+        <expression>IF(ISBLANK({!$Record.Vehicle_Model__c}), {!$Record.Vehicle__r.Model__c}, {!$Record.Vehicle_Model__c})</expression>
+    </formulas>
+    <formulas>
+        <name>f_NeedOthers</name>
+        <dataType>Number</dataType>
+        <expression>{!f_Wanted} - IF(ISBLANK({!$Record.Vehicle__c}), 0, 1)</expression>
+        <scale>0</scale>
     </formulas>
     <formulas>
         <name>f_Wanted</name>
@@ -104,7 +153,7 @@
         <name>Get_Available</name>
         <label>Get Available</label>
         <locationX>176</locationX>
-        <locationY>215</locationY>
+        <locationY>323</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Count_Stock</targetReference>
@@ -114,7 +163,7 @@
             <field>Model__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>$Record.Vehicle_Model__c</elementReference>
+                <elementReference>f_TypeId</elementReference>
             </value>
         </filters>
         <filters>
@@ -124,18 +173,23 @@
                 <stringValue>Available</stringValue>
             </value>
         </filters>
+        <filters>
+            <field>Id</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <elementReference>$Record.Vehicle__c</elementReference>
+            </value>
+        </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
         <object>Vehicle__c</object>
         <queriedFields>Id</queriedFields>
-        <sortField>Name</sortField>
-        <sortOrder>Asc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
         <name>Get_First</name>
         <label>Get First</label>
         <locationX>44</locationX>
-        <locationY>500</locationY>
+        <locationY>755</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Set_Car</targetReference>
@@ -145,7 +199,7 @@
             <field>Model__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>$Record.Vehicle_Model__c</elementReference>
+                <elementReference>f_TypeId</elementReference>
             </value>
         </filters>
         <filters>
@@ -166,9 +220,9 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get_Available</targetReference>
+            <targetReference>Set_Type</targetReference>
         </connector>
-        <filterFormula>AND(ISNEW(), ISBLANK({!$Record.Vehicle__c}), NOT(ISBLANK({!$Record.Vehicle_Model__c})))</filterFormula>
+        <filterFormula>AND(ISNEW(), OR(NOT(ISBLANK({!$Record.Vehicle_Model__c})), NOT(ISBLANK({!$Record.Vehicle__c}))))</filterFormula>
         <object>Sale_Vehicle__c</object>
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordBeforeSave</triggerType>

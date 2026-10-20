@@ -541,6 +541,23 @@
                         <name>uiBehavior</name>
                         <value>readonly</value>
                     </fieldInstanceProperties>
+                    <fieldItem>Record.Fleet_Summary__c</fieldItem>
+                    <identifier>RecordFleetSummarycField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Customer_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Fleet/Corporate</rightValue>
+                    </criteria>
+                </visibilityRule>
+                </fieldInstance>
+            </itemInstances>
+            <itemInstances>
+                <fieldInstance>
+                    <fieldInstanceProperties>
+                        <name>uiBehavior</name>
+                        <value>readonly</value>
+                    </fieldInstanceProperties>
                     <fieldItem>Record.Fleet_Vehicle_Count__c</fieldItem>
                     <identifier>RecordFleetVehicleCountcField</identifier>
                 <visibilityRule>

@@ -8,6 +8,9 @@
     <custom>true</custom>
     <description>AutoDrive Finance Team minimal base profile. Login essentials, AutoDrive Motors as default app, layouts, record types only; all object/field/tab access comes from the Finance Team Permission Set Group.</description>
     <layoutAssignments>
+        <layout>Global-Global Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Sale_Vehicle__c-Sale Vehicle Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
