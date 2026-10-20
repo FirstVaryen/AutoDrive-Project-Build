@@ -38,7 +38,7 @@ public without sharing class LeadAutoAssigner implements Queueable {
         Map<Id, Datetime> lastGiven = new Map<Id, Datetime>();
         for (Id u : online) { openCount.put(u, 0); lastGiven.put(u, Datetime.newInstance(2000, 1, 1)); }
         for (AggregateResult ar : [SELECT OwnerId o, COUNT(Id) n, MAX(Auto_Assigned_At__c) lastAt FROM Lead
-                                   WHERE OwnerId IN :online AND IsConverted = false AND Status != 'Closed - Not Converted' GROUP BY OwnerId]) {
+                                   WHERE OwnerId IN :online AND IsConverted = false GROUP BY OwnerId]) {
             openCount.put((Id) ar.get('o'), (Integer) ar.get('n'));
             if (ar.get('lastAt') != null) lastGiven.put((Id) ar.get('o'), (Datetime) ar.get('lastAt'));
         }
