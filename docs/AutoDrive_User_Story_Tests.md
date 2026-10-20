@@ -1,11 +1,10 @@
 # AutoDrive — User Story Tests (UAT)
 
-**What this is:** one simple test for each user story in the v8 requirements workbook, so anyone with a login can check that the system does what the story asks.
+**What this is:** one simple test for each user story in the v8 requirements workbook, grouped by role so you log in once per role and work straight down. Run the roles in the order shown: some tests hand over to the next role (for example the discount approval goes Sales Rep → Showroom Manager → Finance → Head of Finance).
 It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist used to find and fix build errors.
 
-**Sandbox:** autodrive-dev (Group3SB) · **Version:** 19 Oct 2026
+**Sandbox:** autodrive-dev (Group3SB) · **Version:** 20 Oct 2026 (grouped by role)
 
----
 
 ## Before you start
 1. **Log in as the role named in the test**, not as an administrator. An admin opens Setup → Users → Users and clicks **Login** next to the test user. Click **Log out** in the top banner when finished.
@@ -19,7 +18,7 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
    It creates, owned by TestSales Rep and named **"AD Rerun <date-time> …"** (use the newest set):
    - **Sale 1 (open)**: Full Payment, at Offer, with an available car (UAT-01, UAT-15)
    - **Sale 2 (discount approved)**: a 7.5% discount already approved (UAT-22)
-   - **Sale 3 (no Lead)**: for a customer who never came through a lead (UAT-02)
+   - **Sale 3 (no Lead)**: for a customer who never came through a lead (UAT-02, and the blocked close for a sale with no lead)
    - **Lead**: an open lead at New
 6. Some tests wait for a daily automatic job (early morning). They are marked **(next day)**.
 
@@ -37,92 +36,143 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
 
 ---
 
-## Sales and vehicles
+## Order to run
+| # | Role | Tests | Hands over to |
+|---|---|---|---|
+| 1 | Website visitor (no login) | UAT-37, UAT-40a | Sales Rep, Finance, Customer Service pick these up |
+| 2 | Sales Rep | UAT-01 to UAT-05, UAT-07, UAT-08, UAT-11a, UAT-12, UAT-15, UAT-16, UAT-21, UAT-22, UAT-36a, UAT-40b | Showroom Manager approves UAT-16 |
+| 3 | Showroom Manager | UAT-06, UAT-09, UAT-10, UAT-13, UAT-14, UAT-17, UAT-20 | Finance approves next |
+| 4 | Finance Team | UAT-11b, UAT-18, UAT-23, UAT-24, UAT-25, UAT-30, UAT-31, UAT-34, UAT-38a | Head of Finance approves last |
+| 5 | Head of Finance | UAT-19, UAT-26 to UAT-29, UAT-32, UAT-33a, UAT-35 | Legal checks UAT-33 |
+| 6 | Sales Rep (short return) | UAT-11c | |
+| 7 | Legal Team | UAT-33b | |
+| 8 | Customer Service Agent | UAT-36b, UAT-38b, UAT-39, UAT-41, UAT-42, UAT-46, UAT-48 | |
+| 9 | Head of Customer Service | UAT-43, UAT-44, UAT-45, UAT-47, UAT-49 | |
+| 10 | Management | UAT-50 | |
 
-| ID | Story | Login as | Steps | You should see | Result | Notes |
-|---|---|---|---|---|---|---|
-| UAT-01 | US-01 A sold car shows as sold straight away | Sales Rep | 1. Open the sale **AD Rerun … Sale 1 (open)**. 2. Note the vehicle on it. 3. Change Stage to **Closed Won** and save. 4. Click the vehicle. | The vehicle's Status is **Sold** without anyone editing it. | | |
-| UAT-02 | US-01 A sold car can't be sold again | Sales Rep | 1. Open **AD Rerun … Sale 3 (no Lead)**. 2. Edit **Vehicle** and search for the car sold in UAT-01. | The sold car is not offered (only Available or Reserved cars appear). | | |
-| UAT-03 | US-07 See live availability | Sales Rep | 1. Open the **Vehicles** tab, list **All**. | Every car shows Available, Reserved or Sold. You can view but not edit them. | | |
-| UAT-04 | US-23 Same qualifying questions for every walk-in | Sales Rep | 1. Open **Leads** → **New**. 2. Fill in name and phone, Channel = Walk-in. 3. Look for **Qualification Answers**, **Visit Purpose** and **Vehicle Model of Interest**. 4. Save. | The fields are there and the lead saves. | | |
-| UAT-05 | US-23 Qualifying needs purpose and vehicle | Sales Rep | 1. Open the lead from UAT-04. 2. Clear Visit Purpose. 3. Set Status = **Qualified** and save. | An error asks for Visit Purpose and Vehicle Model of Interest. | | |
-| UAT-06 | US-30 Walk-in goes to a rep without retyping | Showroom Manager | 1. Create a lead with Channel = **Walk-in**. 2. Save and look at **Lead Owner**. | The owner is a sales rep, picked automatically. | | |
-| UAT-07 | US-30 Same person is not entered twice | Sales Rep | 1. Create a new lead with the **same phone number** as an existing customer. 2. Save. | A message warns that a matching record already exists. | | |
-| UAT-08 | US-31 Instagram enquiries with no visit booked are listed | Sales Rep | 1. Create a lead with Channel = **Instagram** and no Booked Visit Date. 2. Open **Leads** → list **AutoDrive - Enquiries No Visit Booked**. 3. Enter a Booked Visit Date on the lead, save, and reopen the list. | The lead is on the list at step 2 and gone at step 3. | | |
-| UAT-09 | US-32 Manager sees where deals are stuck | Showroom Manager | 1. **Leads** → **AutoDrive - Open Prospects**. 2. **Leads** → **AutoDrive - Prospects With No Rep**. 3. **Opportunities** → **AutoDrive - Open Deals**. | Each list shows source/channel, owner (rep) and stage/status. | | |
-| UAT-10 | US-12 Low-stock alert | Showroom Manager | 1. Open a **Vehicle Model**. 2. Set **Low Stock Threshold** above its Available Stock. 3. Save. **(next day)** check notifications. | One alert for that model. It does not repeat the day after. | | |
-| UAT-11 | US-38 Import when a model is out of stock | Sales Rep | 1. Open a customer → **Import Requests** → **New**. 2. Pick the model and save. 3. Log in as Finance and move the status forward to **Arrived**. 4. Log back in as Sales Rep. | The request is visible to Rep, Showroom Manager and Finance. The rep gets a notice when it arrives. | | |
-| UAT-12 | US-16 Fleet customer in one place | Sales Rep | 1. Open a **Fleet/Corporate** account (e.g. Lagos Ride Hailing). | Contact person, agreed discount rate, owner and the list of past sales are all on the one page. | | |
-| UAT-13 | US-16 Fleet order with several vehicles | Showroom Manager | 1. Open an open sale for a fleet account. 2. In **Fleet Vehicles** click **New**, add two cars with prices. | The sale shows Fleet Vehicle Count = 2 and the total. Closing the sale marks both cars **Sold**. | | |
-| UAT-14 | US-16 Several vehicles only for fleet | Showroom Manager | 1. On a sale for an **Individual** customer, try to add a Fleet Vehicle. | An error says this is for fleet sales only. | | |
+---
 
-## Discounts
+## 1. Website visitor (no login, private window)
 
-| ID | Story | Login as | Steps | You should see | Result | Notes |
-|---|---|---|---|---|---|---|
-| UAT-15 | US-02 Small discount is approved at once | Sales Rep | 1. On an open Full Payment sale, **Discount Requests** → **New**. 2. Rate = **5%** or less, add a reason, save. | Approved straight away (Auto Approved ticked), no approval needed. | | |
-| UAT-16 | US-02 Larger discount goes up the chain | Sales Rep | 1. On another open Full Payment sale, request **7.5%**. 2. Open the request. | Current Step = **With Showroom Manager**, with the date and time it got there. | | |
-| UAT-17 | US-02 Manager sees where it sits | Showroom Manager | 1. Open **Items to Approve** on Home and approve the request from UAT-16. 2. Reopen the request. | Step now **With Finance**, with a new date/time. No phone call needed to know. | | |
-| UAT-18 | US-08 Finance sees what waits for them | Finance Team | 1. Home → **Items to Approve**. 2. Approve the request. | The request was listed with its date. After approving, it moves to **With Head Office** at once. | | |
-| UAT-19 | US-02 / NFR-03 Who approved and when | Head of Finance | 1. Approve the request (Head Office step). 2. Open the request. | Status **Approved**; Approved By and Approved On filled in. | | |
-| UAT-20 | US-20 Fleet agreed rate applies | Showroom Manager | 1. On a sale for a fleet account with an Agreed Discount Rate, create a Discount Request and leave the rate blank. 2. Save. | The fleet's agreed rate is filled in automatically and saved on the request. | | |
-| UAT-21 | US-25 No discount on an instalment deal | Sales Rep | 1. On an **Instalment** sale for an individual, try to create a Discount Request. | Blocked with a message saying why. | | |
-| UAT-22 | US-25 Switching to instalment cancels the discount | Sales Rep | 1. Open **AD Rerun … Sale 2 (discount approved)**. 2. Change Payment Mode to **Instalment** and save. | The approved discount becomes **Invalidated**. | | |
+| ID | Story | Steps | You should see | Result | Notes |
+|---|---|---|---|---|---|
+| UAT-37 | US-06 / US-34 Request becomes a case with a reference number | 1. Open the site. 2. Fill in **Contact support** with your real email, choose **Payments or my instalment plan**, submit. 3. Submit two more: **Buying a vehicle or my order**, then **A problem with my vehicle**. | Each time a reference number appears on screen, and an email with the same number arrives. Note the three numbers for Finance (UAT-38a) and Customer Service (UAT-38b, UAT-39). | | |
+| UAT-40a | US-11 Website sales enquiry | 1. Fill in **Sales enquiry** (name, phone or email, a vehicle), submit. | A thank-you message. Note the name for the Sales Rep (UAT-40b). | | |
 
-## Payments and instalments
+## 2. Sales Rep
 
-| ID | Story | Login as | Steps | You should see | Result | Notes |
-|---|---|---|---|---|---|---|
-| UAT-23 | US-03 Payment recorded once, balance updates itself | Finance Team | 1. Open an instalment on an active plan. 2. **Payments** → **New**, enter the amount, save. | Amount Paid and Balance update on their own. Recorded By and the date are filled in. | | |
-| UAT-24 | US-28 Short payment (475 against 500) | Finance Team | 1. On an instalment of 500, record a payment of **475**. | Balance shows **25** still owed. Nothing is rounded away. | | |
-| UAT-25 | US-28 Extra payment becomes credit | Finance Team | 1. On another instalment, pay more than is due. | The extra shows as a credit for the customer. | | |
-| UAT-26 | US-29 30% down minimum | Head of Finance | 1. Create an Instalment Plan with a down payment under **30%**. | Blocked with a message. | | |
-| UAT-27 | US-29 12-month maximum | Head of Finance | 1. On a plan, set Term to **13** months. | Blocked with a message. | | |
-| UAT-28 | US-29 Guarantor and sign-off | Head of Finance | 1. Try to sign off a plan with no guarantor. 2. Then try to close an instalment sale before the plan is signed off and the deposit received. | Both are blocked. | | |
-| UAT-29 | US-05 One list of late and defaulting customers | Head of Finance | 1. **Instalment Plans** → list **Needs Attention**. | Every Late, Defaulted or With Legal plan is listed, with the status worked out from payments. | | |
-| UAT-30 | US-17 Alert when a customer first defaults | Finance Team | 1. Find an instalment 30+ days overdue. **(next day)** check notifications and the Default Alert Sent box. | One alert naming the customer, amount and days overdue. It doesn't repeat. | | |
-| UAT-31 | US-15 / US-19 Reminder 3 days before due | Finance Team | 1. Note an unpaid instalment due in exactly 3 days. **(next day)** open its customer's **Customer Messages**. | A reminder email was sent, with the amount still due and the date. None is sent for instalments already paid. | | |
-| UAT-32 | US-09 Bank vs recorded totals | Head of Finance | 1. **Reconciliation Entries** → **New**. 2. Enter a Bank Total different from the Recorded Total, save. | The Difference shows and the entry is flagged until explained. | | |
-| UAT-33 | US-36 Legal is told about an unrecoverable default | Head of Finance | 1. On a Defaulted plan, create a **Legal Escalation** (all three conditions met). 2. Log in as Legal Team. | Legal sees the record. Legal Team Notified At is filled in; the email gives name, months defaulted and total owed. | | |
-| UAT-34 | US-37 Completion email | Finance Team | 1. Record the final payment that clears a plan. 2. Open the plan. | Completion Email Sent is ticked; one email only. | | |
-| UAT-35 | US-26 Finance sees stock, models and prices | Head of Finance | 1. Open **Vehicle Models** and **Vehicles**. 2. Open list **AutoDrive - Models With No List Price**. | Stock and list prices are visible, read only. Any model without a price shows on that list. | | |
-| UAT-36 | NFR-01 Money is hidden from others | Sales Rep, then Customer Service Agent | 1. Look for **Payments**, **Instalment Plans** or price amounts on a sale. | Not visible to either role. | | |
+| ID | Story | Steps | You should see | Result | Notes |
+|---|---|---|---|---|---|
+| UAT-01 | US-01 A sold car shows as sold straight away | 1. Open **AD Rerun … Sale 1 (open)**. 2. Note the vehicle. 3. Change Stage to **Closed Won**, save. 4. Click the vehicle. | The vehicle's Status is **Sold** without anyone editing it. The sale leaves **All Open Opportunities** and appears in **AutoDrive - Closed Won**. | Pass | Vehicle showed Sold. |
+| UAT-02 | US-01 A sold car can't be sold again | 1. Open any other open sale (e.g. **AD Rerun … Sale 3**). 2. Edit **Vehicle** and search for the car sold in UAT-01. | The sold car is not offered. Each result shows model, colour, year and status. | Pass | |
+| UAT-03 | US-07 See live availability | 1. **Vehicles** tab, list **All**. | Every car shows Available, Reserved or Sold. View only. | Pass | |
+| UAT-04 | US-23 Same qualifying questions for every walk-in | 1. **Leads** → **New**. 2. Name, phone, Channel = Walk-in. 3. Find **Qualification Answers**, **Visit Purpose**, **Vehicle Model of Interest**. 4. Save. | The fields are there, Phone and Email can be filled in, there is no "assignment rule" checkbox, and the lead saves. | Fail → fixed, re-test | Phone/Email were hidden; fixed 19 Oct. |
+| UAT-05 | US-23 Purpose and vehicle needed to convert | 1. Open the lead from UAT-04. 2. Clear Visit Purpose. 3. Click **Convert**. 4. Fill Visit Purpose and Vehicle back in and convert. | Step 3 is blocked with a message asking for Visit Purpose and Vehicle. Step 4 converts. Statuses are only New → Contacted → Converted (or Closed - Not Converted). | Pass (old rule) – re-test | |
+| UAT-07 | US-30 Same person is not entered twice | 1. New lead with the **same phone number** as an existing customer. 2. Save. | A message warns that a matching record already exists. | | |
+| UAT-08 | US-31 Instagram enquiries with no visit booked | 1. New lead, Channel = **Instagram**, no Booked Visit Date. 2. **Leads** → **AutoDrive - Enquiries No Visit Booked**. 3. Add a Booked Visit Date, save, reopen the list. | On the list at step 2, gone at step 3. | | |
+| UAT-11a | US-38 Import when a model is out of stock | 1. Open a customer → **Import Requests** → **New**. 2. Pick the model, save. | The request saves with status Requested. (Finance moves it on in UAT-11b.) | | |
+| UAT-12 | US-16 Fleet customer in one place | 1. Open a **Fleet/Corporate** account (e.g. Lagos Ride Hailing). | Contact person, agreed discount rate, owner and past sales on one page. | | |
+| UAT-15 | US-02 Small discount is approved at once | 1. On an open Full Payment sale, **Discount Requests** → **New**. 2. Rate **5%** or less, reason, save. | Approved straight away (Auto Approved ticked). | | |
+| UAT-16 | US-02 Larger discount goes up the chain | 1. On another open Full Payment sale, request **7.5%**. 2. Open the request. | Current Step = **With Showroom Manager**, with date and time. (Manager approves in UAT-17.) | | |
+| UAT-21 | US-25 No discount on an instalment deal | 1. On an **Instalment** sale for an individual, try to create a Discount Request. | Blocked with a message saying why. | | |
+| UAT-22 | US-25 Switching to instalment cancels the discount | 1. Open **AD Rerun … Sale 2 (discount approved)**. 2. Payment Mode = **Instalment**, save. | The approved discount becomes **Invalidated**. | | |
+| UAT-36a | NFR-01 Money is hidden | 1. Open any sale and look for payments, instalment plans and price fields. | None visible. | | |
+| UAT-40b | US-11 Website lead reaches a rep | 1. Stay logged in (a real login; "Login As" may not count as online). 2. Wait up to 15 minutes after UAT-40a. 3. **Leads** → **My Leads**. | The website lead is yours with no clicking: Channel = Web, the chosen vehicle, Auto Assigned At filled in. | | |
 
-## Customer service
+## 3. Showroom Manager
 
-| ID | Story | Login as | Steps | You should see | Result | Notes |
-|---|---|---|---|---|---|---|
-| UAT-37 | US-06 / US-34 Website request becomes a case with a reference number | Website visitor | 1. Open the site. 2. Fill in **Contact support**, choose **Payments or my instalment plan**, submit. | A reference number appears on screen, and an email with the same number arrives. | | |
-| UAT-38 | US-06 Routed to the right team | Finance Team | 1. **Cases** → **All Open Cases**. | The case from UAT-37 is in the **AD Finance Cases** queue (or with a Finance user), Routed To = Finance. Repeat UAT-37 with "Buying a vehicle" → Showroom, and "A problem with my vehicle" → Customer Service. | | |
-| UAT-39 | US-11 Assigned to an available person | Customer Service Agent | 1. Open **Omni-Channel** in the bottom bar and set **Available**. 2. A visitor submits "A problem with my vehicle" (UAT-37 steps). | A request pops up to accept. After accepting, you are the case owner. Offline, the case waits in the queue. | | |
-| UAT-40 | US-11 Website sales enquiry reaches a rep | Sales Rep | 1. Be logged in as the Sales Rep (a real login; "Login As" may not count as online). 2. A visitor submits **Sales enquiry** on the site. 3. Wait up to 15 minutes, open **Leads** → **My Leads**. | The lead is yours with no clicking, Channel = Web, the chosen vehicle, and Auto Assigned At filled in. A rep with 5 open leads, or logged out, gets none. | | |
-| UAT-41 | US-04 One view of the customer | Customer Service Agent | 1. Search a customer by name or phone. 2. Open the account. | Purchases, cases and past messages are all on the record, view only, with no payment amounts. | | |
-| UAT-42 | US-35 Customer told when status changes | Customer Service Agent | 1. Open your case from UAT-39. 2. Change Status to **Working**, then **Closed**. 3. Check **Customer Messages** on the case. | One status update and one resolution message, each with the time sent. Changing only the owner sends nothing. | | |
-| UAT-43 | US-10 Head sees every case's owner and status | Head of Customer Service | 1. **Cases** → **All Cases**. | Every case with one owner and one status. | | |
-| UAT-44 | US-33 Stuck case escalates itself | Head of Customer Service | 1. Leave a new case with no reply for over **1 hour**. 2. Reopen it. | Priority is High, Escalated At is filled in and the Head of CS is flagged. A closed case does not escalate. | | |
-| UAT-45 | US-13 Response and resolution times | Head of Customer Service | 1. Reply to a case, then close it. 2. Open the case. 3. Open report **AD Cases by Status**. | First Response At and Resolved At are filled in; the auto acknowledgement does not count as first response. | | |
-| UAT-46 | US-22 Satisfaction score 1 to 10 | Customer Service Agent | 1. On a closed case, enter CSAT Score **11**, save. 2. Enter **8**, save. | 11 is rejected; 8 saves. Blank means unrated. | | |
-| UAT-47 | US-24 Satisfaction trend | Head of Customer Service | 1. Open report **AD Satisfaction Scores**. | Scores over time, with the number of ratings. Unrated cases are not counted as low. | | |
-| UAT-48 | US-14 Search the knowledge base | Customer Service Agent | 1. Open **Knowledge Articles** and search a keyword. | Matching published articles, each with issue and agreed answer. | | |
-| UAT-49 | US-18 Head maintains articles | Head of Customer Service | 1. Edit an article and save. 2. Set another to **Retired**. 3. Log in as Agent. | The edit shows at once; the retired article is hidden from the agent but not deleted. | | |
+| ID | Story | Steps | You should see | Result | Notes |
+|---|---|---|---|---|---|
+| UAT-06 | US-30 Walk-in goes to a rep without retyping | 1. New lead, Channel = **Walk-in**, phone, save. 2. Look at **Lead Owner**. | The owner is a sales rep, picked automatically. | | |
+| UAT-09 | US-32 Where deals are stuck | 1. **Leads** → **AutoDrive - Open Prospects**. 2. **AutoDrive - Prospects With No Rep**. 3. **Opportunities** → **AutoDrive - Open Deals**. | Each list shows source/channel, owner and stage/status. | | |
+| UAT-10 | US-12 Low-stock alert | 1. Open a **Vehicle Model**. 2. Set **Low Stock Threshold** above its Available Stock, save. **(next day)** check notifications. | One alert for that model; it does not repeat. | | |
+| UAT-13 | US-16 Fleet order with several vehicles | 1. Open an open sale for a fleet account. 2. **Fleet Vehicles** → **New**, add two cars with prices. | Fleet Vehicle Count = 2 and the total. Closing the sale marks both cars **Sold**. | | |
+| UAT-14 | US-16 Several vehicles only for fleet | 1. On a sale for an **Individual**, try to add a Fleet Vehicle. | An error says fleet sales only. | | |
+| UAT-17 | US-02 Manager sees where the discount sits | 1. Home → **Items to Approve**, approve the request from UAT-16. 2. Reopen it. | Step now **With Finance**, with a new date/time. | | |
+| UAT-20 | US-20 Fleet agreed rate applies | 1. On a fleet sale (account has an Agreed Discount Rate), new Discount Request, leave the rate blank, save. | The fleet's agreed rate is filled in automatically. | | |
 
-## Management
+## 4. Finance Team
 
-| ID | Story | Login as | Steps | You should see | Result | Notes |
-|---|---|---|---|---|---|---|
-| UAT-50 | US-21 One dashboard for the whole business | Management | 1. Open Home / the Management dashboard. | Sales, stock, finance and service measures together, with figures (no errors). | | |
+| ID | Story | Steps | You should see | Result | Notes |
+|---|---|---|---|---|---|
+| UAT-18 | US-08 Finance sees what waits for them | 1. Home → **Items to Approve**. 2. Approve the request from UAT-17. | It was listed with its date; after approving it moves to **With Head Office** at once. | | |
+| UAT-11b | US-38 Finance moves the import on | 1. Open the import request from UAT-11a. 2. Move the status forward step by step to **Arrived**. | Each step saves; the request is visible to Finance. | | |
+| UAT-23 | US-03 Payment recorded once, balance updates itself | 1. Open an instalment on an active plan. 2. **Payments** → **New**, amount, save. | Amount Paid and Balance update; Recorded By and date filled in. | | |
+| UAT-24 | US-28 Short payment (475 against 500) | 1. On an instalment of 500, record **475**. | Balance shows **25** owed. | | |
+| UAT-25 | US-28 Extra payment becomes credit | 1. On another instalment, pay more than is due. | The extra shows as a credit. | | |
+| UAT-30 | US-17 Alert when a customer first defaults | 1. Find an instalment 30+ days overdue. **(next day)** check notifications and Default Alert Sent. | One alert with customer, amount and days overdue; no repeat. | | |
+| UAT-31 | US-15 / US-19 Reminder 3 days before due | 1. Note an unpaid instalment due in exactly 3 days. **(next day)** check its customer's **Customer Messages**. | A reminder email with the amount due and the date. None for paid instalments. | | |
+| UAT-34 | US-37 Completion email | 1. Record the final payment that clears a plan. 2. Open the plan. | Completion Email Sent ticked; one email only. | | |
+| UAT-38a | US-06 Payment request routed to Finance | 1. **Cases** → **All Open Cases**. | The "Payments" case from UAT-37 is in **AD Finance Cases** (or with a Finance user), Routed To = Finance. | | |
+
+## 5. Head of Finance
+
+| ID | Story | Steps | You should see | Result | Notes |
+|---|---|---|---|---|---|
+| UAT-19 | US-02 / NFR-03 Who approved and when | 1. Approve the request from UAT-18 (Head Office step). 2. Open it. | Status **Approved**; Approved By and Approved On filled in. | | |
+| UAT-26 | US-29 30% down minimum | 1. New Instalment Plan with a down payment under **30%**. | Blocked with a message. | | |
+| UAT-27 | US-29 12-month maximum | 1. On a plan, Term = **13** months. | Blocked with a message. | | |
+| UAT-28 | US-29 Guarantor and sign-off | 1. Sign off a plan with no guarantor. 2. Close an instalment sale before sign-off and deposit. | Both blocked. | | |
+| UAT-29 | US-05 Late and defaulting customers | 1. **Instalment Plans** → **Needs Attention**. | Every Late, Defaulted or With Legal plan, status worked out from payments. | | |
+| UAT-32 | US-09 Bank vs recorded totals | 1. **Reconciliation Entries** → **New**, Bank Total different from Recorded Total, save. | The Difference shows and the entry stays flagged until explained. | | |
+| UAT-33a | US-36 Escalate an unrecoverable default to Legal | 1. On a Defaulted plan, create a **Legal Escalation** (all three conditions met). | Saves; Legal Team Notified At filled in; the email gives name, months defaulted and total owed. | | |
+| UAT-35 | US-26 Finance sees stock, models and prices | 1. **Vehicle Models** and **Vehicles**. 2. **AutoDrive - Models With No List Price**. | Stock and list prices visible, read only; models without a price listed. | | |
+
+## 6. Sales Rep (short return)
+
+| ID | Story | Steps | You should see | Result | Notes |
+|---|---|---|---|---|---|
+| UAT-11c | US-38 Rep told the import arrived | 1. Check notifications / email. 2. Open the import request. | A notice that the vehicle arrived; status **Arrived**. | | |
+
+## 7. Legal Team
+
+| ID | Story | Steps | You should see | Result | Notes |
+|---|---|---|---|---|---|
+| UAT-33b | US-36 Legal can see the escalation | 1. **Legal Escalations** → **All**. 2. Open the one from UAT-33a. | The record with customer, months defaulted and total owed, view only. | | |
+
+## 8. Customer Service Agent
+
+| ID | Story | Steps | You should see | Result | Notes |
+|---|---|---|---|---|---|
+| UAT-36b | NFR-01 Money is hidden | 1. Open a customer's sale. | No payment amounts, plans or prices. | | |
+| UAT-38b | US-06 Requests routed to the right team | 1. **Cases** → **All Open Cases**. | "Buying a vehicle" case → Showroom (AD Showroom Cases); "A problem with my vehicle" case → Customer Service. | | |
+| UAT-39 | US-11 Assigned to an available person | 1. Bottom bar **Omni-Channel** → **Available**. 2. Ask someone to submit "A problem with my vehicle" on the site. | A request pops up to accept; after accepting you own the case. When Offline, cases wait in the queue. | | |
+| UAT-41 | US-04 One view of the customer | 1. Search a customer by name or phone, open the account. | Purchases, cases and messages on one record, view only, no payment amounts. | | |
+| UAT-42 | US-35 Customer told when status changes | 1. Open your case from UAT-39. 2. Status **Working**, then **Closed**. 3. **Customer Messages** on the case. | One status update and one resolution message, each with the time sent. Changing only the owner sends nothing. | | |
+| UAT-46 | US-22 Satisfaction score 1 to 10 | 1. On a closed case, CSAT Score **11**, save. 2. **8**, save. | 11 rejected; 8 saves. Blank = unrated. | | |
+| UAT-48 | US-14 Search the knowledge base | 1. **Knowledge Articles**, search a keyword. | Matching published articles with issue and agreed answer. | | |
+
+## 9. Head of Customer Service
+
+| ID | Story | Steps | You should see | Result | Notes |
+|---|---|---|---|---|---|
+| UAT-43 | US-10 Every case's owner and status | 1. **Cases** → **All Cases**. | Every case with one owner and one status. | | |
+| UAT-44 | US-33 Stuck case escalates itself | 1. Leave a new case with no reply for over **1 hour**. 2. Reopen it. | Priority High, Escalated At filled in, Head of CS flagged. Closed cases don't escalate. | | |
+| UAT-45 | US-13 Response and resolution times | 1. Reply to a case, then close it. 2. Open it. 3. Report **AD Cases by Status**. | First Response At and Resolved At filled in; the auto acknowledgement doesn't count. | | |
+| UAT-47 | US-24 Satisfaction trend | 1. Report **AD Satisfaction Scores**. | Scores over time with the number of ratings; unrated not counted as low. | | |
+| UAT-49 | US-18 Head maintains articles | 1. Edit an article, save. 2. Set another to **Retired**. 3. (Optional) check as the Agent. | The edit shows at once; the retired article is hidden from agents but not deleted. | | |
+
+## 10. Management
+
+| ID | Story | Steps | You should see | Result | Notes |
+|---|---|---|---|---|---|
+| UAT-50 | US-21 One dashboard for the whole business | 1. Open Home / the Management dashboard. | Sales, stock, finance and service figures together, no errors. | | |
 
 ---
 
 ## Not tested (decided out of scope)
-- **Text (SMS) reminders** (US-15 / US-19): reminders go by email only. Team decision, 18 Oct 2026.
+- **Text (SMS) reminders** (US-15 / US-19): email only. Team decision, 18 Oct 2026.
 - Items on the workbook's **Won't Have** sheet.
 
 ## Results summary
-| Area | Tests | Passed | Failed | Tester | Date |
+| Role | Tests | Passed | Failed | Tester | Date |
 |---|---|---|---|---|---|
-| Sales and vehicles | 14 | | | | |
-| Discounts | 8 | | | | |
-| Payments and instalments | 14 | | | | |
-| Customer service | 13 | | | | |
+| Website visitor | 2 | | | | |
+| Sales Rep | 16 | | | | |
+| Showroom Manager | 7 | | | | |
+| Finance Team | 9 | | | | |
+| Head of Finance | 8 | | | | |
+| Legal Team | 1 | | | | |
+| Customer Service Agent | 7 | | | | |
+| Head of Customer Service | 5 | | | | |
 | Management | 1 | | | | |
