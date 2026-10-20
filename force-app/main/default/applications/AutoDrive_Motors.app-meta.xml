@@ -120,7 +120,6 @@
     <tabs>Vehicle_Model__c</tabs>
     <tabs>Showroom__c</tabs>
     <tabs>Discount_Request__c</tabs>
-    <tabs>Approval_Step__c</tabs>
     <tabs>Import_Request__c</tabs>
     <tabs>Instalment_Plan__c</tabs>
     <tabs>Instalment__c</tabs>

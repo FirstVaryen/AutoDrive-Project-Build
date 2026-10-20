@@ -22,6 +22,15 @@
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Step__c</fields>
+        <fields>Decision__c</fields>
+        <fields>Acted_By__c</fields>
+        <fields>Acted_At__c</fields>
+        <fields>Reason__c</fields>
+        <relatedList>Approval_Step__c.Discount_Request__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>

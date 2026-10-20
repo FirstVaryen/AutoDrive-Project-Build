@@ -408,3 +408,8 @@ Every v8 refined story was checked rule by rule against the build. Gaps closed:
 1. **Email deliverability:** Setup -> Deliverability -> Access level -> **All email** -> Save. Needed for the Email action on contacts and for all customer/staff emails to be delivered in the sandbox.
 2. **Confetti on Closed Won:** Setup -> Path Settings -> AutoDrive Sale Path -> Edit -> Next -> tick **Enable Celebrations**, choose **Closed Won**, frequency **Always** -> Save.
 3. (Earlier) Automated Process user email: Setup -> Process Automation Settings.
+- (20 Oct) Showroom Manager UAT round 2:
+  - New flow **Import_Request_Add_Stock**: marking an import request **Imported** adds its Quantity of cars of that type to stock as Available (chassis IMP-<request>-n), so In Stock goes up for everyone (US-38). Tested: Camry 2026 Black 0 -> 3. Requests already Imported back-filled.
+  - Removed demo-org list views: Leads (My Rejected Registrations, Sales - Lead, Sales - Leads West) and Cases (Battery, Billing, Chat, Closed/Open/My Experience Cases, General, Priority, Social_Queue, Turbine, Warranty, duplicate My Cases). Kept: "All - Hot Leads" (used by demo-org home pages; cannot be deleted) and standard Salesforce lists. New Case list **AutoDrive - Showroom Cases** (open cases routed to the Showroom), shared with the Showroom Manager role.
+  - **Approval Steps:** tab removed from the app and from the Finance, Head of Finance and Showroom Manager groups; the step-by-step record (who decided each step, when) now shows as a related list on each Discount Request (NFR-03 audit trail kept).
+  - "Prospects With No Rep" kept: US-32 requires prospects with no rep to be shown together; it is empty while every lead has a rep.
