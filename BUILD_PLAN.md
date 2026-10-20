@@ -362,3 +362,8 @@ Every v8 refined story was checked rule by rule against the build. Gaps closed:
   - Sale: Viewing / Test Drive = Vehicle, Model, Viewing / Test Drive Date (new), Account, Customer Type; Offer = List Price, Sale Price, Payment Mode, Instalment Duration, Expected Pickup Date (new); Payment Arranged = Discount %, Pending Discount Requests, Fleet Rate, Down Payment Agreed, Monthly Instalment.
   - New date fields are for information only: test-drive recording (UC-04) and handover (UC-06) are Won't Have.
 - (20 Oct) Clean-up after dropping the converted-lead close rule: deleted the 4 "AD Rerun … Sale 3 (no Lead)" sales and their "No Lead" accounts (Recycle Bin); the fresh-records script now makes Sale 3 a third open sale for the converted customer, and its lead uses Contacted; QA test TC-S13 (no-lead close) removed; TC-S8a/b and UAT docs updated to the New/Contacted/Converted path.
+- (20 Oct) **Sale page uses Dynamic Forms** (AutoDrive_Opportunity_Record_Page): the record detail panel is replaced by sections whose fields appear as the sale advances.
+  - Sale Details (top), always: Name, Account, Customer Type, Vehicle, Model, Viewing Date, Stage, Close Date, Owner. From Offer: Payment Mode, Expected Pickup Date, List Price, Sale Price; Instalment only: Duration, Down Payment Agreed, Amount on Instalment, Monthly Instalment. Fleet only: Fleet Vehicles and total.
+  - Discount: Pending Discount Requests from Offer; Discount Amount and % from Payment Arranged; Fleet Rate (fleet) from Payment Arranged.
+  - Payment (from Payment Arranged): Down Payment Received, Total Paid, Balance, Signed-off Plans (instalment).
+  - System Information (bottom): Created By, Last Modified By. Field access still decides who sees money fields.
