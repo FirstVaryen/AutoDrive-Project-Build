@@ -10,7 +10,7 @@ public without sharing class LeadAutoAssigner implements Queueable {
     public static final Integer MAX_OPEN_LEADS = 5;
     public static final String QUEUE_NAME = 'AD_Web_Leads';
     public static final String REP_PROFILE = 'AutoDrive Sales Rep';
-    public static final String AVAILABLE_STATUS = 'AD_Available';
+    public static final Set<String> AVAILABLE_STATUSES = new Set<String>{ 'AD_Leads_Available', 'AD_Available' };
     @TestVisible static Set<Id> onlineOverride;
 
     public void execute(QueueableContext ctx) { assignWaitingLeads(); }
@@ -73,7 +73,7 @@ public without sharing class LeadAutoAssigner implements Queueable {
         if (Test.isRunningTest() && onlineOverride != null) { reps = new Set<Id>(reps); reps.retainAll(onlineOverride); return reps; }
         Set<Id> online = new Set<Id>();
         for (UserServicePresence p : [SELECT UserId FROM UserServicePresence
-                                      WHERE UserId IN :reps AND IsCurrentState = true AND ServicePresenceStatus.DeveloperName = :AVAILABLE_STATUS]) {
+                                      WHERE UserId IN :reps AND IsCurrentState = true AND ServicePresenceStatus.DeveloperName IN :AVAILABLE_STATUSES]) {
             online.add(p.UserId);
         }
         return online;
