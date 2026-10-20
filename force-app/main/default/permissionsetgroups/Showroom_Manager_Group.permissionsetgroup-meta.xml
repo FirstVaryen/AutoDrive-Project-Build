@@ -15,7 +15,6 @@
     <permissionSets>Approval_Step_Edit</permissionSets>
     <permissionSets>Import_Request_Edit</permissionSets>
     <permissionSets>Discount_Request_Tab</permissionSets>
-    <permissionSets>Approval_Step_Tab</permissionSets>
     <permissionSets>Vehicle_Tab</permissionSets>
     <permissionSets>Vehicle_Model_Tab</permissionSets>
     <permissionSets>Showroom_Tab</permissionSets>
