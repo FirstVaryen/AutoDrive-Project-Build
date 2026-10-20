@@ -349,3 +349,9 @@ Every v8 refined story was checked rule by rule against the build. Gaps closed:
 - New Apex **AutoAssigner** (replaces LeadAutoAssigner, deleted) + triggers **LeadAutoAssign** and **CaseAutoAssign** + **AutoAssignerTest** (4/4 pass, 91%). Teams: AD Website Leads -> Sales Reps; AD Finance Cases -> Finance Team; AD Showroom Cases -> Showroom Manager; Customer Service -> CS Agents. Each person max 5 open items, fewest first, round robin on ties; waiting work retried every 5 minutes (12 jobs "AD Auto Assign :00 … :55"). Assignee gets the standard "assigned to you" email.
 - Online check: an active UI session, or (because "Login As" sessions are recorded under the admin) a "Logged in using Login-As access for <Name>" audit entry in the last 2 hours not followed by a log-out.
 - New field Case.Auto_Assigned_At__c (read-only). Omni widget removed from the AutoDrive Motors utility bar; Omni routing configs removed from the case queues. Omni statuses/presence configs left in place but unused.
+
+### EDITED 2026-10-20: admin home, sale path, vehicle price on the sale
+- Admin profile opens the AutoDrive Motors app on the Management home page (profileActionOverrides, profile Admin).
+- Opportunity **path guidance** (`AutoDrive_Sale_Path`): Viewing / Test Drive (Vehicle, Payment Mode), Offer (Vehicle, List Price, Discount, Sale Price, Payment Mode), Payment Arranged (Payment Mode, Down Payment Received). Price fields show only to roles allowed by the matrix (Showroom Manager, Finance, Head of Finance, Management).
+- Flow **Opportunity_Fill_List_Price** (before save): when a vehicle is picked, List Price is copied from the vehicle's model and Sale Price starts at the list price (reset if the vehicle changes).
+- Confetti on Closed Won: needs Setup → Path Settings → the AutoDrive Sale Path → Enable Celebrations (not available as deployable metadata).
