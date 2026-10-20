@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Model_In_Stock__c</fullName>
-    <description>How many cars of this vehicle's model are available in the showroom (shown when picking a car).</description>
+    <description>How many cars of this type are still available in the showroom.</description>
     <formula>Model__r.Available_Stock__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <label>In Stock (Model)</label>
+    <label>In Stock (Type)</label>
     <precision>18</precision>
     <scale>0</scale>
     <type>Number</type>

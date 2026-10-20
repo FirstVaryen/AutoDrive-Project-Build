@@ -13,7 +13,7 @@ Id salesRep = [SELECT Id FROM User WHERE Username = 'test.salesrep@autodrive.gro
 Id leadRt = [SELECT Id FROM RecordType WHERE SobjectType = 'Lead' AND DeveloperName = 'AutoDrive_Lead'].Id;
 Id oppRt = [SELECT Id FROM RecordType WHERE SobjectType = 'Opportunity' AND DeveloperName = 'AutoDrive_Sale'].Id;
 Id individualRt = [SELECT Id FROM RecordType WHERE SobjectType = 'Account' AND DeveloperName = 'Individual'].Id;
-Id camry = [SELECT Id FROM Vehicle_Model__c WHERE Name = 'AD Test - Toyota Camry'].Id;
+Id camry = [SELECT Id FROM Vehicle_Model__c WHERE Name LIKE 'Toyota Camry%' ORDER BY Name LIMIT 1].Id;
 
 List<Vehicle__c> cars = [SELECT Id, Name FROM Vehicle__c WHERE Status__c = 'Available' AND Id NOT IN (SELECT Vehicle__c FROM Opportunity WHERE IsClosed = false AND Vehicle__c != null) ORDER BY Name LIMIT 3];
 if (cars.size() < 3) {
