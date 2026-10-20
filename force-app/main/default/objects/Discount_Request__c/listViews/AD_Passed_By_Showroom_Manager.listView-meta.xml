@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AD_Passed_By_Showroom_Manager</fullName>
+    <columns>NAME</columns>
+    <columns>Opportunity__c</columns>
+    <columns>Requested_Discount__c</columns>
+    <columns>Current_Step__c</columns>
+    <columns>Requested_By__c</columns>
+    <columns>Approved_On__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Current_Step__c</field>
+        <operation>equals</operation>
+        <value>With Finance,With Head Office,Approved</value>
+    </filters>
+    <filters>
+        <field>Auto_Approved__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>Approved by Me - Showroom Manager</label>
+    <sharedTo>
+        <role>Showroom_Manager</role>
+    </sharedTo>
+</ListView>

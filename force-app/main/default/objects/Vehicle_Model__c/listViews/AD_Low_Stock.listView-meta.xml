@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AD_Low_Stock</fullName>
+    <columns>NAME</columns>
+    <columns>Available_Stock__c</columns>
+    <columns>Low_stock_Threshold__c</columns>
+    <columns>List_Price__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Low_Stock_Alert_Active__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>AutoDrive - Low Stock</label>
+</ListView>

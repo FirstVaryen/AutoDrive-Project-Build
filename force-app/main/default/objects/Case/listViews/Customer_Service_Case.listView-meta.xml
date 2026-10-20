@@ -5,6 +5,7 @@
     <label>Customer Service</label>
     <queue>Customer_Service</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
+        <role>Customer_Service_Agent</role>
+        <role>Head_of_Customer_Service</role>
     </sharedTo>
 </ListView>

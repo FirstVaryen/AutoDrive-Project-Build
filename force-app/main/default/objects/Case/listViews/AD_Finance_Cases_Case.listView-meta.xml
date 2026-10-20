@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AD_Finance_Cases_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>AD Finance Cases</label>
+    <queue>AD_Finance_Cases</queue>
+    <sharedTo>
+        <role>Finance_Team_Member</role>
+        <role>Head_of_Finance</role>
+    </sharedTo>
+</ListView>
