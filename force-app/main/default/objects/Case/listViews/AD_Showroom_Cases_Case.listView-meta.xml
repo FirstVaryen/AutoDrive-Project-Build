@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AD_Showroom_Cases_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>AD Showroom Cases</label>
+    <queue>AD_Showroom_Cases</queue>
+    <sharedTo>
+        <role>Showroom_Manager</role>
+    </sharedTo>
+</ListView>
