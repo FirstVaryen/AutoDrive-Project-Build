@@ -7,6 +7,9 @@
         <locationY>647</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Stamp_Finance_Notified</targetReference>
+        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>emailAddressesArray</name>
@@ -144,6 +147,27 @@
         <queriedFields>Email</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordUpdates>
+        <name>Stamp_Finance_Notified</name>
+        <label>Stamp Finance Notified</label>
+        <locationX>176</locationX>
+        <locationY>755</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Finance_Notified_At__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
