@@ -19,6 +19,11 @@
     </choices>
     <description>Finance: record a payment against an instalment. The amount still owed is filled in; change it for a short or extra payment (US-03, US-28). The payment is linked to the instalment and its sale.</description>
     <environments>Default</environments>
+    <formulas>
+        <name>f_PayName</name>
+        <dataType>String</dataType>
+        <expression>{!Get_Instalment.Name} &amp; &quot; - Payment &quot; &amp; TEXT({!Paid_On})</expression>
+    </formulas>
     <interviewLabel>Record Instalment Payment {!$Flow.CurrentDateTime}</interviewLabel>
     <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <label>AM Record Instalment Payment</label>
@@ -62,6 +67,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>f_PayName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>Opportunity__c</field>
             <value>
                 <elementReference>Get_Plan.Opportunity__c</elementReference>
@@ -102,6 +113,7 @@
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Instalment__c</object>
         <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
         <queriedFields>Balance__c</queriedFields>
         <queriedFields>Due_Date__c</queriedFields>
         <queriedFields>Instalment_Plan__c</queriedFields>

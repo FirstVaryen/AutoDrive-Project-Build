@@ -2,6 +2,10 @@
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Finance: record the customer's down payment on an instalment sale, with the agreed deposit filled in (US-03, US-29).</description>
     <fieldOverrides>
+        <field>Name</field>
+        <formula>BLANKVALUE(Opportunity.Account.Name, Opportunity.Name) &amp; &quot; - Down Payment&quot;</formula>
+    </fieldOverrides>
+    <fieldOverrides>
         <field>Amount__c</field>
         <formula>Opportunity.Instalment_Down_Payment__c</formula>
     </fieldOverrides>

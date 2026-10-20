@@ -14,6 +14,13 @@
             </value>
         </assignmentItems>
         <assignmentItems>
+            <assignToReference>var_Inst.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>f_InstName</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
             <assignToReference>var_Inst.Instalment_Plan__c</assignToReference>
             <operator>Assign</operator>
             <value>
@@ -83,6 +90,11 @@
         <name>f_DueDate</name>
         <dataType>Date</dataType>
         <expression>ADDMONTHS({!$Flow.CurrentDate}, {!var_Count})</expression>
+    </formulas>
+    <formulas>
+        <name>f_InstName</name>
+        <dataType>String</dataType>
+        <expression>BLANKVALUE({!$Record.Opportunity__r.Account.Name}, {!$Record.Opportunity__r.Name}) &amp; &quot; - Month &quot; &amp; TEXT({!var_Count}) &amp; &quot; of &quot; &amp; TEXT({!$Record.Term_in_Months__c})</expression>
     </formulas>
     <formulas>
         <name>f_Monthly</name>
