@@ -83,12 +83,12 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
 
 | ID | Story | Steps | You should see | Result | Notes |
 |---|---|---|---|---|---|
-| UAT-06 | US-30 Walk-in goes to a rep without retyping | 1. New lead, Channel = **Walk-in**, phone, save. 2. Look at **Lead Owner**. | The owner is a sales rep, picked automatically. | | |
-| UAT-09 | US-32 Where deals are stuck | 1. **Leads** → **AutoDrive - Open Prospects**. 2. **AutoDrive - Prospects With No Rep**. 3. **Opportunities** → **All Open Opportunities**. | Each list shows source/channel, owner and stage/status. | | |
-| UAT-10 | US-12 Low-stock alert | 1. Open a **Vehicle Model**. 2. Set **Low Stock Threshold** above its Available Stock, save. **(next day)** check notifications. | One alert for that model; it does not repeat. | | |
+| UAT-06 | US-30 Walk-in goes to a rep without retyping | 1. New lead, Channel = **Walk-in**, phone, save. 2. Look at **Lead Owner**. | The owner is a sales rep, picked automatically. | Pass | Walk-in auto-assigned; returning/high-profile went to the manager. |
+| UAT-09 | US-32 Where deals are stuck | 1. **Leads** → **AutoDrive - Open Prospects**. 2. **AutoDrive - Prospects With No Rep**. 3. **Opportunities** → **All Open Opportunities**. | Each list shows source/channel, owner and stage/status. | Pass | Open Prospects in List View; No Rep list empty (all leads have reps). |
+| UAT-10 | US-12 Low-stock alert | 1. Open a **Vehicle Model**. 2. Set **Low Stock Threshold** above its Available Stock, save. **(next day)** check notifications. | One alert for that model; it does not repeat. | Pass | Bell notifications + AutoDrive - Low Stock list. |
 | UAT-13 | US-16 Fleet order with several vehicles | 1. Open an open sale for a fleet account. 2. **Fleet Vehicles** → **New**, add two cars with prices. | Fleet Vehicle Count = 2 and the total. Closing the sale marks both cars **Sold**. | Pass | Run as Sales Rep: Type + How many, identical cars reserved, totals and Fleet Summary update; delete line releases car; lost sale releases cars. |
 | UAT-14 | US-16 Several vehicles only for fleet | 1. On a sale for an **Individual**, try to add a Fleet Vehicle. | An error says fleet sales only. | Pass | Not enough stock refused; Import Request raised. |
-| UAT-17 | US-02 Manager sees where the discount sits | 1. Home → **Items to Approve**, approve the request from UAT-16. 2. Reopen it. | Step now **With Finance**, with a new date/time. | | |
+| UAT-17 | US-02 Manager sees where the discount sits | 1. Home → **Items to Approve**, approve the request from UAT-16. 2. Reopen it. | Step now **With Finance**, with a new date/time. | Pass | Kano 5% and fleet 10% approved; DR-0023 rejected; Approved by Me list. |
 | UAT-20 | US-20 Fleet agreed rate applies | 1. On a fleet sale (account has an Agreed Discount Rate), new Discount Request, leave the rate blank, save. | The fleet's agreed rate is filled in automatically. | Pass | Fleet rate applied on fleet total (run as Sales Rep). |
 
 ## 4. Finance Team
@@ -169,7 +169,7 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
 |---|---|---|---|---|---|
 | Website visitor | 2 | | | | |
 | Sales Rep | 16 | 15 | 0 | Hillary | 20 Oct 2026 (1 skipped) |
-| Showroom Manager | 7 | | | | |
+| Showroom Manager | 7 | 7 | 0 | Hillary | 20 Oct 2026 |
 | Finance Team | 9 | | | | |
 | Head of Finance | 8 | | | | |
 | Legal Team | 1 | | | | |
