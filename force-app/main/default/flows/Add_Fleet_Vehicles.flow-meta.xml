@@ -127,6 +127,7 @@
   &quot;Added &quot; &amp; TEXT({!var_Count}) &amp; &quot; vehicle(s) to this sale and reserved them.&quot;,
   &quot;Only &quot; &amp; TEXT({!var_Count}) &amp; &quot; of &quot; &amp; TEXT({!Quantity}) &amp; &quot; are available, so &quot; &amp; TEXT({!var_Count}) &amp; &quot; were added and reserved. For the other &quot; &amp; TEXT({!Quantity} - {!var_Count}) &amp; &quot;, raise an Import Request for this model.&quot;)</expression>
     </formulas>
+    <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <interviewLabel>Add Fleet Vehicles {!$Flow.CurrentDateTime}</interviewLabel>
     <label>AM Add Fleet Vehicles</label>
     <loops>

@@ -15,7 +15,7 @@
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>List_Price__c</fieldNames>
-        <fieldNames>Customer_Type__c</fieldNames>
+        <fieldNames>Finance_Status__c</fieldNames>
         <fieldNames>Payment_Mode__c</fieldNames>
         <fieldNames>Vehicle__c</fieldNames>
         <fieldNames>Expected_Collection_Date__c</fieldNames>

@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>60.0</apiVersion>
-    <description>When a discount request is approved (including 5% or less, approved at once), the sale gets the discount amount and the new sale price (list price minus the discount). When it is invalidated, the sale goes back to the list price.</description>
+    <decisions>
+        <name>Price_Change</name>
+        <label>Price Change?</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Approved_Or_Invalidated</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Current_Step__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Approved</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Current_Step__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Invalidated</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Sale_Price</targetReference>
+            </connector>
+            <label>Approved or Invalidated</label>
+        </rules>
+    </decisions>
+    <description>Keeps the sale in step with its discount request: the sale shows where the request is (Discount Step, used by Approval Status); when approved (including 5% or less, approved at once) the sale gets the discount amount and the new sale price (list price minus the discount); when invalidated it goes back to the list price.</description>
     <environments>Default</environments>
     <formulas>
         <name>f_Discount</name>
@@ -14,6 +43,16 @@
         <dataType>Currency</dataType>
         <expression>BLANKVALUE({!$Record.Opportunity__r.List_Price__c}, 0) - {!f_Discount}</expression>
         <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>f_StepText</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Record.Requested_Discount__c}) &amp; &quot;% discount &quot; &amp;
+CASE(TEXT({!$Record.Current_Step__c}),
+  &quot;Approved&quot;, &quot;approved&quot;,
+  &quot;Rejected&quot;, &quot;rejected&quot;,
+  &quot;Invalidated&quot;, &quot;cancelled&quot;,
+  &quot;waiting: &quot; &amp; TEXT({!$Record.Current_Step__c}))</expression>
     </formulas>
     <interviewLabel>Discount Request Apply To Sale {!$Flow.CurrentDateTime}</interviewLabel>
     <label>AM Discount Request - Apply To Sale</label>
@@ -31,10 +70,10 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordUpdates>
-        <name>Update_Sale</name>
-        <label>Update Sale</label>
-        <locationX>176</locationX>
-        <locationY>323</locationY>
+        <name>Update_Sale_Price</name>
+        <label>Update Sale Price</label>
+        <locationX>44</locationX>
+        <locationY>539</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -64,13 +103,44 @@
         </inputAssignments>
         <object>Opportunity</object>
     </recordUpdates>
+    <recordUpdates>
+        <name>Update_Sale_Step</name>
+        <label>Update Sale Step</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <connector>
+            <targetReference>Price_Change</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Opportunity__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>IsClosed</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Discount_Step__c</field>
+            <value>
+                <elementReference>f_StepText</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Update_Sale</targetReference>
+            <targetReference>Update_Sale_Step</targetReference>
         </connector>
-        <filterFormula>AND(OR(ISNEW(), ISCHANGED({!$Record.Current_Step__c})), OR(ISPICKVAL({!$Record.Current_Step__c}, &quot;Approved&quot;), ISPICKVAL({!$Record.Current_Step__c}, &quot;Invalidated&quot;)))</filterFormula>
+        <filterFormula>AND(OR(ISNEW(), ISCHANGED({!$Record.Current_Step__c})), NOT(ISBLANK(TEXT({!$Record.Current_Step__c}))))</filterFormula>
         <object>Discount_Request__c</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>

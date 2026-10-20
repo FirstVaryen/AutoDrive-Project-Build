@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Finance_Status__c</fullName>
-    <description>Instalment sales at Payment Arranged: orange while Finance sets up the plan and the deposit is awaited, green when the plan is signed off by the Head of Finance and the deposit is received (US-29), so the rep can close the sale.</description>
-    <formula>IF(AND(ISPICKVAL(Payment_Mode__c, &quot;Instalment&quot;), ISPICKVAL(StageName, &quot;Payment Arranged&quot;)),
+    <description>Where the sale is waiting on someone else. Orange: a discount is waiting for approval (Showroom Manager, Finance or Head Office, US-02), or an instalment sale is with Finance (plan set-up, Head of Finance sign-off, deposit, US-29). Green: instalment plan signed off and deposit received (ready to close), or the discount was approved. Red: discount rejected.</description>
+    <formula>IF(IsClosed, NULL,
+IF(Pending_Discount_Requests__c &gt; 0, &quot;🟠 &quot; &amp; BLANKVALUE(Discount_Step__c, &quot;Discount waiting for approval&quot;),
+IF(AND(ISPICKVAL(Payment_Mode__c, &quot;Instalment&quot;), ISPICKVAL(StageName, &quot;Payment Arranged&quot;)),
   IF(AND(Signed_Off_Plans__c &gt; 0, Down_Payment_Received__c &gt; 0), &quot;🟢 Ready to close: plan signed off and deposit received&quot;,
   IF(Signed_Off_Plans__c &gt; 0, &quot;🟠 With Finance: plan signed off, waiting for the deposit&quot;,
   IF(Down_Payment_Received__c &gt; 0, &quot;🟠 With Finance: deposit received, waiting for plan sign-off&quot;,
   &quot;🟠 With Finance: payment plan being set up&quot;))),
-  NULL)</formula>
+IF(CONTAINS(Discount_Step__c, &quot;approved&quot;), &quot;🟢 &quot; &amp; Discount_Step__c,
+IF(CONTAINS(Discount_Step__c, &quot;rejected&quot;), &quot;🔴 &quot; &amp; Discount_Step__c,
+NULL)))))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <label>AM Finance Status</label>
+    <label>AM Approval Status</label>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>
