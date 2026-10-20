@@ -18,6 +18,7 @@ private class SaleVehicleHandlerTest {
         delete l2;
         Test.stopTest();
         System.assertEquals('Available', [SELECT Status__c FROM Vehicle__c WHERE Id = :cars[1].Id].Status__c);
+        System.assertEquals(1, [SELECT Type_Count__c FROM Sale_Vehicle__c WHERE Id = :l1.Id].Type_Count__c);
         System.assert([SELECT Fleet_Summary__c FROM Opportunity WHERE Id = :o.Id].Fleet_Summary__c.startsWith('1 x Test Type 2026 White'));
     }
 }

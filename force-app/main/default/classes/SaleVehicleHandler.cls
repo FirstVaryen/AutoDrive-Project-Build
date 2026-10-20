@@ -5,6 +5,7 @@
  * - the sale's Fleet Summary shows how many cars of each type it holds, e.g. "5 x Toyota Hilux 2026 White".
  */
 public without sharing class SaleVehicleHandler {
+    static Boolean running = false;
     public static void blockClosed(List<Sale_Vehicle__c> lines) {
         Set<Id> opps = new Set<Id>();
         for (Sale_Vehicle__c l : lines) opps.add(l.Opportunity__c);
@@ -23,15 +24,25 @@ public without sharing class SaleVehicleHandler {
     }
 
     public static void refreshSummaries(List<Sale_Vehicle__c> lines) {
+        if (running) return;
+        running = true;
         Set<Id> opps = new Set<Id>();
         for (Sale_Vehicle__c l : lines) opps.add(l.Opportunity__c);
         Map<Id, Map<String, Integer>> counts = new Map<Id, Map<String, Integer>>();
         for (Id o : opps) counts.put(o, new Map<String, Integer>());
-        for (Sale_Vehicle__c l : [SELECT Opportunity__c, Vehicle_Model__r.Name, Vehicle__r.Model__r.Name FROM Sale_Vehicle__c WHERE Opportunity__c IN :opps]) {
+        List<Sale_Vehicle__c> all = [SELECT Id, Opportunity__c, Type_Count__c, Vehicle_Model__r.Name, Vehicle__r.Model__r.Name FROM Sale_Vehicle__c WHERE Opportunity__c IN :opps];
+        for (Sale_Vehicle__c l : all) {
             String t = l.Vehicle_Model__r.Name != null ? l.Vehicle_Model__r.Name : l.Vehicle__r.Model__r.Name;
             Map<String, Integer> m = counts.get(l.Opportunity__c);
             m.put(t, (m.containsKey(t) ? m.get(t) : 0) + 1);
         }
+        // every line shows how many of its type are on the sale
+        List<Sale_Vehicle__c> lineUps = new List<Sale_Vehicle__c>();
+        for (Sale_Vehicle__c l : all) {
+            Integer c = counts.get(l.Opportunity__c).get(l.Vehicle_Model__r.Name != null ? l.Vehicle_Model__r.Name : l.Vehicle__r.Model__r.Name);
+            if (l.Type_Count__c != c) lineUps.add(new Sale_Vehicle__c(Id = l.Id, Type_Count__c = c));
+        }
+        Database.update(lineUps, false);
         List<Opportunity> ups = new List<Opportunity>();
         for (Opportunity o : [SELECT Id FROM Opportunity WHERE Id IN :opps AND IsClosed = false]) {
             List<String> parts = new List<String>();
@@ -41,5 +52,6 @@ public without sharing class SaleVehicleHandler {
             ups.add(new Opportunity(Id = o.Id, Fleet_Summary__c = String.join(parts, '\n')));
         }
         update ups;
+        running = false;
     }
 }
