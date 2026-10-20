@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Monthly_Instalment__c</fullName>
-    <description>Instalment sales: amount due each month (amount on instalment divided by the duration).</description>
-    <formula>IF(AND(ISPICKVAL(Payment_Mode__c, &quot;Instalment&quot;), Instalment_Term_Months__c &gt; 0), (Sale_Price__c - BLANKVALUE(Instalment_Down_Payment__c, 0)) / Instalment_Term_Months__c, NULL)</formula>
-    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <description>Instalment sales: amount due each month (amount on instalment divided by the duration; uses the minimum 30% deposit until a down payment is agreed).</description>
+    <formula>IF(AND(ISPICKVAL(Payment_Mode__c, &quot;Instalment&quot;), Instalment_Term_Months__c &gt; 0), (Sale_Price__c - BLANKVALUE(Instalment_Down_Payment__c, 0.3 * Sale_Price__c)) / Instalment_Term_Months__c, NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
     <label>AM Monthly Instalment</label>
     <precision>18</precision>
     <scale>2</scale>
