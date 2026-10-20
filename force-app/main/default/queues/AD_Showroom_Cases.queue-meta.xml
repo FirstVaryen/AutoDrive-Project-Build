@@ -7,7 +7,6 @@
             <role>Showroom_Manager</role>
         </roles>
     </queueMembers>
-    <queueRoutingConfig>AD_Case_Routing</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>
