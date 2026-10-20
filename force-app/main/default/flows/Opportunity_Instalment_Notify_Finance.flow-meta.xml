@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Email_Finance</name>
+        <label>Email Finance</label>
+        <locationX>176</locationX>
+        <locationY>647</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddressesArray</name>
+            <value>
+                <elementReference>var_Emails</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>f_Subject</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>f_Body</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <assignments>
+        <name>Add_Email</name>
+        <label>Add Email</label>
+        <locationX>264</locationX>
+        <locationY>539</locationY>
+        <assignmentItems>
+            <assignToReference>var_Emails</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Loop_Finance.Email</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Finance</targetReference>
+        </connector>
+    </assignments>
+    <description>US-29 / US-03: when an instalment sale reaches Payment Arranged, Finance is emailed the months, deposit and monthly amount so they can create the instalment plan (Create Instalment Plan on the sale) for Head of Finance sign-off.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>f_Body</name>
+        <dataType>String</dataType>
+        <expression>&quot;An instalment sale is ready for its plan.&quot; &amp; BR() &amp; BR() &amp;
+&quot;Sale: &quot; &amp; {!$Record.Name} &amp; BR() &amp;
+&quot;Customer: &quot; &amp; {!$Record.Account.Name} &amp; BR() &amp;
+&quot;Sale price: &quot; &amp; TEXT({!$Record.Sale_Price__c}) &amp; BR() &amp;
+&quot;Months: &quot; &amp; TEXT({!$Record.Instalment_Term_Months__c}) &amp; BR() &amp;
+&quot;Down payment agreed: &quot; &amp; TEXT({!$Record.Instalment_Down_Payment__c}) &amp; BR() &amp;
+&quot;Monthly instalment: &quot; &amp; TEXT({!$Record.Monthly_Instalment__c}) &amp; BR() &amp; BR() &amp;
+&quot;Open the sale and click Create Instalment Plan: &quot; &amp; LEFT({!$Api.Partner_Server_URL_340}, FIND(&quot;/services&quot;, {!$Api.Partner_Server_URL_340})) &amp; {!$Record.Id}</expression>
+    </formulas>
+    <formulas>
+        <name>f_Subject</name>
+        <dataType>String</dataType>
+        <expression>&quot;Instalment plan needed: &quot; &amp; {!$Record.Name}</expression>
+    </formulas>
+    <interviewLabel>Opportunity Instalment Notify Finance {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Opportunity - Instalment Sale Ready For Finance</label>
+    <loops>
+        <name>Loop_Finance</name>
+        <label>Loop Finance</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <collectionReference>Get_Finance_Users</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Add_Email</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Email_Finance</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Finance_Profile</name>
+        <label>Get Finance Profile</label>
+        <locationX>176</locationX>
+        <locationY>215</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Finance_Users</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>AutoDrive Finance Team</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Profile</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Finance_Users</name>
+        <label>Get Finance Users</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Finance</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ProfileId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Finance_Profile.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>IsActive</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>User</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Email</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Finance_Profile</targetReference>
+        </connector>
+        <filterFormula>AND(ISCHANGED({!$Record.StageName}), ISPICKVAL({!$Record.StageName}, &quot;Payment Arranged&quot;), ISPICKVAL({!$Record.Payment_Mode__c}, &quot;Instalment&quot;))</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>var_Emails</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>
