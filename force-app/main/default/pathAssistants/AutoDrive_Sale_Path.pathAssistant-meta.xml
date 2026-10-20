@@ -24,7 +24,7 @@
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Finance_Status__c</fieldNames>
-        <fieldNames>Discount_Percent__c</fieldNames>
+        <fieldNames>Sale_Price__c</fieldNames>
         <fieldNames>Pending_Discount_Requests__c</fieldNames>
         <fieldNames>Instalment_Down_Payment__c</fieldNames>
         <fieldNames>Monthly_Instalment__c</fieldNames>
