@@ -17,6 +17,31 @@
             <stringValue>Card</stringValue>
         </value>
     </choices>
+    <decisions>
+        <name>Signed_Off</name>
+        <label>Signed Off?</label>
+        <locationX>176</locationX>
+        <locationY>290</locationY>
+        <defaultConnector>
+            <targetReference>Not_Signed_Off</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Signed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Plan.Head_of_Finance_Sign_off__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Payment_Details</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
     <description>Finance: record a payment against an instalment. The amount still owed is filled in; change it for a short or extra payment (US-03, US-28). The payment is linked to the instalment and its sale.</description>
     <environments>Default</environments>
     <formulas>
@@ -48,6 +73,9 @@
         <connector>
             <targetReference>Done</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Not_Saved</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>Amount__c</field>
             <value>
@@ -126,7 +154,7 @@
         <locationY>269</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Payment_Details</targetReference>
+            <targetReference>Signed_Off</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -140,6 +168,7 @@
         <object>Instalment_Plan__c</object>
         <queriedFields>Id</queriedFields>
         <queriedFields>Opportunity__c</queriedFields>
+        <queriedFields>Head_of_Finance_Sign_off__c</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <screens>
@@ -201,6 +230,38 @@
             <isRequired>true</isRequired>
         </fields>
         <nextOrFinishButtonLabel>Record payment</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Not_Signed_Off</name>
+        <label>Not Signed Off</label>
+        <locationX>440</locationX>
+        <locationY>400</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Not_Signed_Off_Text</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;This payment can&apos;t be recorded yet.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The Head of Finance has not signed off this instalment plan. Monthly payments can be recorded once the plan is signed off. Only the down payment can be taken before sign-off.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Not_Saved</name>
+        <label>Not Saved</label>
+        <locationX>440</locationX>
+        <locationY>400</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Not_Saved_Text</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;The payment was not saved.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>
