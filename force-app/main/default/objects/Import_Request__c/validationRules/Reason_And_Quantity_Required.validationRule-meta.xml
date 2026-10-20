@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_And_Quantity_Required</fullName>
+    <active>true</active>
+    <description>A new import request needs a type, a reason (Out of stock / Client request) and a quantity of at least 1.</description>
+    <errorConditionFormula>AND(ISNEW(), OR(ISBLANK(Vehicle_Model__c), ISBLANK(TEXT(Reason__c)), BLANKVALUE(Quantity__c, 0) &lt; 1))</errorConditionFormula>
+    <errorMessage>Choose the type of car, the reason for the request (Out of stock or Client request) and how many.</errorMessage>
+</ValidationRule>

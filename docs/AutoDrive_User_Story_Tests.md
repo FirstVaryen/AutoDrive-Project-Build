@@ -84,7 +84,7 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
 | ID | Story | Steps | You should see | Result | Notes |
 |---|---|---|---|---|---|
 | UAT-06 | US-30 Walk-in goes to a rep without retyping | 1. New lead, Channel = **Walk-in**, phone, save. 2. Look at **Lead Owner**. | The owner is a sales rep, picked automatically. | | |
-| UAT-09 | US-32 Where deals are stuck | 1. **Leads** → **AutoDrive - Open Prospects**. 2. **AutoDrive - Prospects With No Rep**. 3. **Opportunities** → **AutoDrive - Open Deals**. | Each list shows source/channel, owner and stage/status. | | |
+| UAT-09 | US-32 Where deals are stuck | 1. **Leads** → **AutoDrive - Open Prospects**. 2. **AutoDrive - Prospects With No Rep**. 3. **Opportunities** → **All Open Opportunities**. | Each list shows source/channel, owner and stage/status. | | |
 | UAT-10 | US-12 Low-stock alert | 1. Open a **Vehicle Model**. 2. Set **Low Stock Threshold** above its Available Stock, save. **(next day)** check notifications. | One alert for that model; it does not repeat. | | |
 | UAT-13 | US-16 Fleet order with several vehicles | 1. Open an open sale for a fleet account. 2. **Fleet Vehicles** → **New**, add two cars with prices. | Fleet Vehicle Count = 2 and the total. Closing the sale marks both cars **Sold**. | Pass | Run as Sales Rep: Type + How many, identical cars reserved, totals and Fleet Summary update; delete line releases car; lost sale releases cars. |
 | UAT-14 | US-16 Several vehicles only for fleet | 1. On a sale for an **Individual**, try to add a Fleet Vehicle. | An error says fleet sales only. | Pass | Not enough stock refused; Import Request raised. |

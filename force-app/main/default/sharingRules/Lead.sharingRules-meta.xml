@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Website_Leads_To_Showroom_Manager</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>US-32: the Showroom Manager sees prospects with no rep yet (website leads waiting in the AD Website Leads queue). Rep-owned leads are already visible through the role hierarchy.</description>
+        <label>Website leads to Showroom Manager</label>
+        <sharedTo>
+            <role>Showroom_Manager</role>
+        </sharedTo>
+        <sharedFrom>
+            <queue>AD_Web_Leads</queue>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

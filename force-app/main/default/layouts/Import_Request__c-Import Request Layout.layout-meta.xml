@@ -8,6 +8,8 @@
         <layoutColumns>
             <layoutItems><behavior>Edit</behavior><field>Account__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Vehicle_Model__c</field></layoutItems>
+            <layoutItems><behavior>Required</behavior><field>Quantity__c</field></layoutItems>
+            <layoutItems><behavior>Required</behavior><field>Reason__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Opportunity__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Requested_By__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Status__c</field></layoutItems>
