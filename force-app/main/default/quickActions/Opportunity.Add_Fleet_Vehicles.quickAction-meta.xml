@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Fleet sales: add several vehicles of one model at once.</description>
+    <flowDefinition>Add_Fleet_Vehicles</flowDefinition>
+    <label>Add Fleet Vehicles</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>
