@@ -18,6 +18,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <layoutAssignments>
+        <layout>Global-Global Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Sale_Vehicle__c-Sale Vehicle Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
