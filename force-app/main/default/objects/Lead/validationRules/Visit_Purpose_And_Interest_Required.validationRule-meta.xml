@@ -2,13 +2,13 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Visit_Purpose_And_Interest_Required</fullName>
     <active>true</active>
-    <description>US-23/US-30: a lead can only be converted (qualified) once its Visit Purpose and Vehicle of Interest are confirmed. Phone or email is required from creation (Contact_Details_Required).</description>
+    <description>US-23/US-30: a lead can only be converted once its Visit Purpose is set; the Vehicle of Interest is needed only when the conversion creates a sale (an enquiry converted without an opportunity is kept as a customer record).</description>
     <errorConditionFormula>AND(
     IsConverted,
     OR(
         ISBLANK(TEXT(Visit_Purpose__c)),
-        ISBLANK(Vehicle_Model_Of_Interest__c)
+        AND(NOT(ISBLANK(ConvertedOpportunityId)), ISBLANK(Vehicle_Model_Of_Interest__c))
     )
 )</errorConditionFormula>
-    <errorMessage>Before this lead can be converted, confirm the Visit Purpose (Enquiry or Purchase) and the Vehicle of Interest.</errorMessage>
+    <errorMessage>Cancel, then fill in on the lead itself (the Contacted step on the path): Visit Purpose, and for a sale the Vehicle of Interest. For an enquiry only, tick "Don't create an opportunity" instead.</errorMessage>
 </ValidationRule>
