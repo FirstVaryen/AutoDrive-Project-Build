@@ -6,7 +6,8 @@
         <editHeading>true</editHeading>
         <label>Information</label>
         <layoutColumns>
-            <layoutItems><behavior>Required</behavior><field>Vehicle__c</field></layoutItems>
+            <layoutItems><behavior>Required</behavior><field>Vehicle_Model__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Vehicle__c</field></layoutItems>
             <layoutItems><behavior>Required</behavior><field>Opportunity__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Name</field></layoutItems>
         </layoutColumns>

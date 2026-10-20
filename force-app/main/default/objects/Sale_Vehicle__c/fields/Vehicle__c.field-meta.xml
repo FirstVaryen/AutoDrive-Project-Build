@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Vehicle__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
-    <description>The vehicle being sold on the fleet sale. Only vehicles still for sale can be added.</description>
+    <description>The individual car on this fleet line. Picked automatically from available stock of the chosen type (Vehicle Model); only cars still for sale can be used.</description>
     <label>AM Vehicle</label>
     <lookupFilter>
         <active>true</active>
@@ -18,7 +18,7 @@
     <referenceTo>Vehicle__c</referenceTo>
     <relationshipLabel>Fleet Sales</relationshipLabel>
     <relationshipName>Sale_Vehicles</relationshipName>
-    <required>true</required>
+    <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

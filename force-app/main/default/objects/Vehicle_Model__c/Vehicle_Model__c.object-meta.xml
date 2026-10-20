@@ -162,7 +162,12 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>AM Vehicle Models</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Available_Stock__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>List_Price__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Available_Stock__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>List_Price__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>Read</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
