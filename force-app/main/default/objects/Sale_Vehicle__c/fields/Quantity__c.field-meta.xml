@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quantity__c</fullName>
+    <defaultValue>1</defaultValue>
+    <description>How many cars of this model to add. More than 1: the chosen car plus that many minus one other available cars of the same model are added to the sale and reserved; each car then has its own line with quantity 1.</description>
+    <inlineHelpText>Enter how many of this model the customer wants. The other cars are picked from available stock automatically.</inlineHelpText>
+    <label>How many</label>
+    <precision>3</precision>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

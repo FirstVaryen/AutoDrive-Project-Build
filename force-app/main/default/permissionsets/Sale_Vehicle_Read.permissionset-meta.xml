@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Atomic permission set: Read on Sale Vehicle (fleet sale vehicles), plus the required read on its parent sale.</description>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Sale_Vehicle__c.Quantity__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>AM Sale Vehicle - Read</label>
     <objectPermissions>

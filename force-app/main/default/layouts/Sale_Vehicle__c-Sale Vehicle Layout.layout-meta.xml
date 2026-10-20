@@ -6,14 +6,15 @@
         <editHeading>true</editHeading>
         <label>Information</label>
         <layoutColumns>
-            <layoutItems><behavior>Readonly</behavior><field>Name</field></layoutItems>
+            <layoutItems><behavior>Required</behavior><field>Vehicle__c</field></layoutItems>
             <layoutItems><behavior>Required</behavior><field>Opportunity__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Name</field></layoutItems>
         </layoutColumns>
         <layoutColumns>
-            <layoutItems><behavior>Required</behavior><field>Vehicle__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Quantity__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Sale_Price__c</field></layoutItems>
         </layoutColumns>
-        <style>TwoColumnsTopToBottom</style>
+        <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
