@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <assignments>
+        <name>Set_Down_Payment</name>
+        <label>Set Down Payment</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Instalment_Down_Payment__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>f_ThirtyPercent</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Instalment sales: the down payment fills in at the company minimum of 30% of the sale price (US-29) when it is empty, or when the sale price changes and the deposit is below 30%. The Showroom Manager can raise it.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>f_ThirtyPercent</name>
+        <dataType>Currency</dataType>
+        <expression>ROUND(0.3 * {!$Record.Sale_Price__c}, 2)</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>Opportunity Default Down Payment {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Opportunity - Default Down Payment 30%</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Set_Down_Payment</targetReference>
+        </connector>
+        <filterFormula>AND(ISPICKVAL({!$Record.Payment_Mode__c}, &quot;Instalment&quot;), NOT(ISBLANK({!$Record.Sale_Price__c})), NOT({!$Record.IsClosed}), OR(ISBLANK({!$Record.Instalment_Down_Payment__c}), {!$Record.Instalment_Down_Payment__c} &lt; 0.3 * {!$Record.Sale_Price__c} &amp;&amp; ISCHANGED({!$Record.Sale_Price__c})))</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <triggerOrder>20</triggerOrder>
+</Flow>

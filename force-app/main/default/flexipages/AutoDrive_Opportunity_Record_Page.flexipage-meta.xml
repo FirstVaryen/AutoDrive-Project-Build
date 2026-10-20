@@ -754,6 +754,39 @@
                 </visibilityRule>
                 </fieldInstance>
             </itemInstances>
+        <itemInstances>
+                <fieldInstance>
+                    <fieldInstanceProperties>
+                        <name>uiBehavior</name>
+                        <value>readonly</value>
+                    </fieldInstanceProperties>
+                    <fieldItem>Record.Finance_Notified_At__c</fieldItem>
+                    <identifier>RecordFinanceNotifiedAtcField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2 OR 3) AND 4</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.StageName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Payment Arranged</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.StageName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed Won</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.StageName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Closed Lost</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Payment_Mode__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Instalment</rightValue>
+                    </criteria>
+                </visibilityRule>
+                </fieldInstance>
+            </itemInstances>
         <name>Facet-pay-c1</name>
         <type>Facet</type>
     </flexiPageRegions>
