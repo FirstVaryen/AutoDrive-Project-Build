@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vehicle_Model__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>The type of car the customer wants (model, year, colour, trim). The system assigns available cars of this type.</description>
+    <inlineHelpText>Pick the type of car; the stock and price show in the search.</inlineHelpText>
+    <label>Type</label>
+    <referenceTo>Vehicle_Model__c</referenceTo>
+    <relationshipLabel>Fleet Sale Lines</relationshipLabel>
+    <relationshipName>Fleet_Sale_Lines</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

@@ -1,64 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>60.0</apiVersion>
-    <assignments>
-        <name>Count_Others</name>
-        <label>Count Others</label>
-        <locationX>176</locationX>
-        <locationY>323</locationY>
-        <assignmentItems>
-            <assignToReference>var_Others</assignToReference>
-            <operator>AssignCount</operator>
-            <value>
-                <elementReference>Get_Other_Available</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Enough_Stock</targetReference>
-        </connector>
-    </assignments>
-    <customErrors>
-        <name>Not_Enough_Stock</name>
-        <label>Not Enough Stock</label>
-        <locationX>308</locationX>
-        <locationY>539</locationY>
-        <customErrorMessages>
-            <errorMessage>{!f_ErrorText}</errorMessage>
-            <isFieldError>false</isFieldError>
-        </customErrorMessages>
-    </customErrors>
-    <decisions>
-        <name>Enough_Stock</name>
-        <label>Enough Stock?</label>
-        <locationX>176</locationX>
-        <locationY>431</locationY>
-        <defaultConnector>
-            <targetReference>Not_Enough_Stock</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>No</defaultConnectorLabel>
-        <rules>
-            <name>Yes_Enough</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>var_Others</leftValueReference>
-                <operator>GreaterThanOrEqualTo</operator>
-                <rightValue>
-                    <elementReference>f_More</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Reserve_Chosen_Car</targetReference>
-            </connector>
-            <label>Yes</label>
-        </rules>
-    </decisions>
-    <description>Fleet sales: when a vehicle line is saved with How many above 1, the save is refused if the showroom does not have that many of the model in stock (the rep is told to raise an Import Request instead). If there are enough, the chosen car is reserved and (How many - 1) more available cars of the same model, year and colour are added through Add_Fleet_Vehicles_Core; the line is then set back to 1 because every car has its own line.</description>
+    <description>Fleet sales: after a line is saved with How many above 1 (stock already checked by Sale_Vehicle_Assign_Car), the line's car is reserved and (How many - 1) more available cars of the same type are added through Add_Fleet_Vehicles_Core; the line is then set back to 1 because every car has its own line.</description>
     <environments>Default</environments>
-    <formulas>
-        <name>f_ErrorText</name>
-        <dataType>String</dataType>
-        <expression>&quot;Not enough in stock: you asked for &quot; &amp; TEXT({!$Record.Quantity__c}) &amp; &quot; &quot; &amp; {!$Record.Vehicle__r.Model__r.Name} &amp; &quot; &quot; &amp; TEXT({!$Record.Vehicle__r.Year__c}) &amp; &quot; &quot; &amp; {!$Record.Vehicle__r.Colour__c} &amp; &quot; but only &quot; &amp; TEXT({!var_Others} + 1) &amp; &quot; are available. Nothing was added. Lower the number, or raise an Import Request for the model.&quot;</expression>
-    </formulas>
     <formulas>
         <name>f_More</name>
         <dataType>Number</dataType>
@@ -80,56 +24,6 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
-    <recordLookups>
-        <name>Get_Other_Available</name>
-        <label>Get Other Available</label>
-        <locationX>176</locationX>
-        <locationY>215</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Count_Others</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Model__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.Vehicle__r.Model__c</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Year__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.Vehicle__r.Year__c</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Colour__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.Vehicle__r.Colour__c</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Status__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Available</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Id</field>
-            <operator>NotEqualTo</operator>
-            <value>
-                <elementReference>$Record.Vehicle__c</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>false</getFirstRecordOnly>
-        <object>Vehicle__c</object>
-        <queriedFields>Id</queriedFields>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
     <recordUpdates>
         <name>Reserve_Chosen_Car</name>
         <label>Reserve Chosen Car</label>
@@ -179,9 +73,9 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get_Other_Available</targetReference>
+            <targetReference>Reserve_Chosen_Car</targetReference>
         </connector>
-        <filterFormula>AND(ISNEW(), {!$Record.Quantity__c} &gt; 1, NOT(ISBLANK({!$Record.Vehicle__c})))</filterFormula>
+        <filterFormula>AND(ISNEW(), {!$Record.Quantity__c} &gt; 1, NOT(ISBLANK({!$Record.Vehicle__c})), NOT(ISBLANK({!$Record.Vehicle_Model__c})))</filterFormula>
         <object>Sale_Vehicle__c</object>
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
@@ -199,13 +93,7 @@
         <inputAssignments>
             <name>modelId</name>
             <value>
-                <elementReference>$Record.Vehicle__r.Model__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>colour</name>
-            <value>
-                <elementReference>$Record.Vehicle__r.Colour__c</elementReference>
+                <elementReference>$Record.Vehicle_Model__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -215,27 +103,10 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <name>year</name>
-            <value>
-                <elementReference>$Record.Vehicle__r.Year__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <name>recordId</name>
             <value>
                 <elementReference>$Record.Opportunity__c</elementReference>
             </value>
         </inputAssignments>
     </subflows>
-    <variables>
-        <name>var_Others</name>
-        <dataType>Number</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <scale>0</scale>
-        <value>
-            <numberValue>0.0</numberValue>
-        </value>
-    </variables>
 </Flow>
