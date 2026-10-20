@@ -5,7 +5,7 @@
 // Creates (owner: TestSales Rep):
 //   1. Customer "AD Rerun <stamp> Individual" from a converted Lead, with an open Full Payment sale at Offer and an available car  (close test, discount tests)
 //   2. A second open Full Payment sale for the same customer with a 7.5% discount already approved through the real 3-step chain  (switch-to-instalment test)
-//   3. A sale for an account that never came from a Lead  (blocked-close test)
+//   3. A third open Full Payment sale for the same customer  (10% discount approval chain)
 //   4. An open Lead at New with phone, purpose and vehicle  (qualify / convert tests)
 
 String stamp = Datetime.now().format('MMdd-HHmm');
@@ -28,7 +28,7 @@ if (cars.size() < 3) {
 // 1. Customer from a converted Lead + open sale at Offer.
 Lead l = new Lead(RecordTypeId = leadRt, FirstName = 'Rerun', LastName = 'AD Rerun ' + stamp + ' Individual', Company = 'AD Rerun ' + stamp + ' Individual',
     Customer_Type__c = 'Individual', Visit_Purpose__c = 'Purchase', Vehicle_Model_Of_Interest__c = camry, Channel__c = 'Walk-in',
-    Phone = '+23480' + stamp.replace('-', ''), Status = 'Qualified', OwnerId = salesRep);
+    Phone = '+23480' + stamp.replace('-', ''), Status = 'Contacted', OwnerId = salesRep);
 insert l;
 Database.LeadConvert lc = new Database.LeadConvert();
 lc.setLeadId(l.Id);
@@ -55,10 +55,8 @@ for (Integer i = 0; i < 3; i++) {
     Approval.process(a);
 }
 
-// 3. Account that never came from a Lead.
-Account direct = new Account(Name = 'AD Rerun ' + stamp + ' No Lead', RecordTypeId = individualRt, OwnerId = salesRep);
-insert direct;
-insert new Opportunity(RecordTypeId = oppRt, Name = 'AD Rerun ' + stamp + ' Sale 3 (no Lead)', AccountId = direct.Id, OwnerId = salesRep,
+// 3. Third open sale for the same customer.
+insert new Opportunity(RecordTypeId = oppRt, Name = 'AD Rerun ' + stamp + ' Sale 3 (open)', AccountId = r.getAccountId(), OwnerId = salesRep,
     StageName = 'Offer', CloseDate = Date.today().addDays(14), Payment_Mode__c = 'Full Payment', Vehicle__c = cars[2].Id, Amount = 32000000, Sale_Price__c = 32000000);
 
 // 4. Open lead at New.

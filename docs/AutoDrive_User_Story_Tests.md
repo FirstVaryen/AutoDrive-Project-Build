@@ -18,7 +18,7 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
    It creates, owned by TestSales Rep and named **"AD Rerun <date-time> …"** (use the newest set):
    - **Sale 1 (open)**: Full Payment, at Offer, with an available car (UAT-01, UAT-15)
    - **Sale 2 (discount approved)**: a 7.5% discount already approved (UAT-22)
-   - **Sale 3 (no Lead)**: for a customer who never came through a lead (UAT-02)
+   - **Sale 3 (open)**: a third open Full Payment sale (UAT-02, UAT-16)
    - **Lead**: an open lead at New
 6. Some tests wait for a daily automatic job (early morning). They are marked **(next day)**.
 
@@ -64,7 +64,7 @@ It is separate from `AutoDrive_Test_Plan.md`, which is the detailed QA checklist
 | ID | Story | Steps | You should see | Result | Notes |
 |---|---|---|---|---|---|
 | UAT-01 | US-01 A sold car shows as sold straight away | 1. Open **AD Rerun … Sale 1 (open)**. 2. Note the vehicle. 3. Change Stage to **Closed Won**, save. 4. Click the vehicle. | The vehicle's Status is **Sold** without anyone editing it. The sale leaves **All Open Opportunities** and appears in **AutoDrive - Closed Won**. | Pass | Vehicle showed Sold. |
-| UAT-02 | US-01 A sold car can't be sold again | 1. Open any other open sale (e.g. **AD Rerun … Sale 3**). 2. Edit **Vehicle** and search for the car sold in UAT-01. | The sold car is not offered. Each result shows model, colour, year and status. | Pass | |
+| UAT-02 | US-01 A sold car can't be sold again | 1. Open another open sale (e.g. **AD Rerun … Sale 3 (open)**). 2. Edit **Vehicle** and search for the car sold in UAT-01. | The sold car is not offered. Each result shows model, colour, year and status. | Pass | |
 | UAT-03 | US-07 See live availability | 1. **Vehicles** tab, list **All**. | Every car shows Available, Reserved or Sold. View only. | Pass | |
 | UAT-04 | US-23 Same qualifying questions for every walk-in | 1. **Leads** → **New**. 2. Name, phone, Channel = Walk-in. 3. Find **Qualification Answers**, **Visit Purpose**, **Vehicle Model of Interest**. 4. Save. | The fields are there, Phone and Email can be filled in, there is no "assignment rule" checkbox, and the lead saves. | Fail → fixed, re-test | Phone/Email were hidden; fixed 19 Oct. |
 | UAT-05 | US-23 Purpose (and vehicle for a sale) needed to convert | 1. Open a lead at Contacted; on the path, click **Contacted** to see its key fields. 2. Clear Visit Purpose, click **Convert** → **Convert**. 3. Set Visit Purpose = Enquiry, Convert again with **Don't create an opportunity** ticked. 4. On another lead (Purchase, no vehicle), Convert creating the sale. | Step 2 blocked. Step 3 converts with no sale (kept as a customer record). Step 4 blocked until a Vehicle of Interest is picked on the lead. Path shows only New → Contacted → Converted. | Pass (old rule) – re-test | |

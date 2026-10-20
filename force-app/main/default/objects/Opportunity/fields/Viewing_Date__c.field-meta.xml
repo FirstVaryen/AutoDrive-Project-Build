@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Viewing_Date__c</fullName>
+    <description>When the customer views or test-drives the vehicle. For information only: test-drive recording is a Won't Have (UC-04).</description>
+    <label>AM Viewing / Test Drive Date</label>
+    <type>Date</type>
+</CustomField>
