@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AD_Plans_To_Set_Up</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Instalment_Term_Months__c</columns>
+    <columns>Instalment_Down_Payment__c</columns>
+    <columns>Monthly_Instalment__c</columns>
+    <columns>Finance_Status__c</columns>
+    <columns>Finance_Notified_At__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>equals</operation>
+        <value>Payment Arranged</value>
+    </filters>
+    <filters>
+        <field>Payment_Mode__c</field>
+        <operation>equals</operation>
+        <value>Instalment</value>
+    </filters>
+    <label>AutoDrive - Plans To Set Up</label>
+    <sharedTo>
+        <role>Finance_Team_Member</role>
+        <role>Head_of_Finance</role>
+    </sharedTo>
+</ListView>
