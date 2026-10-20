@@ -106,7 +106,7 @@
             <label>Some</label>
         </rules>
     </decisions>
-    <description>Core of Add Fleet Vehicles (called by the screen flow, testable from Apex): given a sale, a model and a quantity, that many available cars of the model are added to the sale (each with its model's price) and set to Reserved. If stock is short, the user is told how many could not be added so an Import Request can be raised.</description>
+    <description>Core of Add Fleet Vehicles (called by the screen flow, testable from Apex): given a sale, a model, year, colour and a quantity, that many available cars of the model are added to the sale (each with its model's price) and set to Reserved. If stock is short, the user is told how many could not be added so an Import Request can be raised.</description>
     <environments>Default</environments>
     <interviewLabel>Add Fleet Vehicles Core {!$Flow.CurrentDateTime}</interviewLabel>
     <label>AM Add Fleet Vehicles (Core)</label>
@@ -165,6 +165,20 @@
             </value>
         </filters>
         <filters>
+            <field>Year__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>year</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Colour__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>colour</elementReference>
+            </value>
+        </filters>
+        <filters>
             <field>Status__c</field>
             <operator>EqualTo</operator>
             <value>
@@ -195,6 +209,13 @@
     </start>
     <status>Active</status>
     <variables>
+        <name>colour</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
         <name>modelId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
@@ -215,6 +236,14 @@
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>year</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
     </variables>
     <variables>
         <name>var_Car</name>

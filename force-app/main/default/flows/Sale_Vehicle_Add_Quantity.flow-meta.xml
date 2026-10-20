@@ -52,12 +52,12 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Fleet sales: when a vehicle line is saved with How many above 1, the save is refused if the showroom does not have that many of the model in stock (the rep is told to raise an Import Request instead). If there are enough, the chosen car is reserved and (How many - 1) more available cars of the same model are added through Add_Fleet_Vehicles_Core; the line is then set back to 1 because every car has its own line.</description>
+    <description>Fleet sales: when a vehicle line is saved with How many above 1, the save is refused if the showroom does not have that many of the model in stock (the rep is told to raise an Import Request instead). If there are enough, the chosen car is reserved and (How many - 1) more available cars of the same model, year and colour are added through Add_Fleet_Vehicles_Core; the line is then set back to 1 because every car has its own line.</description>
     <environments>Default</environments>
     <formulas>
         <name>f_ErrorText</name>
         <dataType>String</dataType>
-        <expression>&quot;Not enough in stock: you asked for &quot; &amp; TEXT({!$Record.Quantity__c}) &amp; &quot; &quot; &amp; {!$Record.Vehicle__r.Model__r.Name} &amp; &quot; but only &quot; &amp; TEXT({!var_Others} + 1) &amp; &quot; are available. Nothing was added. Lower the number, or raise an Import Request for the model.&quot;</expression>
+        <expression>&quot;Not enough in stock: you asked for &quot; &amp; TEXT({!$Record.Quantity__c}) &amp; &quot; &quot; &amp; {!$Record.Vehicle__r.Model__r.Name} &amp; &quot; &quot; &amp; TEXT({!$Record.Vehicle__r.Year__c}) &amp; &quot; &quot; &amp; {!$Record.Vehicle__r.Colour__c} &amp; &quot; but only &quot; &amp; TEXT({!var_Others} + 1) &amp; &quot; are available. Nothing was added. Lower the number, or raise an Import Request for the model.&quot;</expression>
     </formulas>
     <formulas>
         <name>f_More</name>
@@ -95,6 +95,20 @@
             <operator>EqualTo</operator>
             <value>
                 <elementReference>$Record.Vehicle__r.Model__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Year__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Vehicle__r.Year__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Colour__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Vehicle__r.Colour__c</elementReference>
             </value>
         </filters>
         <filters>
@@ -189,9 +203,21 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <name>colour</name>
+            <value>
+                <elementReference>$Record.Vehicle__r.Colour__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <name>quantity</name>
             <value>
                 <elementReference>f_More</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>year</name>
+            <value>
+                <elementReference>$Record.Vehicle__r.Year__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
