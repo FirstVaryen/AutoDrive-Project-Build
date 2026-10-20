@@ -123,6 +123,8 @@
         <label>AutoDrive Sale Details</label>
         <layoutColumns>
             <layoutItems><behavior>Edit</behavior><field>Vehicle__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Vehicle_Model_Name__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Customer_Type__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Payment_Mode__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Pending_Discount_Requests__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Fleet_Vehicle_Count__c</field></layoutItems>
@@ -131,6 +133,7 @@
             <layoutItems><behavior>Readonly</behavior><field>Signed_Off_Plans__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>List_Price__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Discount_Amount__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Discount_Percent__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Fleet_Rate_Applied__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Sale_Price__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Total_Paid__c</field></layoutItems>

@@ -6,17 +6,20 @@
     <masterLabel>AutoDrive Sale Path</masterLabel>
     <pathAssistantSteps>
         <fieldNames>Vehicle__c</fieldNames>
-        <fieldNames>Payment_Mode__c</fieldNames>
-        <info>&lt;p&gt;Pick the vehicle the customer is viewing and how they plan to pay.&lt;/p&gt;</info>
+        <fieldNames>Vehicle_Model_Name__c</fieldNames>
+        <fieldNames>AccountId</fieldNames>
+        <fieldNames>Customer_Type__c</fieldNames>
+        <fieldNames>Sale_Price__c</fieldNames>
+        <info>&lt;p&gt;Pick the vehicle the customer is viewing; the model, customer type and price fill in from it.&lt;/p&gt;</info>
         <picklistValueName>Viewing / Test Drive</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>Vehicle__c</fieldNames>
-        <fieldNames>List_Price__c</fieldNames>
-        <fieldNames>Discount_Amount__c</fieldNames>
-        <fieldNames>Sale_Price__c</fieldNames>
         <fieldNames>Payment_Mode__c</fieldNames>
-        <info>&lt;p&gt;The offer: vehicle, price and payment mode. A discount goes through Discount Requests (5% or less is approved at once).&lt;/p&gt;</info>
+        <fieldNames>Instalment_Term_Months__c</fieldNames>
+        <fieldNames>Discount_Amount__c</fieldNames>
+        <fieldNames>Discount_Percent__c</fieldNames>
+        <fieldNames>Monthly_Instalment__c</fieldNames>
+        <info>&lt;p&gt;The offer: vehicle, price and how the customer pays. The Showroom Manager sets instalment terms and discounts (discount requests over 5% go for approval; no discount on an individual&apos;s instalment sale).&lt;/p&gt;</info>
         <picklistValueName>Offer</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>

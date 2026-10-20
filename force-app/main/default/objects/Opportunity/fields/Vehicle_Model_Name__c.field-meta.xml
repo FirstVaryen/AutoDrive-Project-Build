@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vehicle_Model_Name__c</fullName>
+    <description>The model of the vehicle on this sale (from the vehicle).</description>
+    <formula>Vehicle__r.Model__r.Name</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>AM Model</label>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
