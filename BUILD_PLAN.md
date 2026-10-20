@@ -334,3 +334,9 @@ Every v8 refined story was checked rule by rule against the build. Gaps closed:
 - Opportunities: the standard "All Opportunities" list now shows open sales only and is labelled "All Open Opportunities"; closed sales stay in AutoDrive - Closed Won / Closed Lost.
 - Vehicle lookup shows Model, Colour, Year and Status next to each car when picking one on a sale.
 - Omni: a presence status given through a permission set group did not reach users (only "Offline" showed). Omni_Channel_Access now assigned directly to the CS Agent, Head of CS, Finance and Showroom test users; removed from the Sales Rep group (Sales Reps get website leads automatically, no Omni).
+
+### EDITED 2026-10-20: Sales Reps use Omni status for website leads; no-lead close rule dropped
+- LeadAutoAssigner now treats a Sales Rep as online when their **Omni-Channel status is Available** (was: any active login session). Offline reps get no website leads. Still max 5 open leads each, round robin. Retry now every **5 minutes** (12 scheduled jobs "AD Lead Auto Assign :00 … :55"). Tests 3/3 pass.
+- "Available" status access given to the **AutoDrive Sales Rep profile** (applies to every Sales Rep, present and future). Access through permission set groups does not reach Omni, so status access is on the profile / direct assignment.
+- Lead path is exactly New -> Contacted -> Converted (see 19 Oct entry).
+- Validation rule **Closed_Won_Requires_Converted_Lead deactivated** (Hillary): no story requires every sale to start as a lead; enquiries are converted without an opportunity instead.

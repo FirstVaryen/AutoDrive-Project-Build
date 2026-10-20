@@ -48,9 +48,10 @@ private class LeadAutoAssignerTest {
 
     @IsTest static void scheduleAndQueueableRun() {
         Test.startTest();
-        LeadAutoAssigner.scheduleEvery15Minutes();
+        for (CronTrigger c : [SELECT Id FROM CronTrigger WHERE CronJobDetail.Name LIKE 'AD Lead Auto Assign%']) System.abortJob(c.Id); // the real jobs are visible in tests
+        LeadAutoAssigner.scheduleEvery5Minutes();
         System.enqueueJob(new LeadAutoAssigner());
         Test.stopTest();
-        System.assertEquals(4, [SELECT COUNT() FROM CronTrigger WHERE CronJobDetail.Name LIKE 'AD Lead Auto Assign%']);
+        System.assertEquals(12, [SELECT COUNT() FROM CronTrigger WHERE CronJobDetail.Name LIKE 'AD Lead Auto Assign%']);
     }
 }
