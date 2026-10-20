@@ -23,9 +23,9 @@
         <picklistValueName>Offer</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
+        <fieldNames>Finance_Status__c</fieldNames>
         <fieldNames>Discount_Percent__c</fieldNames>
         <fieldNames>Pending_Discount_Requests__c</fieldNames>
-        <fieldNames>Fleet_Rate_Applied__c</fieldNames>
         <fieldNames>Instalment_Down_Payment__c</fieldNames>
         <fieldNames>Monthly_Instalment__c</fieldNames>
         <info>&lt;p&gt;Instalment: the Finance department has been notified of this sale and will set up the payment plan. The Head of Finance signs it off once the 30% deposit is paid. You can follow progress here. Discounts of 5% or less are approved at once; bigger ones need approval first.&lt;/p&gt;</info>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Finance_Status__c</fullName>
+    <description>Instalment sales at Payment Arranged: orange while Finance sets up the plan and the deposit is awaited, green when the plan is signed off by the Head of Finance and the deposit is received (US-29), so the rep can close the sale.</description>
+    <formula>IF(AND(ISPICKVAL(Payment_Mode__c, &quot;Instalment&quot;), ISPICKVAL(StageName, &quot;Payment Arranged&quot;)),
+  IF(AND(Signed_Off_Plans__c &gt; 0, Down_Payment_Received__c &gt; 0), &quot;🟢 Ready to close: plan signed off and deposit received&quot;,
+  IF(Signed_Off_Plans__c &gt; 0, &quot;🟠 With Finance: plan signed off, waiting for the deposit&quot;,
+  IF(Down_Payment_Received__c &gt; 0, &quot;🟠 With Finance: deposit received, waiting for plan sign-off&quot;,
+  &quot;🟠 With Finance: payment plan being set up&quot;))),
+  NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>AM Finance Status</label>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
