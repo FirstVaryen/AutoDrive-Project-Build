@@ -1,114 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>60.0</apiVersion>
-    <assignments>
-        <name>Add_One</name>
-        <label>Add One</label>
-        <locationX>264</locationX>
-        <locationY>647</locationY>
-        <assignmentItems>
-            <assignToReference>var_SaleVehicle.Opportunity__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>recordId</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>var_SaleVehicle.Vehicle__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Loop_Cars.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>var_SaleVehicles</assignToReference>
-            <operator>Add</operator>
-            <value>
-                <elementReference>var_SaleVehicle</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>var_Car.Id</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Loop_Cars.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>var_Car.Status__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>Reserved</stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>var_Cars</assignToReference>
-            <operator>Add</operator>
-            <value>
-                <elementReference>var_Car</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>var_Count</assignToReference>
-            <operator>Add</operator>
-            <value>
-                <numberValue>1.0</numberValue>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Loop_Cars</targetReference>
-        </connector>
-    </assignments>
-    <decisions>
-        <name>Need_More</name>
-        <label>Need More?</label>
-        <locationX>176</locationX>
-        <locationY>539</locationY>
-        <defaultConnector>
-            <targetReference>Loop_Cars</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Enough</defaultConnectorLabel>
-        <rules>
-            <name>Yes_More</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>var_Count</leftValueReference>
-                <operator>LessThan</operator>
-                <rightValue>
-                    <elementReference>Quantity</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Add_One</targetReference>
-            </connector>
-            <label>Yes</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Any_Added</name>
-        <label>Any Added?</label>
-        <locationX>176</locationX>
-        <locationY>755</locationY>
-        <defaultConnector>
-            <targetReference>Result</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>None</defaultConnectorLabel>
-        <rules>
-            <name>Some</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>var_Count</leftValueReference>
-                <operator>GreaterThan</operator>
-                <rightValue>
-                    <numberValue>0.0</numberValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Create_Sale_Vehicles</targetReference>
-            </connector>
-            <label>Some</label>
-        </rules>
-    </decisions>
     <description>Fleet sales: pick a model and a quantity; that many available cars of the model are added to the sale (each with its model's price) and set to Reserved. If stock is short, the user is told how many could not be added so an Import Request can be raised.</description>
     <dynamicChoiceSets>
         <name>dc_Models</name>
@@ -130,20 +22,6 @@
     <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <interviewLabel>Add Fleet Vehicles {!$Flow.CurrentDateTime}</interviewLabel>
     <label>AM Add Fleet Vehicles</label>
-    <loops>
-        <name>Loop_Cars</name>
-        <label>Loop Cars</label>
-        <locationX>176</locationX>
-        <locationY>431</locationY>
-        <collectionReference>Get_Available_Cars</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector>
-            <targetReference>Need_More</targetReference>
-        </nextValueConnector>
-        <noMoreValuesConnector>
-            <targetReference>Any_Added</targetReference>
-        </noMoreValuesConnector>
-    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -157,57 +35,6 @@
         </value>
     </processMetadataValues>
     <processType>Flow</processType>
-    <recordCreates>
-        <name>Create_Sale_Vehicles</name>
-        <label>Create Sale Vehicles</label>
-        <locationX>176</locationX>
-        <locationY>863</locationY>
-        <connector>
-            <targetReference>Reserve_Cars</targetReference>
-        </connector>
-        <inputReference>var_SaleVehicles</inputReference>
-    </recordCreates>
-    <recordLookups>
-        <name>Get_Available_Cars</name>
-        <label>Get Available Cars</label>
-        <locationX>176</locationX>
-        <locationY>323</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Loop_Cars</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Model__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Model</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Status__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Available</stringValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>false</getFirstRecordOnly>
-        <object>Vehicle__c</object>
-        <queriedFields>Id</queriedFields>
-        <sortField>Name</sortField>
-        <sortOrder>Asc</sortOrder>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordUpdates>
-        <name>Reserve_Cars</name>
-        <label>Reserve Cars</label>
-        <locationX>176</locationX>
-        <locationY>971</locationY>
-        <connector>
-            <targetReference>Result</targetReference>
-        </connector>
-        <inputReference>var_Cars</inputReference>
-    </recordUpdates>
     <runInMode>SystemModeWithoutSharing</runInMode>
     <screens>
         <name>Pick</name>
@@ -218,7 +45,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Get_Available_Cars</targetReference>
+            <targetReference>Add_Cars</targetReference>
         </connector>
         <fields>
             <name>Model</name>
@@ -269,28 +96,44 @@
         </connector>
     </start>
     <status>Active</status>
+    <subflows>
+        <name>Add_Cars</name>
+        <label>Add Cars</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <connector>
+            <targetReference>Result</targetReference>
+        </connector>
+        <flowName>Add_Fleet_Vehicles_Core</flowName>
+        <inputAssignments>
+            <name>modelId</name>
+            <value>
+                <elementReference>Model</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>quantity</name>
+            <value>
+                <elementReference>Quantity</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>recordId</name>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>var_Count</assignToReference>
+            <name>var_Count</name>
+        </outputAssignments>
+    </subflows>
     <variables>
         <name>recordId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>var_Car</name>
-        <dataType>SObject</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <objectType>Vehicle__c</objectType>
-    </variables>
-    <variables>
-        <name>var_Cars</name>
-        <dataType>SObject</dataType>
-        <isCollection>true</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <objectType>Vehicle__c</objectType>
     </variables>
     <variables>
         <name>var_Count</name>
@@ -302,21 +145,5 @@
         <value>
             <numberValue>0.0</numberValue>
         </value>
-    </variables>
-    <variables>
-        <name>var_SaleVehicle</name>
-        <dataType>SObject</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <objectType>Sale_Vehicle__c</objectType>
-    </variables>
-    <variables>
-        <name>var_SaleVehicles</name>
-        <dataType>SObject</dataType>
-        <isCollection>true</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <objectType>Sale_Vehicle__c</objectType>
     </variables>
 </Flow>
