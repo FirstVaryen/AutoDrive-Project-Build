@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Lead</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>AutoDrive Lead Path</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>Phone</fieldNames>
+        <fieldNames>Email</fieldNames>
+        <fieldNames>Channel__c</fieldNames>
+        <fieldNames>Customer_Type__c</fieldNames>
+        <info>&lt;p&gt;Record the person once with a phone number or email and how they reached us.&lt;/p&gt;</info>
+        <picklistValueName>New</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Visit_Purpose__c</fieldNames>
+        <fieldNames>Vehicle_Model_Of_Interest__c</fieldNames>
+        <fieldNames>Booked_Visit_Date__c</fieldNames>
+        <fieldNames>Qualification_Answers__c</fieldNames>
+        <info>&lt;p&gt;Fill these in here before you click &lt;b&gt;Convert&lt;/b&gt;: the convert window cannot show them. Visit Purpose is always needed. Purchase: also pick the Vehicle of Interest and create the sale. Enquiry only: tick &quot;Don&apos;t create an opportunity&quot; when converting.&lt;/p&gt;</info>
+        <picklistValueName>Contacted</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Converted. A purchase has become a customer and a sale; an enquiry is kept as a customer record for future reference.&lt;/p&gt;</info>
+        <picklistValueName>Converted</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>AutoDrive_Lead</recordTypeName>
+</PathAssistant>
