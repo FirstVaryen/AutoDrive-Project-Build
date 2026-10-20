@@ -10,7 +10,7 @@
         <fieldNames>Viewing_Date__c</fieldNames>
         <fieldNames>AccountId</fieldNames>
         <fieldNames>Customer_Type__c</fieldNames>
-        <info>&lt;p&gt;Pick the vehicle the customer is viewing and the viewing or test-drive date. Only available or reserved cars can be picked (US-01, US-07).&lt;/p&gt;</info>
+        <info>&lt;p&gt;Pick the car the customer is looking at and the viewing date.&lt;/p&gt;</info>
         <picklistValueName>Viewing / Test Drive</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
@@ -19,7 +19,7 @@
         <fieldNames>Payment_Mode__c</fieldNames>
         <fieldNames>Instalment_Term_Months__c</fieldNames>
         <fieldNames>Expected_Collection_Date__c</fieldNames>
-        <info>&lt;p&gt;The price comes from the vehicle. Full payment: the sale price and a pickup date. Instalment: the Showroom Manager sets the duration (up to 12 months) and the down payment (at least 30%) (US-29).&lt;/p&gt;</info>
+        <info>&lt;p&gt;Agree the price and how they will pay. For instalments, the Showroom Manager sets the months (up to 12) and the deposit (at least 30%).&lt;/p&gt;</info>
         <picklistValueName>Offer</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
@@ -28,7 +28,7 @@
         <fieldNames>Fleet_Rate_Applied__c</fieldNames>
         <fieldNames>Instalment_Down_Payment__c</fieldNames>
         <fieldNames>Monthly_Instalment__c</fieldNames>
-        <info>&lt;p&gt;Discounts: 5% or less is approved at once; more waits for Showroom Manager, Finance and Head Office, and the stage cannot move while one is pending (US-02, US-08). Fleet customers get their agreed rate (US-20). No discount on an individual&apos;s instalment sale (US-25). Instalment: Finance creates the plan and the Head of Finance signs it off once the deposit is in.&lt;/p&gt;</info>
+        <info>&lt;p&gt;Discounts of 5% or less are approved at once; bigger ones need approval before you can move on. No discounts on an individual&apos;s instalment sale.&lt;/p&gt;</info>
         <picklistValueName>Payment Arranged</picklistValueName>
     </pathAssistantSteps>
     <recordTypeName>AutoDrive_Sale</recordTypeName>
