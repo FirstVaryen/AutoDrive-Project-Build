@@ -7,6 +7,7 @@
     <columns>Status__c</columns>
     <columns>Colour__c</columns>
     <columns>Year__c</columns>
+    <columns>Model_In_Stock__c</columns>
     <filterScope>Everything</filterScope>
     <label>All AM Vehicles</label>
 </ListView>
