@@ -135,6 +135,10 @@
             <layoutItems><behavior>Edit</behavior><field>Sale_Price__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Total_Paid__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Balance_Remaining__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Instalment_Term_Months__c</field></layoutItems>
+            <layoutItems><behavior>Edit</behavior><field>Instalment_Down_Payment__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Instalment_Amount__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Monthly_Instalment__c</field></layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>
@@ -154,6 +158,11 @@
             <actionName>CreateSalesChannel</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>0</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Opportunity.Create_Instalment_Plan</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>1</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>

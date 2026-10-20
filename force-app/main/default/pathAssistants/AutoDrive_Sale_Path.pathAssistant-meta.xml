@@ -21,8 +21,11 @@
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Payment_Mode__c</fieldNames>
+        <fieldNames>Instalment_Term_Months__c</fieldNames>
+        <fieldNames>Instalment_Down_Payment__c</fieldNames>
+        <fieldNames>Monthly_Instalment__c</fieldNames>
         <fieldNames>Down_Payment_Received__c</fieldNames>
-        <info>&lt;p&gt;Full payment, or an instalment plan signed off by the Head of Finance with the 30% deposit received.&lt;/p&gt;</info>
+        <info>&lt;p&gt;Full payment, or instalment: enter the duration (1-12 months) and the down payment agreed (30% or more); the monthly amount is worked out. Finance then clicks Create Instalment Plan, and the Head of Finance signs it off once the deposit is received.&lt;/p&gt;</info>
         <picklistValueName>Payment Arranged</picklistValueName>
     </pathAssistantSteps>
     <recordTypeName>AutoDrive_Sale</recordTypeName>
