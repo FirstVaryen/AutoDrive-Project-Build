@@ -52,6 +52,9 @@ public without sharing class SaleVehicleHandler {
             ups.add(new Opportunity(Id = o.Id, Fleet_Summary__c = String.join(parts, ', ')));
         }
         update ups;
+        // requests still waiting for approval show the vehicles as they are now
+        Database.update([SELECT Id FROM Discount_Request__c WHERE Opportunity__c IN :opps
+            AND Current_Step__c IN ('With Showroom Manager', 'With Finance', 'With Head Office')], false);
         running = false;
     }
 }

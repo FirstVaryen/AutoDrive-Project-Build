@@ -12,7 +12,7 @@
     <approvalPageFields>
         <field>Name</field>
         <field>Customer__c</field>
-        <field>Vehicles__c</field>
+        <field>Vehicle_List__c</field>
         <field>Payment_Mode__c</field>
         <field>Sale_List_Price__c</field>
         <field>Requested_Discount__c</field>
