@@ -12,6 +12,11 @@
         <object>Customer_Message__c</object>
     </objectPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Customer_Message__c.Record_No__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Customer_Message__c.Account__c</field>
         <readable>true</readable>

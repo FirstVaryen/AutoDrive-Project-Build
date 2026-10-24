@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sale_List_Price__c</fullName>
+    <description>Price of the vehicles before any discount.</description>
+    <externalId>false</externalId>
+    <formula>Opportunity__r.List_Price__c</formula>
+    <label>List Price</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <type>Currency</type>
+</CustomField>

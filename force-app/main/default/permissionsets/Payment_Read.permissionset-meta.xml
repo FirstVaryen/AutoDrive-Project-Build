@@ -22,6 +22,11 @@
     </objectPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Payment__c.Record_No__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Payment__c.Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>

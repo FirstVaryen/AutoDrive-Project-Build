@@ -156,9 +156,8 @@
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>AM Approval Step</label>
     <nameField>
-        <displayFormat>AS-{0000}</displayFormat>
         <label>Approval Step Name</label>
-        <type>AutoNumber</type>
+        <type>Text</type>
     </nameField>
     <pluralLabel>AM Approval Steps</pluralLabel>
     <searchLayouts></searchLayouts>
