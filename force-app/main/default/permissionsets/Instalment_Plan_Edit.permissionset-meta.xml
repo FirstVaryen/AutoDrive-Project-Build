@@ -42,11 +42,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Instalment_Plan__c.Original_Term_in_Months__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Instalment_Plan__c.Ownership_Documents_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>

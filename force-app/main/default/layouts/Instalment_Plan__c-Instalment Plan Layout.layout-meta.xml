@@ -15,7 +15,6 @@
             <layoutItems><behavior>Edit</behavior><field>Down_Payment_Percent__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Down_Payment_Amount__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Term_in_Months__c</field></layoutItems>
-            <layoutItems><behavior>Edit</behavior><field>Original_Term_in_Months__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Plan_Status__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Ownership_Documents_Status__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Ownership_Documents_Status_Changed__c</field></layoutItems>
