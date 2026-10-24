@@ -16,7 +16,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Vehicles__c</field>
+                <field>Vehicle_List__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
