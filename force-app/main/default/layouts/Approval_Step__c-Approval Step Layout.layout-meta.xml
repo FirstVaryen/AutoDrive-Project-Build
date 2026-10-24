@@ -6,6 +6,10 @@
         <editHeading>true</editHeading>
         <label>Information</label>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Name</field>
+            </layoutItems>
             <layoutItems><behavior>Required</behavior><field>Discount_Request__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Step__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Decision__c</field></layoutItems>

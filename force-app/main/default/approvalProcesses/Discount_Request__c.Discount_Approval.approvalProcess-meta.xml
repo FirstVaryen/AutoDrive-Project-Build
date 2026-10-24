@@ -11,11 +11,17 @@
     </allowedSubmitters>
     <approvalPageFields>
         <field>Name</field>
+        <field>Customer__c</field>
+        <field>Vehicles__c</field>
+        <field>Payment_Mode__c</field>
+        <field>Sale_List_Price__c</field>
         <field>Requested_Discount__c</field>
-        <field>Opportunity__c</field>
+        <field>Discount_Value__c</field>
+        <field>Price_After_Discount__c</field>
         <field>Reason__c</field>
         <field>Requested_By__c</field>
         <field>Current_Step__c</field>
+        <field>Opportunity__c</field>
     </approvalPageFields>
     <approvalStep>
         <allowDelegate>true</allowDelegate>

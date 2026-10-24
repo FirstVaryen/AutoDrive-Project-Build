@@ -31,6 +31,16 @@
     </objectPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Instalment__c.Record_No__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Instalment_Plan__c.Record_No__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Instalment__c.Amount_Due__c</field>
         <readable>true</readable>
     </fieldPermissions>

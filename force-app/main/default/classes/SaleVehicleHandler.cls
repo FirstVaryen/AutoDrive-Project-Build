@@ -49,7 +49,7 @@ public without sharing class SaleVehicleHandler {
             List<String> types = new List<String>(counts.get(o.Id).keySet());
             types.sort();
             for (String t : types) parts.add(counts.get(o.Id).get(t) + ' x ' + t);
-            ups.add(new Opportunity(Id = o.Id, Fleet_Summary__c = String.join(parts, '\n')));
+            ups.add(new Opportunity(Id = o.Id, Fleet_Summary__c = String.join(parts, ', ')));
         }
         update ups;
         running = false;

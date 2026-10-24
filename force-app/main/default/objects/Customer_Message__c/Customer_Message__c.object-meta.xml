@@ -156,9 +156,8 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>AM Customer Message</label>
     <nameField>
-        <displayFormat>CM-{0000}</displayFormat>
         <label>Customer Message Name</label>
-        <type>AutoNumber</type>
+        <type>Text</type>
     </nameField>
     <pluralLabel>AM Customer Messages</pluralLabel>
     <searchLayouts></searchLayouts>
