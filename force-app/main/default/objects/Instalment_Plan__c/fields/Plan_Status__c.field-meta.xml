@@ -13,6 +13,11 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>Awaiting Sign-off</fullName>
+                <default>false</default>
+                <label>Awaiting Sign-off</label>
+            </value>
+            <value>
                 <fullName>Active</fullName>
                 <default>true</default>
                 <label>Active</label>
