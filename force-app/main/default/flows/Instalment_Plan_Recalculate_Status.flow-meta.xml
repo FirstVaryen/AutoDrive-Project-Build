@@ -74,7 +74,7 @@
             <assignToReference>var_Status</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>Active</stringValue>
+                <elementReference>f_ActiveStatus</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -181,11 +181,39 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Works out an instalment plan's Plan Status for Finance: With Legal (open or in-progress escalation), else Defaulted, else Late, else Completed (nothing unpaid), else Active. Called by Instalment_Plan_Status_From_Instalment and Instalment_Plan_Status_From_Legal.</description>
+    <description>Works out an instalment plan's Plan Status: With Legal (open or in-progress escalation), else Defaulted, else Late, else Completed (nothing unpaid), else Active once the Head of Finance has signed it off, or Awaiting Sign-off before that. Called when instalments, legal escalations or the sign-off change.</description>
     <environments>Default</environments>
+    <formulas>
+        <name>f_ActiveStatus</name>
+        <dataType>String</dataType>
+        <expression>IF({!Get_Plan.Head_of_Finance_Sign_off__c}, &quot;Active&quot;, &quot;Awaiting Sign-off&quot;)</expression>
+    </formulas>
     <interviewLabel>Instalment Plan Recalculate Status {!$Flow.CurrentDateTime}</interviewLabel>
     <label>AM Instalment Plan - Recalculate Status</label>
     <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Plan</name>
+        <label>Get Plan</label>
+        <locationX>176</locationX>
+        <locationY>100</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Open_Legal</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>planId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Instalment_Plan__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Head_of_Finance_Sign_off__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordLookups>
         <name>Get_Default_Instalment</name>
         <label>Get Default Instalment</label>
@@ -325,7 +353,7 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get_Open_Legal</targetReference>
+            <targetReference>Get_Plan</targetReference>
         </connector>
     </start>
     <status>Active</status>
