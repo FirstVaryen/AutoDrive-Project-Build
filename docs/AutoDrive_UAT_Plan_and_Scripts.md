@@ -3,7 +3,7 @@
 User acceptance testing for the AutoDrive Motors Salesforce build (TAP Group 3). It checks that the system does what AutoDrive asked for, using the business goals, requirements and user stories in the v8 workbook (`AutoDrive_Requirements_UserStories_v8.xlsx`). Every script is written in plain words and is run as the user it is meant for, never as an administrator.
 
 **How to use this document**
-1. Section 9 lists **every user story**. The column **Built?** shows what we believe is built. Go down it once and mark each row **Yes**, **No** or **Partly**. Rows marked **No** become **Blocked** and are not handed to the testers.
+1. Section 9 lists every user story and its persona.
 2. Each tester only needs section 7 (how to run a script) and their own scripts in section 10.
 3. Record results in the **Actual** and **Pass/Fail** columns. Record problems in the defect log (section 11).
 
@@ -35,7 +35,7 @@ User acceptance testing for the AutoDrive Motors Salesforce build (TAP Group 3).
 ## 2. Scope
 
 **In scope**
-- Every user story in the v8 workbook with a MUST, SHOULD or COULD priority that is marked **Built** in section 9.
+- Every user story in the v8 workbook with a MUST, SHOULD or COULD priority, tested by its persona.
 - The business rules the build enforces: 30% minimum down payment, 12-month maximum (including after renegotiation), guarantor before sign-off, Head of Finance sign-off before monthly payments, one down payment per sale, no discount on instalment sales, approval above 5%, the 3-day reminder, 1/7/30-day late steps, legal escalation after 90 days.
 - What each role can and cannot see or change (security matrix).
 - Two end-to-end journeys: a sale from website enquiry to first monthly payment, and a complaint from the website to closure.
@@ -45,6 +45,7 @@ User acceptance testing for the AutoDrive Motors Salesforce build (TAP Group 3).
 - Text (SMS) and WhatsApp messages. Reminders and notices are sent by email only (team decision, 18 Oct 2026).
 - Vehicle handover and ownership documents (workbook "Won't Have"). Only the Ownership Documents Status field is tested.
 - Customer logins. Customers use the website forms and email only.
+- Rep incentive for selling above list price (US-27, retired to Won't Have).
 - Performance, load and data migration testing.
 
 ---
@@ -128,7 +129,6 @@ Run `scripts/apex/fresh_sales_test_records.apex` before a round. It creates, own
 
 Testing starts only when all of these are true. The coordinator ticks each one.
 
-- [ ] Every story in the round is marked **Built** in section 9. The others are **Blocked**.
 - [ ] The sandbox is **frozen**: no one changes the setup during a round, except to fix a logged defect.
 - [ ] Every test user in section 4 exists, can log in, and has the right profile and permission set group.
 - [ ] Test data in section 5 is loaded.
@@ -182,53 +182,50 @@ If not met, testing continues after fixes, and only the failed and affected scri
 
 ## 9. Script index (all user stories)
 
-**Built?** is our current belief: Yes / Partly / To check. Mark it yourself before each round. **Status** is Ready (Built = Yes) or Blocked.
-
-| Script | Story | Scenario | Priority | Role | Built? | Status |
-|---|---|---|---|---|---|---|
-| UAT-B-01 | US-01 | A car shows Sold as soon as the sale closes, and can't be sold again | MUST | Sales Rep | Yes | Ready |
-| UAT-C-01 | US-02 | See where a discount approval sits | MUST | Sales Rep, Showroom Manager | Yes | Ready |
-| UAT-D-01 | US-03 | A payment is recorded once and balances update themselves | MUST | Finance Team | Yes | Ready |
-| UAT-E-02 | US-04 | Agent sees the customer's history, not payment amounts | MUST | CS Agent | Yes | Ready |
-| UAT-D-02 | US-05 | One list of late and defaulting customers | MUST | Head of Finance | Yes | Ready |
-| UAT-E-01 | US-06 | A request from any channel becomes a case and goes to the right team | MUST | Customer, CS Agent | Yes | Ready |
-| UAT-B-02 | US-07 | Rep sees live availability before talking to a customer | MUST | Sales Rep | Yes | Ready |
-| UAT-C-02 | US-08 | Finance sees which approvals are waiting for them | MUST | Finance Team | Yes | Ready |
-| UAT-D-03 | US-09 | Bank total compared with recorded payments | MUST | Head of Finance | Yes | Ready |
-| UAT-E-03 | US-10 | Head of CS sees every case's owner and status | MUST | Head of CS | Yes | Ready |
-| UAT-A-01 | US-11 | A website enquiry reaches an online rep automatically | MUST | Customer, Sales Rep | Yes | Ready |
-| UAT-B-03 | US-12 | Low-stock alert for a model | SHOULD | Showroom Manager | Yes | Ready |
-| UAT-E-04 | US-13 | First response and resolution times recorded | SHOULD | Head of CS | Yes | Ready |
-| UAT-E-05 | US-14 | Agent searches the knowledge base | SHOULD | CS Agent | Yes | Ready |
-| UAT-D-04 | US-15 | Reminder 3 days before a payment is due | SHOULD | Finance Team | Yes (email only) | Ready (next day) |
-| UAT-C-03 | US-16 | A fleet customer's information in one place | SHOULD | Sales Rep | Yes | Ready |
-| UAT-D-05 | US-17 | Alert when a customer first defaults | SHOULD | Finance Team | Yes | Ready (next day) |
-| UAT-E-06 | US-18 | Head of CS maintains articles | SHOULD | Head of CS | Yes | Ready |
-| UAT-D-04 | US-19 | Customer gets a reminder before payment is due | SHOULD | Customer | Yes (email only) | Ready (next day) |
-| UAT-C-04 | US-20 | A fleet customer's agreed rate applies automatically | SHOULD | Sales Rep | Yes | Ready |
-| UAT-F-01 | US-21 | One dashboard for sales, stock, finance and service | COULD | Management | Yes | Ready |
-| UAT-E-07 | US-22 | Satisfaction score 1 to 10 on a closed case | SHOULD | CS Agent | Yes | Ready |
-| UAT-A-02 | US-23 | Same qualifying questions for every walk-in | SHOULD | Front Desk / Sales Rep | Yes | Ready |
-| UAT-E-07 | US-24 | Satisfaction trend over time | SHOULD | Head of CS | Yes | Ready |
-| UAT-C-05 | US-25 | No discount on an instalment sale | SHOULD | Sales Rep | Yes | Ready |
-| UAT-B-04 | US-26 | Finance sees stock, models and list prices (read only) | SHOULD | Head of Finance | Yes | Ready |
-| — | US-27 | (Check the v8 workbook for this story and add its script) | — | — | To check | — |
-| UAT-D-06 | US-28 | Part, short and extra payments | SHOULD | Finance Team | Yes | Ready |
-| UAT-D-07 | US-29 | Instalment rules: 30% down, 12 months, guarantor, sign-off | SHOULD | Finance Team, Head of Finance | Yes | Ready |
-| UAT-A-03 | US-30 | Walk-in goes to the next free rep, without duplicates | SHOULD | Front Desk | Yes | Ready |
-| UAT-A-04 | US-31 | Instagram enquiries with no visit booked are listed | SHOULD | Social Media Handler | Yes | Ready |
-| UAT-A-05 | US-32 | Manager sees where deals are stuck | SHOULD | Showroom Manager | Yes | Ready |
-| UAT-E-08 | US-33 | An unanswered case escalates itself after 1 hour | SHOULD | Head of CS | Yes | Ready |
-| UAT-E-01 | US-34 | Customer gets a reference number for their request | SHOULD | Customer | Yes | Ready |
-| UAT-E-09 | US-35 | Customer is told when their case changes | SHOULD | CS Agent | Yes | Ready |
-| UAT-D-08 | US-36 | Unrecoverable default escalated to Legal | SHOULD | Head of Finance, Legal | Yes | Ready |
-| UAT-D-09 | US-37 | Completion email when the plan is paid off | COULD | Finance Team | Yes | Ready |
-| UAT-B-05 | US-38 | Import request when a model is out of stock | SHOULD | Sales Rep, Showroom Manager, Finance | Yes | Ready |
-| UAT-C-06 | US-39 | Change vehicle or payment type before collection | SHOULD | Sales Rep, Head of Finance | Partly (to check) | Blocked until checked |
-| UAT-S-01 | Security | Each role sees only its own tabs and actions | MUST | Each role | Yes | Ready |
-| UAT-S-02 | Security | Locked actions: only the right person can sign off, approve or edit | MUST | Several | Yes | Ready |
-| UAT-E2E-01 | Journey | Website enquiry to sale, deposit, sign-off, car sold and first payment | MUST | Several | Yes | Ready |
-| UAT-E2E-02 | Journey | Website complaint to case closed and measured | MUST | Several | Yes | Ready |
+| Script | Story | Scenario | Priority | Persona | Built |
+|---|---|---|---|---|---|
+| UAT-B-01 | US-01 | A car shows Sold as soon as the sale closes, and can't be sold again | MUST | Sales Rep | ✔ |
+| UAT-C-01 | US-02 | See where a discount approval sits | MUST | Sales Rep, Showroom Manager | ✔ |
+| UAT-D-01 | US-03 | A payment is recorded once and balances update themselves | MUST | Finance Team | ✔ |
+| UAT-E-02 | US-04 | Agent sees the customer's history, not payment amounts | MUST | CS Agent | ✔ |
+| UAT-D-02 | US-05 | One list of late and defaulting customers | MUST | Head of Finance | ✔ |
+| UAT-E-01 | US-06 | A request from any channel becomes a case and goes to the right team | MUST | Customer, CS Agent | ✔ |
+| UAT-B-02 | US-07 | Rep sees live availability before talking to a customer | MUST | Sales Rep | ✔ |
+| UAT-C-02 | US-08 | Finance sees which approvals are waiting for them | MUST | Finance Team | ✔ |
+| UAT-D-03 | US-09 | Bank total compared with recorded payments | MUST | Head of Finance | ✔ |
+| UAT-E-03 | US-10 | Head of CS sees every case's owner and status | MUST | Head of CS | ✔ |
+| UAT-A-01 | US-11 | A website enquiry reaches an online rep automatically | MUST | Customer, Sales Rep | ✔ |
+| UAT-B-03 | US-12 | Low-stock alert for a model | SHOULD | Showroom Manager | ✔ |
+| UAT-E-04 | US-13 | First response and resolution times recorded | SHOULD | Head of CS | ✔ |
+| UAT-E-05 | US-14 | Agent searches the knowledge base | SHOULD | CS Agent | ✔ |
+| UAT-D-04 | US-15 | Reminder 3 days before a payment is due | SHOULD | Finance Team | ✔ |
+| UAT-C-03 | US-16 | A fleet customer's information in one place | SHOULD | Sales Rep | ✔ |
+| UAT-D-05 | US-17 | Alert when a customer first defaults | SHOULD | Finance Team | ✔ |
+| UAT-E-06 | US-18 | Head of CS maintains articles | SHOULD | Head of CS | ✔ |
+| UAT-D-04 | US-19 | Customer gets a reminder before payment is due | SHOULD | Customer | ✔ |
+| UAT-C-04 | US-20 | A fleet customer's agreed rate applies automatically | SHOULD | Sales Rep | ✔ |
+| UAT-F-01 | US-21 | One dashboard for sales, stock, finance and service | COULD | Management | ✔ |
+| UAT-E-07 | US-22 | Satisfaction score 1 to 10 on a closed case | SHOULD | CS Agent | ✔ |
+| UAT-A-02 | US-23 | Same qualifying questions for every walk-in | SHOULD | Front Desk / Sales Rep | ✔ |
+| UAT-E-07 | US-24 | Satisfaction trend over time | SHOULD | Head of CS | ✔ |
+| UAT-C-05 | US-25 | No discount on an instalment sale | SHOULD | Sales Rep | ✔ |
+| UAT-B-04 | US-26 | Finance sees stock, models and list prices (read only) | SHOULD | Head of Finance | ✔ |
+| UAT-D-06 | US-28 | Part, short and extra payments | SHOULD | Finance Team | ✔ |
+| UAT-D-07 | US-29 | Instalment rules: 30% down, 12 months, guarantor, sign-off | SHOULD | Finance Team, Head of Finance | ✔ |
+| UAT-A-03 | US-30 | Walk-in goes to the next free rep, without duplicates | SHOULD | Front Desk | ✔ |
+| UAT-A-04 | US-31 | Instagram enquiries with no visit booked are listed | SHOULD | Social Media Handler | ✔ |
+| UAT-A-05 | US-32 | Manager sees where deals are stuck | SHOULD | Showroom Manager | ✔ |
+| UAT-E-08 | US-33 | An unanswered case escalates itself after 1 hour | SHOULD | Head of CS | ✔ |
+| UAT-E-01 | US-34 | Customer gets a reference number for their request | SHOULD | Customer | ✔ |
+| UAT-E-09 | US-35 | Customer is told when their case changes | SHOULD | CS Agent | ✔ |
+| UAT-D-08 | US-36 | Unrecoverable default escalated to Legal | SHOULD | Head of Finance, Legal | ✔ |
+| UAT-D-09 | US-37 | Completion email when the plan is paid off | COULD | Finance Team | ✔ |
+| UAT-B-05 | US-38 | Import request when a model is out of stock | SHOULD | Sales Rep, Showroom Manager, Finance | ✔ |
+| UAT-C-06 | US-39 | Change vehicle or payment type before collection | SHOULD | Sales Rep, Head of Finance | ✔ |
+| UAT-S-01 | Security | Each role sees only its own tabs and actions | MUST | Each role | ✔ |
+| UAT-S-02 | Security | Locked actions: only the right person can sign off, approve or edit | MUST | Several | ✔ |
+| UAT-E2E-01 | Journey | Website enquiry to sale, deposit, sign-off, car sold and first payment | MUST | Several | ✔ |
+| UAT-E2E-02 | Journey | Website complaint to case closed and measured | MUST | Several | ✔ |
 
 ---
 
@@ -381,7 +378,7 @@ Each script has a header, then a step table. **Actual** and **Pass/Fail** stay e
 | 1 | On an instalment sale, try **Request Discount** | Refused, with a message saying why | | |
 | 2 | Open Sale 2, change Payment Mode to **Instalment**, save | The approved discount becomes **Invalidated** | | |
 
-#### UAT-C-06: Change vehicle or payment type before collection (US-39) — Blocked until checked
+#### UAT-C-06: Change vehicle or payment type before collection (US-39)
 **Traces:** Goal O2 · Story US-39 · Criterion: money paid carries over; the difference is settled; a refund needs Head of Finance approval. **Tester:** Sales Rep, then Head of Finance.
 
 | Step | What to do | Expected | Actual | Pass/Fail |
@@ -420,7 +417,7 @@ Each script has a header, then a step table. **Actual** and **Pass/Fail** stay e
 | 3 | Set Status to **Explained** with Note empty | Refused: write the cause in Note | | |
 | 4 | Write a note, set Explained, save | Saves as Explained | | |
 
-#### UAT-D-04: Reminder 3 days before a payment is due (US-15, US-19) — (next day)
+#### UAT-D-04: Reminder 3 days before a payment is due (US-15, US-19)
 **Traces:** Goal O3 · Stories US-15, US-19. **Tester:** Finance Team. **Test data:** TD-20 Chiamaka Okonkwo (email: tester's inbox).
 
 | Step | What to do | Expected | Actual | Pass/Fail |
@@ -430,7 +427,7 @@ Each script has a header, then a step table. **Actual** and **Pass/Fail** stay e
 | 3 | Check the tester's inbox | A reminder with the amount and due date | | |
 | 4 | Check a month that is already paid | No reminder was sent for it | | |
 
-#### UAT-D-05: Alert when a customer first defaults (US-17) — (next day)
+#### UAT-D-05: Alert when a customer first defaults (US-17)
 **Traces:** Goal O3 · Story US-17. **Tester:** Finance Team. **Test data:** TD-25 Folake Ogunleye.
 
 | Step | What to do | Expected | Actual | Pass/Fail |
