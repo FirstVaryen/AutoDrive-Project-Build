@@ -105,7 +105,7 @@ Run from the project folder. `autodrive-prod` is already connected.
 
 **Phases 1–6, validate only (nothing changes in the org):**
 ```bash
-sf project deploy validate -o autodrive-prod -d force-app/main/default -l RunSpecifiedTests -t AutoAssignerTest -t DiscountRequestVehiclesTest -t LeadCreatorAccessTest -t PlanProgressTest -t SaleVehicleHandlerTest --wait 60
+sf project deploy validate -o autodrive-prod -d force-app/main/default -l RunSpecifiedTests -t AutoAssignerTest -t DiscountRequestVehiclesTest -t LeadCreatorAccessTest -t PlanProgressTest -t SaleVehicleHandlerTest -t ClosedSaleLockTest --wait 60
 ```
 This validates everything, including phase 7. Phase 7 will fail here until users exist. If the only errors are about the approval process, dashboards or Case settings, phases 1–6 are fine. Then deploy phases 1–6 without those folders (keep a copy, deploy, restore), or deploy folder by folder in the order of section 3.
 
