@@ -42,6 +42,19 @@
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>
+    <platformActionList>
+        <actionListContext>Record</actionListContext>
+        <platformActionListItems>
+            <actionName>Edit</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Instalment_Plan__c.Raise_Legal_Escalation</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>1</sortOrder>
+        </platformActionListItems>
+    </platformActionList>
     <relatedLists>
         <fields>NAME</fields>
         <fields>Due_Date__c</fields>
@@ -52,6 +65,14 @@
         <relatedList>Instalment__c.Instalment_Plan__c</relatedList>
         <sortField>Due_Date__c</sortField>
         <sortOrder>Asc</sortOrder>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Status__c</fields>
+        <fields>Months_Defaulted__c</fields>
+        <fields>Total_Amount_Owed__c</fields>
+        <fields>Legal_Team_Notified_At__c</fields>
+        <relatedList>Legal_Escalation__c.Instalment_Plan__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
