@@ -446,3 +446,4 @@ Every v8 refined story was checked rule by rule against the build. Gaps closed:
 
 ## Deployment target
 - Go-live org: https://dk1791276250211--group3prod.sandbox.my.salesforce.com (Group3Prod). Build/UAT org stays Group3SB (alias autodrive-dev). Group3Prod needs authorising with `sf org login web` before deploying.
+- 2026-10-25 Customer-facing emails (case acknowledgement/status/resolution, satisfaction request, 3-day reminder, late notices, completion) now sent from org-wide address 'AutoDrive Motors' <hillaryemmanuel@gmail.com> (verified). Before, they went out from the site guest user's placeholder address and didn't reach Gmail. Go-live: create and verify the org-wide address in Group3Prod before deploying these flows.
