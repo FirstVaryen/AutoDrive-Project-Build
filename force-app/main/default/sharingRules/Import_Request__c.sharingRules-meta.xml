@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>Finance_Team_Full_Access</fullName>
+        <fullName>Finance_Role_Full_Access</fullName>
         <label>Finance Team Full Access</label>
         <accessLevel>Edit</accessLevel>
         <criteriaItems>
@@ -10,11 +10,11 @@
             <value></value>
         </criteriaItems>
         <sharedTo>
-            <group>Finance_Team</group>
+            <roleAndSubordinatesInternal>Head_of_Finance</roleAndSubordinatesInternal>
         </sharedTo>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Showroom_Managers_Full_Access</fullName>
+        <fullName>Showroom_Manager_Role_Full_Access</fullName>
         <label>Showroom Managers Full Access</label>
         <accessLevel>Edit</accessLevel>
         <criteriaItems>
@@ -23,7 +23,7 @@
             <value></value>
         </criteriaItems>
         <sharedTo>
-            <group>Showroom_Managers</group>
+            <role>Showroom_Manager</role>
         </sharedTo>
     </sharingCriteriaRules>
 </SharingRules>

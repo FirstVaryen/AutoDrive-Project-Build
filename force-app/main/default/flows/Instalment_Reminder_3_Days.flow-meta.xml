@@ -13,6 +13,9 @@
         <locationY>350</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>Log_Reminder</targetReference>
+        </connector>
         <inputParameters>
             <name>emailAddresses</name>
             <value>
@@ -34,7 +37,13 @@
         <inputParameters>
             <name>senderType</name>
             <value>
-                <stringValue>CurrentUser</stringValue>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <elementReference>$Label.AD_Customer_Email_Sender</elementReference>
             </value>
         </inputParameters>
     </actionCalls>
@@ -112,6 +121,55 @@
         <expression>"Hi, this is a reminder that your instalment of " &amp; TEXT({!$Record.Amount_Due__c}) &amp; " is due on " &amp; TEXT({!$Record.Due_Date__c}) &amp; ". Thank you for choosing AutoDrive."</expression>
     </formulas>
 
+    <recordCreates>
+        <name>Log_Reminder</name>
+        <label>Log Reminder</label>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
+        <inputAssignments>
+            <field>Type__c</field>
+            <value>
+                <stringValue>Status Update</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Channel__c</field>
+            <value>
+                <stringValue>Email</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Sent_At__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Sent_By__c</field>
+            <value>
+                <stringValue>Automatic - 3 day reminder</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Message_Text__c</field>
+            <value>
+                <elementReference>var_EmailBody</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Instalment__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Account__c</field>
+            <value>
+                <elementReference>$Record.Instalment_Plan__r.Opportunity__r.AccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Customer_Message__c</object>
+    </recordCreates>
     <recordLookups>
         <name>Get_Primary_Contact</name>
         <label>Get Primary Contact</label>

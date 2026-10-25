@@ -3,6 +3,10 @@
     {
       "path": "force-app",
       "default": true
+    },
+    {
+      "path": "uat-sandbox",
+      "default": false
     }
   ],
   "name": "AutoDrive-SFDX",

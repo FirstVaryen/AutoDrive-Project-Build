@@ -789,8 +789,18 @@ If not met, testing continues after fixes, and only the failed and affected scri
 | DEF-14 | UAT-FT-02 / 5 | A refused payment showed "unhandled fault" instead of a clear message | Low | Build team | Fixed, retest |
 | DEF-15 | UAT-SR-01 / 3 | No "lead assigned to you" email arrived: test users had placeholder email addresses | High | Hillary | Fixed, retest after confirming the 8 verification emails |
 | DEF-16 | UAT-FD-02 / 3 | A returning or high-profile lead stayed with the rep instead of going to the Showroom Manager (now: goes to the manager at save, or when ticked later; the person who entered it keeps read-only access) | Medium | Build team | Closed: retest passed |
+| DEF-17 | UAT-FT-03 / 2, UAT-HF-03 / 1 | A month paid outside the Record Payment screen stayed unpaid in its status, so the morning job marked it Late, then Default (Segun, Emmanuel and Suleiman showed Defaulted) | High | Build team | Fixed, retest |
+| DEF-18 | UAT-SR-08 / 2 | Switching a sale with an approved discount to instalments failed with an error (the Finance alert could not find who to send to); the overdue-approval reminder had the same fault | High | Build team | Fixed, retest |
+| DEF-19 | UAT-FT-08 / 1, UAT-SM-05 | Finance and the Showroom Manager could not open import requests, guarantors or reconciliations created by others (their teams had no members) | High | Build team | Fixed, retest |
+| DEF-20 | UAT-SM-03 / 1 | The Showroom Manager could not change a model's Low Stock Threshold | Medium | Build team | Fixed, retest |
+| DEF-21 | UAT-CS-04 / 1 | First Response At stayed empty after an agent replied | Medium | Build team | Fixed, retest |
+| DEF-22 | UAT-FT-03 / 2 | Recorded By was empty unless the payment was entered through the screen | Low | Build team | Fixed, retest |
+| DEF-23 | UAT-CU-03, UAT-FT-05 | Payment reminder, late notices, completion and satisfaction emails were not sent from AutoDrive Motors; the reminder did not show on Month by Month | Medium | Build team | Fixed, retest |
+| DEF-24 | UAT-SR-07 | Lagos Ride Hailing Ltd had no agreed discount rate (test data) | Low | Build team | Fixed: 5% |
 | CR-01 | All | Record names were numbers only; now reference · customer · detail | Change | Hillary | Done |
 | CR-02 | UAT-HF-03 | Plan page shows Next Step and Month by Month | Change | Hillary | Done |
+| CR-03 | UAT-SR-02, UAT-SR-03 | A lead or sale for a model with no cars available shows a red "Out of stock - request an import" marker; an open sale whose car was sold to someone else shows "This car has been sold to another customer - pick another car" | Change | Hillary | Done |
+| CR-04 | UAT-SR-03 | A Closed Won or Closed Lost sale can't be changed, vehicle included, except by an administrator or a head of department | Change | Hillary | Done |
 | OPEN-01 | Entry criteria | Email was off in the sandbox (Deliverability) | High | Hillary | Done |
 
 **Sign-off**

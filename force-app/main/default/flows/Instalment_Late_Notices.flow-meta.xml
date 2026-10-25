@@ -34,7 +34,13 @@
         <inputParameters>
             <name>senderType</name>
             <value>
-                <stringValue>CurrentUser</stringValue>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <elementReference>$Label.AD_Customer_Email_Sender</elementReference>
             </value>
         </inputParameters>
     </actionCalls>

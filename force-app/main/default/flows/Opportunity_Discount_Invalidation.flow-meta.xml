@@ -11,7 +11,7 @@
         <inputParameters>
             <name>emailAddresses</name>
             <value>
-                <elementReference>Get_Finance_User.Email</elementReference>
+                <elementReference>$Label.AD_Email_Finance</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -101,36 +101,13 @@
         <queriedFields>Id</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
-    <recordLookups>
-        <name>Get_Finance_User</name>
-        <label>Get Finance User</label>
-        <locationX>176</locationX>
-        <locationY>539</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Notify_Finance</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Username</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Label.AD_Email_Finance</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>User</object>
-        <queriedFields>Id</queriedFields>
-        <queriedFields>Email</queriedFields>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
     <recordUpdates>
         <name>Invalidate_Discounts</name>
         <label>Invalidate Discounts</label>
         <locationX>176</locationX>
         <locationY>431</locationY>
         <connector>
-            <targetReference>Get_Finance_User</targetReference>
+            <targetReference>Notify_Finance</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
