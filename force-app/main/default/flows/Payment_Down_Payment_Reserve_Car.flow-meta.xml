@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <description>When the down payment for a sale is recorded, the sale's car is set to Reserved so no one else can sell it. Released again if the sale is lost; Sold when it closes.</description>
+    <environments>Default</environments>
+    <interviewLabel>Payment Down Payment Reserve Car {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Payment - Reserve Car On Down Payment</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Reserve_Car</name>
+        <label>Reserve Car</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Opportunity__r.Vehicle__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Available</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Reserved</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Vehicle__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Reserve_Car</targetReference>
+        </connector>
+        <filterFormula>AND(ISPICKVAL({!$Record.Type__c}, &quot;Down Payment&quot;), NOT(ISBLANK({!$Record.Opportunity__r.Vehicle__c})))</filterFormula>
+        <object>Payment__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

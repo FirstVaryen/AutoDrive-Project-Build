@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <customErrors>
+        <name>Car_Reserved_Elsewhere</name>
+        <label>Car Reserved Elsewhere</label>
+        <locationX>44</locationX>
+        <locationY>503</locationY>
+        <customErrorMessages>
+            <errorMessage>That car is reserved for another customer's sale. Pick an available car, or raise an Import Request if the model is out of stock.</errorMessage>
+            <fieldSelection>Vehicle__c</fieldSelection>
+            <isFieldError>true</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <name>Reserved_For_Another_Sale</name>
+        <label>Reserved For Another Sale?</label>
+        <locationX>176</locationX>
+        <locationY>395</locationY>
+        <defaultConnectorLabel>Free</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Elsewhere</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Car.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Reserved</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Own_Line.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Car_Reserved_Elsewhere</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>A car reserved for another customer's sale cannot be put on this sale. A car on this sale's own fleet lines is fine.</description>
+    <environments>Default</environments>
+    <interviewLabel>Opportunity Vehicle Must Be Free {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Sale - Car Must Not Be Reserved Elsewhere</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Car</name>
+        <label>Get Car</label>
+        <locationX>176</locationX>
+        <locationY>179</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Own_Line</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Vehicle__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Vehicle__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Status__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Own_Line</name>
+        <label>Get Own Line</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Reserved_For_Another_Sale</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Opportunity__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Vehicle__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Vehicle__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Sale_Vehicle__c</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Car</targetReference>
+        </connector>
+        <filterFormula>AND(NOT(ISBLANK({!$Record.Vehicle__c})), OR(ISNEW(), ISCHANGED({!$Record.Vehicle__c})))</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
