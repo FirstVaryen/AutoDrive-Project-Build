@@ -6,9 +6,9 @@
         <editHeading>true</editHeading>
         <label>Information</label>
         <layoutColumns>
-            <layoutItems><behavior>Edit</behavior><field>Date__c</field></layoutItems>
-            <layoutItems><behavior>Edit</behavior><field>Recorded_Total__c</field></layoutItems>
-            <layoutItems><behavior>Edit</behavior><field>Bank_Total__c</field></layoutItems>
+            <layoutItems><behavior>Required</behavior><field>Date__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Recorded_Total__c</field></layoutItems>
+            <layoutItems><behavior>Required</behavior><field>Bank_Total__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Difference__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Status__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Bank_Account__c</field></layoutItems>

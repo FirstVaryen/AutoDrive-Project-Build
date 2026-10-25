@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomNotificationType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customNotifTypeName>AutoDrive Finance Alert</customNotifTypeName>
+    <description>Bell alert to Finance, for example when a day's bank total doesn't match the payments recorded.</description>
+    <desktop>true</desktop>
+    <masterLabel>AutoDrive Finance Alert</masterLabel>
+    <mobile>true</mobile>
+</CustomNotificationType>
