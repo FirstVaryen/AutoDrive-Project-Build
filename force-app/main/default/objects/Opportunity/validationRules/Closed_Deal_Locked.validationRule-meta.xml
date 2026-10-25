@@ -2,9 +2,16 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Closed_Deal_Locked</fullName>
     <active>true</active>
-    <description>A sale that is Closed Won or Closed Lost is a stored record: every field a person can edit is frozen for everyone. Only the vehicle and sale price stay open, for the vehicle change/refund flow.</description>
+    <description>A Closed Won or Closed Lost sale is a stored record: every editable field, vehicle included, is frozen. Only System Administrators and heads of department can change it.</description>
     <errorConditionFormula>AND(
     NOT(ISNEW()),
+    $Profile.Name &lt;&gt; &quot;System Administrator&quot;,
+    NOT(OR(
+        $UserRole.DeveloperName = &quot;Showroom_Manager&quot;,
+        $UserRole.DeveloperName = &quot;Head_of_Finance&quot;,
+        $UserRole.DeveloperName = &quot;Head_of_Customer_Service&quot;,
+        $UserRole.DeveloperName = &quot;Management&quot;
+    )),
     OR(
         ISPICKVAL(PRIORVALUE(StageName), &quot;Closed Won&quot;),
         ISPICKVAL(PRIORVALUE(StageName), &quot;Closed Lost&quot;)
@@ -29,8 +36,10 @@
         ISCHANGED(LeadSource),
         ISCHANGED(NextStep),
         ISCHANGED(Description),
-        ISCHANGED(Vehicle_Model_Wanted__c)
+        ISCHANGED(Vehicle_Model_Wanted__c),
+        ISCHANGED(Vehicle__c),
+        ISCHANGED(Sale_Price__c)
     )
 )</errorConditionFormula>
-    <errorMessage>This sale is closed and can&apos;t be changed. If the customer wants something different, create a new sale for them from their account; their details are already saved.</errorMessage>
+    <errorMessage>This sale is closed and can&apos;t be changed. Only a head of department can change a closed sale. If the customer wants something different, create a new sale for them from their account; their details are already saved.</errorMessage>
 </ValidationRule>
