@@ -291,7 +291,8 @@ If not met, testing continues after fixes, and only the failed and affected scri
 |---|---|---|---|---|
 | 1 | Create a walk-in lead for a new person, save | **Lead Owner** is a sales rep, picked automatically | Done | Pass |
 | 2 | Create a lead for **Daniel Okoro** with his existing phone number | A warning that a matching record already exists | It shows the warning | Pass |
-| 3 | Create a walk-in lead marked returning or high profile | It goes to the Showroom Manager, not a general rep | Still visible on the rep's lead page | Fail (DEF-16) |
+| 3 | Create a walk-in lead with Channel = **Returning/High-profile** (or tick Returning or High-profile) | It saves and opens read-only; the owner is the Showroom Manager; a bell message says the client was passed to the manager | Still visible on the rep's lead page | Fail (DEF-16), retest |
+| 4 | Open **Leads → List View → AutoDrive - High-profile Clients** | The client is listed, owned by the Showroom Manager | | |
 
 ### 10.3 Social Media Handler
 **Login:** Social Media Handler test user · **Tester:** Henry · **Tabs:** Home, Leads only
@@ -409,8 +410,9 @@ If not met, testing continues after fixes, and only the failed and affected scri
 | Step | What to do | Expected | Actual | Pass/Fail |
 |---|---|---|---|---|
 | 1 | Look at the tabs | Only the rep's tabs | | |
-| 2 | Look for Payments, Instalment Plans, Reconciliation | Not visible | | |
-| 3 | Open your own discount request | No Approve button | | |
+| 2 | **Leads → List View**, open the list menu | AutoDrive - My Leads, AutoDrive - Website Leads, AutoDrive - High-profile Clients (and Recently Viewed) | | |
+| 3 | Look for Payments, Instalment Plans, Reconciliation | Not visible | | |
+| 4 | Open your own discount request | No Approve button | | |
 
 ### 10.5 Showroom Manager
 **Login:** test.showroommanager@autodrive.group3sb.test · **Tester:** Henry
@@ -449,7 +451,7 @@ If not met, testing continues after fixes, and only the failed and affected scri
 
 | Step | What to do | Expected | Actual | Pass/Fail |
 |---|---|---|---|---|
-| 1 | **Leads → My Leads** | The returning or high-profile walk-in is the manager's | | |
+| 1 | Check the bell, then **Leads → AutoDrive - High-profile Clients** | A message about the new client; the client is listed and owned by the manager | | |
 | 2 | Change its owner to a chosen rep | Allowed and saved | | |
 
 #### UAT-SM-05: See import requests (US-38)
@@ -786,7 +788,7 @@ If not met, testing continues after fixes, and only the failed and affected scri
 | DEF-13 | UAT-HF-02 / 3 | A plan showed Active before it was signed off | Medium | Build team | Fixed, retest |
 | DEF-14 | UAT-FT-02 / 5 | A refused payment showed "unhandled fault" instead of a clear message | Low | Build team | Fixed, retest |
 | DEF-15 | UAT-SR-01 / 3 | No "lead assigned to you" email arrived: test users had placeholder email addresses | High | Hillary | Fixed, retest after confirming the 8 verification emails |
-| DEF-16 | UAT-FD-02 / 3 | A lead with Channel "Returning/High-profile" stayed with the rep instead of going to the Showroom Manager | Medium | Build team | Fixed, retest |
+| DEF-16 | UAT-FD-02 / 3 | A returning or high-profile lead stayed with the rep instead of going to the Showroom Manager (now: goes to the manager at save, or when ticked later; the person who entered it keeps read-only access) | Medium | Build team | Fixed, retest |
 | CR-01 | All | Record names were numbers only; now reference · customer · detail | Change | Hillary | Done |
 | CR-02 | UAT-HF-03 | Plan page shows Next Step and Month by Month | Change | Hillary | Done |
 | OPEN-01 | Entry criteria | Email was off in the sandbox (Deliverability) | High | Hillary | Done |
