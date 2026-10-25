@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <decisions>
+        <name>Is_Overdue</name>
+        <label>Is Overdue?</label>
+        <locationX>176</locationX>
+        <locationY>252</locationY>
+        <defaultConnectorLabel>Not overdue</defaultConnectorLabel>
+        <rules>
+            <name>Overdue</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Days_Late__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Mark_Late</targetReference>
+            </connector>
+            <label>Overdue</label>
+        </rules>
+    </decisions>
+    <description>US-05: every morning, an unpaid instalment past its due date is marked Late, so its plan appears on the Needs Attention list without anyone compiling it. (After 30 days the late-notices flow moves it to Default.)</description>
+    <environments>Default</environments>
+    <interviewLabel>Instalment Mark Late {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Instalment - Mark Late</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Mark_Late</name>
+        <label>Mark Late</label>
+        <locationX>44</locationX>
+        <locationY>360</locationY>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Late</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_Overdue</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Upcoming</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Due</stringValue>
+            </value>
+        </filters>
+        <object>Instalment__c</object>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2026-10-26</startDate>
+            <startTime>05:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
