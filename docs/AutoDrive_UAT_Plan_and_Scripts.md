@@ -785,11 +785,11 @@ If not met, testing continues after fixes, and only the failed and affected scri
 | DEF-12 | UAT-SM-02 / 1 | Discount requests did not show what was being discounted or its cost | Medium | Build team | Fixed, retest |
 | DEF-13 | UAT-HF-02 / 3 | A plan showed Active before it was signed off | Medium | Build team | Fixed, retest |
 | DEF-14 | UAT-FT-02 / 5 | A refused payment showed "unhandled fault" instead of a clear message | Low | Build team | Fixed, retest |
-| DEF-15 | UAT-SR-01 / 3 | No "lead assigned to you" email arrived | High | Hillary | Open: email is off in the sandbox (OPEN-01) |
-| DEF-16 | UAT-FD-02 / 3 | A returning or high-profile walk-in still showed on the rep's lead page instead of going to the Showroom Manager | Medium | Build team | New |
+| DEF-15 | UAT-SR-01 / 3 | No "lead assigned to you" email arrived: test users had placeholder email addresses | High | Hillary | Fixed, retest after confirming the 8 verification emails |
+| DEF-16 | UAT-FD-02 / 3 | A lead with Channel "Returning/High-profile" stayed with the rep instead of going to the Showroom Manager | Medium | Build team | Fixed, retest |
 | CR-01 | All | Record names were numbers only; now reference · customer · detail | Change | Hillary | Done |
 | CR-02 | UAT-HF-03 | Plan page shows Next Step and Month by Month | Change | Hillary | Done |
-| OPEN-01 | Entry criteria | Email is off in the sandbox (Deliverability) | High | Hillary | Open: set Access level to All email |
+| OPEN-01 | Entry criteria | Email was off in the sandbox (Deliverability) | High | Hillary | Done |
 
 **Sign-off**
 
