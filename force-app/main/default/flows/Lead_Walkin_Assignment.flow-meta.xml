@@ -5,6 +5,20 @@
     <interviewLabel>AM Lead Walk-in Assignment {!$Flow.CurrentDateTime}</interviewLabel>
     <label>AM Lead - Walk-in Assignment</label>
     <processType>AutoLaunchedFlow</processType>
+
+    <assignments>
+        <name>Assign_To_Showroom_Manager</name>
+        <label>Assign To Showroom Manager</label>
+        <locationX>50</locationX>
+        <locationY>300</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Showroom_Manager.Id</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
     <assignments>
         <name>Assign_To_Rep</name>
         <label>Assign To Rep</label>
@@ -45,9 +59,40 @@
                     <stringValue>Returning/High-profile</stringValue>
                 </rightValue>
             </conditions>
+            <connector>
+                <targetReference>Get_Showroom_Manager</targetReference>
+            </connector>
             <label>Is High Profile</label>
         </rules>
     </decisions>
+
+    <recordLookups>
+        <name>Get_Showroom_Manager</name>
+        <label>Get Showroom Manager</label>
+        <locationX>50</locationX>
+        <locationY>200</locationY>
+        <connector>
+            <targetReference>Assign_To_Showroom_Manager</targetReference>
+        </connector>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>UserRoleId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>00EjY00000005xNUAQ</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>IsActive</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+    </recordLookups>
     <recordLookups>
         <name>Get_Next_Free_Rep</name>
         <label>Get Next Free Rep</label>
