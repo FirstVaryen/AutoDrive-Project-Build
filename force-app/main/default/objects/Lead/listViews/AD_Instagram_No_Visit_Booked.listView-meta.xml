@@ -8,11 +8,23 @@
     <columns>LEAD.STATUS</columns>
     <columns>LEAD.CREATED_DATE</columns>
     <filterScope>Everything</filterScope>
-    <filters><field>LEAD.CONVERTED</field><operation>equals</operation><value>0</value></filters>
-    <filters><field>Booked_Visit_Date__c</field><operation>equals</operation></filters>
-    <filters><field>Channel__c</field><operation>equals</operation><value>Instagram</value></filters>
+    <filters>
+        <field>LEAD.CONVERTED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>Booked_Visit_Date__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Channel__c</field>
+        <operation>equals</operation>
+        <value>Instagram</value>
+    </filters>
     <label>AutoDrive - Enquiries No Visit Booked</label>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
+        <role>Social_Media_Handler</role>
+        <role>Showroom_Manager</role>
     </sharedTo>
 </ListView>
