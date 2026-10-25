@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomNotificationType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customNotifTypeName>AutoDrive Sales Alert</customNotifTypeName>
+    <description>Bell alert for the showroom, for example when a high-profile client is passed to the Showroom Manager.</description>
+    <desktop>true</desktop>
+    <masterLabel>AutoDrive Sales Alert</masterLabel>
+    <mobile>true</mobile>
+</CustomNotificationType>
