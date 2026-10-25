@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>60.0</apiVersion>
-    <description>When a Lead is converted, ticks From_Converted_Lead__c on the Account it converted into. Required by the Opportunity validation rule Closed_Won_Requires_Converted_Lead. Relies on Lead Settings &quot;Require Validation for Converted Leads&quot; being on, so record-triggered flows run on conversion.</description>
+    <description>When a Lead is converted, ticks From_Converted_Lead__c on the Account it converted into and copies the wanted model to the new sale (for the out-of-stock marker). Required by the Opportunity validation rule Closed_Won_Requires_Converted_Lead. Relies on Lead Settings &quot;Require Validation for Converted Leads&quot; being on, so record-triggered flows run on conversion.</description>
     <environments>Default</environments>
     <interviewLabel>Lead Conversion Stamp Account {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Lead - Conversion Stamp Account</label>
@@ -23,6 +23,9 @@
         <label>Stamp Converted Account</label>
         <locationX>176</locationX>
         <locationY>323</locationY>
+        <connector>
+            <targetReference>Copy_Wanted_Model</targetReference>
+        </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -38,6 +41,27 @@
             </value>
         </inputAssignments>
         <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Copy_Wanted_Model</name>
+        <label>Copy Wanted Model To Sale</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ConvertedOpportunityId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Vehicle_Model_Wanted__c</field>
+            <value>
+                <elementReference>$Record.Vehicle_Model_Of_Interest__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
     </recordUpdates>
     <start>
         <locationX>50</locationX>

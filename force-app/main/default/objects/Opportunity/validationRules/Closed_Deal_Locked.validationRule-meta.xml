@@ -2,7 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Closed_Deal_Locked</fullName>
     <active>true</active>
-    <description>A sale that is Closed Won or Closed Lost can't be reopened or changed: stage, close date, amount, customer, payment mode and name are frozen for everyone. Vehicle and sale price stay editable only for the vehicle change/refund flow (KAN-17).</description>
+    <description>A sale that is Closed Won or Closed Lost is a stored record: every field a person can edit is frozen for everyone. Only the vehicle and sale price stay open, for the vehicle change/refund flow.</description>
     <errorConditionFormula>AND(
     NOT(ISNEW()),
     OR(
@@ -15,7 +15,21 @@
         ISCHANGED(Amount),
         ISCHANGED(AccountId),
         ISCHANGED(Payment_Mode__c),
-        ISCHANGED(Name)
+        ISCHANGED(Name),
+        ISCHANGED(OwnerId),
+        ISCHANGED(Type),
+        ISCHANGED(CampaignId),
+        ISCHANGED(Probability),
+        ISCHANGED(Viewing_Date__c),
+        ISCHANGED(Expected_Collection_Date__c),
+        ISCHANGED(Discount_Amount__c),
+        ISCHANGED(Fleet_Rate_Applied__c),
+        ISCHANGED(Instalment_Term_Months__c),
+        ISCHANGED(Instalment_Down_Payment__c),
+        ISCHANGED(LeadSource),
+        ISCHANGED(NextStep),
+        ISCHANGED(Description),
+        ISCHANGED(Vehicle_Model_Wanted__c)
     )
 )</errorConditionFormula>
     <errorMessage>This sale is closed and can&apos;t be changed. If the customer wants something different, create a new sale for them from their account; their details are already saved.</errorMessage>

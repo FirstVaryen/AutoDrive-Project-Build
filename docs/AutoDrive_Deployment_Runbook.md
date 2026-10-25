@@ -64,6 +64,8 @@ Each line is something found in testing and the build that fixed it. All of it i
 |---|---|---|
 | Customer emails (reference number, status, reminders) never reached Gmail | Sent from a verified org-wide address held in a Custom Label | Flows yes; **sender address must be created and verified** (section 6.1) |
 | Staff assignment emails didn't arrive | Test users had placeholder addresses | **Users' email set in the target org** (section 4) |
+| A lead or sale for a model with 0 cars in stock gave no warning | Red "Out of stock - request an import" marker on the lead and the sale (Stock Alert); the wanted model is copied to the sale on conversion | Yes |
+| A Closed Won / Closed Lost sale could still be edited | Closed sale lock now freezes every editable field (vehicle and sale price stay open for the vehicle change/refund flow) | Yes |
 
 ---
 
