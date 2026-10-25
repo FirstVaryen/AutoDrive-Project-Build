@@ -7,10 +7,18 @@
     <columns>LEAD.STATUS</columns>
     <columns>LEAD.CREATED_DATE</columns>
     <filterScope>Everything</filterScope>
-    <filters><field>LEAD.CONVERTED</field><operation>equals</operation><value>0</value></filters>
-    <filters><field>No_Rep_Assigned__c</field><operation>equals</operation><value>1</value></filters>
+    <filters>
+        <field>LEAD.CONVERTED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>No_Rep_Assigned__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
     <label>AutoDrive - Prospects With No Rep</label>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
+        <role>Showroom_Manager</role>
     </sharedTo>
 </ListView>

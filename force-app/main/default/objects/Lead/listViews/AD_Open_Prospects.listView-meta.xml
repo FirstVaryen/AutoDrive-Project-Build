@@ -8,9 +8,13 @@
     <columns>Booked_Visit_Date__c</columns>
     <columns>LEAD.LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
-    <filters><field>LEAD.CONVERTED</field><operation>equals</operation><value>0</value></filters>
+    <filters>
+        <field>LEAD.CONVERTED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
     <label>AutoDrive - Open Prospects</label>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
+        <role>Showroom_Manager</role>
     </sharedTo>
 </ListView>

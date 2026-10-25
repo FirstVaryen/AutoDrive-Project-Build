@@ -16,4 +16,7 @@
         <value>Qualified</value>
     </filters>
     <label>All Open Leads</label>
+    <sharedTo>
+        <role>Showroom_Manager</role>
+    </sharedTo>
 </ListView>
