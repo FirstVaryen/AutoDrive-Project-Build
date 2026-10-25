@@ -14,7 +14,7 @@
         <inputParameters>
             <name>emailAddresses</name>
             <value>
-                <elementReference>Get_Approver.Email</elementReference>
+                <elementReference>fx_ApproverUsername</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -60,7 +60,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Get_Approver</targetReference>
+                <targetReference>Send_Reminder</targetReference>
             </connector>
             <label>Send</label>
         </rules>
@@ -106,29 +106,6 @@ NOT(ISBLANK({!$Record.SLA_Limit_Days__c})),
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
-    <recordLookups>
-        <name>Get_Approver</name>
-        <label>Get Approver</label>
-        <locationX>176</locationX>
-        <locationY>539</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Send_Reminder</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Username</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>fx_ApproverUsername</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>User</object>
-        <queriedFields>Id</queriedFields>
-        <queriedFields>Email</queriedFields>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
     <recordLookups>
         <name>Get_Pending_Approval</name>
         <label>Get Pending Approval</label>

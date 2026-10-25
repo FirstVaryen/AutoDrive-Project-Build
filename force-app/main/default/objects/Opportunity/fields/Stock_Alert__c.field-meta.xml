@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Stock_Alert__c</fullName>
-    <description>Red marker on an open sale when the model the customer wants has no cars available and no car is on the sale yet.</description>
-    <formula>IF(
-    AND(NOT(IsClosed), ISBLANK(Vehicle__c), NOT(ISBLANK(Vehicle_Model_Wanted__c)), Vehicle_Model_Wanted__r.Available_Stock__c = 0),
+    <description>Red marker on an open sale: its car was sold to someone else, or the wanted model has no cars available and no car is on the sale yet.</description>
+    <formula>IF(IsClosed, &quot;&quot;,
+IF(ISPICKVAL(Vehicle__r.Status__c, &quot;Sold&quot;),
+    IMAGE(&quot;/img/samples/flag_red.gif&quot;, &quot;Car sold&quot;) &amp; &quot; This car has been sold to another customer - pick another car&quot;,
+IF(AND(ISBLANK(Vehicle__c), NOT(ISBLANK(Vehicle_Model_Wanted__c)), Vehicle_Model_Wanted__r.Available_Stock__c = 0),
     IMAGE(&quot;/img/samples/flag_red.gif&quot;, &quot;Out of stock&quot;) &amp; &quot; Out of stock - request an import&quot;,
-    &quot;&quot;
-)</formula>
+&quot;&quot;)))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Shows a red flag when no car of the wanted model is available.</inlineHelpText>
     <label>Stock Alert</label>

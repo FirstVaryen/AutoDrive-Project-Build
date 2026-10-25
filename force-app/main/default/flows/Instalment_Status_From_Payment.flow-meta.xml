@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <assignments>
+        <name>Set_Status</name>
+        <label>Set Status</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>f_Status</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>A month's status follows the money, however the payment was recorded: fully paid is Paid; a paid month whose payment is reversed goes back to Late (past due) or Upcoming. Stops paid months being marked Late or Default by the morning jobs.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>f_Status</name>
+        <dataType>String</dataType>
+        <expression>IF({!$Record.Amount_Paid__c} &gt;= {!$Record.Amount_Due__c}, &quot;Paid&quot;, IF({!$Record.Due_Date__c} &lt; TODAY(), &quot;Late&quot;, &quot;Upcoming&quot;))</expression>
+    </formulas>
+    <interviewLabel>Instalment Status From Payment {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Instalment - Status Follows Payment</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Set_Status</targetReference>
+        </connector>
+        <filterFormula>AND({!$Record.Amount_Due__c} &gt; 0, OR(AND({!$Record.Amount_Paid__c} &gt;= {!$Record.Amount_Due__c}, NOT(ISPICKVAL({!$Record.Status__c}, &quot;Paid&quot;))), AND({!$Record.Amount_Paid__c} &lt; {!$Record.Amount_Due__c}, ISPICKVAL({!$Record.Status__c}, &quot;Paid&quot;))))</filterFormula>
+        <object>Instalment__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

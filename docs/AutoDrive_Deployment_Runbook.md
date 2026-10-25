@@ -66,6 +66,13 @@ Each line is something found in testing and the build that fixed it. All of it i
 | Staff assignment emails didn't arrive | Test users had placeholder addresses | **Users' email set in the target org** (section 4) |
 | A lead or sale for a model with 0 cars in stock gave no warning | Red "Out of stock - request an import" marker on the lead and the sale (Stock Alert); the wanted model is copied to the sale on conversion | Yes |
 | A Closed Won / Closed Lost sale could still be edited | Closed sale lock freezes every editable field, vehicle included; only System Administrators and heads (Showroom Manager, Head of Finance, Head of CS, Management) can change it | Yes |
+| Paid months not marked Paid unless paid through the screen; plans showed Defaulted | Month status follows the amount paid; Days Late stops once paid | Yes |
+| Switching a discounted sale to instalments failed (Finance alert looked up a user by email) | Alert and overdue-approval reminder send straight to the Custom Label address | Yes |
+| Sharing to Finance and Showroom Manager went to empty groups | Sharing rules now share by role (Head of Finance and below; Showroom Manager) | Yes; old rules removed with a destructive deploy in Group3SB only |
+| Showroom Manager couldn't edit models | Sharing rule: Showroom Manager edits vehicle models | Yes |
+| First Response At never stamped | Flow start condition fixed | Yes |
+| Payments had no Recorded By outside the screen | Payment stamps Recorded By on save | Yes |
+| Reminder, late, completion and satisfaction emails used the system sender | All customer emails send from `AD_Customer_Email_Sender` | Yes; sender must be verified (section 6) |
 
 ---
 
