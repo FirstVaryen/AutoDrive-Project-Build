@@ -67,6 +67,50 @@
     </decisions>
 
     <recordLookups>
+        <name>Get_Manager_Role</name>
+        <label>Get Manager Role</label>
+        <locationX>176</locationX>
+        <locationY>60</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Rep_Role</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Showroom_Manager</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>UserRole</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Rep_Role</name>
+        <label>Get Rep Role</label>
+        <locationX>176</locationX>
+        <locationY>60</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_High_Profile</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Sales_Rep</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>UserRole</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Showroom_Manager</name>
         <label>Get Showroom Manager</label>
         <locationX>50</locationX>
@@ -82,7 +126,7 @@
             <field>UserRoleId</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>00EjY00000005xNUAQ</stringValue>
+                <elementReference>Get_Manager_Role.Id</elementReference>
             </value>
         </filters>
         <filters>
@@ -109,7 +153,7 @@
             <field>UserRoleId</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>00EjY00000005yzUAA</stringValue>
+                <elementReference>Get_Rep_Role.Id</elementReference>
             </value>
         </filters>
         <filters>
@@ -143,7 +187,7 @@
             </value>
         </filters>
         <connector>
-            <targetReference>Check_High_Profile</targetReference>
+            <targetReference>Get_Manager_Role</targetReference>
         </connector>
     </start>
     <status>Active</status>

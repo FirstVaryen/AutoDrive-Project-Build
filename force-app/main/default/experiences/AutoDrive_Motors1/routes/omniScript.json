@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "376d4ebd-0c81-46e7-8f37-c4e471236b82",
+  "appPageId" : "f0df527c-44f9-438c-896c-272614c34ae7",
+  "configurationTags" : [ ],
+  "devName" : "Omniscript",
+  "id" : "f8b33fe9-f0c7-42bc-af2a-53ef799141a4",
+  "label" : "OmniScript",
+  "pageAccess" : "UseParent",
+  "routeType" : "omniscript",
+  "type" : "route",
+  "urlPrefix" : "omniscript"
+}

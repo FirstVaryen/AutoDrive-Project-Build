@@ -71,9 +71,9 @@
         <name>fx_ApproverUsername</name>
         <dataType>String</dataType>
         <expression>CASE(TEXT({!$Record.Current_Step__c}),
-&quot;With Showroom Manager&quot;, &quot;test.showroommanager@autodrive.group3sb.test&quot;,
-&quot;With Finance&quot;, &quot;test.financeteam@autodrive.group3sb.test&quot;,
-&quot;With Head Office&quot;, &quot;test.headoffinance@autodrive.group3sb.test&quot;,
+&quot;With Showroom Manager&quot;, {!$Label.AD_Email_Showroom_Manager},
+&quot;With Finance&quot;, {!$Label.AD_Email_Finance},
+&quot;With Head Office&quot;, {!$Label.AD_Email_Head_Of_Finance},
 &quot;&quot;)</expression>
     </formulas>
     <formulas>

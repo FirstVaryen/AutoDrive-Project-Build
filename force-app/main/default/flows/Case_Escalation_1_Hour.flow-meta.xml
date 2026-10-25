@@ -30,12 +30,63 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Escalate_Case</targetReference>
+                <targetReference>Get_Head_Of_CS_Role</targetReference>
             </connector>
             <label>No First Response Yet</label>
         </rules>
     </decisions>
 
+    <recordLookups>
+        <name>Get_Head_Of_CS_Role</name>
+        <label>Get Head Of CS Role</label>
+        <locationX>176</locationX>
+        <locationY>60</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Head_Of_CS</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Head_of_Customer_Service</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>UserRole</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Head_Of_CS</name>
+        <label>Get Head Of CS</label>
+        <locationX>176</locationX>
+        <locationY>90</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Escalate_Case</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>UserRoleId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Head_Of_CS_Role.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>IsActive</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordUpdates>
         <name>Escalate_Case</name>
         <label>Escalate Case</label>
@@ -58,7 +109,7 @@
         <inputAssignments>
             <field>Escalated_To__c</field>
             <value>
-                <stringValue>005jY000000LEXpQAO</stringValue>
+                <elementReference>Get_Head_Of_CS.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>

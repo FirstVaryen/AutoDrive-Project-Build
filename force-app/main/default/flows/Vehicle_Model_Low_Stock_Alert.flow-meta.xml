@@ -19,7 +19,7 @@
         <inputParameters>
             <name>emailAddresses</name>
             <value>
-                <stringValue>test.showroommanager@autodrive.group3sb.test</stringValue>
+                <elementReference>$Label.AD_Email_Showroom_Manager</elementReference>
             </value>
         </inputParameters>
         <inputParameters>

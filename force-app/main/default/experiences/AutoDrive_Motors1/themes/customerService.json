@@ -1,187 +1,158 @@
 {
-  "activeBrandingSetId": "2d5d19b5-f2bc-4fb4-80cf-00ea56c290cd",
-  "customCSS": "/* AutoDrive Motors site styles: dark theme, amber accent, CSS-only motion */\n:root{\n  --ad-bg:#0B0F14; --ad-surface:#121922; --ad-surface-2:#18212C; --ad-line:#243041;\n  --ad-ink:#E8EDF3; --ad-muted:#93A1B2; --ad-accent:#F5A524; --ad-accent-dark:#D98B0B; --ad-accent-ink:#1A1204;\n  --ad-glow:rgba(245,165,36,.18); --ad-ease:cubic-bezier(.2,.7,.2,1);\n}\n\n/* page frame */\nbody,.siteforceServiceBody,.cCenterPanel,.siteforceContentArea,.comm-layout-column{background:var(--ad-bg) !important;color:var(--ad-ink);}\n.siteforceContentArea{position:relative;overflow-x:clip;}\n.siteforceContentArea::before{content:\"\";position:absolute;inset:-20% -10% auto -10%;height:900px;pointer-events:none;\n  background:radial-gradient(600px 300px at 20% 10%,rgba(245,165,36,.16),transparent 70%),radial-gradient(700px 360px at 85% 0%,rgba(59,130,246,.14),transparent 70%);\n  animation:adDrift 18s ease-in-out infinite alternate;}\n@keyframes adDrift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-40px,30px,0)}}\n\n/* header: dark glass bar, no search box (nothing public to search) */\n.cHeaderPanel,.cHeaderOverlay,.themeHeader,.themeHeaderInner,.themeHeaderBottomRow{background:rgba(11,15,20,.85) !important;backdrop-filter:blur(10px);border-bottom:1px solid var(--ad-line);}\n.cHeaderPanel{min-height:0 !important;}\n.cSearchPublisher,.forceCommunitySearchBox{display:none !important;}\n.cHeaderPanel .login-link,.selfServiceUserProfileMenu a{color:var(--ad-ink) !important;font-weight:600;}\n.cHeaderPanel .login-link:hover{color:var(--ad-accent) !important;}\n.forceCommunityThemeNav,.comm-navigation,.forceCommunityThemeNav .mainNavItem{background:var(--ad-bg) !important;border-bottom:1px solid var(--ad-line);}\n.forceCommunityThemeNav a,.comm-navigation a{color:var(--ad-muted) !important;text-transform:none !important;font-weight:600;transition:color .2s;}\n.forceCommunityThemeNav a:hover,.comm-navigation a:hover{color:var(--ad-ink) !important;}\n\n/* hero headline */\n.forceCommunityHeadline{position:relative;padding:72px 0 40px;text-align:center;}\n.forceCommunityHeadline .headlineTitleText,.forceCommunityHeadline h1,.forceCommunityHeadline .headlineTitle{text-transform:none !important;font-size:clamp(36px,6vw,64px) !important;line-height:1.05;font-weight:800;letter-spacing:-.02em;\n  background:linear-gradient(100deg,#FFFFFF 0%,#E8EDF3 45%,var(--ad-accent) 100%);-webkit-background-clip:text;background-clip:text;color:transparent !important;\n  animation:adFadeUp .9s var(--ad-ease) both;}\n.forceCommunityHeadline .headlineInfo,.forceCommunityHeadline .uiOutputRichText,.forceCommunityHeadline p{color:var(--ad-muted) !important;font-size:18px;max-width:640px;margin:16px auto 0;animation:adFadeUp .9s .15s var(--ad-ease) both;}\n.forceCommunityHeadline::after{content:\"\";display:block;width:64px;height:3px;border-radius:3px;margin:28px auto 0;background:var(--ad-accent);box-shadow:0 0 24px var(--ad-glow);animation:adGrow 1s .3s var(--ad-ease) both;}\n@keyframes adFadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}\n@keyframes adGrow{from{width:0;opacity:0}to{width:64px;opacity:1}}\n\n/* sections */\n.ad-section{max-width:1100px;margin:16px auto 56px;padding:0 4px;position:relative;}\n.ad-eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ad-accent) !important;margin:0 0 10px;}\n.ad-h2{font-size:clamp(24px,3vw,34px);line-height:1.2;font-weight:800;letter-spacing:-.01em;color:var(--ad-ink) !important;margin:0 0 28px;}\n.ad-h3{font-size:22px;font-weight:800;color:var(--ad-ink) !important;margin:0 0 8px;}\n.ad-muted,.ad-muted *{color:var(--ad-muted) !important;font-size:15px;line-height:1.6;margin:0;}\n.ad-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}\n.ad-card{position:relative;background:linear-gradient(180deg,var(--ad-surface-2),var(--ad-surface));border:1px solid var(--ad-line);border-radius:16px;padding:26px;\n  transition:transform .35s var(--ad-ease),border-color .35s,box-shadow .35s;}\n.ad-card:hover{transform:translateY(-6px);border-color:rgba(245,165,36,.55);box-shadow:0 18px 40px rgba(0,0,0,.45),0 0 0 1px rgba(245,165,36,.15);}\n.ad-card h3,.ad-strip h3{font-size:18px;font-weight:700;margin:14px 0 8px;color:var(--ad-ink) !important;}\n.ad-card p,.ad-strip p{font-size:14.5px;line-height:1.6;color:var(--ad-muted) !important;margin:0;}\n.ad-card p.ad-num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;margin:0;\n  background:rgba(245,165,36,.12);color:var(--ad-accent) !important;font-weight:800;font-size:15px;border:1px solid rgba(245,165,36,.35);}\n.ad-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:18px;}\n.ad-strip > div{background:var(--ad-surface);border:1px solid var(--ad-line);border-left:3px solid var(--ad-accent);border-radius:14px;padding:22px 24px;transition:transform .35s var(--ad-ease),background .35s;}\n.ad-strip > div:hover{transform:translateY(-4px);background:var(--ad-surface-2);}\n.ad-form-head{margin:8px 0 16px;}\n\n/* footer */\n.ad-footer{margin-top:40px;padding:36px 24px;text-align:center;border-top:1px solid var(--ad-line);background:transparent;}\n.ad-footer p{margin:6px 0;color:var(--ad-muted) !important;font-size:14px;}\n.ad-footer-name{font-weight:800;font-size:18px;color:var(--ad-ink) !important;letter-spacing:.02em;}\n\n/* forms (screen flows) */\n.forceCommunityFlowCommunity,.forceCommunityFlowCommunity flowruntime-flow,.forceCommunityFlowCommunity .slds-card__body,.forceCommunityFlowCommunity .flowruntimeBody{background:var(--ad-surface) !important;color:var(--ad-ink);}\n.forceCommunityFlowCommunity{border:1px solid var(--ad-line) !important;border-radius:18px !important;padding:24px 26px;margin-bottom:32px;box-shadow:0 24px 60px rgba(0,0,0,.35);transition:border-color .35s,box-shadow .35s;}\n.forceCommunityFlowCommunity:focus-within{border-color:rgba(245,165,36,.6) !important;box-shadow:0 24px 60px rgba(0,0,0,.45),0 0 0 4px var(--ad-glow);}\n.forceCommunityFlowCommunity p,.forceCommunityFlowCommunity span,.forceCommunityFlowCommunity .slds-rich-text-editor__output{color:var(--ad-ink);}\n.forceCommunityFlowCommunity .slds-form-element__label,.forceCommunityFlowCommunity legend,.forceCommunityFlowCommunity .slds-radio__label .slds-form-element__label{color:#C9D3DE !important;font-weight:600;font-size:13px;}\n.forceCommunityFlowCommunity .slds-input,.forceCommunityFlowCommunity .slds-textarea,.forceCommunityFlowCommunity .slds-select,.forceCommunityFlowCommunity .slds-combobox__input,.forceCommunityFlowCommunity input,.forceCommunityFlowCommunity textarea,.forceCommunityFlowCommunity select{\n  background:#0E141C !important;color:var(--ad-ink) !important;border:1px solid var(--ad-line) !important;border-radius:10px !important;min-height:44px;transition:border-color .2s,box-shadow .2s;}\n.forceCommunityFlowCommunity input:focus,.forceCommunityFlowCommunity textarea:focus,.forceCommunityFlowCommunity select:focus{border-color:var(--ad-accent) !important;box-shadow:0 0 0 3px var(--ad-glow) !important;outline:none;}\n.forceCommunityFlowCommunity input::placeholder,.forceCommunityFlowCommunity textarea::placeholder{color:#5F6D7E;}\n.forceCommunityFlowCommunity select option{background:#0E141C;color:var(--ad-ink);}\n.forceCommunityFlowCommunity .slds-radio_faux,.forceCommunityFlowCommunity .slds-radio--faux{background:#0E141C !important;border-color:#3A4A5E !important;}\n.forceCommunityFlowCommunity .slds-radio input:checked + label .slds-radio_faux,.forceCommunityFlowCommunity .slds-radio [type=radio]:checked + .slds-radio__label .slds-radio_faux{border-color:var(--ad-accent) !important;}\n.forceCommunityFlowCommunity .slds-radio [type=radio]:checked + .slds-radio__label .slds-radio_faux::after{background:var(--ad-accent) !important;}\n.forceCommunityFlowCommunity .slds-required{color:var(--ad-accent) !important;}\n.forceCommunityFlowCommunity .slds-card__footer,.forceCommunityFlowCommunity .flowruntimeNavigationBar,.forceCommunityFlowCommunity footer{background:transparent !important;border-top:1px solid var(--ad-line) !important;}\n.forceCommunityFlowCommunity .slds-button_brand,.forceCommunityFlowCommunity .slds-button--brand{background:var(--ad-accent) !important;border-color:var(--ad-accent) !important;color:var(--ad-accent-ink) !important;\n  border-radius:12px;padding:6px 28px;min-height:46px;font-weight:800;letter-spacing:.01em;transition:transform .2s var(--ad-ease),box-shadow .2s,background .2s;}\n.forceCommunityFlowCommunity .slds-button_brand:hover,.forceCommunityFlowCommunity .slds-button--brand:hover{background:#FFB83F !important;transform:translateY(-2px);box-shadow:0 10px 26px rgba(245,165,36,.35);}\n.forceCommunityFlowCommunity .slds-form-element__help,.forceCommunityFlowCommunity .slds-has-error .slds-form-element__help{color:#FF8A80 !important;}\n.forceCommunityFlowCommunity .slds-button_icon,.forceCommunityFlowCommunity lightning-helptext button{color:var(--ad-muted) !important;}\n\n/* scroll effects: sections rise and fade in as they enter the screen (CSS scroll-driven animations; browsers without support simply show everything) */\n@supports (animation-timeline: view()){\n  .ad-section .ad-eyebrow,.ad-section .ad-h2,.ad-card,.ad-strip > div,.ad-form-head,.forceCommunityFlowCommunity,.ad-footer{\n    animation:adReveal linear both;animation-timeline:view();animation-range:entry 0% cover 28%;}\n  .ad-card:nth-child(2){animation-range:entry 6% cover 32%;}\n  .ad-card:nth-child(3){animation-range:entry 12% cover 36%;}\n  @keyframes adReveal{from{opacity:0;transform:translateY(48px) scale(.98)}to{opacity:1;transform:none}}\n}\n@media (prefers-reduced-motion: reduce){\n  *,*::before,*::after{animation:none !important;transition:none !important;}\n}\n@media (max-width:768px){\n  .forceCommunityHeadline{padding:48px 0 24px;}\n  .ad-card,.forceCommunityFlowCommunity{padding:18px;}\n}\n\n/* hero photo: dark road scene behind the headline */\n.comm-content-header{position:relative;min-height:560px;display:flex;align-items:center;justify-content:center;\n  background:linear-gradient(180deg,rgba(11,15,20,.55) 0%,rgba(11,15,20,.35) 45%,rgba(11,15,20,1) 100%),url('/sfsites/c/resource/AD_Hero_Road') center 65%/cover no-repeat !important;\n  animation:adHeroZoom 1.6s var(--ad-ease) both;}\n@keyframes adHeroZoom{from{background-size:auto,115%;opacity:.4}to{background-size:auto,cover;opacity:1}}\n.comm-content-header .forceCommunityHeadline{padding:120px 0 80px;}\n.comm-content-header .forceCommunityHeadline .headlineInfo,.comm-content-header .forceCommunityHeadline .uiOutputRichText{color:#C9D3DE !important;text-shadow:0 2px 12px rgba(0,0,0,.6);}\n\n@media (max-width:768px){\n  .comm-content-header{min-height:420px;}\n}\n\n/* softer, rounder form fields */\n.forceCommunityFlowCommunity .slds-input,.forceCommunityFlowCommunity .slds-textarea,.forceCommunityFlowCommunity .slds-select,.forceCommunityFlowCommunity .slds-combobox__input,\n.forceCommunityFlowCommunity input:not([type=radio]):not([type=checkbox]),.forceCommunityFlowCommunity textarea,.forceCommunityFlowCommunity select,\n.forceCommunityFlowCommunity .slds-input-has-icon,.forceCommunityFlowCommunity .slds-select_container{border-radius:16px !important;}\n.forceCommunityFlowCommunity input:not([type=radio]):not([type=checkbox]),.forceCommunityFlowCommunity select{min-height:48px;padding:0 18px !important;}\n.forceCommunityFlowCommunity textarea{padding:14px 18px !important;min-height:110px;}\n.forceCommunityFlowCommunity .slds-form-element{margin-bottom:6px;}\n.forceCommunityFlowCommunity input,.forceCommunityFlowCommunity textarea,.forceCommunityFlowCommunity select{transition:border-color .25s ease,box-shadow .25s ease,background-color .25s ease !important;}\n.forceCommunityFlowCommunity input:hover,.forceCommunityFlowCommunity textarea:hover,.forceCommunityFlowCommunity select:hover{border-color:#3A4A5E !important;}\n.forceCommunityFlowCommunity .slds-button_brand,.forceCommunityFlowCommunity .slds-button--brand{border-radius:999px !important;padding:6px 32px;}\n\n/* logo + name at the left of the header (one element, so they always line up) */\n.cHeaderLine{align-items:center !important;}\n.cHeaderLine::before{content:\"AutoDrive Motors\";flex:0 0 auto;display:flex;align-items:center;height:40px;margin:0 16px 0 24px;padding-left:52px;\n  background:url('/sfsites/c/resource/AD_Logo') left center/40px 40px no-repeat;\n  color:var(--ad-ink);font-weight:800;font-size:17px;line-height:40px;letter-spacing:.01em;white-space:nowrap;align-self:center;}\n@media (max-width:768px){.cHeaderLine::before{content:\"\";padding-left:40px;margin-left:12px;}}\n",
-  "developerName": "service",
-  "id": "30978d83-117e-453a-a0ab-6c42d464876c",
-  "label": "Customer Service",
-  "layouts": {
-    "Inner": "de723e1d-0c62-4bba-b496-331a6db73efc",
-    "Login": "c69b37df-83d1-4209-bccf-d677e6498bfd",
-    "ServiceNotAvailable": "f1276d92-cee0-40ae-9f8b-3c2e22f24b09"
+  "activeBrandingSetId" : "2d5d19b5-f2bc-4fb4-80cf-00ea56c290cd",
+  "customCSS" : "/* AutoDrive Motors site styles: dark theme, amber accent, CSS-only motion */\n:root{\n  --ad-bg:#0B0F14; --ad-surface:#121922; --ad-surface-2:#18212C; --ad-line:#243041;\n  --ad-ink:#E8EDF3; --ad-muted:#93A1B2; --ad-accent:#F5A524; --ad-accent-dark:#D98B0B; --ad-accent-ink:#1A1204;\n  --ad-glow:rgba(245,165,36,.18); --ad-ease:cubic-bezier(.2,.7,.2,1);\n}\n\n/* page frame */\nbody,.siteforceServiceBody,.cCenterPanel,.siteforceContentArea,.comm-layout-column{background:var(--ad-bg) !important;color:var(--ad-ink);}\n.siteforceContentArea{position:relative;overflow-x:clip;}\n.siteforceContentArea::before{content:\"\";position:absolute;inset:-20% -10% auto -10%;height:900px;pointer-events:none;\n  background:radial-gradient(600px 300px at 20% 10%,rgba(245,165,36,.16),transparent 70%),radial-gradient(700px 360px at 85% 0%,rgba(59,130,246,.14),transparent 70%);\n  animation:adDrift 18s ease-in-out infinite alternate;}\n@keyframes adDrift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-40px,30px,0)}}\n\n/* header: dark glass bar, no search box (nothing public to search) */\n.cHeaderPanel,.cHeaderOverlay,.themeHeader,.themeHeaderInner,.themeHeaderBottomRow{background:rgba(11,15,20,.85) !important;backdrop-filter:blur(10px);border-bottom:1px solid var(--ad-line);}\n.cHeaderPanel{min-height:0 !important;}\n.cSearchPublisher,.forceCommunitySearchBox{display:none !important;}\n.cHeaderPanel .login-link,.selfServiceUserProfileMenu a{color:var(--ad-ink) !important;font-weight:600;}\n.cHeaderPanel .login-link:hover{color:var(--ad-accent) !important;}\n.forceCommunityThemeNav,.comm-navigation,.forceCommunityThemeNav .mainNavItem{background:var(--ad-bg) !important;border-bottom:1px solid var(--ad-line);}\n.forceCommunityThemeNav a,.comm-navigation a{color:var(--ad-muted) !important;text-transform:none !important;font-weight:600;transition:color .2s;}\n.forceCommunityThemeNav a:hover,.comm-navigation a:hover{color:var(--ad-ink) !important;}\n\n/* hero headline */\n.forceCommunityHeadline{position:relative;padding:72px 0 40px;text-align:center;}\n.forceCommunityHeadline .headlineTitleText,.forceCommunityHeadline h1,.forceCommunityHeadline .headlineTitle{text-transform:none !important;font-size:clamp(36px,6vw,64px) !important;line-height:1.05;font-weight:800;letter-spacing:-.02em;\n  background:linear-gradient(100deg,#FFFFFF 0%,#E8EDF3 45%,var(--ad-accent) 100%);-webkit-background-clip:text;background-clip:text;color:transparent !important;\n  animation:adFadeUp .9s var(--ad-ease) both;}\n.forceCommunityHeadline .headlineInfo,.forceCommunityHeadline .uiOutputRichText,.forceCommunityHeadline p{color:var(--ad-muted) !important;font-size:18px;max-width:640px;margin:16px auto 0;animation:adFadeUp .9s .15s var(--ad-ease) both;}\n.forceCommunityHeadline::after{content:\"\";display:block;width:64px;height:3px;border-radius:3px;margin:28px auto 0;background:var(--ad-accent);box-shadow:0 0 24px var(--ad-glow);animation:adGrow 1s .3s var(--ad-ease) both;}\n@keyframes adFadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}\n@keyframes adGrow{from{width:0;opacity:0}to{width:64px;opacity:1}}\n\n/* sections */\n.ad-section{max-width:1100px;margin:16px auto 56px;padding:0 4px;position:relative;}\n.ad-eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ad-accent) !important;margin:0 0 10px;}\n.ad-h2{font-size:clamp(24px,3vw,34px);line-height:1.2;font-weight:800;letter-spacing:-.01em;color:var(--ad-ink) !important;margin:0 0 28px;}\n.ad-h3{font-size:22px;font-weight:800;color:var(--ad-ink) !important;margin:0 0 8px;}\n.ad-muted,.ad-muted *{color:var(--ad-muted) !important;font-size:15px;line-height:1.6;margin:0;}\n.ad-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}\n.ad-card{position:relative;background:linear-gradient(180deg,var(--ad-surface-2),var(--ad-surface));border:1px solid var(--ad-line);border-radius:16px;padding:26px;\n  transition:transform .35s var(--ad-ease),border-color .35s,box-shadow .35s;}\n.ad-card:hover{transform:translateY(-6px);border-color:rgba(245,165,36,.55);box-shadow:0 18px 40px rgba(0,0,0,.45),0 0 0 1px rgba(245,165,36,.15);}\n.ad-card h3,.ad-strip h3{font-size:18px;font-weight:700;margin:14px 0 8px;color:var(--ad-ink) !important;}\n.ad-card p,.ad-strip p{font-size:14.5px;line-height:1.6;color:var(--ad-muted) !important;margin:0;}\n.ad-card p.ad-num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;margin:0;\n  background:rgba(245,165,36,.12);color:var(--ad-accent) !important;font-weight:800;font-size:15px;border:1px solid rgba(245,165,36,.35);}\n.ad-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:18px;}\n.ad-strip > div{background:var(--ad-surface);border:1px solid var(--ad-line);border-left:3px solid var(--ad-accent);border-radius:14px;padding:22px 24px;transition:transform .35s var(--ad-ease),background .35s;}\n.ad-strip > div:hover{transform:translateY(-4px);background:var(--ad-surface-2);}\n.ad-form-head{margin:8px 0 16px;}\n\n/* footer */\n.ad-footer{margin-top:40px;padding:36px 24px;text-align:center;border-top:1px solid var(--ad-line);background:transparent;}\n.ad-footer p{margin:6px 0;color:var(--ad-muted) !important;font-size:14px;}\n.ad-footer-name{font-weight:800;font-size:18px;color:var(--ad-ink) !important;letter-spacing:.02em;}\n\n/* forms (screen flows) */\n.forceCommunityFlowCommunity,.forceCommunityFlowCommunity flowruntime-flow,.forceCommunityFlowCommunity .slds-card__body,.forceCommunityFlowCommunity .flowruntimeBody{background:var(--ad-surface) !important;color:var(--ad-ink);}\n.forceCommunityFlowCommunity{border:1px solid var(--ad-line) !important;border-radius:18px !important;padding:24px 26px;margin-bottom:32px;box-shadow:0 24px 60px rgba(0,0,0,.35);transition:border-color .35s,box-shadow .35s;}\n.forceCommunityFlowCommunity:focus-within{border-color:rgba(245,165,36,.6) !important;box-shadow:0 24px 60px rgba(0,0,0,.45),0 0 0 4px var(--ad-glow);}\n.forceCommunityFlowCommunity p,.forceCommunityFlowCommunity span,.forceCommunityFlowCommunity .slds-rich-text-editor__output{color:var(--ad-ink);}\n.forceCommunityFlowCommunity .slds-form-element__label,.forceCommunityFlowCommunity legend,.forceCommunityFlowCommunity .slds-radio__label .slds-form-element__label{color:#C9D3DE !important;font-weight:600;font-size:13px;}\n.forceCommunityFlowCommunity .slds-input,.forceCommunityFlowCommunity .slds-textarea,.forceCommunityFlowCommunity .slds-select,.forceCommunityFlowCommunity .slds-combobox__input,.forceCommunityFlowCommunity input,.forceCommunityFlowCommunity textarea,.forceCommunityFlowCommunity select{\n  background:#0E141C !important;color:var(--ad-ink) !important;border:1px solid var(--ad-line) !important;border-radius:10px !important;min-height:44px;transition:border-color .2s,box-shadow .2s;}\n.forceCommunityFlowCommunity input:focus,.forceCommunityFlowCommunity textarea:focus,.forceCommunityFlowCommunity select:focus{border-color:var(--ad-accent) !important;box-shadow:0 0 0 3px var(--ad-glow) !important;outline:none;}\n.forceCommunityFlowCommunity input::placeholder,.forceCommunityFlowCommunity textarea::placeholder{color:#5F6D7E;}\n.forceCommunityFlowCommunity select option{background:#0E141C;color:var(--ad-ink);}\n.forceCommunityFlowCommunity .slds-radio_faux,.forceCommunityFlowCommunity .slds-radio--faux{background:#0E141C !important;border-color:#3A4A5E !important;}\n.forceCommunityFlowCommunity .slds-radio input:checked + label .slds-radio_faux,.forceCommunityFlowCommunity .slds-radio [type=radio]:checked + .slds-radio__label .slds-radio_faux{border-color:var(--ad-accent) !important;}\n.forceCommunityFlowCommunity .slds-radio [type=radio]:checked + .slds-radio__label .slds-radio_faux::after{background:var(--ad-accent) !important;}\n.forceCommunityFlowCommunity .slds-required{color:var(--ad-accent) !important;}\n.forceCommunityFlowCommunity .slds-card__footer,.forceCommunityFlowCommunity .flowruntimeNavigationBar,.forceCommunityFlowCommunity footer{background:transparent !important;border-top:1px solid var(--ad-line) !important;}\n.forceCommunityFlowCommunity .slds-button_brand,.forceCommunityFlowCommunity .slds-button--brand{background:var(--ad-accent) !important;border-color:var(--ad-accent) !important;color:var(--ad-accent-ink) !important;\n  border-radius:12px;padding:6px 28px;min-height:46px;font-weight:800;letter-spacing:.01em;transition:transform .2s var(--ad-ease),box-shadow .2s,background .2s;}\n.forceCommunityFlowCommunity .slds-button_brand:hover,.forceCommunityFlowCommunity .slds-button--brand:hover{background:#FFB83F !important;transform:translateY(-2px);box-shadow:0 10px 26px rgba(245,165,36,.35);}\n.forceCommunityFlowCommunity .slds-form-element__help,.forceCommunityFlowCommunity .slds-has-error .slds-form-element__help{color:#FF8A80 !important;}\n.forceCommunityFlowCommunity .slds-button_icon,.forceCommunityFlowCommunity lightning-helptext button{color:var(--ad-muted) !important;}\n\n/* scroll effects: sections rise and fade in as they enter the screen (CSS scroll-driven animations; browsers without support simply show everything) */\n@supports (animation-timeline: view()){\n  .ad-section .ad-eyebrow,.ad-section .ad-h2,.ad-card,.ad-strip > div,.ad-form-head,.forceCommunityFlowCommunity,.ad-footer{\n    animation:adReveal linear both;animation-timeline:view();animation-range:entry 0% cover 28%;}\n  .ad-card:nth-child(2){animation-range:entry 6% cover 32%;}\n  .ad-card:nth-child(3){animation-range:entry 12% cover 36%;}\n  @keyframes adReveal{from{opacity:0;transform:translateY(48px) scale(.98)}to{opacity:1;transform:none}}\n}\n@media (prefers-reduced-motion: reduce){\n  *,*::before,*::after{animation:none !important;transition:none !important;}\n}\n@media (max-width:768px){\n  .forceCommunityHeadline{padding:48px 0 24px;}\n  .ad-card,.forceCommunityFlowCommunity{padding:18px;}\n}\n\n/* hero photo: dark road scene behind the headline */\n.comm-content-header{position:relative;min-height:560px;display:flex;align-items:center;justify-content:center;\n  background:linear-gradient(180deg,rgba(11,15,20,.55) 0%,rgba(11,15,20,.35) 45%,rgba(11,15,20,1) 100%),url('/sfsites/c/resource/AD_Hero_Road') center 65%/cover no-repeat !important;\n  animation:adHeroZoom 1.6s var(--ad-ease) both;}\n@keyframes adHeroZoom{from{background-size:auto,115%;opacity:.4}to{background-size:auto,cover;opacity:1}}\n.comm-content-header .forceCommunityHeadline{padding:120px 0 80px;}\n.comm-content-header .forceCommunityHeadline .headlineInfo,.comm-content-header .forceCommunityHeadline .uiOutputRichText{color:#C9D3DE !important;text-shadow:0 2px 12px rgba(0,0,0,.6);}\n\n@media (max-width:768px){\n  .comm-content-header{min-height:420px;}\n}\n\n/* softer, rounder form fields */\n.forceCommunityFlowCommunity .slds-input,.forceCommunityFlowCommunity .slds-textarea,.forceCommunityFlowCommunity .slds-select,.forceCommunityFlowCommunity .slds-combobox__input,\n.forceCommunityFlowCommunity input:not([type=radio]):not([type=checkbox]),.forceCommunityFlowCommunity textarea,.forceCommunityFlowCommunity select,\n.forceCommunityFlowCommunity .slds-input-has-icon,.forceCommunityFlowCommunity .slds-select_container{border-radius:16px !important;}\n.forceCommunityFlowCommunity input:not([type=radio]):not([type=checkbox]),.forceCommunityFlowCommunity select{min-height:48px;padding:0 18px !important;}\n.forceCommunityFlowCommunity textarea{padding:14px 18px !important;min-height:110px;}\n.forceCommunityFlowCommunity .slds-form-element{margin-bottom:6px;}\n.forceCommunityFlowCommunity input,.forceCommunityFlowCommunity textarea,.forceCommunityFlowCommunity select{transition:border-color .25s ease,box-shadow .25s ease,background-color .25s ease !important;}\n.forceCommunityFlowCommunity input:hover,.forceCommunityFlowCommunity textarea:hover,.forceCommunityFlowCommunity select:hover{border-color:#3A4A5E !important;}\n.forceCommunityFlowCommunity .slds-button_brand,.forceCommunityFlowCommunity .slds-button--brand{border-radius:999px !important;padding:6px 32px;}\n\n/* logo + name at the left of the header (one element, so they always line up) */\n.cHeaderLine{align-items:center !important;}\n.cHeaderLine::before{content:\"AutoDrive Motors\";flex:0 0 auto;display:flex;align-items:center;height:40px;margin:0 16px 0 24px;padding-left:52px;\n  background:url('/sfsites/c/resource/AD_Logo') left center/40px 40px no-repeat;\n  color:var(--ad-ink);font-weight:800;font-size:17px;line-height:40px;letter-spacing:.01em;white-space:nowrap;align-self:center;}\n@media (max-width:768px){.cHeaderLine::before{content:\"\";padding-left:40px;margin-left:12px;}}\n",
+  "developerName" : "service",
+  "id" : "30978d83-117e-453a-a0ab-6c42d464876c",
+  "label" : "Customer Service",
+  "layouts" : {
+    "Inner" : "de723e1d-0c62-4bba-b496-331a6db73efc",
+    "Login" : "c69b37df-83d1-4209-bccf-d677e6498bfd",
+    "ServiceNotAvailable" : "f1276d92-cee0-40ae-9f8b-3c2e22f24b09"
   },
-  "type": "theme",
-  "views": [
-    {
-      "componentAttributes": {},
-      "componentName": "salesforceIdentity:loginBody2",
-      "id": "c69b37df-83d1-4209-bccf-d677e6498bfd",
-      "label": "Login",
-      "regions": [
-        {
-          "id": "a53d30c7-72b8-4122-892e-11e083aca0b5",
-          "regionName": "header",
-          "type": "region"
-        },
-        {
-          "id": "0cf1e097-6177-4c05-b2b8-2d50bdc8ee0d",
-          "regionName": "content",
-          "type": "region"
-        },
-        {
-          "id": "03c3c4cb-2a81-4c62-b005-2c225e36605e",
-          "regionName": "footer",
-          "type": "region"
-        }
-      ],
-      "type": "view"
+  "type" : "theme",
+  "views" : [ {
+    "componentAttributes" : { },
+    "componentName" : "salesforceIdentity:loginBody2",
+    "id" : "c69b37df-83d1-4209-bccf-d677e6498bfd",
+    "label" : "Login",
+    "regions" : [ {
+      "id" : "a53d30c7-72b8-4122-892e-11e083aca0b5",
+      "regionName" : "header",
+      "type" : "region"
+    }, {
+      "id" : "0cf1e097-6177-4c05-b2b8-2d50bdc8ee0d",
+      "regionName" : "content",
+      "type" : "region"
+    }, {
+      "id" : "03c3c4cb-2a81-4c62-b005-2c225e36605e",
+      "regionName" : "footer",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  }, {
+    "componentAttributes" : {
+      "IsDefaultHeaderHidden" : false,
+      "IsDefaultNotificationsHidden" : false,
+      "fixedPageWidth" : 1140,
+      "isPageWidthFixed" : true
     },
-    {
-      "componentAttributes": {
-        "IsDefaultHeaderHidden": false,
-        "IsDefaultNotificationsHidden": false,
-        "fixedPageWidth": 1140,
-        "isPageWidthFixed": true
-      },
-      "componentName": "siteforce:serviceBody",
-      "id": "de723e1d-0c62-4bba-b496-331a6db73efc",
-      "label": "Default",
-      "regions": [
-        {
-          "id": "6ee4b68f-d785-48f9-97ac-df8de79e259b",
-          "regionName": "customHeader",
-          "type": "region"
+    "componentName" : "siteforce:serviceBody",
+    "id" : "de723e1d-0c62-4bba-b496-331a6db73efc",
+    "label" : "Default",
+    "regions" : [ {
+      "id" : "6ee4b68f-d785-48f9-97ac-df8de79e259b",
+      "regionName" : "customHeader",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "contineActionLabel" : "Ask the community",
+          "continueLabel" : "Don’t see it?",
+          "crossObjectTypeaheadApiNames" : [ {
+            "isPublic" : true,
+            "name" : "KnowledgeArticleVersion"
+          }, {
+            "isPublic" : true,
+            "name" : "FeedItem"
+          }, {
+            "isPublic" : false,
+            "name" : "Case"
+          }, {
+            "isPublic" : true,
+            "name" : "CollaborationGroup"
+          } ],
+          "disableCrossObjectRelevance" : false,
+          "enableAutocomplete" : true,
+          "maxNumberOfResults" : 6,
+          "placeholder" : "Search...",
+          "questionResultsFirst" : false,
+          "showContinueAction" : true,
+          "showDetails" : false,
+          "showTopics" : true,
+          "signInActionLabel" : "Sign in to ask the community"
         },
-        {
-          "components": [
-            {
-              "componentAttributes": {
-                "contineActionLabel": "Ask the community",
-                "continueLabel": "Don’t see it?",
-                "crossObjectTypeaheadApiNames": [
-                  {
-                    "isPublic": true,
-                    "name": "KnowledgeArticleVersion"
-                  },
-                  {
-                    "isPublic": true,
-                    "name": "FeedItem"
-                  },
-                  {
-                    "isPublic": false,
-                    "name": "Case"
-                  },
-                  {
-                    "isPublic": true,
-                    "name": "CollaborationGroup"
-                  }
-                ],
-                "disableCrossObjectRelevance": false,
-                "enableAutocomplete": true,
-                "maxNumberOfResults": 6,
-                "placeholder": "Search...",
-                "questionResultsFirst": false,
-                "showContinueAction": true,
-                "showDetails": false,
-                "showTopics": true,
-                "signInActionLabel": "Sign in to ask the community"
-              },
-              "componentName": "forceCommunity:searchBox",
-              "id": "cac109ed-91ad-45f2-8ea8-b922aa32ec76",
-              "renditionMap": {},
-              "type": "component"
-            }
-          ],
-          "id": "6bca9a9d-d42d-44e2-9019-ee76e1773ca7",
-          "regionName": "search",
-          "type": "region"
+        "componentName" : "forceCommunity:searchBox",
+        "id" : "cac109ed-91ad-45f2-8ea8-b922aa32ec76",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "6bca9a9d-d42d-44e2-9019-ee76e1773ca7",
+      "regionName" : "search",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "accountManagementLabel" : "Account Management",
+          "communityBuilderLabel" : "Experience Builder",
+          "communitySetupLabel" : "Salesforce Setup",
+          "contactSupportLabel" : "Contact Support",
+          "filterName" : "MyCases",
+          "homeLabel" : "Home",
+          "includeContactSupport" : true,
+          "includeMessages" : false,
+          "loginLabel" : "Login",
+          "logoutLabel" : "Logout",
+          "myAccountLabel" : "My Account",
+          "showAccountManagement" : false,
+          "showUserSettings" : false,
+          "userSettingsLabel" : "My Settings",
+          "viewProfileLabel" : "My Profile"
         },
-        {
-          "components": [
-            {
-              "componentAttributes": {
-                "accountManagementLabel": "Account Management",
-                "communityBuilderLabel": "Experience Builder",
-                "communitySetupLabel": "Salesforce Setup",
-                "contactSupportLabel": "Contact Support",
-                "filterName": "MyCases",
-                "homeLabel": "Home",
-                "includeContactSupport": true,
-                "includeMessages": false,
-                "loginLabel": "Login",
-                "logoutLabel": "Logout",
-                "myAccountLabel": "My Account",
-                "showAccountManagement": false,
-                "showUserSettings": false,
-                "userSettingsLabel": "My Settings",
-                "viewProfileLabel": "My Profile"
-              },
-              "componentName": "selfService:userProfileMenu",
-              "id": "4baf3745-8aa9-4815-b24f-e01cc805e764",
-              "renditionMap": {},
-              "type": "component"
-            }
-          ],
-          "id": "b87dc87f-47b7-4e03-ba55-678501022535",
-          "regionName": "profileMenu",
-          "type": "region"
+        "componentName" : "selfService:userProfileMenu",
+        "id" : "4baf3745-8aa9-4815-b24f-e01cc805e764",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "b87dc87f-47b7-4e03-ba55-678501022535",
+      "regionName" : "profileMenu",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "NavigationMenuEditorRefresh" : "",
+          "hideAppLauncher" : false,
+          "hideHomeText" : false
         },
-        {
-          "components": [
-            {
-              "componentAttributes": {
-                "NavigationMenuEditorRefresh": "",
-                "hideAppLauncher": false,
-                "hideHomeText": false
-              },
-              "componentName": "forceCommunity:globalNavigation",
-              "id": "c7dc0837-a8bb-4122-86f7-c9b29fef01ed",
-              "renditionMap": {},
-              "type": "component"
-            }
-          ],
-          "id": "eb866339-6c2b-482b-8be8-6f8774f827d6",
-          "regionName": "navBar",
-          "type": "region"
-        },
-        {
-          "id": "9b950721-900f-4c61-a89e-bc796e3786f7",
-          "regionName": "customRegion",
-          "type": "region"
-        },
-        {
-          "id": "40176582-946d-479f-92d5-23482fa0437f",
-          "regionName": "footer",
-          "type": "region"
-        }
-      ],
-      "type": "view"
+        "componentName" : "forceCommunity:globalNavigation",
+        "id" : "c7dc0837-a8bb-4122-86f7-c9b29fef01ed",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "eb866339-6c2b-482b-8be8-6f8774f827d6",
+      "regionName" : "navBar",
+      "type" : "region"
+    }, {
+      "id" : "9b950721-900f-4c61-a89e-bc796e3786f7",
+      "regionName" : "customRegion",
+      "type" : "region"
+    }, {
+      "id" : "40176582-946d-479f-92d5-23482fa0437f",
+      "regionName" : "footer",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  }, {
+    "componentAttributes" : {
+      "fixedPageWidth" : 1170,
+      "headerBgColor" : "rgba(0, 0, 0, 0)",
+      "isHeaderPinned" : false,
+      "isHeroUnderHeader" : false,
+      "isPageWidthFixed" : true,
+      "showHeader" : true,
+      "showHero" : true
     },
-    {
-      "componentAttributes": {
-        "fixedPageWidth": 1170,
-        "headerBgColor": "rgba(0, 0, 0, 0)",
-        "isHeaderPinned": false,
-        "isHeroUnderHeader": false,
-        "isPageWidthFixed": true,
-        "showHeader": true,
-        "showHero": true
-      },
-      "componentName": "siteforce:themeLayoutStarter",
-      "id": "f1276d92-cee0-40ae-9f8b-3c2e22f24b09",
-      "label": "ServiceNotAvailable",
-      "regions": [
-        {
-          "id": "b031b349-25e1-48cf-9083-f6dc1361a316",
-          "regionName": "themeHeader",
-          "type": "region"
-        },
-        {
-          "id": "e51df4a8-4d4c-4f6a-817d-edffd9f6ff7a",
-          "regionName": "themeFooter",
-          "type": "region"
-        }
-      ],
-      "type": "view"
-    }
-  ]
+    "componentName" : "siteforce:themeLayoutStarter",
+    "id" : "f1276d92-cee0-40ae-9f8b-3c2e22f24b09",
+    "label" : "ServiceNotAvailable",
+    "regions" : [ {
+      "id" : "b031b349-25e1-48cf-9083-f6dc1361a316",
+      "regionName" : "themeHeader",
+      "type" : "region"
+    }, {
+      "id" : "e51df4a8-4d4c-4f6a-817d-edffd9f6ff7a",
+      "regionName" : "themeFooter",
+      "type" : "region"
+    } ],
+    "type" : "view"
+  } ]
 }
