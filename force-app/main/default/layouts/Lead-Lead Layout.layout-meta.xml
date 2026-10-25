@@ -57,6 +57,7 @@
             <layoutItems><behavior>Edit</behavior><field>Channel__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Visit_Purpose__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Vehicle_Model_Of_Interest__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Stock_Alert__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Booked_Visit_Date__c</field></layoutItems>
             <layoutItems><behavior>Required</behavior><field>Customer_Type__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Qualification_Answers__c</field></layoutItems>

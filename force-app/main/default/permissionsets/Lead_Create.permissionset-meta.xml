@@ -12,6 +12,11 @@
         <object>Lead</object>
     </objectPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Stock_Alert__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Lead.Email</field>
         <readable>true</readable>
