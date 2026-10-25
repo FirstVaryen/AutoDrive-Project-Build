@@ -20,7 +20,7 @@
         <inputParameters>
             <name>senderAddress</name>
             <value>
-                <stringValue>hillaryemmanuel@gmail.com</stringValue>
+                <elementReference>$Label.AD_Customer_Email_Sender</elementReference>
             </value>
         </inputParameters>
         <inputParameters>

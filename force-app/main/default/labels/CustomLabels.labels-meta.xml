@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>AD_Email_Showroom_Manager</fullName>
+        <categories>AutoDrive Email</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Showroom Manager email</shortDescription>
+        <value>hillaryemmanuel@gmail.com</value>
+    </labels>
+    <labels>
+        <fullName>AD_Email_Finance</fullName>
+        <categories>AutoDrive Email</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Finance team email</shortDescription>
+        <value>hillaryemmanuel@gmail.com</value>
+    </labels>
+    <labels>
+        <fullName>AD_Email_Head_Of_Finance</fullName>
+        <categories>AutoDrive Email</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Head of Finance email</shortDescription>
+        <value>hillaryemmanuel@gmail.com</value>
+    </labels>
+    <labels>
+        <fullName>AD_Email_Legal</fullName>
+        <categories>AutoDrive Email</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Legal team email</shortDescription>
+        <value>hillaryemmanuel@gmail.com</value>
+    </labels>
+    <labels>
+        <fullName>AD_Customer_Email_Sender</fullName>
+        <categories>AutoDrive Email</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer email sender</shortDescription>
+        <value>hillaryemmanuel@gmail.com</value>
+    </labels>
+</CustomLabels>

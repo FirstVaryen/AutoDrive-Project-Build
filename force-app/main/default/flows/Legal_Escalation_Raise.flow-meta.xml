@@ -19,7 +19,7 @@
         <inputParameters>
             <name>emailAddresses</name>
             <value>
-                <stringValue>test.legalteam@autodrive.group3sb.test</stringValue>
+                <elementReference>$Label.AD_Email_Legal</elementReference>
             </value>
         </inputParameters>
         <inputParameters>

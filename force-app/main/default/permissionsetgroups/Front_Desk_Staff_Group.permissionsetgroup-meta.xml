@@ -2,7 +2,6 @@
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>US-30: create walk-in leads (name, contact, interest, channel); read vehicle models to record the vehicle of interest.</description>
     <label>AM Front Desk Staff</label>
-    <permissionSets>Lead_New_Enquiry_Flow</permissionSets>
     <permissionSets>Lead_Create</permissionSets>
     <permissionSets>Vehicle_Model_Read</permissionSets>
 </PermissionSetGroup>

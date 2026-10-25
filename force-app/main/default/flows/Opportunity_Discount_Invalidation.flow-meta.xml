@@ -115,7 +115,7 @@
             <field>Username</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>test.financeteam@autodrive.group3sb.test</stringValue>
+                <elementReference>$Label.AD_Email_Finance</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
