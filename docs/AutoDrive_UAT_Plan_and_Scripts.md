@@ -291,8 +291,8 @@ If not met, testing continues after fixes, and only the failed and affected scri
 |---|---|---|---|---|
 | 1 | Create a walk-in lead for a new person, save | **Lead Owner** is a sales rep, picked automatically | Done | Pass |
 | 2 | Create a lead for **Daniel Okoro** with his existing phone number | A warning that a matching record already exists | It shows the warning | Pass |
-| 3 | Create a walk-in lead with Channel = **Returning/High-profile** (or tick Returning or High-profile) | It saves and opens read-only; the owner is the Showroom Manager; a bell message says the client was passed to the manager | Still visible on the rep's lead page | Fail (DEF-16), retest |
-| 4 | Open **Leads → List View → AutoDrive - High-profile Clients** | The client is listed, owned by the Showroom Manager | | |
+| 3 | Create a walk-in lead with Channel = **Returning/High-profile** (or tick Returning or High-profile) | It saves and opens read-only; the owner is the Showroom Manager; a bell message says the client was passed to the manager | Round 1: stayed with the rep. Round 2: passed to the Showroom Manager | Pass (round 2) |
+| 4 | Open **Leads → List View → AutoDrive - High-profile Clients** | The client is listed, owned by the Showroom Manager | Listed | Pass |
 
 ### 10.3 Social Media Handler
 **Login:** Social Media Handler test user · **Tester:** Henry · **Tabs:** Home, Leads only
@@ -788,7 +788,7 @@ If not met, testing continues after fixes, and only the failed and affected scri
 | DEF-13 | UAT-HF-02 / 3 | A plan showed Active before it was signed off | Medium | Build team | Fixed, retest |
 | DEF-14 | UAT-FT-02 / 5 | A refused payment showed "unhandled fault" instead of a clear message | Low | Build team | Fixed, retest |
 | DEF-15 | UAT-SR-01 / 3 | No "lead assigned to you" email arrived: test users had placeholder email addresses | High | Hillary | Fixed, retest after confirming the 8 verification emails |
-| DEF-16 | UAT-FD-02 / 3 | A returning or high-profile lead stayed with the rep instead of going to the Showroom Manager (now: goes to the manager at save, or when ticked later; the person who entered it keeps read-only access) | Medium | Build team | Fixed, retest |
+| DEF-16 | UAT-FD-02 / 3 | A returning or high-profile lead stayed with the rep instead of going to the Showroom Manager (now: goes to the manager at save, or when ticked later; the person who entered it keeps read-only access) | Medium | Build team | Closed: retest passed |
 | CR-01 | All | Record names were numbers only; now reference · customer · detail | Change | Hillary | Done |
 | CR-02 | UAT-HF-03 | Plan page shows Next Step and Month by Month | Change | Hillary | Done |
 | OPEN-01 | Entry criteria | Email was off in the sandbox (Deliverability) | High | Hillary | Done |
