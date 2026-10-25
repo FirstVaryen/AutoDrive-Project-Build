@@ -44,12 +44,19 @@
         <defaultConnectorLabel>Standard Walk-in</defaultConnectorLabel>
         <rules>
             <name>Is_High_Profile</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>or</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.Returning_or_High_profile__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Channel__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Returning/High-profile</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -120,12 +127,19 @@
         <object>Lead</object>
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordBeforeSave</triggerType>
-        <filterLogic>and</filterLogic>
+        <filterLogic>or</filterLogic>
         <filters>
             <field>Channel__c</field>
             <operator>EqualTo</operator>
             <value>
                 <stringValue>Walk-in</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Channel__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Returning/High-profile</stringValue>
             </value>
         </filters>
         <connector>
