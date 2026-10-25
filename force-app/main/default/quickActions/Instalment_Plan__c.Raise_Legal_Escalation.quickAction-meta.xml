@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Head of Finance: escalate an unrecoverable default to the legal team. Checks a month is 90+ days unpaid, the guarantor can't pay and Finance has approved; then saves the escalation and emails Legal (US-36).</description>
+    <flowDefinition>Legal_Escalation_Raise</flowDefinition>
+    <label>Raise Legal Escalation</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>
