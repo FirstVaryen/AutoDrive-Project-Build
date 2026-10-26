@@ -4,5 +4,5 @@
     <active>true</active>
     <description>A fleet line's car or type cannot be changed after it is added (the stock check and reservation only run when a line is added). Remove the line and add the right type instead.</description>
     <errorConditionFormula>AND(NOT(ISNEW()), OR(AND(ISCHANGED(Vehicle__c), NOT(ISBLANK(PRIORVALUE(Vehicle__c)))), AND(ISCHANGED(Vehicle_Model__c), NOT(ISBLANK(PRIORVALUE(Vehicle_Model__c))))))</errorConditionFormula>
-    <errorMessage>A car on a fleet sale can't be swapped. Delete this line and add the type you want with Fleet Vehicles → New.</errorMessage>
+    <errorMessage>A car on a fleet opportunity can't be swapped. Delete this line and add the type you want with Fleet Vehicles → New.</errorMessage>
 </ValidationRule>

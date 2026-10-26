@@ -162,7 +162,7 @@
         <locationX>176</locationX>
         <locationY>600</locationY>
         <defaultConnector>
-            <targetReference>Set_Completed</targetReference>
+            <targetReference>Has_Instalments</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
@@ -181,7 +181,32 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Works out an instalment plan's Plan Status: With Legal (open or in-progress escalation), else Defaulted, else Late, else Completed (nothing unpaid), else Active once the Head of Finance has signed it off, or Awaiting Sign-off before that. Called when instalments, legal escalations or the sign-off change.</description>
+    <decisions>
+        <name>Has_Instalments</name>
+        <label>Has Instalments?</label>
+        <locationX>50</locationX>
+        <locationY>1000</locationY>
+        <defaultConnector>
+            <targetReference>Set_Active</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Instalments Yet</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Instalments</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Any_Instalment.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Completed</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Works out an instalment plan's Plan Status: With Legal (open or in-progress escalation), else Defaulted, else Late, else Completed (instalments exist and nothing is unpaid), else Active once the Head of Finance has signed it off, or Awaiting Sign-off before that. Called when instalments, legal escalations or the sign-off change.</description>
     <environments>Default</environments>
     <formulas>
         <name>f_ActiveStatus</name>
@@ -308,7 +333,7 @@
         <locationY>250</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Has_Open_Legal</targetReference>
+            <targetReference>Get_Any_Instalment</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -322,6 +347,27 @@
             <operator>NotEqualTo</operator>
             <value>
                 <stringValue>Paid</stringValue>
+            </value>
+        </filters>        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Instalment__c</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Any_Instalment</name>
+        <label>Get Any Instalment</label>
+        <locationX>176</locationX>
+        <locationY>270</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Has_Open_Legal</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Instalment_Plan__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>planId</elementReference>
             </value>
         </filters>        <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Instalment__c</object>

@@ -85,6 +85,9 @@
         <label>Any Instalment 90+ Days Late?</label>
         <locationX>176</locationX>
         <locationY>200</locationY>
+        <defaultConnector>
+            <targetReference>Not_Eligible</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>No Qualifying Instalment</defaultConnectorLabel>
         <rules>
             <name>Found_90_Day_Instalment</name>
@@ -107,6 +110,9 @@
         <label>Both Gates Confirmed?</label>
         <locationX>176</locationX>
         <locationY>450</locationY>
+        <defaultConnector>
+            <targetReference>Not_Confirmed</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>Not Both Confirmed</defaultConnectorLabel>
         <rules>
             <name>Both_True</name>
@@ -257,6 +263,38 @@
         </filters>
     </recordLookups>
 
+    <screens>
+        <name>Not_Eligible</name>
+        <label>Not Eligible</label>
+        <locationX>440</locationX>
+        <locationY>800</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Not_Eligible_Text</name>
+            <fieldText>&lt;p&gt;This plan can&apos;t go to Legal yet: no month has been unpaid for 90 days or more.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Not_Confirmed</name>
+        <label>Not Confirmed</label>
+        <locationX>700</locationX>
+        <locationY>800</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Not_Confirmed_Text</name>
+            <fieldText>&lt;p&gt;Nothing was raised. Both questions must be answered Yes: the guarantor has been contacted and cannot or will not pay, and Finance management has approved the escalation.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
     <screens>
         <name>Confirm_Gates_Screen</name>
         <allowBack>true</allowBack>

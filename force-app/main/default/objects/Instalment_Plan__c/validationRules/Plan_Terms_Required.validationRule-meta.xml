@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Plan_Terms_Required</fullName>
+    <active>true</active>
+    <description>A plan needs its months and down payment, so the monthly instalments can be created. Use Create Instalment Plan on the opportunity: it fills these in.</description>
+    <errorConditionFormula>AND(OR(ISNEW(), ISCHANGED(Term_in_Months__c), ISCHANGED(Down_Payment_Percent__c), ISCHANGED(Down_Payment_Amount__c)), OR(ISBLANK(Term_in_Months__c), ISBLANK(Down_Payment_Percent__c), ISBLANK(Down_Payment_Amount__c)))</errorConditionFormula>
+    <errorMessage>Enter AM Term in Months, AM Down Payment % and AM Down Payment Amount. Tip: use the Create Instalment Plan button on the opportunity, which fills them in for you.</errorMessage>
+</ValidationRule>
