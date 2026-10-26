@@ -15,8 +15,8 @@
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>Visit_Purpose__c</fieldNames>
-        <fieldNames>Booked_Visit_Date__c</fieldNames>
         <fieldNames>Vehicle_Model_Of_Interest__c</fieldNames>
+        <fieldNames>Stock_Alert__c</fieldNames>
         <fieldNames>Qualification_Answers__c</fieldNames>
         <fieldNames>Returning_or_High_profile__c</fieldNames>
         <info>&lt;p&gt;Ask why they are visiting and which car they like, and book their visit. Fill these in before you convert.&lt;/p&gt;</info>
@@ -25,9 +25,9 @@
     <pathAssistantSteps>
         <fieldNames>Visit_Purpose__c</fieldNames>
         <fieldNames>Vehicle_Model_Of_Interest__c</fieldNames>
+        <fieldNames>Stock_Alert__c</fieldNames>
         <fieldNames>Customer_Type__c</fieldNames>
         <fieldNames>Phone</fieldNames>
-        <fieldNames>Email</fieldNames>
         <info>&lt;p&gt;Buying: convert and create the sale. Just asking: tick &quot;Don&apos;t create an opportunity&quot;.&lt;/p&gt;</info>
         <picklistValueName>Converted</picklistValueName>
     </pathAssistantSteps>

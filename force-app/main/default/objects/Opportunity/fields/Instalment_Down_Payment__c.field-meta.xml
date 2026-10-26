@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Instalment_Down_Payment__c</fullName>
     <description>Instalment sales: down payment agreed with the customer (at least 30% of the sale price, US-29).</description>
-    <label>AM Down Payment Agreed</label>
+    <label>AM Down Payment Agreed (30%)</label>
     <precision>16</precision>
     <scale>2</scale>
     <type>Currency</type>

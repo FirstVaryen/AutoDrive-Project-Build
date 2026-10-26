@@ -13,5 +13,5 @@
         Instalment_Down_Payment__c &lt; 0.3 * Sale_Price__c
     )
 )</errorConditionFormula>
-    <errorMessage>Instalment sale: enter the Instalment Duration (1 to 12 months) and a Down Payment Agreed of at least 30% of the sale price before Payment Arranged.</errorMessage>
+    <errorMessage>Instalment opportunity: enter the Instalment Duration (1 to 12 months) and a Down Payment Agreed of at least 30% of the sale price before Payment Arranged.</errorMessage>
 </ValidationRule>

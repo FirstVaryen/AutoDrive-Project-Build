@@ -7,7 +7,18 @@
         <locationX>44</locationX>
         <locationY>503</locationY>
         <customErrorMessages>
-            <errorMessage>That car is reserved for another customer's sale. Pick an available car, or raise an Import Request if the model is out of stock.</errorMessage>
+            <errorMessage>That car is reserved for another customer. Pick an available car, or set Vehicle Wanted and click Request Import if the model is sold out.</errorMessage>
+            <fieldSelection>Vehicle__c</fieldSelection>
+            <isFieldError>true</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <customErrors>
+        <name>Car_Sold</name>
+        <label>Car Sold</label>
+        <locationX>440</locationX>
+        <locationY>431</locationY>
+        <customErrorMessages>
+            <errorMessage>That car has already been sold. Pick an available car, or set Vehicle Wanted and click Request Import if the model is sold out.</errorMessage>
             <fieldSelection>Vehicle__c</fieldSelection>
             <isFieldError>true</isFieldError>
         </customErrorMessages>
@@ -39,6 +50,28 @@
                 <targetReference>Car_Reserved_Elsewhere</targetReference>
             </connector>
             <label>Yes</label>
+        </rules>
+        <rules>
+            <name>Sold</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Car.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Sold</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Car.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Not for sale</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Car_Sold</targetReference>
+            </connector>
+            <label>Sold</label>
         </rules>
     </decisions>
     <description>A car reserved for another customer's sale cannot be put on this sale. A car on this sale's own fleet lines is fine.</description>

@@ -8,5 +8,5 @@
     Opportunity__r.Account.RecordType.DeveloperName &lt;&gt; &apos;Fleet_Corporate&apos;,
     NOT( ISPICKVAL( Current_Step__c, &apos;Invalidated&apos; ) )
 )</errorConditionFormula>
-    <errorMessage>Discounts are not permitted on instalment deals for individual customers. Only Fleet-Corporate accounts may discount an instalment sale, and only through the normal approval process.</errorMessage>
+    <errorMessage>Discounts are not permitted on instalment deals for individual customers. Only Fleet-Corporate accounts may discount an instalment opportunity, and only through the normal approval process.</errorMessage>
 </ValidationRule>

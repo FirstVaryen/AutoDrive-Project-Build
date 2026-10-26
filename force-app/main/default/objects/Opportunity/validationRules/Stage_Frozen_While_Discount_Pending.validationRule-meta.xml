@@ -8,5 +8,5 @@
     Pending_Discount_Requests__c &gt; 0
 )</errorConditionFormula>
     <errorDisplayField>StageName</errorDisplayField>
-    <errorMessage>This sale has a discount request waiting for approval, so its stage can&apos;t change yet. Check the Discount Requests list on the sale; once the request is approved or rejected you can move the stage.</errorMessage>
+    <errorMessage>This opportunity has a discount request waiting for approval, so its stage can&apos;t change yet. Check the Discount Requests list on the opportunity; once the request is approved or rejected you can move the stage.</errorMessage>
 </ValidationRule>

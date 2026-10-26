@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reserved_Stock__c</fullName>
+    <description>Count of cars of this model reserved for a customer's opportunity.</description>
+    <label>AM Reserved</label>
+    <summaryFilterItems>
+        <field>Vehicle__c.Status__c</field>
+        <operation>equals</operation>
+        <value>Reserved</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Vehicle__c.Model__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

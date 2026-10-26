@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Stock_Status__c</fullName>
+    <description>Running stock for this model: how many cars are available and how many are reserved. Sold out when none are left.</description>
+    <formula>IF(Available_Stock__c = 0,
+    IF(Reserved_Stock__c = 0, &quot;Sold out&quot;, &quot;Sold out · Reserved (&quot; &amp; TEXT(Reserved_Stock__c) &amp; &quot;)&quot;),
+    &quot;Available (&quot; &amp; TEXT(Available_Stock__c) &amp; &quot;)&quot; &amp; IF(Reserved_Stock__c = 0, &quot;&quot;, &quot; · Reserved (&quot; &amp; TEXT(Reserved_Stock__c) &amp; &quot;)&quot;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Cars available to sell now, and cars reserved for customers.</inlineHelpText>
+    <label>AM Stock</label>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -41,5 +41,5 @@
         ISCHANGED(Sale_Price__c)
     )
 )</errorConditionFormula>
-    <errorMessage>This sale is closed and can&apos;t be changed. Only a head of department can change a closed sale. If the customer wants something different, create a new sale for them from their account; their details are already saved.</errorMessage>
+    <errorMessage>This opportunity is closed and can&apos;t be changed. Only a head of department can change a closed opportunity. If the customer wants something different, create a new opportunity for them from their account; their details are already saved.</errorMessage>
 </ValidationRule>

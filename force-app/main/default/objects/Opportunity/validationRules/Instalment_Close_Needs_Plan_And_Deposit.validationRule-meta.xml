@@ -13,5 +13,5 @@
     )
 )</errorConditionFormula>
     <errorDisplayField>StageName</errorDisplayField>
-    <errorMessage>An instalment sale can only be closed once Finance has recorded the down payment and the Head of Finance has signed off the instalment plan. Keep it at Payment Arranged until both are done.</errorMessage>
+    <errorMessage>An instalment opportunity can only be closed once Finance has recorded the down payment and the Head of Finance has signed off the instalment plan. Keep it at Payment Arranged until both are done.</errorMessage>
 </ValidationRule>
