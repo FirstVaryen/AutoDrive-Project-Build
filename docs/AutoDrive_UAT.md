@@ -369,9 +369,9 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
-| 1 | Click the **AM Knowledge Articles** tab, list **All AM Knowledge Articles**, open **AD Test - Longest instalment term** | The article opens | | |
+| 1 | Click the **AM Knowledge Articles** tab, list **All AM Knowledge Articles**, open **Longest instalment term** | The article opens | | |
 | 2 | Click the pencil beside **AM Agreed Answer**, add a sentence, click **Save** | Saved, and the change shows at once | | |
-| 3 | Open **AD Test - Ownership documents after final payment**. Click the pencil beside **AM Status**, choose **Retired**, click **Save** | Saved. The article is kept but shows as Retired | | |
+| 3 | Open **Ownership documents after final payment**. Click the pencil beside **AM Status**, choose **Retired**, click **Save** | Saved. The article is kept but shows as Retired | | |
 | 4 | Click the **AM Knowledge Articles** tab, list **AutoDrive - Published Articles** | The retired article is no longer listed, so agents will not use it | | |
 
 ## 10. Management – Shedrack
