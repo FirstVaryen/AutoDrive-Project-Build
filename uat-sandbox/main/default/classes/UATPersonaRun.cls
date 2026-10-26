@@ -97,7 +97,7 @@ private class UATPersonaRun {
             check(!r.isSuccess(), 'SR-08/1 discount allowed on an instalment sale');
             Discount_Request__c d = new Discount_Request__c(Opportunity__c = s.Id, Discount_Rate__c = '5%', Reason__c = 'UAT run');
             insert d;
-            Database.SaveResult r2 = Database.update(new Opportunity(Id = s.Id, Payment_Mode__c = 'Instalment'), false);
+            Database.SaveResult r2 = Database.update(new Opportunity(Id = s.Id, Payment_Mode__c = 'Instalment', Instalment_Term_Months__c = 6), false);
             check(r2.isSuccess(), 'SR-08/2 could not switch sale to instalment: ' + err(r2));
             check([SELECT Current_Step__c FROM Discount_Request__c WHERE Id = :d.Id].Current_Step__c == 'Invalidated', 'SR-08/2 approved discount not Invalidated');
         }
