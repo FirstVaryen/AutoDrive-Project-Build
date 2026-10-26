@@ -9,6 +9,9 @@ Id leadRt = [SELECT Id FROM RecordType WHERE SobjectType = 'Lead' AND DeveloperN
 Id oppRt = [SELECT Id FROM RecordType WHERE SobjectType = 'Opportunity' AND DeveloperName = 'AutoDrive_Sale'].Id;
 Id individualRt = [SELECT Id FROM RecordType WHERE SobjectType = 'Account' AND DeveloperName = 'Individual'].Id;
 String convertedStatus = [SELECT MasterLabel FROM LeadStatus WHERE IsConverted = true LIMIT 1].MasterLabel;
+// test customers may repeat a phone number from an earlier round: allow the save past the duplicate warning
+Database.DMLOptions dupOk = new Database.DMLOptions();
+dupOk.DuplicateRuleHeader.allowSave = true;
 
 // 1. Stock: top every model up to 5 available cars
 List<Showroom__c> rooms = [SELECT Id, Capacity__c FROM Showroom__c LIMIT 1];
@@ -46,10 +49,10 @@ Map<String, List<Object>> leads = new Map<String, List<Object>>{
 };
 for (String n : leads.keySet()) {
     if ([SELECT COUNT() FROM Lead WHERE Name = :n AND IsConverted = false] > 0) continue;
-    insert new Lead(RecordTypeId = leadRt, FirstName = n.substringBefore(' '), LastName = n.substringAfter(' '), Company = n,
+    Database.insert(new Lead(RecordTypeId = leadRt, FirstName = n.substringBefore(' '), LastName = n.substringAfter(' '), Company = n,
         Phone = (String) leads.get(n)[0], Channel__c = 'Walk-in', Visit_Purpose__c = 'Purchase', Customer_Type__c = 'Individual',
         Qualification_Answers__c = 'Budget agreed; wants to buy this month', Vehicle_Model_Of_Interest__c = model.get((String) leads.get(n)[1]),
-        Status = 'Contacted', OwnerId = rep);
+        Status = 'Contacted', OwnerId = rep), dupOk);
 }
 
 // 3. Customers with an open full-payment opportunity at Offer, each with an available car
@@ -66,14 +69,14 @@ for (String n : opps.keySet()) {
     Lead l = new Lead(RecordTypeId = leadRt, FirstName = n.substringBefore(' '), LastName = n.substringAfter(' '), Company = n,
         Phone = opps.get(n)[0], Channel__c = 'Walk-in', Visit_Purpose__c = 'Purchase', Customer_Type__c = 'Individual',
         Vehicle_Model_Of_Interest__c = model.get(opps.get(n)[1]), Status = 'Contacted', OwnerId = rep);
-    insert l;
+    Database.insert(l, dupOk);
     Database.LeadConvert lc = new Database.LeadConvert();
     lc.setLeadId(l.Id); lc.setConvertedStatus(convertedStatus); lc.setOwnerId(rep); lc.setOpportunityName(oppName);
-    Database.LeadConvertResult r = Database.convertLead(lc);
+    Database.LeadConvertResult r = Database.convertLead(lc, dupOk);
     update new Account(Id = r.getAccountId(), RecordTypeId = individualRt);
     Vehicle__c car = free.get(opps.get(n)[1]).remove(0);
     update new Opportunity(Id = r.getOpportunityId(), RecordTypeId = oppRt, StageName = 'Offer', CloseDate = Date.today().addDays(30),
-        Payment_Mode__c = 'Full Payment', Vehicle__c = car.Id);
+        Payment_Mode__c = 'Full Payment', Vehicle_Model_Wanted__c = model.get(opps.get(n)[1]), Vehicle__c = car.Id);
 }
 
 // 4. Fleet customer the rep can open, with a contact and an open fleet opportunity
