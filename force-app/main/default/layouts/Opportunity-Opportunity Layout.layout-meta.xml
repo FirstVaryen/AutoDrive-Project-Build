@@ -236,6 +236,7 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>Plan_Status__c</fields>
         <fields>Down_Payment_Percent__c</fields>
         <fields>Term_in_Months__c</fields>
         <fields>Head_of_Finance_Sign_off__c</fields>
@@ -251,8 +252,8 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <fields>Vehicle_Model__c</fields>
         <fields>Status__c</fields>
+        <fields>Vehicle_Model__c</fields>
         <fields>Expected_Arrival__c</fields>
         <relatedList>Import_Request__c.Opportunity__c</relatedList>
     </relatedLists>
