@@ -57,11 +57,11 @@
     </platformActionList>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>Status__c</fields>
         <fields>Due_Date__c</fields>
         <fields>Amount_Due__c</fields>
         <fields>Amount_Paid__c</fields>
         <fields>Balance__c</fields>
-        <fields>Status__c</fields>
         <relatedList>Instalment__c.Instalment_Plan__c</relatedList>
         <sortField>Due_Date__c</sortField>
         <sortOrder>Asc</sortOrder>
