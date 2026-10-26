@@ -156,9 +156,8 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>AM Reconciliation Entry</label>
     <nameField>
-        <displayFormat>REC-{0000}</displayFormat>
         <label>Reconciliation Entry Name</label>
-        <type>AutoNumber</type>
+        <type>Text</type>
     </nameField>
     <pluralLabel>AM Reconciliation Entries</pluralLabel>
     <searchLayouts></searchLayouts>

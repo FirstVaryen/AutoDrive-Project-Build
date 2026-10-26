@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <description>Names the record with its reference number, the customer and a detail, so people can recognise it at a glance.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>f_Account</name>
+        <dataType>String</dataType>
+        <expression>BLANKVALUE({!$Record.Account__c}, {!$Record.Opportunity__r.AccountId})</expression>
+    </formulas>
+    <formulas>
+        <name>f_Name</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Record.Record_No__c} &amp; &quot; · &quot; &amp; BLANKVALUE({!$Record.Account__r.Name}, BLANKVALUE({!$Record.Opportunity__r.Account.Name}, &quot;No customer&quot;)) &amp; &quot; · &quot; &amp; {!$Record.Vehicle_Model__r.Name}, 80)</expression>
+    </formulas>
+    <interviewLabel>Import_Request_Set_Name {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Import Request - Set Name</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Set_Name</name>
+        <label>Set Name</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <inputAssignments>
+            <field>Account__c</field>
+            <value>
+                <elementReference>f_Account</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>f_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Set_Name</targetReference>
+        </connector>
+        <object>Import_Request__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

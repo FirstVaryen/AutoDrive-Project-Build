@@ -3,9 +3,12 @@
     <fullName>Closed_Sale_Vehicles_Locked</fullName>
     <active>true</active>
     <description>Vehicles can't be added to or changed on a closed fleet sale (matches Closed_Deal_Locked on the sale).</description>
-    <errorConditionFormula>OR(
-    ISPICKVAL(Opportunity__r.StageName, &quot;Closed Won&quot;),
-    ISPICKVAL(Opportunity__r.StageName, &quot;Closed Lost&quot;)
+    <errorConditionFormula>AND(
+    OR(
+        ISPICKVAL(Opportunity__r.StageName, &quot;Closed Won&quot;),
+        ISPICKVAL(Opportunity__r.StageName, &quot;Closed Lost&quot;)
+    ),
+    OR(ISNEW(), ISCHANGED(Vehicle__c), ISCHANGED(Vehicle_Model__c), ISCHANGED(Sale_Price__c), ISCHANGED(Quantity__c), ISCHANGED(Opportunity__c))
 )</errorConditionFormula>
-    <errorMessage>This sale is closed, so its vehicles can&apos;t be changed. Create a new sale for the customer if they want more vehicles.</errorMessage>
+    <errorMessage>This opportunity is closed, so its vehicles can&apos;t be changed. Create a new opportunity for the customer if they want more vehicles.</errorMessage>
 </ValidationRule>

@@ -16,9 +16,8 @@
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>AM Sale Vehicle</label>
     <nameField>
-        <displayFormat>SV-{0000}</displayFormat>
         <label>Sale Vehicle Number</label>
-        <type>AutoNumber</type>
+        <type>Text</type>
     </nameField>
     <pluralLabel>AM Sale Vehicles</pluralLabel>
     <searchLayouts></searchLayouts>

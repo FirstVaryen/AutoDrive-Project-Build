@@ -3,6 +3,11 @@
     <description>Sales Rep: sees the vehicle price, discount and instalment amounts on a sale, read only (Hillary, 20 Oct 2026: an offer needs a price). Payment data (amount paid, balance) stays Finance-only.</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Sale_Vehicle__c.Record_No__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Sale_Vehicle__c.Sale_Price__c</field>
         <readable>true</readable>
     </fieldPermissions>
