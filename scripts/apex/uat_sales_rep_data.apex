@@ -78,7 +78,7 @@ for (String n : opps.keySet()) {
 // 4. Fleet customer the rep can open, with a contact and an open fleet opportunity
 Account lagos = [SELECT Id FROM Account WHERE Name = 'Lagos Ride Hailing Ltd' LIMIT 1];
 update new Account(Id = lagos.Id, OwnerId = rep, Agreed_Discount_Rate__c = 5);
-if ([SELECT COUNT() FROM Contact WHERE AccountId = :lagos.Id] == 0) insert new Contact(AccountId = lagos.Id, FirstName = 'Femi', LastName = 'Johnson', Phone = '08031110020', Title = 'Fleet Manager', OwnerId = rep);
+if ([SELECT COUNT() FROM Contact WHERE AccountId = :lagos.Id] == 0) insert new Contact(AccountId = lagos.Id, FirstName = 'Kemi', LastName = 'Lawal', Phone = '08031110020', Title = 'Fleet Manager', OwnerId = rep);
 if ([SELECT COUNT() FROM Opportunity WHERE AccountId = :lagos.Id AND IsClosed = false] == 0)
     insert new Opportunity(RecordTypeId = oppRt, Name = 'Lagos Ride Hailing Ltd - Fleet', AccountId = lagos.Id, OwnerId = rep,
         StageName = 'Offer', CloseDate = Date.today().addDays(30), Payment_Mode__c = 'Full Payment');

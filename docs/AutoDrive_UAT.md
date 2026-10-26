@@ -125,7 +125,7 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
-| 1 | Click the **Accounts** tab and open **Lagos Ride Hailing Ltd** | The contact Femi Johnson, AM Agreed Discount Rate **5%** and its opportunities on one page | | |
+| 1 | Click the **Accounts** tab and open **Lagos Ride Hailing Ltd** | AM Agreed Discount Rate **5%** beside Phone; on the right, Contacts shows **Kemi Lawal** and Opportunities shows Lagos Ride Hailing Ltd - Fleet | | |
 | 2 | Open **Lagos Ride Hailing Ltd - Fleet** (O-7). Click **Add Fleet Vehicles**. Choose Model **Toyota Hilux 2026 White**, How many **2**, click **Next** | 2 cars are added under Fleet Vehicles, each Reserved. The fleet total and count update | | |
 | 3 | Click **Add Fleet Vehicles** again. Choose **Toyota Hilux 2026 White**, How many **10**, click **Next** | Only the cars in stock are added; a message says how many could not be added | | |
 | 4 | Click **Request Discount**. Leave Discount Rate empty, AM Reason **Fleet agreement**, click **Save** | The request uses the agreed rate of **5%** on the fleet total | | |

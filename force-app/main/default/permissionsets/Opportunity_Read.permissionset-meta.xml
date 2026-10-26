@@ -13,6 +13,11 @@
     </objectPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.AccountId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.Vehicle_Model_Wanted__c</field>
         <readable>true</readable>
     </fieldPermissions>
