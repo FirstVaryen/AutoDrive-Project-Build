@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Record_No__c</fullName>
+    <description>Unique record number. It starts the record name, so two records never share a name.</description>
+    <displayFormat>REC-{0000}</displayFormat>
+    <externalId>false</externalId>
+    <label>Reference</label>
+    <startingNumber>7</startingNumber>
+    <trackHistory>false</trackHistory>
+    <type>AutoNumber</type>
+</CustomField>

@@ -12,6 +12,11 @@
         <object>Legal_Escalation__c</object>
     </objectPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Legal_Escalation__c.Record_No__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Legal_Escalation__c.Account__c</field>
         <readable>true</readable>

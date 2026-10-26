@@ -3,6 +3,11 @@
     <description>Atomic permission set: Read on Sale Vehicle (fleet sale vehicles), plus the required read on its parent sale.</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Sale_Vehicle__c.Record_No__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Sale_Vehicle__c.Type_Count__c</field>
         <readable>true</readable>
     </fieldPermissions>
