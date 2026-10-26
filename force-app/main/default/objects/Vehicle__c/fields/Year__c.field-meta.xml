@@ -3,7 +3,7 @@
     <fullName>Year__c</fullName>
     <description>Model year of the vehicle</description>
     <externalId>false</externalId>
-    <label>AM Year</label>
+    <label>AM Model Year</label>
     <precision>4</precision>
     <required>false</required>
     <scale>0</scale>

@@ -14,6 +14,7 @@ String convertedStatus = [SELECT MasterLabel FROM LeadStatus WHERE IsConverted =
 List<Showroom__c> rooms = [SELECT Id, Capacity__c FROM Showroom__c LIMIT 1];
 if (!rooms.isEmpty() && rooms[0].Capacity__c != null && rooms[0].Capacity__c < 200) update new Showroom__c(Id = rooms[0].Id, Capacity__c = 200);
 List<Vehicle__c> newCars = new List<Vehicle__c>();
+Integer nextNo = 5001 + [SELECT COUNT() FROM Vehicle__c WHERE Chassis_Number__c LIKE 'ADTEST5%'];
 for (Vehicle_Model__c m : [SELECT Id, Name, Available_Stock__c FROM Vehicle_Model__c]) {
     if (soldOut.contains(m.Name)) continue;
     Integer have = m.Available_Stock__c == null ? 0 : m.Available_Stock__c.intValue();
@@ -21,7 +22,7 @@ for (Vehicle_Model__c m : [SELECT Id, Name, Available_Stock__c FROM Vehicle_Mode
     Integer year = 2026;
     for (String w : words) if (w.isNumeric() && w.length() == 4) year = Integer.valueOf(w);
     for (Integer i = have + 1; i <= 5; i++) {
-        String chassis = 'UAT' + String.valueOf(m.Id).right(5).toUpperCase() + i;
+        String chassis = 'ADTEST' + nextNo++;
         newCars.add(new Vehicle__c(Name = m.Name + ' · ' + chassis, Model__c = m.Id, Status__c = 'Available', Year__c = year,
             Colour__c = words[words.size() - 1], Chassis_Number__c = chassis));
     }
