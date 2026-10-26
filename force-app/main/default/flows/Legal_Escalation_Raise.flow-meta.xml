@@ -2,6 +2,7 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>60.0</apiVersion>
     <environments>Default</environments>
+    <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <interviewLabel>AM Legal Escalation {!$Flow.CurrentDateTime}</interviewLabel>
     <label>AM Legal Escalation - Raise (3-Gate)</label>
     <processType>Flow</processType>

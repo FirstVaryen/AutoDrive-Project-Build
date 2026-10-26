@@ -14,12 +14,13 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>ControlledByParent</externalSharingModel>
-    <label>AM Sale Vehicle</label>
+    <label>AM Fleet Vehicle</label>
     <nameField>
-        <label>Sale Vehicle Number</label>
-        <type>Text</type>
+        <displayFormat>SV-{0000}</displayFormat>
+        <label>Fleet Vehicle Number</label>
+        <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>AM Sale Vehicles</pluralLabel>
+    <pluralLabel>AM Fleet Vehicles</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

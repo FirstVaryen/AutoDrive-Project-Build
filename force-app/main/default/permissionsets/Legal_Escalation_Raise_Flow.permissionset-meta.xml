@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Lets the Head of Finance use the Raise Legal Escalation button on an instalment plan.</description>
+    <flowAccesses>
+        <enabled>true</enabled>
+        <flow>Legal_Escalation_Raise</flow>
+    </flowAccesses>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>AD Raise Legal Escalation</label>
+</PermissionSet>

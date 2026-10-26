@@ -79,7 +79,7 @@
         <rowHeight>36</rowHeight>
     </dashboardGridLayout>
     <dashboardType>SpecifiedUser</dashboardType>
-    <description>AutoDrive Head of Customer Service dashboard. Runs as the Head of Customer Service test user, so it shows what that role can see. Per-user (dynamic) figures are a later item.</description>
+    <description>Key figures for the Head of Customer Service. Click Refresh for the latest numbers.</description>
     <isGridLayout>true</isGridLayout>
     <runningUser>test.headofcs@autodrive.group3sb.test</runningUser>
     <textColor>#000000</textColor>
