@@ -4,5 +4,5 @@
     <active>true</active>
     <description>Several vehicles on one sale is for fleet customers only; individual sales use the sale's single Vehicle field.</description>
     <errorConditionFormula>Opportunity__r.Account.RecordType.DeveloperName &lt;&gt; &apos;Fleet_Corporate&apos;</errorConditionFormula>
-    <errorMessage>Only fleet (company) sales can have several vehicles. For an individual customer, choose the vehicle in the sale&apos;s AM Vehicle field.</errorMessage>
+    <errorMessage>Only fleet (company) opportunities can have several vehicles. For an individual customer, choose the vehicle in AM Vehicle Wanted on the opportunity.</errorMessage>
 </ValidationRule>

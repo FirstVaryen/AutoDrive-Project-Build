@@ -15,7 +15,7 @@
     </fieldOverrides>
     <fieldOverrides>
         <field>Down_Payment_Percent__c</field>
-        <formula>IF(Opportunity.Sale_Price__c &gt; 0, Opportunity.Instalment_Down_Payment__c / Opportunity.Sale_Price__c, 0)</formula>
+        <formula>IF(Opportunity.Sale_Price__c &gt; 0, Opportunity.Instalment_Down_Payment__c / Opportunity.Sale_Price__c * 100, 0)</formula>
     </fieldOverrides>
     <label>Create Instalment Plan</label>
     <optionsCreateFeedItem>false</optionsCreateFeedItem>

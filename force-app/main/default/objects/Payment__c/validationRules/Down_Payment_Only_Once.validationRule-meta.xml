@@ -4,5 +4,5 @@
     <active>true</active>
     <description>A sale has one down payment: a second Down Payment is refused.</description>
     <errorConditionFormula>AND(ISNEW(), ISPICKVAL(Type__c, &quot;Down Payment&quot;), Opportunity__r.Down_Payment_Received__c &gt; 0)</errorConditionFormula>
-    <errorMessage>The down payment for this sale has already been recorded. Record further money as an instalment payment.</errorMessage>
+    <errorMessage>The down payment for this opportunity has already been recorded. Record further money as an instalment payment.</errorMessage>
 </ValidationRule>
