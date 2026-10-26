@@ -149,10 +149,11 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
 | 1 | Click the **Home** tab. In the **Items to Approve** box, click the request for **Kelechi Obi** (7.5%) | The request opens and shows the customer, the vehicle with its price, the discount value and the price after discount | | |
-| 2 | Click **Approve** at the top right. In Comments type **Approved**, click **Approve** | The request moves on to Finance: AM Current Step shows **With Finance** | | |
-| 3 | Click the **Home** tab. In **Items to Approve**, click the request for **Chidi Eze** (10%) | The request opens with its details | | |
-| 4 | Click **Reject** at the top right. In Comments type **10% is above what we can offer on this model**, click **Reject** | AM Current Step shows **Rejected** | | |
-| 5 | Click the **Opportunities** tab, open **Chidi Eze - Toyota Hilux 2026 Grey** | AM Approval Status shows a red marker and **10.00% discount rejected** | | |
+| 2 | Click **Approve** at the top right. In Comments type **Approved**, click **Approve** | A green message confirms the approval. (If the page then says "Another user recalled or responded to this request", ignore it: it only means this approval is already done) | | |
+| 3 | Click the **AM Discount Requests** tab, choose the list **All**, open the request for **Kelechi Obi** | AM Current Step shows **With Finance** | | |
+| 4 | Click the **Home** tab. In **Items to Approve**, click the request for **Chidi Eze** (10%) | The request opens with its details | | |
+| 5 | Click **Reject** at the top right. In Comments type **10% is above what we can offer on this model**, click **Reject** | AM Current Step shows **Rejected** | | |
+| 6 | Click the **Opportunities** tab, open **Chidi Eze - Toyota Hilux 2026 Grey** | AM Approval Status shows a red marker and **10.00% discount rejected** | | |
 
 #### SM-3: High-profile clients come to me
 *After:* SR-1 step 4. *As the showroom manager, I want returning and high-profile clients sent to me, so that I look after them myself.*
