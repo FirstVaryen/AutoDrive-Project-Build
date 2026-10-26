@@ -2,12 +2,10 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All</fullName>
     <columns>NAME</columns>
+    <columns>Availability__c</columns>
     <columns>Model__c</columns>
-    <columns>Showroom__c</columns>
-    <columns>Status__c</columns>
     <columns>Colour__c</columns>
     <columns>Year__c</columns>
-    <columns>Model_In_Stock__c</columns>
     <filterScope>Everything</filterScope>
     <label>All AM Vehicles</label>
 </ListView>
