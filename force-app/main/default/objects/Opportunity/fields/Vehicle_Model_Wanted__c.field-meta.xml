@@ -3,8 +3,8 @@
     <fullName>Vehicle_Model_Wanted__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The model the customer asked for, copied from the lead when it is converted.</description>
-    <inlineHelpText>The model the customer wants. Copied from the lead.</inlineHelpText>
-    <label>Vehicle Wanted</label>
+    <inlineHelpText>Pick the vehicle the customer wants. A free car of this type is put on the opportunity for you.</inlineHelpText>
+    <label>AM Vehicle Wanted</label>
     <referenceTo>Vehicle_Model__c</referenceTo>
     <relationshipLabel>Sales Wanting This Model</relationshipLabel>
     <relationshipName>Sales_Wanting_Model</relationshipName>

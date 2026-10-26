@@ -173,6 +173,16 @@
                         <name>uiBehavior</name>
                         <value>none</value>
                     </fieldInstanceProperties>
+                    <fieldItem>Record.Vehicle_Model_Wanted__c</fieldItem>
+                    <identifier>RecordVehicleModelWantedcField</identifier>
+                </fieldInstance>
+            </itemInstances>
+            <itemInstances>
+                <fieldInstance>
+                    <fieldInstanceProperties>
+                        <name>uiBehavior</name>
+                        <value>readonly</value>
+                    </fieldInstanceProperties>
                     <fieldItem>Record.Vehicle__c</fieldItem>
                     <identifier>RecordVehiclecField</identifier>
                 </fieldInstance>
@@ -185,16 +195,6 @@
                     </fieldInstanceProperties>
                     <fieldItem>Record.Stock_Alert__c</fieldItem>
                     <identifier>RecordStockAlertcField</identifier>
-                </fieldInstance>
-            </itemInstances>
-            <itemInstances>
-                <fieldInstance>
-                    <fieldInstanceProperties>
-                        <name>uiBehavior</name>
-                        <value>none</value>
-                    </fieldInstanceProperties>
-                    <fieldItem>Record.Vehicle_Model_Wanted__c</fieldItem>
-                    <identifier>RecordVehicleModelWantedcField</identifier>
                 </fieldInstance>
             </itemInstances>
             <itemInstances>

@@ -5,18 +5,18 @@
     <fieldName>StageName</fieldName>
     <masterLabel>AutoDrive Sale Path</masterLabel>
     <pathAssistantSteps>
-        <fieldNames>Vehicle__c</fieldNames>
-        <fieldNames>Stock_Alert__c</fieldNames>
         <fieldNames>Vehicle_Model_Wanted__c</fieldNames>
+        <fieldNames>Stock_Alert__c</fieldNames>
+        <fieldNames>Vehicle__c</fieldNames>
         <fieldNames>Viewing_Date__c</fieldNames>
         <fieldNames>AccountId</fieldNames>
-        <info>&lt;p&gt;Pick the car the customer is looking at and the viewing date.&lt;/p&gt;</info>
+        <info>&lt;p&gt;Pick the vehicle the customer wants in AM Vehicle Wanted; a free car of that type is put on the opportunity for you. Add the viewing date.&lt;/p&gt;</info>
         <picklistValueName>Viewing / Test Drive</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>List_Price__c</fieldNames>
         <fieldNames>Payment_Mode__c</fieldNames>
-        <fieldNames>Vehicle__c</fieldNames>
+        <fieldNames>Vehicle_Model_Wanted__c</fieldNames>
         <fieldNames>Stock_Alert__c</fieldNames>
         <fieldNames>Expected_Collection_Date__c</fieldNames>
         <info>&lt;p&gt;Show the list price and agree how they will pay. A discount, if approved, shows the new sale price. For instalments, set the months (up to 12); the 30% down payment fills in.&lt;/p&gt;</info>

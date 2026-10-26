@@ -48,7 +48,7 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | O-5 | Opportunity **Chidi Eze - Toyota Hilux 2026 Grey** (full payment, Offer) | SR-4, SR-5 |
 | O-6 | Opportunity **Zainab Bello - Honda CR-V** (instalment, deposit not paid) | SR-6 |
 | O-7 | Opportunity **Lagos Ride Hailing Ltd - Fleet** (fleet customer, agreed rate 5%) | SR-7 |
-| V-1 | Every vehicle model has 5 cars available, except **Toyota Corolla 2026 White** and **Toyota Camry 2026 Blue**, which are sold out | SR-3, SR-4 |
+| V-1 | Every vehicle type has 5 cars available, except **Toyota Corolla 2026 White** and **Toyota Camry 2026 Blue**, which are sold out | SR-3, SR-4 |
 
 #### SR-1: Record a walk-in customer
 *As a sales rep, I want every walk-in recorded the same way, so that no customer is lost.*
@@ -79,25 +79,25 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | 1 | Click **Leads**, choose **AutoDrive - My Leads**, open **Tunde Fashola** (L-2) | Under Vehicle of Interest a red flag shows **Sold out - an import will be needed** | | |
 | 2 | Open **Adaeze Nwosu** (L-1). Click the pencil beside Visit Purpose, choose **--None--**, click **Save** | Refused: Visit Purpose must be filled in | | |
 | 3 | Click **Cancel**. Click **Convert** at the top right, leave the details as they are, click **Convert** | An opportunity is created for Adaeze Nwosu | | |
-| 4 | Open the new opportunity | AM Vehicle Wanted shows **Kia Sportage 2026 White**, with a green flag **In stock: Available (5) - pick a car in AM Vehicle** | | |
-| 5 | Open **Tunde Fashola** (L-2). Click **Convert**, then **Convert**. Open the new opportunity | AM Vehicle Wanted shows **Toyota Corolla 2026 White**, with a red flag **Sold out - click Request Import** | | |
+| 4 | Open the new opportunity | AM Vehicle Wanted shows **Kia Sportage 2026 White**, with a green flag **Car assigned · Stock: Available (5)**. AM Assigned Car shows a Kia Sportage 2026 White car held for this customer | | |
+| 5 | Open **Tunde Fashola** (L-2). Click **Convert**, then **Convert**. Open the new opportunity | AM Vehicle Wanted shows **Toyota Corolla 2026 White**, with a red flag **Sold out - click Request Import**. AM Assigned Car is empty | | |
 | 6 | On Tunde Fashola's opportunity click **Request Import** at the top right | A window opens with AM Vehicle Model **Toyota Corolla 2026 White**, Quantity **1** and Reason for Request **Out of stock** already filled in | | |
 | 7 | Click **Save** | The message **Import requested. You can follow it under Import Requests on this opportunity.** The request shows under **Import Requests** on the right, status Requested | | |
 | 8 | Click **Request Import** again, clear **Reason for Request**, click **Save** | Refused: **Choose the type of car, the reason for the request (Out of stock or Client request) and how many.** | | |
 
-#### SR-4: Pick a car and close an opportunity
-*As a sales rep, I want to see what is available while I pick a car, so that I never sell a car twice.*
+#### SR-4: Choose a vehicle and close an opportunity
+*As a sales rep, I want to see what is in stock while I choose a vehicle, so that I never sell a car twice.*
 
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
-| 1 | Click **Opportunities**, choose the list **All Opportunities**, open **Chidi Eze - Toyota Hilux 2026 Grey** (O-5) | Under AM Vehicle a green flag shows **Car available · Model stock:** with the number available and reserved | | |
-| 2 | Click the pencil beside **AM Vehicle**, clear it and type **Hilux** | Only available cars are offered. Under each car: **Available · Model: Available (n)**, and **Reserved (n)** where any are reserved | | |
-| 3 | Pick any **Toyota Hilux 2026 Red** car and click **Save** | Saved. The green flag now shows the Hilux Red stock | | |
-| 4 | Click the pencil beside **AM Vehicle** again and type **Corolla 2026 White** | No car is offered: the model is sold out | | |
-| 5 | Click **Cancel**. Open **Musa Ibrahim - Toyota Camry 2026 White** (O-3). On the stage bar click **Closed**, then **Select Closed Stage**, choose **Closed Won**, click **Save** | The opportunity is Closed Won | | |
-| 6 | Click the car in **AM Vehicle** | Status **Sold** | | |
+| 1 | Click **Opportunities**, choose the list **All Opportunities**, open **Chidi Eze - Toyota Hilux 2026 Grey** (O-5) | AM Vehicle Wanted shows **Toyota Hilux 2026 Grey**. Under it a green flag shows **Car assigned · Stock:** with the number available and reserved. AM Assigned Car shows the car held for this customer | | |
+| 2 | Click the pencil beside **AM Vehicle Wanted**, clear it and type **Hilux** | Each Hilux type is listed once, with its stock under it, e.g. **Available (5)** or **Available (4) · Reserved (1)** | | |
+| 3 | Pick **Toyota Hilux 2026 Red** and click **Save** | Saved. AM Assigned Car changes to a Hilux Red car and the green flag shows the Hilux Red stock | | |
+| 4 | Click the pencil beside **AM Vehicle Wanted** again, clear it and type **Corolla 2026 White**. Look at the result, then click **Cancel** | Toyota Corolla 2026 White is listed once with **Sold out** under it | | |
+| 5 | Open **Musa Ibrahim - Toyota Camry 2026 White** (O-3). On the stage bar click **Closed**, then **Select Closed Stage**, choose **Closed Won**, click **Save** | The opportunity is Closed Won | | |
+| 6 | Click the car in **AM Assigned Car** | Status **Sold** | | |
 | 7 | Go back. Click **Opportunities**, choose the list **AutoDrive - Closed Won**, open **Musa Ibrahim - Toyota Camry 2026 White**. Click any pencil, change the value and click **Save** | Refused: **This opportunity is closed and can't be changed. Only a head of department can change a closed opportunity.** | | |
-| 8 | Click the **AM Vehicles** tab, choose the list **All** | Every car shows Available, Reserved or Sold. There is no pencil to change a car | | |
+| 8 | Click the **AM Vehicle Models** tab, choose the list **All AM Vehicle Models** | Each vehicle type is listed once, with AM Stock, AM Available Stock, AM Reserved, AM Sold and AM List Price. Toyota Camry 2026 White now shows one more sold | | |
 
 #### SR-5: Request a discount
 *As a sales rep, I want to request a discount and see where it is, so that I can update the customer.*
