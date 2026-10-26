@@ -83,6 +83,7 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | 5 | Click **Leads**, open **Tunde Fashola** (L-2). Click **Convert**, then **Convert**. Open the new opportunity **Tunde Fashola - Toyota Corolla 2026 White** | AM Vehicle Wanted shows **Toyota Corolla 2026 White**, with a red flag **Sold out**. AM Assigned Car is empty, because there is no car to hold | | |
 | 6 | On Tunde Fashola's opportunity, click **Request Import** at the top right of the page (beside **Request Discount**) | A window opens with AM Vehicle Model **Toyota Corolla 2026 White**, Quantity **1** and Reason for Request **Out of stock** already filled in | | |
 | 7 | Click **Save** | The message **Import requested. You can follow it under Import Requests on this opportunity.** The request shows under **Import Requests** on the right-hand side, AM Status **Requested** | | |
+| 8 | Click **Request Import** again, clear **Reason for Request**, click **Save** | Refused: **Choose the type of car, the reason for the request (Out of stock or Client request) and how many.** Click **Cancel** | | |
 
 #### SR-4: Choose a vehicle and close an opportunity
 *As a sales rep, I want to see what is in stock while I choose a vehicle, so that I never sell a car twice.*
