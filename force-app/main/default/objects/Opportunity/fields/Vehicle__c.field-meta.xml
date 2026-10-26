@@ -3,7 +3,7 @@
     <fullName>Vehicle__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Vehicle being sold on this Opportunity</description>
-    <label>AM Vehicle</label>
+    <label>AM Assigned Car</label>
     <lookupFilter>
         <active>true</active>
         <filterItems>

@@ -4,12 +4,12 @@
     <description>Red marker on an open sale: its car was sold to someone else, or the wanted model has no cars available and no car is on the sale yet.</description>
     <formula>IF(IsClosed, &quot;&quot;,
 IF(NOT(ISBLANK(Vehicle__c)),
-    IF(ISPICKVAL(Vehicle__r.Status__c, &quot;Sold&quot;), IMAGE(&quot;/img/samples/flag_red.gif&quot;, &quot;&quot;) &amp; &quot; This car has been sold to another customer - pick another car&quot;,
-    IF(ISPICKVAL(Vehicle__r.Status__c, &quot;Reserved&quot;), IMAGE(&quot;/img/samples/flag_green.gif&quot;, &quot;&quot;) &amp; &quot; Car reserved · Model stock: &quot; &amp; Vehicle__r.Model__r.Stock_Status__c,
-    IMAGE(&quot;/img/samples/flag_green.gif&quot;, &quot;&quot;) &amp; &quot; Car available · Model stock: &quot; &amp; Vehicle__r.Model__r.Stock_Status__c)),
+    IF(ISPICKVAL(Vehicle__r.Status__c, &quot;Sold&quot;), IMAGE(&quot;/img/samples/flag_red.gif&quot;, &quot;&quot;) &amp; &quot; This car has been sold to another customer&quot;,
+    IF(ISPICKVAL(Vehicle__r.Status__c, &quot;Reserved&quot;), IMAGE(&quot;/img/samples/flag_green.gif&quot;, &quot;&quot;) &amp; &quot; Car reserved for this customer · Stock: &quot; &amp; Vehicle__r.Model__r.Stock_Status__c,
+    IMAGE(&quot;/img/samples/flag_green.gif&quot;, &quot;&quot;) &amp; &quot; Car assigned · Stock: &quot; &amp; Vehicle__r.Model__r.Stock_Status__c)),
 IF(NOT(ISBLANK(Vehicle_Model_Wanted__c)),
     IF(Vehicle_Model_Wanted__r.Available_Stock__c = 0, IMAGE(&quot;/img/samples/flag_red.gif&quot;, &quot;&quot;) &amp; &quot; Sold out - click Request Import&quot;,
-    IMAGE(&quot;/img/samples/flag_green.gif&quot;, &quot;&quot;) &amp; &quot; In stock: &quot; &amp; Vehicle_Model_Wanted__r.Stock_Status__c &amp; &quot; - pick a car in AM Vehicle&quot;),
+    IMAGE(&quot;/img/samples/flag_green.gif&quot;, &quot;&quot;) &amp; &quot; In stock: &quot; &amp; Vehicle_Model_Wanted__r.Stock_Status__c &amp; &quot;&quot;),
 &quot;&quot;)))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Whether the vehicle can be sold now. Green: available or reserved. Red: sold out or sold to someone else.</inlineHelpText>
