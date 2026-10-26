@@ -6,6 +6,10 @@
         <editHeading>true</editHeading>
         <label>Information</label>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Name</field>
+            </layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Account__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Vehicle_Model__c</field></layoutItems>
             <layoutItems><behavior>Required</behavior><field>Quantity__c</field></layoutItems>
