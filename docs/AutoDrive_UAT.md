@@ -15,9 +15,9 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 
 | Tester | Roles they test | Pages |
 |---|---|---|
-| Henry | Sales Rep, Showroom Manager | 2 – 5 |
-| Obed | Finance Team, Head of Finance, Legal Team | 6 – 9 |
-| Shedrach | Customer Service Agent, Head of Customer Service, Management | 10 – 12 |
+| Henry | Sales Rep, Showroom Manager | 2 – 6 |
+| Obed | Finance Team, Head of Finance, Legal Team | 7 – 10 |
+| Shedrach | Customer Service Agent, Head of Customer Service, Management | 11 – 13 |
 
 | Role | Test user |
 |---|---|
@@ -45,7 +45,7 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | O-2 | Opportunity **Kelechi Obi - Honda CR-V 2026 White** (full payment, Offer) | SR-5 |
 | O-3 | Opportunity **Musa Ibrahim - Toyota Camry 2026 White** (full payment, Offer) | SR-4 |
 | O-4 | Opportunity **Ronke Alabi - Kia Sportage 2026 White** (full payment, Offer) | SR-6 |
-| O-5 | Opportunity **Chidi Eze - Toyota Hilux 2026 Grey** (full payment, Offer) | SR-4 |
+| O-5 | Opportunity **Chidi Eze - Toyota Hilux 2026 Grey** (full payment, Offer) | SR-4, SR-5 |
 | O-6 | Opportunity **Zainab Bello - Honda CR-V** (instalment, deposit not paid) | SR-6 |
 | O-7 | Opportunity **Lagos Ride Hailing Ltd - Fleet** (fleet customer, agreed rate 5%) | SR-7 |
 | V-1 | Every vehicle model has 5 cars available, except **Toyota Corolla 2026 White** and **Toyota Camry 2026 Blue**, which are sold out | SR-3, SR-4 |
@@ -108,7 +108,8 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | 2 | Look at **Discount Requests** on the right | The request shows the list price, the discount value and the price after discount | | |
 | 3 | Open **Kelechi Obi - Honda CR-V 2026 White** (O-2). Click **Request Discount**. Choose **7.5%**, AM Reason **Price match**, click **Save** | AM Approval Status shows an orange marker and **7.50% discount waiting: With Showroom Manager** | | |
 | 4 | Under **Discount Requests** on the right, click the request number | The request shows the customer, the vehicle with its price, the discount value and the price after discount | | |
-| 5 | Go back to **Bisi Adewale - Toyota Hilux 2026 Red**. Click the pencil beside AM Payment Mode, choose **Instalment**, set AM Instalment Duration (Months) to **6**, click **Save** | The 5% discount shows **Invalidated**. The price returns to the full list price and AM Down Payment Agreed (30%) is 30% of the full price | | |
+| 5 | Open **Chidi Eze - Toyota Hilux 2026 Grey** (O-5). Click **Request Discount**. Choose **10%**, AM Reason **Customer asked for more**, click **Save** | AM Approval Status shows an orange marker and **10.00% discount waiting: With Showroom Manager** | | |
+| 6 | Go back to **Bisi Adewale - Toyota Hilux 2026 Red**. Click the pencil beside AM Payment Mode, choose **Instalment**, set AM Instalment Duration (Months) to **6**, click **Save** | The 5% discount shows **Invalidated**. The price returns to the full list price and AM Down Payment Agreed (30%) is 30% of the full price | | |
 
 #### SR-6: Instalment opportunities
 *As a sales rep, I want instalment terms worked out for me, so that I follow the payment rules.*
@@ -131,42 +132,50 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 
 ## 4. Showroom Manager – Henry
 
+**Before you start:** the Sales Rep tests SR-1, SR-3 and SR-5 must be done first. They create the high-profile client, the import request and the discount requests used here.
+
 #### SM-1: See where deals are
 *As the showroom manager, I want to see open prospects and opportunities, so that I know where deals are stuck.*
 
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
-| 1 | Leads → AutoDrive - Open Prospects | Each lead shows channel, owner and status | | |
-| 2 | Leads → AutoDrive - Prospects With No Rep | Leads without a rep, if any | | |
-| 3 | Click **Opportunities**, choose **All Opportunities** | Each opportunity shows owner and stage | | |
+| 1 | Click the **Leads** tab. Click the list name under Leads and choose **AutoDrive - Open Prospects** | Each open lead shows its AM Channel, Lead Owner and Lead Status | | |
+| 2 | Click the list name again and choose **AutoDrive - Prospects With No Rep** | Any lead without a sales rep is listed (the list may be empty) | | |
+| 3 | Click the **Opportunities** tab. Click the list name and choose **All Opportunities** | Each opportunity shows its owner and stage | | |
 
 #### SM-2: Approve or reject a discount
 *After:* SR-5. *As the showroom manager, I want to approve discounts above 5%, so that pricing stays under control.*
 
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
-| 1 | Home → Items to Approve, open the 7.5% request | Vehicles, prices, total and price after discount are shown | | |
-| 2 | Approve it | It moves on to Finance | | |
-| 3 | Ask the Sales Rep to request 10% on **Chidi Eze - Toyota Hilux 2026 Grey**, then Reject it with a reason | Status Rejected | | |
+| 1 | Click the **Home** tab. In the **Items to Approve** box, click the request for **Kelechi Obi** (7.5%) | The request opens and shows the customer, the vehicle with its price, the discount value and the price after discount | | |
+| 2 | Click **Approve** at the top right. In Comments type **Approved**, click **Approve** | The request moves on to Finance: AM Current Step shows **With Finance** | | |
+| 3 | Click the **Home** tab. In **Items to Approve**, click the request for **Chidi Eze** (10%) | The request opens with its details | | |
+| 4 | Click **Reject** at the top right. In Comments type **10% is above what we can offer on this model**, click **Reject** | AM Current Step shows **Rejected** | | |
+| 5 | Click the **Opportunities** tab, open **Chidi Eze - Toyota Hilux 2026 Grey** | AM Approval Status shows a red marker and **10.00% discount rejected** | | |
 
-#### SM-3: High-profile clients
-*After:* SR-1 step 4. *As the showroom manager, I want returning and high-profile clients sent to me, so that I look after them.*
-
-| Step | What to do | Expected result | Actual result | Pass/Fail |
-|---|---|---|---|---|
-| 1 | Check the bell | A message about the new client | | |
-| 2 | Leads → AutoDrive - High-profile Clients | The client is listed and owned by you | | |
-| 3 | Change the owner to a sales rep | Saved | | |
-
-#### SM-4: Stock and imports
-*As the showroom manager, I want low-stock alerts and to see import requests, so that I can reorder in time.*
+#### SM-3: High-profile clients come to me
+*After:* SR-1 step 4. *As the showroom manager, I want returning and high-profile clients sent to me, so that I look after them myself.*
 
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
-| 1 | Open a Vehicle Model. Set Low Stock Threshold above its Available Stock, save | Saved | | |
-| 2 | Vehicle Models → AutoDrive - Low Stock | The model is listed | | |
-| 3 | The next morning, check the bell | One low-stock message for that model | | |
-| 4 | Open AM Import Requests | The sales rep's request with quantity, reason and status | | |
+| 1 | Click the **bell** icon at the top right corner of the screen, next to your profile picture | A message: **New returning or high-profile client for you**, about Yemi Alade | | |
+| 2 | Click the **Leads** tab. Click the list name under Leads and choose **AutoDrive - High-profile Clients** | Yemi Alade is listed and the Lead Owner is you | | |
+| 3 | Click **Yemi Alade** to open the lead. Beside **Lead Owner**, click the small person icon with arrows (Change Owner) | A **Change Lead Owner** window opens | | |
+| 4 | In the search box type **TestSales**, click **TestSales Rep**, then click **Change Owner** (or **Submit**) | The window closes and the Lead Owner is now TestSales Rep | | |
+
+#### SM-4: Stock and import requests
+*As the showroom manager, I want to be warned when stock runs low and to see import requests, so that I can reorder in time.*
+
+| Step | What to do | Expected result | Actual result | Pass/Fail |
+|---|---|---|---|---|
+| 1 | Click the **AM Vehicle Models** tab (if you cannot see it, click **More** at the end of the tab bar, then **AM Vehicle Models**). Click the list name and choose **All** | Every vehicle model is listed with its stock | | |
+| 2 | Click **Toyota Hilux 2026 Silver** to open it | AM Stock shows **Available (5)** | | |
+| 3 | Click the pencil beside **AM Low-stock Threshold**, type **6**, click **Save** | Saved | | |
+| 4 | Click the **AM Vehicle Models** tab. Click the list name and choose **AutoDrive - Low Stock** | Toyota Hilux 2026 Silver is listed | | |
+| 5 | The next morning, click the **bell** icon at the top right corner | One message **Low stock alert** for Toyota Hilux 2026 Silver | | |
+| 6 | The morning after, click the bell again | No second alert for the same model | | |
+| 7 | Click the **AM Import Requests** tab. Click the list name and choose **All** | The request raised for **Tunde Fashola** in SR-3, with AM Vehicle Model, Quantity, Reason for Request and Status **Requested** | | |
 
 ## 5. Finance Team – Obed
 
