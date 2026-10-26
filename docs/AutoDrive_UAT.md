@@ -17,7 +17,7 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 |---|---|---|
 | Henry | Sales Rep, Showroom Manager | 2 – 7 |
 | Obed | Finance Team, Head of Finance, Legal Team | 8 – 13 |
-| Shedrach | Customer Service Agent, Head of Customer Service, Management | 14 – 17 |
+| Shedrack | Customer Service Agent, Head of Customer Service, Management | 14 – 17 |
 
 | Role | Test user |
 |---|---|
@@ -314,7 +314,7 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | 2 | Click the **AM Legal Escalations** tab. Click the list name and choose **All AM Legal Escalations**. Open the one for **Suleiman Bello** | AM Account **Suleiman Bello**, AM Months Defaulted **3** and AM Total Amount Owed **7,500,000** | | |
 | 3 | Look for pencils beside the fields | There are none: you can read the escalation but not change it | | |
 
-## 8. Customer Service Agent – Shedrach
+## 8. Customer Service Agent – Shedrack
 
 **Where things are:** on a case, the **Feed** area on the left has a **Reply to Customer** tab for writing to the customer. The **Related** tab (beside Feed) lists every **Customer Message** sent on the case. The case details are on the right-hand side.
 
@@ -352,7 +352,7 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | 3 | Click **More** at the end of the tab bar and choose **AM Knowledge Articles**. Click the list name and choose **AutoDrive - Published Articles**. In **Search this list**, type **instalment** | Published articles about instalments, each with the issue and the agreed answer | | |
 | 4 | Open an article and look for pencils | There are none: articles can be read but not changed | | |
 
-## 9. Head of Customer Service – Shedrach
+## 9. Head of Customer Service – Shedrack
 
 #### HC-1: Oversee cases
 *As head of customer service, I want every case owned and tracked, so that none is forgotten.*
@@ -374,7 +374,7 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | 3 | Open **AD Test - Ownership documents after final payment**. Click the pencil beside **AM Status**, choose **Retired**, click **Save** | Saved. The article is kept but shows as Retired | | |
 | 4 | Click the **AM Knowledge Articles** tab, list **AutoDrive - Published Articles** | The retired article is no longer listed, so agents will not use it | | |
 
-## 10. Management – Shedrach
+## 10. Management – Shedrack
 
 #### MG-1: One view of the business
 *As management, I want sales, stock, finance and service figures in one place, so that I can make decisions.*
@@ -391,6 +391,6 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 |---|---|---|---|
 | Tester – Sales | Henry | | |
 | Tester – Finance | Obed | | |
-| Tester – Customer Service | Shedrach | | |
+| Tester – Customer Service | Shedrack | | |
 | UAT coordinator | Hillary Emmanuel | | |
 | Business sponsor | | | |
