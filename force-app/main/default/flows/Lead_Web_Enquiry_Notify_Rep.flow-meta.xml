@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Email</name>
+        <label>Send Email</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <elementReference>$Label.AD_Customer_Email_Sender</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>f_Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>f_Subject</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>f_Body</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <decisions>
+        <name>Has_Email</name>
+        <label>Has Email?</label>
+        <locationX>176</locationX>
+        <locationY>215</locationY>
+        <defaultConnectorLabel>No email</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Email</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>f_Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>A sales enquiry from the website is given to a sales rep; this emails the rep so they can contact the customer quickly.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>f_Body</name>
+        <dataType>String</dataType>
+        <expression>&quot;A sales enquiry from the website has been given to you.&quot; &amp; BR() &amp; BR() &amp; &quot;Customer: &quot; &amp; {!$Record.FirstName} &amp; &quot; &quot; &amp; {!$Record.LastName} &amp; BR() &amp; &quot;Email: &quot; &amp; {!$Record.Email} &amp; BR() &amp; &quot;Phone: &quot; &amp; {!$Record.Phone} &amp; BR() &amp; BR() &amp; &quot;Open it in Salesforce: &quot; &amp; LEFT({!$Api.Partner_Server_URL_260}, FIND(&quot;/services&quot;, {!$Api.Partner_Server_URL_260})) &amp; {!$Record.Id}</expression>
+    </formulas>
+    <formulas>
+        <name>f_Email</name>
+        <dataType>String</dataType>
+        <expression>{!$Record.Owner:User.Email}</expression>
+    </formulas>
+    <formulas>
+        <name>f_Subject</name>
+        <dataType>String</dataType>
+        <expression>&quot;New website enquiry for you: &quot; &amp; {!$Record.FirstName} &amp; &quot; &quot; &amp; {!$Record.LastName}</expression>
+    </formulas>
+    <interviewLabel>AM Lead - Email Rep About Website Enquiry {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Lead - Email Rep About Website Enquiry</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Has_Email</targetReference>
+        </connector>
+        <filterFormula>ISPICKVAL({!$Record.Channel__c}, &quot;Web&quot;)</filterFormula>
+        <object>Lead</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

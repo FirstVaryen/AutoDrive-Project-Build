@@ -23,6 +23,11 @@
                 <label>Due</label>
             </value>
             <value>
+                <fullName>Part Paid</fullName>
+                <default>false</default>
+                <label>Part Paid</label>
+            </value>
+            <value>
                 <fullName>Paid</fullName>
                 <default>false</default>
                 <label>Paid</label>

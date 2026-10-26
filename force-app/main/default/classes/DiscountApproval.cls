@@ -13,6 +13,11 @@ public without sharing class DiscountApproval {
     public static List<String> decide(List<Request> requests) {
         List<String> results = new List<String>();
         for (Request r : requests) {
+            // the screen cannot check an empty box, so a rejection without a reason is stopped here
+            if (r.decision == 'Reject' && String.isBlank(r.comments)) {
+                results.add('Not rejected: give a reason for rejecting. Nothing was changed. Click Approve or Reject again.');
+                continue;
+            }
             List<ProcessInstanceWorkitem> items = [SELECT Id, ActorId FROM ProcessInstanceWorkitem
                 WHERE ProcessInstance.TargetObjectId = :r.recordId AND ProcessInstance.Status = 'Pending'];
             ProcessInstanceWorkitem mine;

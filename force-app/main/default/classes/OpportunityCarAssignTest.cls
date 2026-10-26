@@ -29,5 +29,6 @@ private class OpportunityCarAssignTest {
         // changing the type swaps the car
         update new Opportunity(Id = o1.Id, Vehicle_Model_Wanted__c = other.Id);
         System.assertEquals(c3.Id, [SELECT Vehicle__c FROM Opportunity WHERE Id = :o1.Id].Vehicle__c);
+        System.assertEquals('Car Assign Test - Other Model', [SELECT Name FROM Opportunity WHERE Id = :o1.Id].Name, 'the name follows the vehicle type');
     }
 }

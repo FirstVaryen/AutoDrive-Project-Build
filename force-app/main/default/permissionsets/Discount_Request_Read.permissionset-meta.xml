@@ -97,6 +97,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Discount_Request__c.Step_Flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Discount_Request__c.Reason__c</field>
         <readable>true</readable>
     </fieldPermissions>

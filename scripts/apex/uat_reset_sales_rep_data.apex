@@ -5,7 +5,7 @@
 //   sf apex run -o <alias> -f scripts/apex/uat_sales_rep_data.apex
 
 List<String> names = new List<String>{ 'Bisi Adewale - Toyota Hilux 2026 Red', 'Kelechi Obi - Honda CR-V 2026 White', 'Musa Ibrahim - Toyota Camry 2026 White',
-    'Ronke Alabi - Kia Sportage 2026 White', 'Chidi Eze - Toyota Hilux 2026 Grey', 'Lagos Ride Hailing Ltd - Fleet', 'Tunde Fashola-', 'Adaeze Nwosu-' };
+    'Ronke Alabi - Kia Sportage 2026 White', 'Chidi Eze - Toyota Hilux 2026 Grey', 'Lagos Ride Hailing Ltd - Fleet', 'Tunde Fashola-', 'Adaeze Nwosu-', 'Tunde Fashola - Toyota Corolla 2026 White', 'Adaeze Nwosu - Kia Sportage 2026 White' };
 List<Opportunity> opps = [SELECT Id, Name, IsClosed FROM Opportunity WHERE Name IN :names];
 Set<Id> oppIds = new Map<Id, Opportunity>(opps).keySet();
 
