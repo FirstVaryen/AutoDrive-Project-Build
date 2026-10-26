@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
     <columns>
+        <field>CASE_NUMBER</field>
+    </columns>
+    <columns>
+        <field>Case.First_Response_At__c</field>
+    </columns>
+    <columns>
+        <field>Case.Resolved_At__c</field>
+    </columns>
+    <columns>
         <field>SUBJECT</field>
     </columns>
     <columns>

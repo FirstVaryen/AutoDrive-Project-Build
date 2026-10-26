@@ -2,6 +2,10 @@
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Ask for cars of a sold-out model to be imported for this customer. Finance takes it from there.</description>
     <fieldOverrides>
+        <field>Name</field>
+        <formula>&quot;Import request&quot;</formula>
+    </fieldOverrides>
+    <fieldOverrides>
         <field>Account__c</field>
         <formula>Opportunity.AccountId</formula>
     </fieldOverrides>

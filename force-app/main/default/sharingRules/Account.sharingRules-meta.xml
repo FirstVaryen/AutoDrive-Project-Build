@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Legal_Team_Reads_Customers</fullName>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Read</contactAccessLevel>
+            <opportunityAccessLevel>Read</opportunityAccessLevel>
+        </accountSettings>
+        <accessLevel>Read</accessLevel>
+        <description>Legal can read every customer, their opportunities and instalment plans, so an escalation shows who the customer is and what they bought.</description>
+        <label>Legal Team Reads Customers</label>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <sharedTo>
+            <role>Legal_Team</role>
+        </sharedTo>
+    </sharingCriteriaRules>
+</SharingRules>

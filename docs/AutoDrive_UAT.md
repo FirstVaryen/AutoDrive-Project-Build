@@ -81,9 +81,9 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | 3 | Click **Cancel**. Click **Convert** at the top right, leave the details as they are, click **Convert** | An opportunity is created for Adaeze Nwosu | | |
 | 4 | Open the new opportunity | AM Vehicle Wanted shows **Kia Sportage 2026 White**, with a green flag **Car assigned · Stock: Available (5)**. AM Assigned Car shows a Kia Sportage 2026 White car held for this customer | | |
 | 5 | Open **Tunde Fashola** (L-2). Click **Convert**, then **Convert**. Open the new opportunity | AM Vehicle Wanted shows **Toyota Corolla 2026 White**, with a red flag **Sold out - click Request Import**. AM Assigned Car is empty | | |
-| 6 | On Tunde Fashola's opportunity, find **Import Requests** on the right-hand side of the page. Click the small drop-down arrow beside it and click **New** | A form for a new import request opens, linked to this opportunity | | |
-| 7 | Choose AM Vehicle Model **Toyota Corolla 2026 White**, Reason for Request **Out of stock**, Quantity **1**, click **Save** | Saved. The request shows under **Import Requests** on the right, AM Status **Requested**, with Tunde Fashola as the customer | | |
-| 8 | Under **Import Requests**, click the drop-down arrow and **New** again. Choose AM Vehicle Model **Toyota Corolla 2026 White**, Quantity **1**, leave Reason for Request empty, click **Save** | Refused: **Choose the type of car, the reason for the request (Out of stock or Client request) and how many.** Click **Cancel** | | |
+| 6 | On Tunde Fashola's opportunity, click **Request Import** at the top right of the page (beside **Request Discount**) | A window opens with AM Vehicle Model **Toyota Corolla 2026 White**, Quantity **1** and Reason for Request **Out of stock** already filled in | | |
+| 7 | Click **Save** | The message **Import requested. You can follow it under Import Requests on this opportunity.** The request shows under **Import Requests** on the right-hand side, AM Status **Requested** | | |
+| 8 | Click **Request Import** again, clear **Reason for Request**, click **Save** | Refused: **Choose the type of car, the reason for the request (Out of stock or Client request) and how many.** Click **Cancel** | | |
 
 #### SR-4: Choose a vehicle and close an opportunity
 *As a sales rep, I want to see what is in stock while I choose a vehicle, so that I never sell a car twice.*
@@ -104,11 +104,11 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
-| 1 | Click **Opportunities**, choose the list **All Opportunities**, open **Bisi Adewale - Toyota Hilux 2026 Red** (O-1). Check the stage bar shows **Offer**. On the right-hand side of the page, find **Discount Requests**. Click the small drop-down arrow beside it and click **New**. Choose Discount Rate **5%**, type **Loyal customer** in AM Reason, click **Save** | Under Sale Details, AM Approval Status shows a green marker and **5.00% discount approved** | | |
+| 1 | Click **Opportunities**, choose the list **All Opportunities**, open **Bisi Adewale - Toyota Hilux 2026 Red** (O-1). Check the stage bar shows **Offer**. At the top right of the page, click **Request Discount** (beside **Follow**). Choose Discount Rate **5%**, type **Loyal customer** in AM Reason, click **Save** | Under Sale Details, AM Approval Status shows a green marker and **5.00% discount approved** | | |
 | 2 | Look at **Discount Requests** on the right-hand side | The request shows AM Current Step **Approved**, the discount and the price after discount | | |
-| 3 | Open **Kelechi Obi - Honda CR-V 2026 White** (O-2), another full-payment opportunity at **Offer**. On the right-hand side of the page, find **Discount Requests**. Click the small drop-down arrow beside it and click **New**. Choose **7.5%**, type **Price match** in AM Reason, click **Save** | Under Sale Details, AM Approval Status shows an orange marker and the message **7.50% discount waiting: With Showroom Manager**, telling you it was sent to the Showroom Manager | | |
+| 3 | Open **Kelechi Obi - Honda CR-V 2026 White** (O-2), another full-payment opportunity at **Offer**. At the top right of the page, click **Request Discount** (beside **Follow**). Choose **7.5%**, type **Price match** in AM Reason, click **Save** | Under Sale Details, AM Approval Status shows an orange marker and the message **7.50% discount waiting: With Showroom Manager**, telling you it was sent to the Showroom Manager | | |
 | 4 | Under **Discount Requests** on the right-hand side, click the request's name (it starts with DR-) | The request opens and shows the customer, the vehicle with its price, the discount value and the price after discount | | |
-| 5 | Open **Chidi Eze - Toyota Hilux 2026 Grey** (O-5). On the right-hand side of the page, find **Discount Requests**. Click the small drop-down arrow beside it and click **New**. Choose **10%**, type **Customer asked for more** in AM Reason, click **Save** | AM Approval Status shows an orange marker and **10.00% discount waiting: With Showroom Manager** | | |
+| 5 | Open **Chidi Eze - Toyota Hilux 2026 Grey** (O-5). At the top right of the page, click **Request Discount** (beside **Follow**). Choose **10%**, type **Customer asked for more** in AM Reason, click **Save** | AM Approval Status shows an orange marker and **10.00% discount waiting: With Showroom Manager** | | |
 | 6 | Go back to **Bisi Adewale - Toyota Hilux 2026 Red**. Under **Sale Details**, click the pencil beside **AM Payment Mode**, choose **Instalment**, set **AM Instalment Duration (Months)** to **6**, click **Save** | The 5% discount shows **Invalidated** under Discount Requests. The price returns to the full list price and AM Down Payment Agreed (30%) is 30% of the full price | | |
 
 #### SR-6: Instalment opportunities
@@ -117,7 +117,7 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
 | 1 | Open **Ronke Alabi - Kia Sportage 2026 White** (O-4). Under **Sale Details**, click the pencil beside **AM Payment Mode**, choose **Instalment**, set **AM Instalment Duration (Months)** to **6**, click **Save** | AM Down Payment Agreed (30%) shows 30% of the price. AM Amount on Instalment and AM Monthly Instalment are worked out | | |
-| 2 | On the same opportunity, on the right-hand side of the page, find **Discount Requests**. Click the small drop-down arrow beside it and click **New**. Choose **5%**, type a reason, click **Save** | Refused: **Discounts are not permitted on instalment deals for individual customers.** Click **Cancel** | | |
+| 2 | On the same opportunity, click **Request Discount** at the top right of the page. Choose **5%**, type a reason, click **Save** | Refused: **Discounts are not permitted on instalment deals for individual customers.** Click **Cancel** | | |
 | 3 | Open **Zainab Bello - Honda CR-V** (O-6). On the stage bar click **Closed**, then **Select Closed Stage**, choose **Closed Won**, click **Save** | Refused: **An instalment opportunity can only be closed once Finance has recorded the down payment and the Head of Finance has signed off the instalment plan.** | | |
 
 #### SR-7: Fleet opportunities
@@ -128,7 +128,7 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | 1 | Click the **Accounts** tab and open **Lagos Ride Hailing Ltd** | AM Agreed Discount Rate **5%** beside Phone; on the right, Contacts shows **Kemi Lawal** and Opportunities shows Lagos Ride Hailing Ltd - Fleet | | |
 | 2 | Open **Lagos Ride Hailing Ltd - Fleet** (O-7). On the right-hand side, find **Fleet Vehicles**, click the small drop-down arrow beside it and click **New**. Choose Type **Toyota Hilux 2026 White**, How many **2**, click **Save** | 2 cars of that type are listed under Fleet Vehicles, each Reserved. The fleet total and count update | | |
 | 3 | Under **Fleet Vehicles**, click the drop-down arrow and **New** again. Choose **Toyota Hilux 2026 White**, How many **10**, click **Save** | Refused: **Not enough in stock: you asked for 10 but only 3 of this type are available. Nothing was added. Lower the number, or raise an Import Request for this type.** Click **Cancel** | | |
-| 4 | On the right-hand side of the page, find **Discount Requests**. Click the small drop-down arrow beside it and click **New**. Leave Discount Rate empty, type **Fleet agreement** in AM Reason, click **Save** | The request uses the agreed rate of **5%** on the fleet total | | |
+| 4 | At the top right of the page, click **Request Discount** (beside **Follow**). Leave Discount Rate empty, type **Fleet agreement** in AM Reason, click **Save** | The request uses the agreed rate of **5%** on the fleet total | | |
 
 ## 4. Showroom Manager – Henry
 
@@ -172,10 +172,10 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
 | 1 | Click the **AM Vehicle Models** tab (if you cannot see it, click **More** at the end of the tab bar, then **AM Vehicle Models**). Click the list name and choose **All** | Every vehicle model is listed with its stock | | |
-| 2 | Click **Toyota Hilux 2026 Silver** to open it | AM Stock shows **Available (5)** | | |
+| 2 | Click **Kia Sportage 2026 Blue** to open it | AM Available Stock shows **5** | | |
 | 3 | Click the pencil beside **AM Low-stock Threshold**, type **6**, click **Save** | Saved | | |
-| 4 | Click the **AM Vehicle Models** tab. Click the list name and choose **AutoDrive - Low Stock** | Toyota Hilux 2026 Silver is listed | | |
-| 5 | The next morning, click the **bell** icon at the top right corner | One message **Low stock alert** for Toyota Hilux 2026 Silver | | |
+| 4 | Click the **AM Vehicle Models** tab. Click the list name and choose **AutoDrive - Low Stock** | Kia Sportage 2026 Blue is listed | | |
+| 5 | The next morning, click the **bell** icon at the top right corner | One message **Low stock alert** for Kia Sportage 2026 Blue | | |
 | 6 | The morning after, click the bell again | No second alert for the same model | | |
 | 7 | Click the **AM Import Requests** tab. Click the list name and choose **All** | The request raised for **Tunde Fashola** in SR-3, with AM Vehicle Model, Quantity, Reason for Request and Status **Requested** | | |
 
@@ -193,7 +193,7 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | F-6 | Instalment plans for **Funke Ayo** (late) and **Folake Ogunleye** (defaulted) | FT-4 |
 | F-7 | Import request for **Tunde Fashola** (raised by the Sales Rep in SR-3) | FT-5 |
 
-**Where things are:** the tabs run along the top of the screen. If a tab is not shown, click **More** at the end of the tab bar and pick it there. On an opportunity, the buttons **Create Instalment Plan** and **Record Down Payment** are at the top right of the page, beside **Follow**. On a plan or an instalment, the lists of related records (AM Instalments, AM Payments) are under the **Related** tab, next to **Details**.
+**Where things are:** the tabs run along the top of the screen. If a tab is not shown, click **More** at the end of the tab bar and pick it there. On an opportunity, the buttons **Create Instalment Plan** and **Record Down Payment** are at the top right of the page, beside **Follow**. On a plan or an instalment, the lists of related records (Instalments, Payments) are under the **Related** tab, next to **Details**. Each instalment is named like **INST-0064 · Segun Ajayi · Month 2 of 6**.
 
 #### FT-1: Approve discounts
 *After:* SM-2. *As finance, I want to see the discounts waiting for me, so that none are held up.*
@@ -214,11 +214,11 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | 2 | Click **Grace Okon - Toyota Camry 2026 White** to open it | AM Approval Status shows an orange marker and **With Finance: payment plan being set up** | | |
 | 3 | At the top right of the page, click **Create Instalment Plan** | A window opens with AM Down Payment Amount **9,600,000.00**, AM Term in Months **6** and AM Down Payment % **30.00%** already filled in | | |
 | 4 | Click in **AM Guarantor**, type **Peter** and pick **Peter Okon** from the list. Click **Save** | The window closes. On the right, under **Instalment Plans**, a plan for Grace Okon shows Plan Status **Awaiting Sign-off** | | |
-| 5 | Click the plan's name to open it. Click the **Related** tab | Under **AM Instalments** there are 6 months, from **Month 1 of 6** to **Month 6 of 6**, each with its due date and amount | | |
+| 5 | Click the plan's name to open it. Click the **Related** tab | Under **Instalments** there are 6 months, from **Month 1 of 6** to **Month 6 of 6**, each with its due date and amount | | |
 | 6 | Go back to Grace Okon's opportunity. At the top right, click **Record Down Payment** | A window opens with AM Amount **9,600,000.00**, AM Paid On today and AM Type **Down Payment** filled in | | |
 | 7 | Choose AM Method **Bank Transfer** and click **Save** | Saved. Under **Payments** on the right the down payment is listed. AM Assigned Car on the opportunity shows its car as **Reserved** | | |
 | 8 | Click **Record Down Payment** again, then **Save** | Refused: **The down payment for this opportunity has already been recorded. Record further money as an instalment payment.** Click **Cancel** | | |
-| 9 | Open the plan again (under **Instalment Plans** on the right). Click the **Related** tab, then click **Month 1 of 6** | The instalment opens | | |
+| 9 | Open the plan again (under **Instalment Plans** on the right). Click the **Related** tab. Under **Instalments**, click the one ending **Month 1 of 6** | The instalment opens | | |
 | 10 | At the top right of the instalment, click **Record Payment** | The message **This payment can't be recorded yet. The Head of Finance has not signed off this instalment plan.** | | |
 
 #### FT-3: Record payments
@@ -227,12 +227,12 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
 | 1 | Click the **AM Instalment Plans** tab (under **More** if not shown). Click the list name and choose **All AM Instalment Plans** | Every plan is listed with its status | | |
-| 2 | Click the plan for **Segun Ajayi**. Click the **Related** tab, then click **Month 2 of 6** | AM Amount Due **3,800,000**, AM Amount Paid **0** | | |
+| 2 | Click the plan for **Segun Ajayi**. Click the **Related** tab. Under **Instalments**, click the one ending **Month 2 of 6** | AM Amount Due **3,800,000**, AM Amount Paid **0** | | |
 | 3 | At the top right, click **Record Payment**. Leave the amount as it is (3,800,000), choose Method **Bank Transfer**, click **Next** | The message **Payment recorded. The instalment's amount paid and balance are updated.** | | |
 | 4 | Click **Finish** and look at the instalment | AM Status **Paid**, AM Balance **0**. Under **Related**, the payment shows your name under AM Recorded By | | |
-| 5 | Go to **AM Instalment Plans → All AM Instalment Plans** and open **Chiamaka Okonkwo**'s plan. Click **Related**, then **Month 2 of 6**. Click **Record Payment**, change the amount to **2,000,000**, choose **Bank Transfer**, click **Next**, then **Finish** | AM Amount Paid **2,000,000**, AM Balance **500,000** still owed. The status is not Paid | | |
-| 6 | Go back to Chiamaka's plan, **Related**, open **Month 3 of 6**. Record Payment of **3,000,000**, **Bank Transfer**, **Next**, **Finish** | AM Status **Paid**. AM Amount Paid **3,000,000** (500,000 more than due) | | |
-| 7 | Open **Emmanuel Udo**'s plan, **Related**, open **Month 3 of 3**. Record Payment, keep the amount, **Bank Transfer**, **Next**, **Finish** | The month is Paid | | |
+| 5 | Go to **AM Instalment Plans → All AM Instalment Plans** and open **Chiamaka Okonkwo**'s plan. Click **Related**, then the instalment ending **Month 2 of 6**. Click **Record Payment** at the top right, change the amount to **2,000,000**, choose **Bank Transfer**, click **Next**, then **Finish** | AM Amount Paid **2,000,000**, AM Balance **500,000** still owed. The status is not Paid | | |
+| 6 | Go back to Chiamaka's plan, **Related**, open the instalment ending **Month 3 of 6**. Record Payment of **3,000,000**, **Bank Transfer**, **Next**, **Finish** | AM Status **Paid**. AM Amount Paid **3,000,000** (500,000 more than due) | | |
+| 7 | Open **Emmanuel Udo**'s plan, **Related**, open the instalment ending **Month 3 of 3**. Record Payment, keep the amount, **Bank Transfer**, **Next**, **Finish** | The month is Paid | | |
 | 8 | Open Emmanuel Udo's plan again and click **Details** | Plan Status **Completed** and **Completion Email Sent** is ticked | | |
 
 #### FT-4: Reminders and late payments
@@ -276,9 +276,9 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | 1 | Click the **AM Instalment Plans** tab, list **All AM Instalment Plans**, open **Ngozi Okeke**'s plan. Click the **Details** tab | The plan's terms are shown | | |
 | 2 | Click the pencil beside **AM Term in Months**, type **13**, click **Save** | Refused: **The plan cannot be longer than 12 months, including after renegotiation.** Click **Cancel** | | |
 | 3 | Click the pencil beside **AM Down Payment %**, type **20**, click **Save** | Refused: **Down payment must be at least 30% of the price.** Click **Cancel** | | |
-| 4 | Click the **AM Guarantors** tab (under **More** if not shown), open **Peter Okon**. Click the pencil beside **AM Income Check Done**, untick it, click **Save** | Saved | | |
+| 4 | In the **Search** box at the top of the screen type **Peter Okon** and open the guarantor. Click the pencil beside **AM Income Check Done**, untick it, click **Save** | Saved | | |
 | 5 | Open **Grace Okon**'s plan (from **AM Instalment Plans**). Click the pencil beside **AM Head of Finance Sign-off**, tick it, click **Save** | Refused: **Guarantor income check must be completed before Head of Finance sign-off.** Click **Cancel** | | |
-| 6 | Go back to **Peter Okon**, tick **AM Income Check Done** again, **Save**. Return to Grace Okon's plan, tick **AM Head of Finance Sign-off**, **Save** | Saved. AM Signed Off By shows your name, AM Signed Off On shows today. Plan Status changes from **Awaiting Sign-off** to **Active** | | |
+| 6 | Search **Peter Okon** again, tick **AM Income Check Done** again, **Save**. Return to Grace Okon's plan, tick **AM Head of Finance Sign-off**, **Save** | Saved. AM Signed Off By shows your name, AM Signed Off On shows today. Plan Status changes from **Awaiting Sign-off** to **Active** | | |
 
 #### HF-3: Late customers and the bank
 *As head of finance, I want late customers in one list and the bank checked against payments, so that nothing is missed.*
@@ -286,7 +286,7 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
 | 1 | Click the **AM Instalment Plans** tab. Click the list name and choose **Plans Needing Attention** | Funke Ayo (Late), Folake Ogunleye (Defaulted) and Suleiman Bello (Defaulted) are listed | | |
-| 2 | Click the **AM Reconciliation Entries** tab (under **More** if not shown), then **New** at the top right | A form for a new entry opens | | |
+| 2 | Click **More** at the end of the tab bar and choose **AM Reconciliation Entries**, then click **New** at the top right | A form opens with AM Date, AM Bank Total and AM Status | | |
 | 3 | Set AM Date to **today**, AM Bank Total to **1,000,000**, click **Save** | Saved. AM Recorded Total shows today's recorded payments, AM Difference shows the gap, AM Status **Flagged** | | |
 | 4 | Click the **bell** icon at the top right corner of the screen | An alert that the bank total and recorded payments do not match | | |
 | 5 | On the entry, click the pencil beside **AM Status**, choose **Explained**, leave AM Note empty, click **Save** | Refused: **Write what caused the difference in Note before marking it Explained.** | | |
@@ -311,12 +311,12 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
 | 1 | Check the Legal Team's email inbox | An email about Suleiman Bello's escalation | | |
-| 2 | Click the **AM Legal Escalations** tab. Click the list name and choose **All AM Legal Escalations**. Open the one for **Suleiman Bello** | The customer, AM Months Defaulted **3** and AM Total Amount Owed **7,500,000** | | |
+| 2 | Click the **AM Legal Escalations** tab. Click the list name and choose **All AM Legal Escalations**. Open the one for **Suleiman Bello** | AM Account **Suleiman Bello**, AM Months Defaulted **3** and AM Total Amount Owed **7,500,000** | | |
 | 3 | Look for pencils beside the fields | There are none: you can read the escalation but not change it | | |
 
 ## 8. Customer Service Agent – Shedrach
 
-**Where things are:** on a case, the **Related** tab (beside **Feed**) holds the case's **AM Customer Messages**. To reply to a customer, use the drop-down arrow beside AM Customer Messages and click **New**.
+**Where things are:** on a case, the **Feed** area on the left has a **Reply to Customer** tab for writing to the customer. The **Related** tab (beside Feed) lists every **Customer Message** sent on the case. The case details are on the right-hand side.
 
 #### CS-1: Website requests reach the right team
 *As customer service, I want requests from the website routed to the right team, so that customers get help quickly.*
@@ -334,9 +334,9 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
-| 1 | Open your vehicle problem case from **My Cases**. Click the **Related** tab | **AM Customer Messages** shows the acknowledgement sent to the customer | | |
-| 2 | Click the drop-down arrow beside **AM Customer Messages**, click **New**. Choose AM Type **Status Update**, AM Channel **Email**, type a reply in **AM Message Text**, click **Save** | Saved. On the case's details, **AM First Response At** is filled in | | |
-| 3 | On the case, click the pencil beside **Status**, choose **Working**, click **Save** | The customer gets a status email. A new Status Update message shows under AM Customer Messages | | |
+| 1 | Open your vehicle problem case from **My Cases**. Click the **Related** tab | **Customer Messages** shows the acknowledgement sent to the customer | | |
+| 2 | Click the **Feed** tab. Under **Reply to Customer**, click the box that says **Create new...**, type a reply in **AM Message Text**, click **Save** | Saved. The reply is listed under Customer Messages, and on the right **AM First Response At** is filled in | | |
+| 3 | On the case, click the pencil beside **Status**, choose **Working**, click **Save** | The customer gets a status email. A new Status Update message shows under Customer Messages | | |
 | 4 | Change **Status** to **Closed**, click **Save** | **AM Resolved At** is filled in. The customer gets a closing email | | |
 | 5 | Click the pencil beside **AM CSAT Score**, type **11**, click **Save** | Refused: **The satisfaction score must be a whole number from 1 to 10.** | | |
 | 6 | Type **8** instead, click **Save** | Saved | | |
@@ -349,7 +349,7 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 |---|---|---|---|---|
 | 1 | In the **Search** box at the top of the screen, type **Daniel Okoro** and open the account | On the right: his opportunities, cases and customer messages | | |
 | 2 | Open one of his opportunities and look for prices or payment amounts | None are shown, and nothing can be changed | | |
-| 3 | Click the **AM Knowledge Articles** tab (under **More** if not shown). In **Search this list**, type **instalment** | Published articles about instalments, each with the issue and the agreed answer | | |
+| 3 | Click **More** at the end of the tab bar and choose **AM Knowledge Articles**. Click the list name and choose **AutoDrive - Published Articles**. In **Search this list**, type **instalment** | Published articles about instalments, each with the issue and the agreed answer | | |
 | 4 | Open an article and look for pencils | There are none: articles can be read but not changed | | |
 
 ## 9. Head of Customer Service – Shedrach
@@ -372,6 +372,7 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 | 1 | Click the **AM Knowledge Articles** tab, list **All AM Knowledge Articles**, open **AD Test - Longest instalment term** | The article opens | | |
 | 2 | Click the pencil beside **AM Agreed Answer**, add a sentence, click **Save** | Saved, and the change shows at once | | |
 | 3 | Open **AD Test - Ownership documents after final payment**. Click the pencil beside **AM Status**, choose **Retired**, click **Save** | Saved. The article is kept but shows as Retired | | |
+| 4 | Click the **AM Knowledge Articles** tab, list **AutoDrive - Published Articles** | The retired article is no longer listed, so agents will not use it | | |
 
 ## 10. Management – Shedrach
 
@@ -380,8 +381,8 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
-| 1 | Click the **Home** tab | The **AutoDrive - Management** dashboard shows sales, stock, finance and service figures, with no errors | | |
-| 2 | On the dashboard, find the stock chart and note the number for one model. Click the **AM Vehicle Models** tab, list **All AM Vehicle Models**, and find the same model | The numbers match | | |
+| 1 | Click the **Home** tab. On the **AutoDrive - Management** dashboard, click **Refresh** at the top right of the dashboard | The figures update: Deals Won This Month, Payments Last 30 Days, Total Owed in Legal, Deals in Pipeline by Stage and Available Stock by Model, with no errors | | |
+| 2 | On the dashboard, find **Available Stock by Model** and note the number for one model. Click the **AM Vehicle Models** tab, list **All AM Vehicle Models**, and find the same model | The numbers match | | |
 | 3 | Open any opportunity, case or instalment plan | Everything can be read; there are no pencils to change anything | | |
 
 ## 11. Sign-off
