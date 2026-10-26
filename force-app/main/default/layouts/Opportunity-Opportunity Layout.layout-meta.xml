@@ -181,6 +181,11 @@
             <actionType>QuickAction</actionType>
             <sortOrder>3</sortOrder>
         </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Opportunity.Request_Import</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>4</sortOrder>
+        </platformActionListItems>
     </platformActionList>
     <quickActionList>
         <quickActionListItems>
@@ -216,9 +221,10 @@
     <relatedLists>
         <fields>NAME</fields>
         <fields>Requested_Discount__c</fields>
+        <fields>Sale_List_Price__c</fields>
+        <fields>Discount_Value__c</fields>
+        <fields>Price_After_Discount__c</fields>
         <fields>Current_Step__c</fields>
-        <fields>Approved_By__c</fields>
-        <fields>Approved_On__c</fields>
         <relatedList>Discount_Request__c.Opportunity__c</relatedList>
     </relatedLists>
     <relatedLists>

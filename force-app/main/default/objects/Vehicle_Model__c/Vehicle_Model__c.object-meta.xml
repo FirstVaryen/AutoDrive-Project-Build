@@ -163,9 +163,9 @@
     </nameField>
     <pluralLabel>AM Vehicle Models</pluralLabel>
     <searchLayouts>
-        <lookupDialogsAdditionalFields>Available_Stock__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Stock_Status__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>List_Price__c</lookupDialogsAdditionalFields>
-        <searchResultsAdditionalFields>Available_Stock__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Stock_Status__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>List_Price__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Read</sharingModel>

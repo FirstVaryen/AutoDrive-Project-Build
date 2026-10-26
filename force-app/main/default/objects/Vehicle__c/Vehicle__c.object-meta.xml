@@ -161,16 +161,14 @@
     </nameField>
     <pluralLabel>AM Vehicles</pluralLabel>
     <searchLayouts>
+        <lookupDialogsAdditionalFields>Availability__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Model__c</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>Model_In_Stock__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Colour__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Year__c</lookupDialogsAdditionalFields>
-        <lookupDialogsAdditionalFields>Status__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Availability__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Model__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Model_In_Stock__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Colour__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Year__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

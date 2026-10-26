@@ -6,20 +6,20 @@
     <masterLabel>AutoDrive Sale Path</masterLabel>
     <pathAssistantSteps>
         <fieldNames>Vehicle__c</fieldNames>
-        <fieldNames>Vehicle_Model_Name__c</fieldNames>
+        <fieldNames>Stock_Alert__c</fieldNames>
+        <fieldNames>Vehicle_Model_Wanted__c</fieldNames>
         <fieldNames>Viewing_Date__c</fieldNames>
         <fieldNames>AccountId</fieldNames>
-        <fieldNames>Customer_Type__c</fieldNames>
         <info>&lt;p&gt;Pick the car the customer is looking at and the viewing date.&lt;/p&gt;</info>
         <picklistValueName>Viewing / Test Drive</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
         <fieldNames>List_Price__c</fieldNames>
-        <fieldNames>Finance_Status__c</fieldNames>
         <fieldNames>Payment_Mode__c</fieldNames>
         <fieldNames>Vehicle__c</fieldNames>
+        <fieldNames>Stock_Alert__c</fieldNames>
         <fieldNames>Expected_Collection_Date__c</fieldNames>
-        <info>&lt;p&gt;Show the list price and agree how they will pay. A discount, if approved, shows the new sale price. For instalments, the Showroom Manager sets the months (up to 12) and the deposit (at least 30%).&lt;/p&gt;</info>
+        <info>&lt;p&gt;Show the list price and agree how they will pay. A discount, if approved, shows the new sale price. For instalments, set the months (up to 12); the 30% down payment fills in.&lt;/p&gt;</info>
         <picklistValueName>Offer</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
@@ -28,7 +28,7 @@
         <fieldNames>Pending_Discount_Requests__c</fieldNames>
         <fieldNames>Instalment_Down_Payment__c</fieldNames>
         <fieldNames>Monthly_Instalment__c</fieldNames>
-        <info>&lt;p&gt;Instalment: the Finance department has been notified of this sale and will set up the payment plan. The Head of Finance signs it off once the 30% deposit is paid. You can follow progress here. To ask for a discount, click Request Discount at the top of the sale: 5% or less is approved at once; bigger ones need approval first.&lt;/p&gt;</info>
+        <info>&lt;p&gt;Instalment: the Finance department has been notified of this opportunity and will set up the payment plan. The Head of Finance signs it off once the 30% deposit is paid. You can follow progress here. To ask for a discount, click Request Discount at the top of the opportunity: 5% or less is approved at once; bigger ones need approval first.&lt;/p&gt;</info>
         <picklistValueName>Payment Arranged</picklistValueName>
     </pathAssistantSteps>
     <recordTypeName>AutoDrive_Sale</recordTypeName>

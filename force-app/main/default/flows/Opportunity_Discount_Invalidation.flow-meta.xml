@@ -57,6 +57,12 @@
     </decisions>
     <description>KAN-92 (Q-O09): when a sale's Payment Mode changes from Full Payment to Instalment after a discount was approved, the approval no longer holds. Marks every Approved Discount Request on the sale as Invalidated and emails the Finance Team so they can reassess separately.</description>
     <environments>Default</environments>
+    <formulas>
+        <name>f_FullDeposit</name>
+        <dataType>Currency</dataType>
+        <expression>ROUND(0.3 * {!$Record.List_Price__c}, 2)</expression>
+        <scale>2</scale>
+    </formulas>
     <interviewLabel>Opportunity Discount Invalidation {!$Flow.CurrentDateTime}</interviewLabel>
     <label>AM Opportunity - Invalidate Discount on Instalment Switch</label>
     <processMetadataValues>
@@ -102,12 +108,40 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
+        <name>Restore_Full_Price</name>
+        <label>Restore Full Price</label>
+        <locationX>176</locationX>
+        <locationY>539</locationY>
+        <connector>
+            <targetReference>Notify_Finance</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Sale_Price__c</field>
+            <value>
+                <elementReference>$Record.List_Price__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Instalment_Down_Payment__c</field>
+            <value>
+                <elementReference>f_FullDeposit</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Discount_Amount__c</field>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
         <name>Invalidate_Discounts</name>
         <label>Invalidate Discounts</label>
         <locationX>176</locationX>
         <locationY>431</locationY>
         <connector>
-            <targetReference>Notify_Finance</targetReference>
+            <targetReference>Restore_Full_Price</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>

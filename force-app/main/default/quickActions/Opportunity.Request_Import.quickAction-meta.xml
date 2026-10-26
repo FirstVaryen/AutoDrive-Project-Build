@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Ask for cars of a sold-out model to be imported for this customer. Finance takes it from there.</description>
+    <fieldOverrides>
+        <field>Account__c</field>
+        <formula>Opportunity.AccountId</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Vehicle_Model__c</field>
+        <formula>Opportunity.Vehicle_Model_Wanted__c</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Quantity__c</field>
+        <formula>1</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Reason__c</field>
+        <literalValue>Out of stock</literalValue>
+    </fieldOverrides>
+    <label>Request Import</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <quickActionLayout>
+        <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Vehicle_Model__c</field>
+                <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Quantity__c</field>
+                <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+        <quickActionLayoutColumns>
+            <quickActionLayoutItems>
+                <emptySpace>false</emptySpace>
+                <field>Reason__c</field>
+                <uiBehavior>Required</uiBehavior>
+            </quickActionLayoutItems>
+        </quickActionLayoutColumns>
+    </quickActionLayout>
+    <successMessage>Import requested. You can follow it under Import Requests on this opportunity.</successMessage>
+    <targetObject>Import_Request__c</targetObject>
+    <targetParentField>Opportunity__c</targetParentField>
+    <type>Create</type>
+</QuickAction>

@@ -9,5 +9,5 @@
     NOT(Account.From_Converted_Lead__c)
 )</errorConditionFormula>
     <errorDisplayField>StageName</errorDisplayField>
-    <errorMessage>This sale can&apos;t be closed: the customer didn&apos;t come from a converted Lead. Record them as a Lead and convert it first.</errorMessage>
+    <errorMessage>This opportunity can&apos;t be closed: the customer didn&apos;t come from a converted Lead. Record them as a Lead and convert it first.</errorMessage>
 </ValidationRule>

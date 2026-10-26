@@ -172,6 +172,68 @@ private class UATPersonaRun {
         done();
     }
 
+    // ---------- Sales Rep, new UAT data (scripts/apex/uat_sales_rep_data.apex) ----------
+    static Opportunity opp(String name) { return [SELECT Id, AccountId FROM Opportunity WHERE Name = :name LIMIT 1]; }
+
+    @isTest static void SRD_convertAndImport() {
+        User rep = u('Sales_Rep');
+        String conv = [SELECT MasterLabel FROM LeadStatus WHERE IsConverted = true LIMIT 1].MasterLabel;
+        System.runAs(rep) {
+            for (String n : new List<String>{ 'Adaeze Nwosu', 'Tunde Fashola' }) {
+                Lead l = [SELECT Id, Stock_Alert__c FROM Lead WHERE Name = :n AND IsConverted = false LIMIT 1];
+                System.debug('UAT LEAD ' + n + ' flag: ' + l.Stock_Alert__c);
+                Database.LeadConvert lc = new Database.LeadConvert();
+                lc.setLeadId(l.Id); lc.setConvertedStatus(conv);
+                Database.LeadConvertResult r = Database.convertLead(lc, false);
+                check(r.isSuccess(), 'convert ' + n + ': ' + (r.isSuccess() ? '' : r.getErrors()[0].getMessage()));
+                if (!r.isSuccess()) continue;
+                Opportunity o = [SELECT Name, Vehicle_Model_Wanted__r.Name, Stock_Alert__c, AccountId FROM Opportunity WHERE Id = :r.getOpportunityId()];
+                System.debug('UAT CONVERTED ' + o.Name + ' wanted ' + o.Vehicle_Model_Wanted__r.Name + ' flag: ' + o.Stock_Alert__c);
+                check(o.Vehicle_Model_Wanted__c != null, n + ' wanted model not copied');
+                if (n == 'Tunde Fashola') {
+                    Database.SaveResult ir = Database.insert(new Import_Request__c(Opportunity__c = o.Id, Account__c = o.AccountId, Vehicle_Model__c = o.Vehicle_Model_Wanted__c, Quantity__c = 1, Reason__c = 'Out of stock'), false);
+                    check(ir.isSuccess(), 'request import: ' + err(ir));
+                }
+            }
+        }
+        done();
+    }
+
+    @isTest static void SRD_closeWonAndLock() {
+        User rep = u('Sales_Rep');
+        Opportunity o = opp('Musa Ibrahim - Toyota Camry 2026 White');
+        System.runAs(rep) {
+            Database.SaveResult r = Database.update(new Opportunity(Id = o.Id, StageName = 'Closed Won'), false);
+            check(r.isSuccess(), 'close won: ' + err(r));
+            Database.SaveResult r2 = Database.update(new Opportunity(Id = o.Id, CloseDate = Date.today().addDays(3)), false);
+            check(!r2.isSuccess(), 'closed opportunity could be edited');
+        }
+        check([SELECT Vehicle__r.Status__c FROM Opportunity WHERE Id = :o.Id].Vehicle__r.Status__c == 'Sold', 'car not Sold');
+        done();
+    }
+
+    @isTest static void SRD_discounts() {
+        User rep = u('Sales_Rep');
+        Opportunity bisi = opp('Bisi Adewale - Toyota Hilux 2026 Red'), kel = opp('Kelechi Obi - Honda CR-V 2026 White'), ronke = opp('Ronke Alabi - Kia Sportage 2026 White');
+        System.runAs(rep) {
+            insert new Discount_Request__c(Opportunity__c = bisi.Id, Discount_Rate__c = '5%', Reason__c = 'Loyal customer');
+            insert new Discount_Request__c(Opportunity__c = kel.Id, Discount_Rate__c = '7.5%', Reason__c = 'Price match');
+            System.debug('UAT BISI ' + [SELECT Finance_Status__c, Sale_Price__c FROM Opportunity WHERE Id = :bisi.Id]);
+            System.debug('UAT KELECHI ' + [SELECT Finance_Status__c FROM Opportunity WHERE Id = :kel.Id].Finance_Status__c);
+            Database.SaveResult r = Database.update(new Opportunity(Id = bisi.Id, Payment_Mode__c = 'Instalment', Instalment_Term_Months__c = 6), false);
+            check(r.isSuccess(), 'bisi to instalment: ' + err(r));
+            Opportunity b = [SELECT List_Price__c, Sale_Price__c, Instalment_Down_Payment__c, Monthly_Instalment__c, Finance_Status__c FROM Opportunity WHERE Id = :bisi.Id];
+            System.debug('UAT BISI AFTER ' + b);
+            check(b.Sale_Price__c == b.List_Price__c && b.Instalment_Down_Payment__c == b.List_Price__c * 0.3, 'price/deposit after invalidation: ' + b);
+            Database.SaveResult r2 = Database.update(new Opportunity(Id = ronke.Id, Payment_Mode__c = 'Instalment', Instalment_Term_Months__c = 6), false);
+            check(r2.isSuccess(), 'ronke to instalment: ' + err(r2));
+            Database.SaveResult r3 = Database.insert(new Discount_Request__c(Opportunity__c = ronke.Id, Discount_Rate__c = '5%', Reason__c = 'x'), false);
+            check(!r3.isSuccess(), 'discount allowed on instalment');
+            System.debug('UAT RONKE ' + [SELECT Instalment_Down_Payment__c, Monthly_Instalment__c, Sale_Price__c FROM Opportunity WHERE Id = :ronke.Id]);
+        }
+        done();
+    }
+
     @isTest static void FT09_CS08_fieldAccess() {
         User agent = u('Customer_Service_Agent');
         Set<Id> ps = new Set<Id>();

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Availability__c</fullName>
+    <description>Shown when searching for a car: this car's status and its model's running stock.</description>
+    <formula>TEXT(Status__c) &amp; &quot; · Model: &quot; &amp; Model__r.Stock_Status__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>AM Availability</label>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

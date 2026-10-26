@@ -20,7 +20,7 @@
             </quickActionLayoutItems>
         </quickActionLayoutColumns>
     </quickActionLayout>
-    <successMessage>Discount requested. You can follow it under Discount Requests on this sale.</successMessage>
+    <successMessage>Discount requested. You can follow it under Discount Requests on this opportunity.</successMessage>
     <targetObject>Discount_Request__c</targetObject>
     <targetParentField>Opportunity__c</targetParentField>
     <type>Create</type>
