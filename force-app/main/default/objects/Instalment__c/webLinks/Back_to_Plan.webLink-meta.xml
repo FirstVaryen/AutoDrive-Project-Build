@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Back_to_Plan</fullName>
+    <availability>online</availability>
+    <description>Goes back to the instalment plan this month belongs to.</description>
+    <displayType>button</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Back to Plan</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <url>/lightning/r/Instalment_Plan__c/{!Instalment__c.Instalment_Plan__c}/related/Instalments__r/view</url>
+</WebLink>

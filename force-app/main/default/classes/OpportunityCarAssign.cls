@@ -38,4 +38,23 @@ public with sharing class OpportunityCarAssign {
             o.Vehicle__c = (cars == null || cars.isEmpty()) ? null : cars.remove(0);
         }
     }
+
+    // The opportunity is named after the customer and the vehicle type they want, and the name follows the type
+    // whenever it changes, so the name, Vehicle Wanted and the assigned car always tell the same story.
+    public static void nameFromModel(List<Opportunity> opps, Map<Id, Opportunity> oldMap) {
+        List<Opportunity> todo = new List<Opportunity>();
+        Set<Id> ids = new Set<Id>();
+        for (Opportunity o : opps) {
+            if (o.Vehicle_Model_Wanted__c == null || o.AccountId == null) continue;
+            if (oldMap != null && oldMap.get(o.Id).Vehicle_Model_Wanted__c == o.Vehicle_Model_Wanted__c) continue;
+            todo.add(o);
+            ids.add(o.Vehicle_Model_Wanted__c);
+            ids.add(o.AccountId);
+        }
+        if (todo.isEmpty()) return;
+        Map<Id, String> names = new Map<Id, String>();
+        for (Vehicle_Model__c m : [SELECT Id, Name FROM Vehicle_Model__c WHERE Id IN :ids]) names.put(m.Id, m.Name);
+        for (Account a : [SELECT Id, Name FROM Account WHERE Id IN :ids]) names.put(a.Id, a.Name);
+        for (Opportunity o : todo) o.Name = (names.get(o.AccountId) + ' - ' + names.get(o.Vehicle_Model_Wanted__c)).left(120);
+    }
 }

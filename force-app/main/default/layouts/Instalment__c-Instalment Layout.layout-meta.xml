@@ -15,6 +15,7 @@
             <layoutItems><behavior>Edit</behavior><field>Amount_Due__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Amount_Paid__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Balance__c</field></layoutItems>
+            <layoutItems><behavior>Readonly</behavior><field>Payment_Position__c</field></layoutItems>
             <layoutItems><behavior>Readonly</behavior><field>Days_Late__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Status__c</field></layoutItems>
             <layoutItems><behavior>Edit</behavior><field>Default_Alert_Sent__c</field></layoutItems>
@@ -32,6 +33,11 @@
             <actionName>Edit</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>1</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Back_to_Plan</actionName>
+            <actionType>CustomButton</actionType>
+            <sortOrder>2</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedLists>

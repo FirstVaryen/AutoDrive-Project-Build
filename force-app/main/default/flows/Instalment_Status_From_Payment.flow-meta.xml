@@ -14,12 +14,12 @@
             </value>
         </assignmentItems>
     </assignments>
-    <description>A month's status follows the money, however the payment was recorded: fully paid is Paid; a paid month whose payment is reversed goes back to Late (past due) or Upcoming. Stops paid months being marked Late or Default by the morning jobs.</description>
+    <description>A month's status follows the money, however the payment was recorded: fully paid (or more) is Paid; part paid before the due date is Part Paid; anything short after the due date is Late (Default stays Default).</description>
     <environments>Default</environments>
     <formulas>
         <name>f_Status</name>
         <dataType>String</dataType>
-        <expression>IF({!$Record.Amount_Paid__c} &gt;= {!$Record.Amount_Due__c}, &quot;Paid&quot;, IF({!$Record.Due_Date__c} &lt; TODAY(), &quot;Late&quot;, &quot;Upcoming&quot;))</expression>
+        <expression>IF({!$Record.Amount_Paid__c} &gt;= {!$Record.Amount_Due__c}, &quot;Paid&quot;, IF(ISPICKVAL({!$Record.Status__c}, &quot;Default&quot;), &quot;Default&quot;, IF({!$Record.Due_Date__c} &lt; TODAY(), &quot;Late&quot;, IF({!$Record.Amount_Paid__c} &gt; 0, &quot;Part Paid&quot;, &quot;Upcoming&quot;))))</expression>
     </formulas>
     <interviewLabel>Instalment Status From Payment {!$Flow.CurrentDateTime}</interviewLabel>
     <label>AM Instalment - Status Follows Payment</label>
@@ -42,7 +42,7 @@
         <connector>
             <targetReference>Set_Status</targetReference>
         </connector>
-        <filterFormula>AND({!$Record.Amount_Due__c} &gt; 0, OR(AND({!$Record.Amount_Paid__c} &gt;= {!$Record.Amount_Due__c}, NOT(ISPICKVAL({!$Record.Status__c}, &quot;Paid&quot;))), AND({!$Record.Amount_Paid__c} &lt; {!$Record.Amount_Due__c}, ISPICKVAL({!$Record.Status__c}, &quot;Paid&quot;))))</filterFormula>
+        <filterFormula>AND({!$Record.Amount_Due__c} &gt; 0, OR(ISNEW(), ISCHANGED({!$Record.Amount_Paid__c}), ISCHANGED({!$Record.Amount_Due__c})))</filterFormula>
         <object>Instalment__c</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordBeforeSave</triggerType>

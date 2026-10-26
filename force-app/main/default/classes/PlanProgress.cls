@@ -49,10 +49,12 @@ public with sharing class PlanProgress implements Schedulable {
                     line += 'DEFAULTED, unpaid for ' + late + ' days, ' + money(due - paid) + ' owed, Finance alerted';
                 } else if (late > 0) {
                     line += 'LATE by ' + late + (late == 1 ? ' day, ' : ' days, ') + money(due - paid) + ' owed';
+                } else if (paid > 0) {
+                    line += 'PART PAID: ' + money(paid) + ' paid, ' + money(due - paid) + ' still owed';
                 } else {
                     line += 'upcoming';
                 }
-                if (!isPaid && paid > 0) line += ' (part paid: ' + money(paid) + ')';
+                if (!isPaid && paid > 0 && (late > 0 || i.Status__c == 'Default')) line += ' (part paid: ' + money(paid) + ')';
                 String sent = sentSummary(messages.get(i.Id));
                 if (sent != null) line += '. Sent: ' + sent;
                 lines.add(line);

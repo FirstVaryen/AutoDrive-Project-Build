@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Email</name>
+        <label>Send Email</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <elementReference>$Label.AD_Customer_Email_Sender</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <elementReference>f_Email</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>f_Subject</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>f_Body</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>60.0</apiVersion>
+    <decisions>
+        <name>Has_Email</name>
+        <label>Has Email?</label>
+        <locationX>176</locationX>
+        <locationY>215</locationY>
+        <defaultConnectorLabel>No email</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Email</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>f_Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Email</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>When an agent saves a Reply to Customer on a case, the reply is emailed to the customer from the company address, with the case number in the subject. Automatic messages are already emailed by their own flows and are skipped.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>f_Email</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK({!$Record.Case__r.SuppliedEmail})), {!$Record.Case__r.SuppliedEmail}, {!$Record.Case__r.ContactEmail})</expression>
+    </formulas>
+    <formulas>
+        <name>f_Name</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK({!$Record.Case__r.SuppliedName})), {!$Record.Case__r.SuppliedName}, &quot;there&quot;)</expression>
+    </formulas>
+    <formulas>
+        <name>f_Subject</name>
+        <dataType>String</dataType>
+        <expression>&quot;AutoDrive Motors - Request &quot; &amp; {!$Record.Case__r.CaseNumber} &amp; &quot; - reply from our team&quot;</expression>
+    </formulas>
+    <interviewLabel>AM Customer Message - Email Agent Reply to Customer {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>AM Customer Message - Email Agent Reply to Customer</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Has_Email</targetReference>
+        </connector>
+        <filterFormula>AND(NOT(ISBLANK({!$Record.Case__c})), ISPICKVAL({!$Record.Channel__c}, &quot;Email&quot;), NOT(BEGINS({!$Record.Sent_By__c}, &quot;Automatic&quot;)))</filterFormula>
+        <object>Customer_Message__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>f_Body</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>Hello {!f_Name},
+
+{!$Record.Message_Text__c}
+
+Please quote request number {!$Record.Case__r.CaseNumber} if you contact us about this.
+
+{!$Record.Sent_By__c}
+AutoDrive Motors Customer Service</text>
+    </textTemplates>
+</Flow>

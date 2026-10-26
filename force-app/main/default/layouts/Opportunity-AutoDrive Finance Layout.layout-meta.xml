@@ -211,7 +211,7 @@
     <relatedLists>
         <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
-        <fields>Current_Step__c</fields>
+        <fields>Step_Flag__c</fields>
         <fields>Requested_Discount__c</fields>
         <fields>Approved_By__c</fields>
         <fields>Approved_On__c</fields>

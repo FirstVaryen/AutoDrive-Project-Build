@@ -34,6 +34,10 @@ private class DiscountApprovalTest {
         System.assertEquals('This request is not waiting for you.', DiscountApproval.decide(new List<DiscountApproval.Request>{ req(d.Id, 'Approve') })[0]);
         List<String> res;
         System.runAs(new User(Id = w[0].ActorId)) {
+            // a rejection needs a reason
+            DiscountApproval.Request blank = req(d.Id, 'Reject');
+            blank.comments = ' ';
+            System.assert(DiscountApproval.decide(new List<DiscountApproval.Request>{ blank })[0].startsWith('Not rejected'));
             res = DiscountApproval.decide(new List<DiscountApproval.Request>{ req(d.Id, 'Reject') });
         }
         System.assert(res[0].startsWith('Rejected.'), res[0]);

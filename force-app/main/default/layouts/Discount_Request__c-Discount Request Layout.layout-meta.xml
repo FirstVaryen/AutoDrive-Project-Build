@@ -6,6 +6,7 @@
         <editHeading>false</editHeading>
         <label>What Is Being Discounted</label>
         <layoutColumns>
+            <layoutItems><behavior>Readonly</behavior><field>Step_Flag__c</field></layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>Name</field>
