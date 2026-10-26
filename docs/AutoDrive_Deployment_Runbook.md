@@ -173,6 +173,7 @@ Users can share one email address; each username must be unique across Salesforc
 ### 6.4 Website
 | Step | Where | Check |
 |---|---|---|
+| Give the site's guest user its access: the new org names the guest profile with a number (e.g. `AutoDrive Motors Profile1793015025697`), so deploy `profiles/AutoDrive Motors Profile.profile-meta.xml` again under that exact name | Check with `SELECT Profile.Name FROM User WHERE Name LIKE 'AutoDrive Motors Site Guest%'` | Both website forms load and the vehicle list is filled |
 | Publish the AutoDrive Motors site | Setup → Digital Experiences → Builder → Publish | Site loads in a private window |
 | Guest user can submit Sales enquiry and Contact support | Site → submit both | Lead created; case created with a reference number and email |
 
