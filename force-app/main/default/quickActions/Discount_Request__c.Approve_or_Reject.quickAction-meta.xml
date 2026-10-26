@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Approve or reject this discount request without leaving it.</description>
+    <flowDefinition>Discount_Request_Approve_Or_Reject</flowDefinition>
+    <label>Approve or Reject</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>
