@@ -148,12 +148,13 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
-| 1 | Click the **Home** tab. In the **Items to Approve** box, click the request for **Kelechi Obi** (7.5%) | The request opens and shows the customer, the vehicle with its price, the discount value and the price after discount | | |
-| 2 | Click **Approve** at the top right. In Comments type **Approved**, click **Approve** | A green message confirms the approval. (If the page then says "Another user recalled or responded to this request", ignore it: it only means this approval is already done) | | |
-| 3 | Click the **AM Discount Requests** tab, choose the list **All**, open the request for **Kelechi Obi** | AM Current Step shows **With Finance** | | |
-| 4 | Click the **Home** tab. In **Items to Approve**, click the request for **Chidi Eze** (10%) | The request opens with its details | | |
-| 5 | Click **Reject** at the top right. In Comments type **10% is above what we can offer on this model**, click **Reject** | AM Current Step shows **Rejected** | | |
-| 6 | Click the **Opportunities** tab, open **Chidi Eze - Toyota Hilux 2026 Grey** | AM Approval Status shows a red marker and **10.00% discount rejected** | | |
+| 1 | Click the **AM Discount Requests** tab. Click the list name and choose **My Approvals - Showroom Manager** | The 7.5% request for **Kelechi Obi** and the 10% request for **Chidi Eze** are listed | | |
+| 2 | Click the **Kelechi Obi** request to open it | The request shows the customer, the vehicle with its price, the list price, the discount value and the price after discount | | |
+| 3 | Click **Approve or Reject** at the top right | A window shows the same details, the current step **With Showroom Manager**, and a choice of Approve or Reject | | |
+| 4 | Choose **Approve**, type **Approved** in Comments, click **Next** | The message **Approved. The request is now: With Finance.** Click **Finish**: you are back on the request and AM Current Step shows **With Finance** | | |
+| 5 | Go back to the list **My Approvals - Showroom Manager** and open the **Chidi Eze** request. Click **Approve or Reject**, choose **Reject**, leave Comments empty, click **Next** | Refused: **Give a reason for rejecting.** | | |
+| 6 | Type **10% is above what we can offer on this model** in Comments, click **Next**, then **Finish** | The message **Rejected. The request is now: Rejected.** AM Current Step shows **Rejected** | | |
+| 7 | Click the **Opportunities** tab, open **Chidi Eze - Toyota Hilux 2026 Grey** | AM Approval Status shows a red marker and **10.00% discount rejected** | | |
 
 #### SM-3: High-profile clients come to me
 *After:* SR-1 step 4. *As the showroom manager, I want returning and high-profile clients sent to me, so that I look after them myself.*
@@ -185,8 +186,8 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
-| 1 | Home → Items to Approve | The 7.5% request is listed | | |
-| 2 | Approve it | It moves on to the Head of Finance | | |
+| 1 | Click the **AM Discount Requests** tab. Click the list name and choose **My Approvals - Finance** | The 7.5% request for **Kelechi Obi** is listed | | |
+| 2 | Open it and click **Approve or Reject** at the top right. Choose **Approve**, type **Approved** in Comments, click **Next**, then **Finish** | The message **Approved. The request is now: With Head Office.** AM Current Step shows **With Head Office** | | |
 
 #### FT-2: Set up an instalment plan
 *As finance, I want to set up a plan and take the deposit, so that the customer can pay monthly.*
@@ -234,8 +235,8 @@ This document holds the tests for the AutoDrive Motors Salesforce system. Each t
 
 | Step | What to do | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|---|
-| 1 | Home → Items to Approve, open the request | Vehicles, prices and price after discount are shown | | |
-| 2 | Approve it | Approved, with your name and the date | | |
+| 1 | Click the **AM Discount Requests** tab. Click the list name and choose **My Approvals - Head Office**, open the **Kelechi Obi** request | The request shows the customer, the vehicle with its price and the price after discount | | |
+| 2 | Click **Approve or Reject**. Choose **Approve**, type **Approved** in Comments, click **Next**, then **Finish** | The message **Approved. The request is now: Approved.** The request shows your name under Approved By and today's date | | |
 
 #### HF-2: Plan rules and sign-off
 *As head of finance, I want plans to follow the rules and need my sign-off, so that risk is controlled.*
