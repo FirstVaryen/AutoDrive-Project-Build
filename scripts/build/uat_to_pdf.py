@@ -1,23 +1,28 @@
-"""Builds a UAT PDF from the UAT markdown (headings, paragraphs, bullets, tables).
+"""Builds a PDF from a project markdown document (headings, paragraphs, bullets, tables, code blocks).
     python scripts/build/uat_to_pdf.py docs/AutoDrive_UAT_GoLive.md docs/AutoDrive_UAT_GoLive.pdf
+Add "doc" as a third argument for documents other than the UAT (no page break per role), or "wide" for a landscape page.
 """
 import re
 import sys
 from reportlab.lib import colors
-from reportlab.lib.pagesizes import A4
+from reportlab.lib.pagesizes import A4, landscape
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import cm
 from reportlab.platypus import CondPageBreak, PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
 SRC, OUT = sys.argv[1], sys.argv[2]
+UAT = len(sys.argv) < 4 or sys.argv[3] not in ('doc', 'wide')
+PAGE = landscape(A4) if len(sys.argv) > 3 and sys.argv[3] == 'wide' else A4
 base = getSampleStyleSheet()
 body = ParagraphStyle('body', parent=base['Normal'], fontName='Helvetica', fontSize=9.5, leading=13, spaceAfter=4)
 cell = ParagraphStyle('cell', parent=body, fontSize=8.5, leading=11, spaceAfter=0)
 head = ParagraphStyle('head', parent=cell, fontName='Helvetica-Bold')
 h1 = ParagraphStyle('h1', parent=base['Title'], fontSize=20, leading=24, spaceAfter=10)
 h2 = ParagraphStyle('h2', parent=base['Heading1'], fontSize=14, leading=18, spaceBefore=6, spaceAfter=6, textColor=colors.HexColor('#1F3864'))
+code = ParagraphStyle('code', parent=body, fontName='Courier', fontSize=8, leading=10, leftIndent=8)
+h3 = ParagraphStyle('h3', parent=base['Heading2'], fontSize=12, leading=15, spaceBefore=8, spaceAfter=4)
 h4 = ParagraphStyle('h4', parent=base['Heading3'], fontSize=11, leading=14, spaceBefore=8, spaceAfter=3)
-WIDTH = A4[0] - 3 * cm
+WIDTH = PAGE[0] - 3 * cm
 
 
 def inline(text):
@@ -54,18 +59,32 @@ while i < len(lines):
             block.append(lines[i]); i += 1
         story += [table(block), Spacer(1, 6)]
         continue
+    if line.startswith('```'):
+        i += 1
+        while i < len(lines) and not lines[i].startswith('```'):
+            story.append(Paragraph(inline(lines[i]) or '&nbsp;', code)); i += 1
+        i += 1
+        continue
+    if line.strip() in ('---', '***'):
+        story.append(Spacer(1, 8)); i += 1
+        continue
     if line.startswith('# '):
         story.append(Paragraph(inline(line[2:]), h1))
     elif line.startswith('## '):
         title = line[3:]
         # each role's tests start on a new page
-        if re.match(r'\d+\. .+ – ', title) or title.endswith('Sign-off'):
+        if UAT and (re.match(r'\d+\. .+ – ', title) or title.endswith('Sign-off')):
             story.append(PageBreak())
         story.append(Paragraph(inline(title), h2))
-    elif line.startswith('#### ') or line.startswith('### '):
+    elif line.startswith('### '):
+        story += [CondPageBreak(4 * cm), Paragraph(inline(line[4:]), h3)]
+    elif line.startswith('#### '):
         story += [CondPageBreak(4 * cm), Paragraph(inline(line.lstrip('#').strip()), h4)]
-    elif line.startswith('- '):
-        story.append(Paragraph(inline(line[2:]), body, bulletText='•'))
+    elif re.match(r'^\s*[-*] ', line):
+        story.append(Paragraph(inline(re.sub(r'^\s*[-*] ', '', line)), body, bulletText='•'))
+    elif re.match(r'^\s*\d+\. ', line):
+        num = re.match(r'^\s*(\d+)\. ', line).group(1)
+        story.append(Paragraph(inline(re.sub(r'^\s*\d+\. ', '', line)), body, bulletText=num + '.'))
     elif line.strip():
         story.append(Paragraph(inline(line), body))
     i += 1
@@ -74,10 +93,11 @@ while i < len(lines):
 def footer(canvas, doc):
     canvas.setFont('Helvetica', 8)
     canvas.setFillColor(colors.grey)
-    canvas.drawString(1.5 * cm, 1 * cm, 'AutoDrive Motors – User Acceptance Testing')
-    canvas.drawRightString(A4[0] - 1.5 * cm, 1 * cm, f'Page {doc.page}')
+    canvas.drawString(1.5 * cm, 1 * cm, TITLE)
+    canvas.drawRightString(PAGE[0] - 1.5 * cm, 1 * cm, f'Page {doc.page}')
 
 
-SimpleDocTemplate(OUT, pagesize=A4, leftMargin=1.5 * cm, rightMargin=1.5 * cm, topMargin=1.5 * cm, bottomMargin=1.8 * cm,
-                  title='AutoDrive Motors – User Acceptance Testing').build(story, onFirstPage=footer, onLaterPages=footer)
+TITLE = next((l[2:].strip() for l in lines if l.startswith('# ')), 'AutoDrive Motors')
+SimpleDocTemplate(OUT, pagesize=PAGE, leftMargin=1.5 * cm, rightMargin=1.5 * cm, topMargin=1.5 * cm, bottomMargin=1.8 * cm,
+                  title=TITLE).build(story, onFirstPage=footer, onLaterPages=footer)
 print('ok')
